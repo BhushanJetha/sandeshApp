@@ -27,7 +27,7 @@
         android:id="@+id/ingFromCalendar"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:background="@mipmap/ic_launcher"
+        android:background="@drawable/ic_calendar"
         app:layout_constraintBottom_toBottomOf="@+id/tILFrom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tILFrom" />
@@ -55,7 +55,7 @@
         android:id="@+id/ingToCalendar"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:background="@mipmap/ic_launcher"
+        android:background="@drawable/ic_calendar"
         app:layout_constraintBottom_toBottomOf="@+id/tILTo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tILTo" />

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,4 +43,9 @@ public class PlanTravelFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) context).setUpToolbar(true, "", false);
+    }
 }

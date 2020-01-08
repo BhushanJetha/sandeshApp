@@ -153,16 +153,16 @@
 
         <Button
             android:id="@+id/btnSearch"
-            android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/rounded_button_background"
             android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_14sdp"
+            android:background="@drawable/rounded_button_background"
             android:paddingStart="@dimen/_36sdp"
             android:paddingEnd="@dimen/_36sdp"
             android:text="@string/search"
             android:textAllCaps="false"
-            android:textSize="@dimen/_10sdp"
             android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="@+id/ingStartDate"
             app:layout_constraintStart_toStartOf="@+id/tILFrom"
             app:layout_constraintTop_toBottomOf="@+id/tILEndDate" />
@@ -190,22 +190,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sort by"
-            android:textSize="@dimen/_11sdp"
             android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintBottom_toBottomOf="@+id/tvResultCount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvResultCount" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvOrder"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
-            tools:listitem="@layout/row_order_list"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvResultCount" />
+            app:layout_constraintTop_toBottomOf="@id/tvResultCount">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_order_list" />
+
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.constraint.ConstraintLayout>
 
