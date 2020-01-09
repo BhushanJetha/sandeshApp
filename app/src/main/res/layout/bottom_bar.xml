@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?attr/actionBarSize"
     android:background="@color/background"
     android:layout_gravity="bottom">
 
@@ -31,9 +31,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="History"
+        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
         app:layout_constraintLeft_toLeftOf="@id/imgHistory"
         app:layout_constraintRight_toRightOf="@id/imgHistory"
         app:layout_constraintTop_toBottomOf="@id/imgHistory" />
@@ -64,9 +64,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Contact Us"
+        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/contactUsGroup"
         app:layout_constraintLeft_toLeftOf="@id/imgContactUs"
         app:layout_constraintRight_toRightOf="@id/imgContactUs"
         app:layout_constraintTop_toBottomOf="@id/imgContactUs" />
@@ -97,9 +97,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="FAQ"
+        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/faqGroup"
         app:layout_constraintLeft_toLeftOf="@id/imgFAQ"
         app:layout_constraintRight_toRightOf="@id/imgFAQ"
         app:layout_constraintTop_toBottomOf="@id/imgFAQ" />
@@ -130,9 +130,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Refer a Friend"
+        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/referFriendGroup"
         app:layout_constraintLeft_toLeftOf="@id/imgReferFriend"
         app:layout_constraintRight_toRightOf="@id/imgReferFriend"
         app:layout_constraintTop_toBottomOf="@id/imgReferFriend" />
@@ -164,9 +164,9 @@
         android:gravity="center"
         android:maxLines="2"
         android:text="Nominate\nAlternate Person"
+        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/nominatePersonGroup"
         app:layout_constraintLeft_toLeftOf="@id/imgNominatePerson"
         app:layout_constraintRight_toRightOf="@id/imgNominatePerson"
         app:layout_constraintTop_toBottomOf="@id/imgNominatePerson" />

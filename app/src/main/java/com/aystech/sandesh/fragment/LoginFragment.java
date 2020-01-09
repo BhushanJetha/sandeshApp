@@ -63,6 +63,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) context).setUpToolbar(false, "", false);
+        ((MainActivity) context).setUpToolbar(false, false,"", false);
     }
 }

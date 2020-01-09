@@ -14,6 +14,7 @@ import com.aystech.sandesh.utils.FragmentUtil;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolBar;
+    ConstraintLayout clDashboard, clOther;
     ConstraintLayout bottomBar;
 
     LoginFragment loginFragment;
@@ -33,17 +34,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         toolBar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolBar);
+
+        clDashboard = findViewById(R.id.clDashboard);
+        clOther = findViewById(R.id.clOther);
         bottomBar = findViewById(R.id.bottomBar);
     }
 
-    public void setUpToolbar(boolean isToolBar, String toolbarTitle,
+    public void setUpToolbar(boolean isToolBar, boolean isDashboard, String toolbarTitle,
                              boolean isBottomBarShow) {
         if (isToolBar) {
-            if (isBottomBarShow) {
+            if (isBottomBarShow && isDashboard) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setDisplayShowHomeEnabled(false);
+
                 toolBar.setVisibility(View.VISIBLE);
+                clDashboard.setVisibility(View.VISIBLE);
+                clOther.setVisibility(View.GONE);
                 bottomBar.setVisibility(View.VISIBLE);
             } else {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+
                 toolBar.setVisibility(View.VISIBLE);
+                clDashboard.setVisibility(View.GONE);
+                clOther.setVisibility(View.VISIBLE);
                 bottomBar.setVisibility(View.GONE);
             }
         } else {

@@ -30,6 +30,6 @@ public class EndJourneyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) context).setUpToolbar(true, "", false);
+        ((MainActivity) context).setUpToolbar(true, false,"", false);
     }
 }
