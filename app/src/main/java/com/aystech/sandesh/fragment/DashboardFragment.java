@@ -20,16 +20,16 @@ public class DashboardFragment extends Fragment {
     Button btnNext;
 
     private ImageView imgKYC, imgMyProfile, imgSearchOrders, imgSearchTravelers, imgMyWallet, imgPlanTravel,
-            imgSendParcel, imgTrackYourParcel, imgStartJourney, imgEndJourney;
+            imgSendParcel, imgTrackYourParcel, imgStartJourney, imgEndJourney, imgTermsAndCondition;
     private SearchOrderFragment searchOrderFragment;
     private MyWalletFragmentOne myWalletFragment;
     private PlanTravelFragment planTravelFragment;
     private SearchTravelerFragment searchTravelerFragment;
-
     private SendParcelFragment sendParcelFragment;
     private TrackYourParcelFragment trackYourParcelFragment;
     private StartJourneyFragment startJourneyFragment;
     private EndJourneyFragment endJourneyFragment;
+    private TermsAndConditionFragment termsAndConditionFragment;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -51,11 +51,11 @@ public class DashboardFragment extends Fragment {
         myWalletFragment = (MyWalletFragmentOne) Fragment.instantiate(context, MyWalletFragmentOne.class.getName());
         planTravelFragment = (PlanTravelFragment) Fragment.instantiate(context, PlanTravelFragment.class.getName());
         searchTravelerFragment = (SearchTravelerFragment) Fragment.instantiate(context, SearchTravelerFragment.class.getName());
-
         sendParcelFragment = (SendParcelFragment) Fragment.instantiate(context, SendParcelFragment.class.getName());
         trackYourParcelFragment = (TrackYourParcelFragment) Fragment.instantiate(context, TrackYourParcelFragment.class.getName());
         startJourneyFragment = (StartJourneyFragment) Fragment.instantiate(context, StartJourneyFragment.class.getName());
         endJourneyFragment = (EndJourneyFragment) Fragment.instantiate(context, EndJourneyFragment.class.getName());
+        termsAndConditionFragment = (TermsAndConditionFragment) Fragment.instantiate(context, TermsAndConditionFragment.class.getName());
 
         initView(view);
 
@@ -77,6 +77,7 @@ public class DashboardFragment extends Fragment {
         imgTrackYourParcel = view.findViewById(R.id.imgTrackParcel);
         imgStartJourney = view.findViewById(R.id.imgStartJourney);
         imgEndJourney = view.findViewById(R.id.imgEndJourney);
+        imgTermsAndCondition = view.findViewById(R.id.imgTC);
     }
 
     private void onClickListener(){
@@ -149,6 +150,14 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                         endJourneyFragment, R.id.frame_container, true);
+            }
+        });
+
+        imgTermsAndCondition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        termsAndConditionFragment, R.id.frame_container, true);
             }
         });
     }

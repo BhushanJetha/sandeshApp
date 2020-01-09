@@ -22,5 +22,22 @@
     <string name="search_senders">Search senders</string>
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>
+    <string name="delivery_option">Delivery Option</string>
+    <string name="preferred_weight">Preferred Weight</string>
+    <string name="acceptable_volume">Acceptable Volume</string>
+    <string name="vehicle_train_no">Vehicle/Train no.</string>
+    <string name="other_details">Other details</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="preferred_weight">
+        <item>ONE KG</item>
+        <item>TWO KG</item>
+        <item>THREE KG</item>
+        <item>FOUR KG</item>
+        <item>FIVE KG</item>
+        <item>Above FIVE KG</item>
+        <item>Above TEN KG</item>
+    </string-array>
+
 
 </resources>

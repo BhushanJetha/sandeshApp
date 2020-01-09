@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,8 +10,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground">
+        android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/clTopView"
@@ -249,8 +248,128 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tILEndTime" />
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tILDeliveryOption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginRight="@dimen/_6sdp"
+                app:layout_constraintStart_toStartOf="@+id/tILEndTime"
+                app:layout_constraintTop_toBottomOf="@id/tILEndTime">
+
+                <EditText
+                    android:id="@+id/etDeliveryOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/delivery_option" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvPreferredWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginRight="@dimen/_6sdp"
+                android:text="@string/preferred_weight"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                app:layout_constraintTop_toBottomOf="@id/tILDeliveryOption"/>
+
+            <Spinner
+                android:id="@+id/spOrderStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/preferred_weight"
+                app:layout_constraintTop_toBottomOf="@id/tvPreferredWeight"/>
+
+            <TextView
+                android:id="@+id/tvAcceptableVolume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginRight="@dimen/_6sdp"
+                android:text="@string/acceptable_volume"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/spOrderStatus"/>
+
+            <Spinner
+                android:id="@+id/spAcceptableVolume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/preferred_weight"
+                app:layout_constraintTop_toBottomOf="@id/tvAcceptableVolume"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tILVehicleORTrainNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginRight="@dimen/_6sdp"
+                app:layout_constraintStart_toStartOf="@+id/spAcceptableVolume"
+                app:layout_constraintTop_toBottomOf="@id/spAcceptableVolume">
+
+                <EditText
+                    android:id="@+id/etVehicleOrTrainNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/vehicle_train_no" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tILOtherDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginRight="@dimen/_6sdp"
+                app:layout_constraintStart_toStartOf="@+id/tILVehicleORTrainNo"
+                app:layout_constraintTop_toBottomOf="@id/tILVehicleORTrainNo">
+
+                <EditText
+                    android:id="@+id/etOtherDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/other_details" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/rounded_button_background"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:paddingStart="@dimen/_48sdp"
+                android:paddingEnd="@dimen/_48sdp"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tILOtherDetails"
+                app:layout_constraintStart_toStartOf="@+id/tILOtherDetails"
+                app:layout_constraintTop_toBottomOf="@+id/tILOtherDetails" />
+
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
         </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
 
-</android.support.v4.widget.NestedScrollView>
+</ScrollView>

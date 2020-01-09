@@ -4,12 +4,13 @@
     <color name="colorPrimaryDark">#455A64</color>
     <color name="colorAccent">#2196F3</color>
 
-    <color name="colorBackground">#F1F1F1</color>
+    <color name="colorBackground">#E7F5FD</color>
     <color name="colorWhite">#fff</color>
     <color name="colorBlack">#000</color>
     <color name="colorButton">#555555</color>
     <color name="colorRating">#FF9800</color>
 
     <color name="background">#d2ecf9</color>
+    <color name="dashboardBackground">#BDE6FA</color>
     <color name="backgroundWhite">#ffffff</color>
 </resources>
