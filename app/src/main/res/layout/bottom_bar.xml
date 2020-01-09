@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:layout_gravity="bottom">
+
+    <android.support.constraint.Group
+        android:id="@+id/historyGroup"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toStartOf="@+id/contactUsGroup"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgHistory"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@drawable/ic_history"
+        app:layout_constraintLeft_toLeftOf="@id/historyGroup"
+        app:layout_constraintRight_toRightOf="@id/historyGroup"
+        app:layout_constraintTop_toTopOf="@id/historyGroup" />
+
+    <TextView
+        android:id="@+id/tvHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="History"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
+        app:layout_constraintLeft_toLeftOf="@id/imgHistory"
+        app:layout_constraintRight_toRightOf="@id/imgHistory"
+        app:layout_constraintTop_toBottomOf="@id/imgHistory" />
+
+    <android.support.constraint.Group
+        android:id="@+id/contactUsGroup"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
+        app:layout_constraintEnd_toStartOf="@+id/faqGroup"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/historyGroup"
+        app:layout_constraintTop_toTopOf="@+id/historyGroup" />
+
+    <ImageView
+        android:id="@+id/imgContactUs"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@drawable/ic_contact"
+        app:layout_constraintLeft_toLeftOf="@id/contactUsGroup"
+        app:layout_constraintRight_toRightOf="@id/contactUsGroup"
+        app:layout_constraintTop_toTopOf="@id/contactUsGroup" />
+
+    <TextView
+        android:id="@+id/tvContactUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Contact Us"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/contactUsGroup"
+        app:layout_constraintLeft_toLeftOf="@id/imgContactUs"
+        app:layout_constraintRight_toRightOf="@id/imgContactUs"
+        app:layout_constraintTop_toBottomOf="@id/imgContactUs" />
+
+    <android.support.constraint.Group
+        android:id="@+id/faqGroup"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
+        app:layout_constraintEnd_toStartOf="@+id/referFriendGroup"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/contactUsGroup"
+        app:layout_constraintTop_toTopOf="@+id/historyGroup" />
+
+    <ImageView
+        android:id="@+id/imgFAQ"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@drawable/ic_faq"
+        app:layout_constraintLeft_toLeftOf="@id/faqGroup"
+        app:layout_constraintRight_toRightOf="@id/faqGroup"
+        app:layout_constraintTop_toTopOf="@id/faqGroup" />
+
+    <TextView
+        android:id="@+id/tvFAQ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="FAQ"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/faqGroup"
+        app:layout_constraintLeft_toLeftOf="@id/imgFAQ"
+        app:layout_constraintRight_toRightOf="@id/imgFAQ"
+        app:layout_constraintTop_toBottomOf="@id/imgFAQ" />
+
+    <android.support.constraint.Group
+        android:id="@+id/referFriendGroup"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
+        app:layout_constraintEnd_toStartOf="@+id/nominatePersonGroup"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/faqGroup"
+        app:layout_constraintTop_toTopOf="@+id/historyGroup" />
+
+    <ImageView
+        android:id="@+id/imgReferFriend"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@drawable/ic_refer_a_friend"
+        app:layout_constraintLeft_toLeftOf="@id/referFriendGroup"
+        app:layout_constraintRight_toRightOf="@id/referFriendGroup"
+        app:layout_constraintTop_toTopOf="@id/referFriendGroup" />
+
+    <TextView
+        android:id="@+id/tvReferFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Refer a Friend"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/referFriendGroup"
+        app:layout_constraintLeft_toLeftOf="@id/imgReferFriend"
+        app:layout_constraintRight_toRightOf="@id/imgReferFriend"
+        app:layout_constraintTop_toBottomOf="@id/imgReferFriend" />
+
+    <android.support.constraint.Group
+        android:id="@+id/nominatePersonGroup"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/referFriendGroup"
+        app:layout_constraintTop_toTopOf="@+id/historyGroup" />
+
+    <ImageView
+        android:id="@+id/imgNominatePerson"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@drawable/ic_nominate"
+        app:layout_constraintLeft_toLeftOf="@id/nominatePersonGroup"
+        app:layout_constraintRight_toRightOf="@id/nominatePersonGroup"
+        app:layout_constraintTop_toTopOf="@id/nominatePersonGroup" />
+
+    <TextView
+        android:id="@+id/tvNominatePerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="Nominate\nAlternate Person"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/nominatePersonGroup"
+        app:layout_constraintLeft_toLeftOf="@id/imgNominatePerson"
+        app:layout_constraintRight_toRightOf="@id/imgNominatePerson"
+        app:layout_constraintTop_toBottomOf="@id/imgNominatePerson" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.aystech.sandesh.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,12 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.MainActivity;
 
 public class SendParcelFragment extends Fragment {
 
+    Context context;
 
     public SendParcelFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -22,4 +31,9 @@ public class SendParcelFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_send_parcel, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) context).setUpToolbar(true, "", false);
+    }
 }

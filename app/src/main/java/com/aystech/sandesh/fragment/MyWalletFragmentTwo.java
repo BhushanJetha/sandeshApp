@@ -79,4 +79,9 @@ public class MyWalletFragmentTwo extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) context).setUpToolbar(true, "", false);
+    }
 }

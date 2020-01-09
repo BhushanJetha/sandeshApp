@@ -161,4 +161,10 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) context).setUpToolbar(true, "", true);
+    }
 }
