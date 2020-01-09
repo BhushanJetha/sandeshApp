@@ -161,7 +161,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_2sdp"
-            android:text="Search Orders (Senders)"
+            android:text="Search Orders"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="@+id/imgSendersOrders"
