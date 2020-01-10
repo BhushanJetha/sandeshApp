@@ -7,128 +7,145 @@
     android:background="@color/colorBackground"
     tools:context=".fragment.MyWalletFragmentOne">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/clTopView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
-        android:background="@drawable/bottom_rectangle_background"
-        android:elevation="@dimen/_1sdp"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvWelcomeTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:gravity="end"
-            android:text="Welcome, "
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_12sdp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvUserName"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvUserName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Mr. Abhijit"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvWelcomeTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvWelcomeTitle"
-            app:layout_constraintTop_toTopOf="@+id/tvWelcomeTitle" />
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clTopView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:background="@drawable/bottom_rectangle_background"
+                android:elevation="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvMyWalletTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="My Wallet"
-            android:textSize="@dimen/_16sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvWalletAmt"
-            app:layout_constraintEnd_toStartOf="@+id/tvBalTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvBalTitle" />
+                <TextView
+                    android:id="@+id/tvWelcomeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:gravity="end"
+                    android:text="Welcome, "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvUserName"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvBalTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="center"
-            android:text="Balance"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvMyWalletTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvWelcomeTitle" />
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Mr. Abhijit"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvWelcomeTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvWelcomeTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvWelcomeTitle" />
 
-        <TextView
-            android:id="@+id/tvWalletAmt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rs. 450"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_16sdp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tvBalTitle"
-            app:layout_constraintStart_toStartOf="@+id/tvBalTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvBalTitle" />
+                <TextView
+                    android:id="@+id/tvMyWalletTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="My Wallet"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvWalletAmt"
+                    app:layout_constraintEnd_toStartOf="@+id/tvBalTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvBalTitle" />
 
-        <Button
-            android:id="@+id/btnAddBal"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/rounded_button_background"
-            android:drawableLeft="@drawable/ic_add"
-            android:drawableTint="@color/colorWhite"
-            android:paddingStart="@dimen/_24sdp"
-            android:paddingLeft="@dimen/_24sdp"
-            android:paddingEnd="@dimen/_24sdp"
-            android:paddingRight="@dimen/_24sdp"
-            android:text="Add balance"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvBalTitle"
-            app:layout_constraintStart_toStartOf="@+id/tvMyWalletTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvWalletAmt" />
+                <TextView
+                    android:id="@+id/tvBalTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text="Balance"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvMyWalletTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWelcomeTitle" />
 
-    </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tvWalletAmt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs. 450"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/tvBalTitle"
+                    app:layout_constraintStart_toStartOf="@+id/tvBalTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBalTitle" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_36sdp"
-        android:text="Payment History"
-        app:layout_constraintEnd_toEndOf="@+id/clTopView"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="@+id/clTopView"
-        app:layout_constraintTop_toBottomOf="@+id/clTopView" />
+                <Button
+                    android:id="@+id/btnAddBal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:drawableLeft="@drawable/ic_add"
+                    android:drawableTint="@color/colorWhite"
+                    android:paddingStart="@dimen/_24sdp"
+                    android:paddingLeft="@dimen/_24sdp"
+                    android:paddingEnd="@dimen/_24sdp"
+                    android:paddingRight="@dimen/_24sdp"
+                    android:text="Add balance"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tvBalTitle"
+                    app:layout_constraintStart_toStartOf="@+id/tvMyWalletTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWalletAmt" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvPaymentHistory"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_14sdp"
-        android:layout_marginBottom="@dimen/_14sdp"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
-        tools:listitem="@layout/row_wallet_item" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_36sdp"
+                android:text="Payment History"
+                app:layout_constraintEnd_toEndOf="@+id/clTopView"
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintStart_toStartOf="@+id/clTopView"
+                app:layout_constraintTop_toBottomOf="@+id/clTopView" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvPaymentHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_14sdp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
+                tools:listitem="@layout/row_wallet_item" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.constraint.ConstraintLayout>

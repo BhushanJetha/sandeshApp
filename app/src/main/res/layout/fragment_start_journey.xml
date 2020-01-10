@@ -1,539 +1,552 @@
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context="com.aystech.sandesh.fragment.StartJourneyFragment">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground">
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/clTopView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_70sdp"
-            android:background="@drawable/bottom_rectangle_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite">
 
-            <TextView
-                android:id="@+id/tvPlanTravelTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:text="Start Journey"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_18sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_16sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/clTopView">
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILDeliveryOption"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clTopView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_70sdp"
+                android:background="@drawable/bottom_rectangle_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <EditText
-                    android:id="@+id/etDeliveryOption"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvPlanTravelTitle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Transaction ref no." />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvHandoverParcelTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
-                android:text="Handover parcel"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@+id/tILDeliveryOption" />
-
-            <RadioGroup
-                android:id="@+id/rgHandover"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginLeft="@dimen/_6sdp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/tvHandoverParcelTitle"
-                app:layout_constraintStart_toEndOf="@+id/tvHandoverParcelTitle"
-                app:layout_constraintTop_toTopOf="@+id/tvHandoverParcelTitle">
-
-                <RadioButton
-                    android:id="@+id/rbCommercial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Commercial" />
-
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/tvDateTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
-                android:text="Date"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tvHandoverParcelTitle" />
-
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
-                android:text="06 Nov 2019"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tvDateTitle" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILNatureOfGoods"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tvDate">
-
-                <EditText
-                    android:id="@+id/etNatureOfGoods"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nature of goods" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ingNatureOfGoodsDropDown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_dropdown"
-                app:layout_constraintBottom_toBottomOf="@+id/tILNatureOfGoods"
-                app:layout_constraintEnd_toEndOf="@+id/tILNatureOfGoods"
-                app:layout_constraintTop_toTopOf="@+id/tILNatureOfGoods" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILTypeArticle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tILNatureOfGoods">
-
-                <EditText
-                    android:id="@+id/etTypeArticle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Type of article" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ingTypeArticleDropDown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_dropdown"
-                app:layout_constraintBottom_toBottomOf="@+id/tILTypeArticle"
-                app:layout_constraintEnd_toEndOf="@+id/tILTypeArticle"
-                app:layout_constraintTop_toTopOf="@+id/tILTypeArticle" />
-
-            <TextView
-                android:id="@+id/tvHazardousTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
-                android:text="Hazardous"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toStartOf="@+id/rgHazardous"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tILTypeArticle" />
-
-            <RadioGroup
-                android:id="@+id/rgHazardous"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginLeft="@dimen/_6sdp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/tvHazardousTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvHazardousTitle"
-                app:layout_constraintTop_toTopOf="@+id/tvHazardousTitle">
-
-                <RadioButton
-                    android:id="@+id/rbHazardousYes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Yes" />
-
-                <RadioButton
-                    android:id="@+id/rbHazardousNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="No" />
-
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/tvProhibitedTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
-                android:text="Prohibited"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toStartOf="@+id/rgProhibited"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvHazardousTitle" />
-
-            <RadioGroup
-                android:id="@+id/rgProhibited"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginLeft="@dimen/_6sdp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/tvProhibitedTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvProhibitedTitle"
-                app:layout_constraintTop_toTopOf="@+id/tvProhibitedTitle">
-
-                <RadioButton
-                    android:id="@+id/rbProhibitedYes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Yes" />
-
-                <RadioButton
-                    android:id="@+id/rbProhibitedNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="No" />
-
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/tvFraglleTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
-                android:text="Fraglle"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toStartOf="@+id/rgFraglle"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvProhibitedTitle" />
-
-            <RadioGroup
-                android:id="@+id/rgFraglle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginLeft="@dimen/_6sdp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/tvFraglleTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvFraglleTitle"
-                app:layout_constraintTop_toTopOf="@+id/tvFraglleTitle">
-
-                <RadioButton
-                    android:id="@+id/rbFraglleYes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Yes" />
-
-                <RadioButton
-                    android:id="@+id/rbFraglleNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="No" />
-
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/tvFlamableToxicExplosiveTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_6sdp"
-                android:text="Flamable / Toxic / Explosive"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toStartOf="@+id/rgFlamableToxicExplosive"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvFraglleTitle" />
-
-            <RadioGroup
-                android:id="@+id/rgFlamableToxicExplosive"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginLeft="@dimen/_6sdp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/tvFlamableToxicExplosiveTitle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvFlamableToxicExplosiveTitle"
-                app:layout_constraintTop_toTopOf="@+id/tvFlamableToxicExplosiveTitle">
-
-                <RadioButton
-                    android:id="@+id/rbFlamableToxicExplosiveYes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Yes" />
-
-                <RadioButton
-                    android:id="@+id/rbFlamableToxicExplosiveNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="No" />
-
-            </RadioGroup>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILPackaging"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tvFlamableToxicExplosiveTitle">
-
-                <EditText
-                    android:id="@+id/etPackaging"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Type of packaging" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ingPackagingDropDown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_dropdown"
-                app:layout_constraintBottom_toBottomOf="@+id/tILPackaging"
-                app:layout_constraintEnd_toEndOf="@+id/tILPackaging"
-                app:layout_constraintTop_toTopOf="@+id/tILPackaging" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILWeight"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tILPackaging">
-
-                <EditText
-                    android:id="@+id/etWeight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Weight" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/imgParcel"
-                android:layout_width="@dimen/_96sdp"
-                android:layout_height="@dimen/_96sdp"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:background="@drawable/ic_parcel"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@+id/tILWeight" />
-
-            <ImageView
-                android:id="@+id/imgParcelCamera"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:background="@drawable/ic_camera"
-                app:layout_constraintEnd_toEndOf="@+id/imgParcel"
-                app:layout_constraintTop_toTopOf="@+id/imgParcel" />
-
-            <TextView
-                android:id="@+id/tvParcel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginLeft="@dimen/_6sdp"
-                android:text="Photo of parcel"
-                app:layout_constraintBottom_toBottomOf="@+id/imgParcel"
-                app:layout_constraintLeft_toRightOf="@id/imgParcel"
-                app:layout_constraintTop_toTopOf="@id/imgParcel" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILReceiverName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/imgParcel">
-
-                <EditText
-                    android:id="@+id/etReceiverName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Receiver's Name" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILReceiverMobileNo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tILReceiverName">
-
-                <EditText
-                    android:id="@+id/etReceiverMobileNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Receiver's mobile no" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILOTP"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tILReceiverMobileNo">
-
-                <EditText
-                    android:id="@+id/etOTP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Enter OTP" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvResendOTP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Resend OTP"
-                android:textColor="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="@+id/tILOTP"
-                app:layout_constraintEnd_toEndOf="@+id/tILOTP"
-                app:layout_constraintTop_toTopOf="@+id/tILOTP"/>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILExchangeOTP"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tILOTP">
-
-                <EditText
-                    android:id="@+id/etExchangeOTP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Exchange OTP" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvExchangeResendOTP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Resend OTP"
-                android:textColor="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="@+id/tILExchangeOTP"
-                app:layout_constraintEnd_toEndOf="@+id/tILExchangeOTP"
-                app:layout_constraintTop_toTopOf="@+id/tILExchangeOTP" />
-
-            <CheckBox
-                android:id="@+id/cbTermsCondition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@+id/tvExchangeResendOTP" />
-
-            <TextView
-                android:id="@+id/tvTermsCondition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Accept terms &amp; conditions"
-                app:layout_constraintBottom_toBottomOf="@+id/cbTermsCondition"
-                app:layout_constraintStart_toEndOf="@+id/cbTermsCondition"
-                app:layout_constraintTop_toTopOf="@+id/cbTermsCondition" />
-
-            <CheckBox
-                android:id="@+id/cbOtherTermsCondition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@+id/cbTermsCondition"/>
-
-            <TextView
-                android:id="@+id/tvOtherTermsCondition"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Confirm nature, quality, quantity &amp; exact nature of ggods before taking delivery"
-                app:layout_constraintBottom_toBottomOf="@+id/cbOtherTermsCondition"
-                app:layout_constraintStart_toEndOf="@+id/cbOtherTermsCondition"
-                app:layout_constraintTop_toTopOf="@+id/cbOtherTermsCondition" />
-
-            <Button
-                android:id="@+id/btnSubmit"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Start Journey"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_18sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:background="@drawable/rounded_button_background"
-                android:text="Submit"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@+id/cbOtherTermsCondition" />
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clTopView">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILDeliveryOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/etDeliveryOption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Transaction ref no." />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvHandoverParcelTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Handover parcel"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@+id/tILDeliveryOption" />
+
+                <RadioGroup
+                    android:id="@+id/rgHandover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvHandoverParcelTitle"
+                    app:layout_constraintStart_toEndOf="@+id/tvHandoverParcelTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvHandoverParcelTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbCommercial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Commercial" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvDateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Date"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tvHandoverParcelTitle" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="06 Nov 2019"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tvDateTitle" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILNatureOfGoods"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tvDate">
+
+                    <EditText
+                        android:id="@+id/etNatureOfGoods"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nature of goods" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingNatureOfGoodsDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILNatureOfGoods"
+                    app:layout_constraintEnd_toEndOf="@+id/tILNatureOfGoods"
+                    app:layout_constraintTop_toTopOf="@+id/tILNatureOfGoods" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILTypeArticle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tILNatureOfGoods">
+
+                    <EditText
+                        android:id="@+id/etTypeArticle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Type of article" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingTypeArticleDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILTypeArticle"
+                    app:layout_constraintEnd_toEndOf="@+id/tILTypeArticle"
+                    app:layout_constraintTop_toTopOf="@+id/tILTypeArticle" />
+
+                <TextView
+                    android:id="@+id/tvHazardousTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Hazardous"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgHazardous"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tILTypeArticle" />
+
+                <RadioGroup
+                    android:id="@+id/rgHazardous"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvHazardousTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvHazardousTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvHazardousTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbHazardousYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbHazardousNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvProhibitedTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Prohibited"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgProhibited"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHazardousTitle" />
+
+                <RadioGroup
+                    android:id="@+id/rgProhibited"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvProhibitedTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvProhibitedTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvProhibitedTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbProhibitedYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbProhibitedNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvFraglleTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Fraglle"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgFraglle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProhibitedTitle" />
+
+                <RadioGroup
+                    android:id="@+id/rgFraglle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFraglleTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFraglleTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvFraglleTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbFraglleYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbFraglleNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvFlamableToxicExplosiveTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Flamable / Toxic / Explosive"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgFlamableToxicExplosive"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFraglleTitle" />
+
+                <RadioGroup
+                    android:id="@+id/rgFlamableToxicExplosive"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFlamableToxicExplosiveTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFlamableToxicExplosiveTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvFlamableToxicExplosiveTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbFlamableToxicExplosiveYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbFlamableToxicExplosiveNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No" />
+
+                </RadioGroup>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILPackaging"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tvFlamableToxicExplosiveTitle">
+
+                    <EditText
+                        android:id="@+id/etPackaging"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Type of packaging" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingPackagingDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILPackaging"
+                    app:layout_constraintEnd_toEndOf="@+id/tILPackaging"
+                    app:layout_constraintTop_toTopOf="@+id/tILPackaging" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILWeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tILPackaging">
+
+                    <EditText
+                        android:id="@+id/etWeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Weight" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/imgParcel"
+                    android:layout_width="@dimen/_96sdp"
+                    android:layout_height="@dimen/_96sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/ic_parcel"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@+id/tILWeight" />
+
+                <ImageView
+                    android:id="@+id/imgParcelCamera"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_camera"
+                    app:layout_constraintEnd_toEndOf="@+id/imgParcel"
+                    app:layout_constraintTop_toTopOf="@+id/imgParcel" />
+
+                <TextView
+                    android:id="@+id/tvParcel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:text="Photo of parcel"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgParcel"
+                    app:layout_constraintLeft_toRightOf="@id/imgParcel"
+                    app:layout_constraintTop_toTopOf="@id/imgParcel" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILReceiverName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/imgParcel">
+
+                    <EditText
+                        android:id="@+id/etReceiverName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Receiver's Name" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILReceiverMobileNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tILReceiverName">
+
+                    <EditText
+                        android:id="@+id/etReceiverMobileNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Receiver's mobile no" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILOTP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tILReceiverMobileNo">
+
+                    <EditText
+                        android:id="@+id/etOTP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter OTP" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvResendOTP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resend OTP"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILOTP"
+                    app:layout_constraintEnd_toEndOf="@+id/tILOTP"
+                    app:layout_constraintTop_toTopOf="@+id/tILOTP" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILExchangeOTP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tILOTP">
+
+                    <EditText
+                        android:id="@+id/etExchangeOTP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Exchange OTP" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvExchangeResendOTP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resend OTP"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILExchangeOTP"
+                    app:layout_constraintEnd_toEndOf="@+id/tILExchangeOTP"
+                    app:layout_constraintTop_toTopOf="@+id/tILExchangeOTP" />
+
+                <CheckBox
+                    android:id="@+id/cbTermsCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@+id/tvExchangeResendOTP" />
+
+                <TextView
+                    android:id="@+id/tvTermsCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accept terms &amp; conditions"
+                    app:layout_constraintBottom_toBottomOf="@+id/cbTermsCondition"
+                    app:layout_constraintStart_toEndOf="@+id/cbTermsCondition"
+                    app:layout_constraintTop_toTopOf="@+id/cbTermsCondition" />
+
+                <CheckBox
+                    android:id="@+id/cbOtherTermsCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@+id/cbTermsCondition" />
+
+                <TextView
+                    android:id="@+id/tvOtherTermsCondition"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Confirm nature, quality, quantity &amp; exact nature of goods before taking delivery"
+                    app:layout_constraintBottom_toBottomOf="@+id/cbOtherTermsCondition"
+                    app:layout_constraintStart_toEndOf="@+id/cbOtherTermsCondition"
+                    app:layout_constraintTop_toTopOf="@+id/cbOtherTermsCondition" />
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@+id/cbOtherTermsCondition" />
+
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-</android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

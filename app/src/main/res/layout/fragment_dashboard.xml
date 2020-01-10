@@ -1,388 +1,399 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/_8sdp">
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/etSearchTravellers"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginRight="@dimen/_8sdp"
-            android:background="@drawable/row_rounded_white_rectangle"
-            android:hint="@string/search_travellers"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingRight="@dimen/_16sdp"
-            android:textSize="@dimen/_13sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:padding="@dimen/_8sdp">
 
-        <ImageView
-            android:id="@+id/imgSearchTraveller"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginRight="@dimen/_4sdp"
-            android:background="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/etSearchTravellers"
-            app:layout_constraintEnd_toEndOf="@+id/etSearchTravellers"
-            app:layout_constraintTop_toTopOf="@+id/etSearchTravellers" />
+            <EditText
+                android:id="@+id/etSearchTravellers"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:background="@drawable/row_rounded_white_rectangle"
+                android:hint="@string/search_travellers"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingRight="@dimen/_16sdp"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/etSearchSenders"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@drawable/row_rounded_white_rectangle"
-            android:hint="@string/search_senders"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_16sdp"
-            android:paddingRight="@dimen/_16sdp"
-            android:textSize="@dimen/_13sdp"
-            app:layout_constraintEnd_toEndOf="@+id/etSearchTravellers"
-            app:layout_constraintStart_toStartOf="@+id/etSearchTravellers"
-            app:layout_constraintTop_toBottomOf="@id/etSearchTravellers" />
+            <ImageView
+                android:id="@+id/imgSearchTraveller"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_4sdp"
+                android:background="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="@+id/etSearchTravellers"
+                app:layout_constraintEnd_toEndOf="@+id/etSearchTravellers"
+                app:layout_constraintTop_toTopOf="@+id/etSearchTravellers" />
 
-        <ImageView
-            android:id="@+id/imgSearchSenders"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginRight="@dimen/_4sdp"
-            android:background="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/etSearchSenders"
-            app:layout_constraintEnd_toEndOf="@+id/etSearchSenders"
-            app:layout_constraintTop_toTopOf="@+id/etSearchSenders" />
+            <EditText
+                android:id="@+id/etSearchSenders"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/row_rounded_white_rectangle"
+                android:hint="@string/search_senders"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingRight="@dimen/_16sdp"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintEnd_toEndOf="@+id/etSearchTravellers"
+                app:layout_constraintStart_toStartOf="@+id/etSearchTravellers"
+                app:layout_constraintTop_toBottomOf="@id/etSearchTravellers" />
 
-        <ImageView
-            android:id="@+id/imgKYC"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_kyc"
-            app:layout_constraintEnd_toStartOf="@+id/imgProfile"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etSearchSenders" />
+            <ImageView
+                android:id="@+id/imgSearchSenders"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_4sdp"
+                android:background="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="@+id/etSearchSenders"
+                app:layout_constraintEnd_toEndOf="@+id/etSearchSenders"
+                app:layout_constraintTop_toTopOf="@+id/etSearchSenders" />
 
-        <TextView
-            android:id="@+id/tvKYC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="KYC"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgKYC"
-            app:layout_constraintStart_toStartOf="@+id/imgKYC"
-            app:layout_constraintTop_toBottomOf="@id/imgKYC" />
+            <ImageView
+                android:id="@+id/imgKYC"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_kyc"
+                app:layout_constraintEnd_toStartOf="@+id/imgProfile"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etSearchSenders" />
 
-        <ImageView
-            android:id="@+id/imgProfile"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_profile"
-            app:layout_constraintBottom_toBottomOf="@+id/imgKYC"
-            app:layout_constraintEnd_toStartOf="@+id/imgWallet"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgKYC"
-            app:layout_constraintTop_toTopOf="@+id/imgKYC" />
+            <TextView
+                android:id="@+id/tvKYC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="KYC"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgKYC"
+                app:layout_constraintStart_toStartOf="@+id/imgKYC"
+                app:layout_constraintTop_toBottomOf="@id/imgKYC" />
 
-        <TextView
-            android:id="@+id/tvProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="My Profile"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgProfile"
-            app:layout_constraintStart_toStartOf="@+id/imgProfile"
-            app:layout_constraintTop_toBottomOf="@id/imgProfile" />
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_profile"
+                app:layout_constraintBottom_toBottomOf="@+id/imgKYC"
+                app:layout_constraintEnd_toStartOf="@+id/imgWallet"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgKYC"
+                app:layout_constraintTop_toTopOf="@+id/imgKYC" />
 
-        <ImageView
-            android:id="@+id/imgWallet"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_my_wallet"
-            app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgProfile"
-            app:layout_constraintTop_toTopOf="@+id/imgProfile" />
+            <TextView
+                android:id="@+id/tvProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="My Profile"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgProfile"
+                app:layout_constraintStart_toStartOf="@+id/imgProfile"
+                app:layout_constraintTop_toBottomOf="@id/imgProfile" />
 
-        <TextView
-            android:id="@+id/tvWallet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="My Wallet"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgWallet"
-            app:layout_constraintStart_toStartOf="@+id/imgWallet"
-            app:layout_constraintTop_toBottomOf="@id/imgWallet" />
+            <ImageView
+                android:id="@+id/imgWallet"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_my_wallet"
+                app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgProfile"
+                app:layout_constraintTop_toTopOf="@+id/imgProfile" />
 
-        <ImageView
-            android:id="@+id/imgSendersOrders"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_search_order"
-            app:layout_constraintEnd_toStartOf="@+id/imgSearchTravellers"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvKYC" />
+            <TextView
+                android:id="@+id/tvWallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="My Wallet"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgWallet"
+                app:layout_constraintStart_toStartOf="@+id/imgWallet"
+                app:layout_constraintTop_toBottomOf="@id/imgWallet" />
 
-        <TextView
-            android:id="@+id/tvSendersOrders"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="Search Orders (Senders)"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgSendersOrders"
-            app:layout_constraintStart_toStartOf="@+id/imgSendersOrders"
-            app:layout_constraintTop_toBottomOf="@id/imgSendersOrders" />
+            <ImageView
+                android:id="@+id/imgSendersOrders"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_search_order"
+                app:layout_constraintEnd_toStartOf="@+id/imgSearchTravellers"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvKYC" />
 
-        <ImageView
-            android:id="@+id/imgSearchTravellers"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_search_travelar"
-            app:layout_constraintBottom_toBottomOf="@+id/imgSendersOrders"
-            app:layout_constraintEnd_toStartOf="@+id/imgPlanTravel"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgSendersOrders"
-            app:layout_constraintTop_toTopOf="@+id/imgSendersOrders" />
+            <TextView
+                android:id="@+id/tvSendersOrders"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Search Orders (Senders)"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgSendersOrders"
+                app:layout_constraintStart_toStartOf="@+id/imgSendersOrders"
+                app:layout_constraintTop_toBottomOf="@id/imgSendersOrders" />
 
-        <TextView
-            android:id="@+id/tvSearchTravellers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="Search Travellers"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgSearchTravellers"
-            app:layout_constraintStart_toStartOf="@+id/imgSearchTravellers"
-            app:layout_constraintTop_toBottomOf="@id/imgSearchTravellers" />
+            <ImageView
+                android:id="@+id/imgSearchTravellers"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_search_travelar"
+                app:layout_constraintBottom_toBottomOf="@+id/imgSendersOrders"
+                app:layout_constraintEnd_toStartOf="@+id/imgPlanTravel"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgSendersOrders"
+                app:layout_constraintTop_toTopOf="@+id/imgSendersOrders" />
 
-        <ImageView
-            android:id="@+id/imgPlanTravel"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_plan_a_travel"
-            app:layout_constraintBottom_toBottomOf="@+id/imgSearchTravellers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgSearchTravellers"
-            app:layout_constraintTop_toTopOf="@+id/imgSearchTravellers" />
+            <TextView
+                android:id="@+id/tvSearchTravellers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Search Travellers"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgSearchTravellers"
+                app:layout_constraintStart_toStartOf="@+id/imgSearchTravellers"
+                app:layout_constraintTop_toBottomOf="@id/imgSearchTravellers" />
 
-        <TextView
-            android:id="@+id/tvPlanTravel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="Plan a Travel"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgPlanTravel"
-            app:layout_constraintStart_toStartOf="@+id/imgPlanTravel"
-            app:layout_constraintTop_toBottomOf="@id/imgPlanTravel" />
+            <ImageView
+                android:id="@+id/imgPlanTravel"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_plan_a_travel"
+                app:layout_constraintBottom_toBottomOf="@+id/imgSearchTravellers"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgSearchTravellers"
+                app:layout_constraintTop_toTopOf="@+id/imgSearchTravellers" />
 
-        <ImageView
-            android:id="@+id/imgSendParcel"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_send_parcel"
-            app:layout_constraintEnd_toStartOf="@+id/imgTrackParcel"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSendersOrders" />
+            <TextView
+                android:id="@+id/tvPlanTravel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Plan a Travel"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgPlanTravel"
+                app:layout_constraintStart_toStartOf="@+id/imgPlanTravel"
+                app:layout_constraintTop_toBottomOf="@id/imgPlanTravel" />
 
-        <TextView
-            android:id="@+id/tvSendParcel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="Send Parcel"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgSendParcel"
-            app:layout_constraintStart_toStartOf="@+id/imgSendParcel"
-            app:layout_constraintTop_toBottomOf="@id/imgSendParcel" />
+            <ImageView
+                android:id="@+id/imgSendParcel"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_send_parcel"
+                app:layout_constraintEnd_toStartOf="@+id/imgTrackParcel"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSendersOrders" />
 
-        <ImageView
-            android:id="@+id/imgTrackParcel"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_track_your_parcel"
-            app:layout_constraintBottom_toBottomOf="@+id/imgSendParcel"
-            app:layout_constraintEnd_toStartOf="@+id/imgStartJourney"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgSendParcel"
-            app:layout_constraintTop_toTopOf="@+id/imgSendParcel" />
+            <TextView
+                android:id="@+id/tvSendParcel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Send Parcel"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgSendParcel"
+                app:layout_constraintStart_toStartOf="@+id/imgSendParcel"
+                app:layout_constraintTop_toBottomOf="@id/imgSendParcel" />
 
-        <TextView
-            android:id="@+id/tvTrackParcel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="Track Your Parcel"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgTrackParcel"
-            app:layout_constraintStart_toStartOf="@+id/imgTrackParcel"
-            app:layout_constraintTop_toBottomOf="@id/imgTrackParcel" />
+            <ImageView
+                android:id="@+id/imgTrackParcel"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_track_your_parcel"
+                app:layout_constraintBottom_toBottomOf="@+id/imgSendParcel"
+                app:layout_constraintEnd_toStartOf="@+id/imgStartJourney"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgSendParcel"
+                app:layout_constraintTop_toTopOf="@+id/imgSendParcel" />
 
-        <ImageView
-            android:id="@+id/imgStartJourney"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_start_journey"
-            app:layout_constraintBottom_toBottomOf="@+id/imgTrackParcel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgTrackParcel"
-            app:layout_constraintTop_toTopOf="@+id/imgTrackParcel" />
+            <TextView
+                android:id="@+id/tvTrackParcel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Track Your Parcel"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgTrackParcel"
+                app:layout_constraintStart_toStartOf="@+id/imgTrackParcel"
+                app:layout_constraintTop_toBottomOf="@id/imgTrackParcel" />
 
-        <TextView
-            android:id="@+id/tvStartJourney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="Start Journey"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgStartJourney"
-            app:layout_constraintStart_toStartOf="@+id/imgStartJourney"
-            app:layout_constraintTop_toBottomOf="@id/imgStartJourney" />
+            <ImageView
+                android:id="@+id/imgStartJourney"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_start_journey"
+                app:layout_constraintBottom_toBottomOf="@+id/imgTrackParcel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgTrackParcel"
+                app:layout_constraintTop_toTopOf="@+id/imgTrackParcel" />
 
-        <ImageView
-            android:id="@+id/imgEndJourney"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_end_journey"
-            app:layout_constraintEnd_toStartOf="@+id/imgComplaintDispute"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSendParcel" />
+            <TextView
+                android:id="@+id/tvStartJourney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Start Journey"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgStartJourney"
+                app:layout_constraintStart_toStartOf="@+id/imgStartJourney"
+                app:layout_constraintTop_toBottomOf="@id/imgStartJourney" />
 
-        <TextView
-            android:id="@+id/tvEndJourney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="End Journey"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgEndJourney"
-            app:layout_constraintStart_toStartOf="@+id/imgEndJourney"
-            app:layout_constraintTop_toBottomOf="@id/imgEndJourney" />
+            <ImageView
+                android:id="@+id/imgEndJourney"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_end_journey"
+                app:layout_constraintEnd_toStartOf="@+id/imgComplaintDispute"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSendParcel" />
 
-        <ImageView
-            android:id="@+id/imgComplaintDispute"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_complaint_dispute"
-            app:layout_constraintBottom_toBottomOf="@+id/imgEndJourney"
-            app:layout_constraintEnd_toStartOf="@+id/imgTC"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgEndJourney"
-            app:layout_constraintTop_toTopOf="@+id/imgEndJourney" />
+            <TextView
+                android:id="@+id/tvEndJourney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="End Journey"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgEndJourney"
+                app:layout_constraintStart_toStartOf="@+id/imgEndJourney"
+                app:layout_constraintTop_toBottomOf="@id/imgEndJourney" />
 
-        <TextView
-            android:id="@+id/tvComplaintDispute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="Complaint/Dispute"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgComplaintDispute"
-            app:layout_constraintStart_toStartOf="@+id/imgComplaintDispute"
-            app:layout_constraintTop_toBottomOf="@id/imgComplaintDispute" />
+            <ImageView
+                android:id="@+id/imgComplaintDispute"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_complaint_dispute"
+                app:layout_constraintBottom_toBottomOf="@+id/imgEndJourney"
+                app:layout_constraintEnd_toStartOf="@+id/imgTC"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgEndJourney"
+                app:layout_constraintTop_toTopOf="@+id/imgEndJourney" />
 
-        <ImageView
-            android:id="@+id/imgTC"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:background="@drawable/dashboard_icon_background"
-            android:padding="12dp"
-            android:src="@drawable/ic_terms_and_conditions"
-            app:layout_constraintBottom_toBottomOf="@+id/imgComplaintDispute"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgComplaintDispute"
-            app:layout_constraintTop_toTopOf="@+id/imgComplaintDispute" />
+            <TextView
+                android:id="@+id/tvComplaintDispute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Complaint/Dispute"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgComplaintDispute"
+                app:layout_constraintStart_toStartOf="@+id/imgComplaintDispute"
+                app:layout_constraintTop_toBottomOf="@id/imgComplaintDispute" />
 
-        <TextView
-            android:id="@+id/tvTC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="T&amp;C"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="@+id/imgTC"
-            app:layout_constraintStart_toStartOf="@+id/imgTC"
-            app:layout_constraintTop_toBottomOf="@id/imgTC" />
+            <ImageView
+                android:id="@+id/imgTC"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                android:src="@drawable/ic_terms_and_conditions"
+                app:layout_constraintBottom_toBottomOf="@+id/imgComplaintDispute"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgComplaintDispute"
+                app:layout_constraintTop_toTopOf="@+id/imgComplaintDispute" />
 
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/rounded_button_background"
-            android:padding="@dimen/_8sdp"
-            android:text="Next (for a time being)"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_10sdp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEndJourney" />
+            <TextView
+                android:id="@+id/tvTC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="T&amp;C"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgTC"
+                app:layout_constraintStart_toStartOf="@+id/imgTC"
+                app:layout_constraintTop_toBottomOf="@id/imgTC" />
 
-    </android.support.constraint.ConstraintLayout>
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/rounded_button_background"
+                android:padding="@dimen/_8sdp"
+                android:text="Next (for a time being)"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvEndJourney" />
 
-</android.support.v4.widget.NestedScrollView>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.constraint.ConstraintLayout>

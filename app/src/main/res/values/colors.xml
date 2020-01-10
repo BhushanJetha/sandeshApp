@@ -12,4 +12,5 @@
 
     <color name="background">#d2ecf9</color>
     <color name="backgroundWhite">#ffffff</color>
+    <color name="backgroundCircle">#84DD24</color>
 </resources>
