@@ -1,375 +1,497 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    tools:context=".fragment.PlanTravelFragment">
+    tools:context="com.aystech.sandesh.fragment.PlanTravelFragment">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/clTopView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_70sdp"
-            android:background="@drawable/bottom_rectangle_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite">
 
-            <TextView
-                android:id="@+id/tvPlanTravelTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:text="Plan a travel"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_18sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clTopView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp"
+                android:background="@drawable/bottom_rectangle_background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_16sdp"
-            app:layout_constraintTop_toBottomOf="@id/clTopView">
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILFrom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintEnd_toStartOf="@+id/ingFromCalendar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <EditText
-                    android:id="@+id/etFrom"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvSearchTravelTitle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="From" />
+                    android:gravity="center"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Plan Travel"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_18sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </android.support.design.widget.TextInputLayout>
+            </android.support.constraint.ConstraintLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILFromPincode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintEnd_toStartOf="@+id/ingFromCalendar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tILFrom">
-
-                <EditText
-                    android:id="@+id/etFromPincode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Pincode" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ingFromCalendar"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:background="@drawable/ic_location"
-                app:layout_constraintBottom_toBottomOf="@+id/tILFrom"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tILFrom" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILTo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintEnd_toStartOf="@+id/ingToCalendar"
-                app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                app:layout_constraintTop_toBottomOf="@id/tILFromPincode">
-
-                <EditText
-                    android:id="@+id/etTo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="To" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILToPincode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintEnd_toStartOf="@+id/ingFromCalendar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tILTo">
-
-                <EditText
-                    android:id="@+id/etToPincode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Pincode" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ingToCalendar"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:background="@drawable/ic_location"
-                app:layout_constraintBottom_toBottomOf="@+id/tILTo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tILTo" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILStartDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
-                app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                app:layout_constraintTop_toBottomOf="@id/tILToPincode">
-
-                <EditText
-                    android:id="@+id/etStartDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/start_date" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ingStartDate"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:background="@drawable/ic_calendar"
-                app:layout_constraintBottom_toBottomOf="@+id/tILStartDate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tILStartDate" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILStartTime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
-                app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                app:layout_constraintTop_toBottomOf="@id/tILStartDate">
-
-                <EditText
-                    android:id="@+id/etStartTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/start_time" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ingStartTime"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:background="@drawable/ic_clock"
-                app:layout_constraintBottom_toBottomOf="@+id/tILStartTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tILStartTime" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILEndDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
-                app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                app:layout_constraintTop_toBottomOf="@id/tILStartTime">
-
-                <EditText
-                    android:id="@+id/etEndDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/end_date" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ingEndDate"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:background="@drawable/ic_calendar"
-                app:layout_constraintBottom_toBottomOf="@+id/tILEndDate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tILEndDate" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILEndTime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
-                app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                app:layout_constraintTop_toBottomOf="@id/tILEndDate">
-
-                <EditText
-                    android:id="@+id/etEndTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/end_time" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ingEndTime"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:background="@drawable/ic_clock"
-                app:layout_constraintBottom_toBottomOf="@+id/tILEndTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tILEndTime" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILDeliveryOption"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintStart_toStartOf="@+id/tILEndTime"
-                app:layout_constraintTop_toBottomOf="@id/tILEndTime">
-
-                <EditText
-                    android:id="@+id/etDeliveryOption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/delivery_option" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvPreferredWeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                android:text="@string/preferred_weight"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                app:layout_constraintTop_toBottomOf="@id/tILDeliveryOption"/>
-
-            <Spinner
-                android:id="@+id/spOrderStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/preferred_weight"
-                app:layout_constraintTop_toBottomOf="@id/tvPreferredWeight"/>
-
-            <TextView
-                android:id="@+id/tvAcceptableVolume"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                android:text="@string/acceptable_volume"
-                android:textSize="15sp"
-                app:layout_constraintTop_toBottomOf="@id/spOrderStatus"/>
-
-            <Spinner
-                android:id="@+id/spAcceptableVolume"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/preferred_weight"
-                app:layout_constraintTop_toBottomOf="@id/tvAcceptableVolume"/>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILVehicleORTrainNo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintStart_toStartOf="@+id/spAcceptableVolume"
-                app:layout_constraintTop_toBottomOf="@id/spAcceptableVolume">
-
-                <EditText
-                    android:id="@+id/etVehicleOrTrainNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/vehicle_train_no" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tILOtherDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
-                android:layout_marginRight="@dimen/_6sdp"
-                app:layout_constraintStart_toStartOf="@+id/tILVehicleORTrainNo"
-                app:layout_constraintTop_toBottomOf="@id/tILVehicleORTrainNo">
-
-                <EditText
-                    android:id="@+id/etOtherDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/other_details" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_height="@dimen/_30sdp"
-                android:background="@drawable/rounded_button_background"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:paddingStart="@dimen/_48sdp"
-                android:paddingEnd="@dimen/_48sdp"
-                android:text="@string/submit"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/tILOtherDetails"
-                app:layout_constraintStart_toStartOf="@+id/tILOtherDetails"
-                app:layout_constraintTop_toBottomOf="@+id/tILOtherDetails" />
-
-            <TextView
-                android:id="@+id/tvSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:gravity="center"
-                android:text="@string/cancel"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
+                android:padding="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+                app:layout_constraintTop_toBottomOf="@id/clTopView">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILFrom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ingFromCalendar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/etFrom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingFromCalendar"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_location"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tILFrom" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILTo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ingToCalendar"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tILFrom">
+
+                    <EditText
+                        android:id="@+id/etTo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingToCalendar"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_location"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILTo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tILTo" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILStartDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tILTo">
+
+                    <EditText
+                        android:id="@+id/etStartDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/start_date" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingStartDate"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_calendar"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILStartDate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tILStartDate" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILStartTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tILStartDate">
+
+                    <EditText
+                        android:id="@+id/etStartTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/start_time" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingStartTime"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_clock"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILStartTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tILStartTime" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILEndDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tILStartTime">
+
+                    <EditText
+                        android:id="@+id/etEndDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/end_date" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingEndDate"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_calendar"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILEndDate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tILEndDate" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILEndTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tILEndDate">
+
+                    <EditText
+                        android:id="@+id/etEndTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/end_time" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingEndTime"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_clock"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILEndTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tILEndTime" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILDeliveryOption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ingFromCalendar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILEndTime">
+
+                    <EditText
+                        android:id="@+id/etDeliveryOption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Delivery Option" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILNatureOfGoods"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILDeliveryOption">
+
+                    <EditText
+                        android:id="@+id/etNatureOfGoods"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nature of goods" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingNatureOfGoodsDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILNatureOfGoods"
+                    app:layout_constraintEnd_toEndOf="@+id/tILNatureOfGoods"
+                    app:layout_constraintTop_toTopOf="@+id/tILNatureOfGoods" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILGoodsDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ingFromCalendar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILNatureOfGoods">
+
+                    <EditText
+                        android:id="@+id/etGoodsDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Goods description" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILQuality"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILGoodsDescription">
+
+                    <EditText
+                        android:id="@+id/etQuality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Quality" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingQualityDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILQuality"
+                    app:layout_constraintEnd_toEndOf="@+id/tILQuality"
+                    app:layout_constraintTop_toTopOf="@+id/tILQuality" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILWeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILQuality">
+
+                    <EditText
+                        android:id="@+id/etWeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Weight" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingWeightDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILWeight"
+                    app:layout_constraintEnd_toEndOf="@+id/tILWeight"
+                    app:layout_constraintTop_toTopOf="@+id/tILWeight" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILPackaging"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILWeight">
+
+                    <EditText
+                        android:id="@+id/etPackaging"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Packaging" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingPackagingDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILPackaging"
+                    app:layout_constraintEnd_toEndOf="@+id/tILPackaging"
+                    app:layout_constraintTop_toTopOf="@+id/tILPackaging" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILProhibited"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILPackaging">
+
+                    <EditText
+                        android:id="@+id/etProhibited"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Prohibited/Non-prohibited" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingProhibitedDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILProhibited"
+                    app:layout_constraintEnd_toEndOf="@+id/tILProhibited"
+                    app:layout_constraintTop_toTopOf="@+id/tILProhibited" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILGoodsValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/ingFromCalendar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILProhibited">
+
+                    <EditText
+                        android:id="@+id/etGoodsValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Value of goods" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvOwnershipTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ownership"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintTop_toBottomOf="@+id/tILGoodsValue" />
+
+                <RadioGroup
+                    android:id="@+id/rgOwnership"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/tvOwnershipTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbCommercial"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Commercial" />
+
+                    <RadioButton
+                        android:id="@+id/rbNonCommercial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Non-Commercial" />
+
+                </RadioGroup>
+
+                <ImageView
+                    android:id="@+id/imgInvoice"
+                    android:layout_width="@dimen/_96sdp"
+                    android:layout_height="@dimen/_96sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/ic_invoice"
+                    app:layout_constraintStart_toStartOf="@+id/rgOwnership"
+                    app:layout_constraintTop_toBottomOf="@+id/rgOwnership" />
+
+                <ImageView
+                    android:id="@+id/imgInvoiceCamera"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_camera"
+                    app:layout_constraintEnd_toEndOf="@+id/imgInvoice"
+                    app:layout_constraintTop_toTopOf="@+id/imgInvoice" />
+
+                <TextView
+                    android:id="@+id/tvInvoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Photo of invoice"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgInvoice"
+                    app:layout_constraintLeft_toRightOf="@id/imgInvoice"
+                    app:layout_constraintTop_toTopOf="@id/imgInvoice" />
+
+                <ImageView
+                    android:id="@+id/imgParcel"
+                    android:layout_width="@dimen/_96sdp"
+                    android:layout_height="@dimen/_96sdp"
+                    android:background="@drawable/ic_parcel"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:layout_constraintStart_toStartOf="@+id/imgInvoice"
+                    app:layout_constraintTop_toBottomOf="@+id/imgInvoice" />
+
+                <ImageView
+                    android:id="@+id/imgParcelCamera"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_camera"
+                    app:layout_constraintEnd_toEndOf="@+id/imgParcel"
+                    app:layout_constraintTop_toTopOf="@+id/imgParcel" />
+
+                <TextView
+                    android:id="@+id/tvParcel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Photo of parcel"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgParcel"
+                    app:layout_constraintLeft_toRightOf="@id/imgParcel"
+                    app:layout_constraintTop_toTopOf="@id/imgParcel" />
+
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-</ScrollView>
+</android.support.constraint.ConstraintLayout>

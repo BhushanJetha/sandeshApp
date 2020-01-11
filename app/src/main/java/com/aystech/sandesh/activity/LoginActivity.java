@@ -8,11 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.utils.Constants;
 
 public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
-    private TextView tvRegisterHere;
+    private TextView tvRegisterHere, tvForgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent i = new Intent(LoginActivity.this,   MainActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Constants.fragmentType = "Dashboard";
                 Intent i = new Intent(LoginActivity.this,   MainActivity.class);
                 startActivity(i);
                 finish();

@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.MyWalletTabLayoutAdapter;
 
 /**
@@ -82,6 +82,6 @@ public class MyWalletFragmentTwo extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) context).setUpToolbar(true, "", false);
+        ((MainActivity) context).setUpToolbar(true, false, "", false);
     }
 }

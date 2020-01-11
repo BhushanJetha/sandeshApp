@@ -30,6 +30,7 @@ public class DashboardFragment extends Fragment {
     private StartJourneyFragment startJourneyFragment;
     private EndJourneyFragment endJourneyFragment;
     private TermsAndConditionFragment termsAndConditionFragment;
+    private UserProfileFragment userProfileFragment;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -56,6 +57,7 @@ public class DashboardFragment extends Fragment {
         startJourneyFragment = (StartJourneyFragment) Fragment.instantiate(context, StartJourneyFragment.class.getName());
         endJourneyFragment = (EndJourneyFragment) Fragment.instantiate(context, EndJourneyFragment.class.getName());
         termsAndConditionFragment = (TermsAndConditionFragment) Fragment.instantiate(context, TermsAndConditionFragment.class.getName());
+        userProfileFragment = (UserProfileFragment) Fragment.instantiate(context, UserProfileFragment.class.getName());
 
         initView(view);
 
@@ -160,11 +162,19 @@ public class DashboardFragment extends Fragment {
                         termsAndConditionFragment, R.id.frame_container, true);
             }
         });
+
+        imgMyProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        userProfileFragment, R.id.frame_container, true);
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) context).setUpToolbar(true, "", true);
+        ((MainActivity) context).setUpToolbar(true, true,"", true);
     }
 }

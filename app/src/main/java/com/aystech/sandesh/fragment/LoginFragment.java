@@ -15,7 +15,7 @@ import com.aystech.sandesh.utils.FragmentUtil;
 public class LoginFragment extends Fragment {
 
     Context context;
-    MobileVerificationFragment mobileVerificationFragment;
+    DashboardFragment dashboardFragment;
 
     Button btnLogin;
 
@@ -35,8 +35,8 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        mobileVerificationFragment = (MobileVerificationFragment) Fragment.instantiate(context,
-                MobileVerificationFragment.class.getName());
+        dashboardFragment = (DashboardFragment) Fragment.instantiate(context,
+                DashboardFragment.class.getName());
 
         initView(view);
 
@@ -55,7 +55,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        mobileVerificationFragment, R.id.frame_container, true);
+                        dashboardFragment, R.id.frame_container, true);
             }
         });
     }
@@ -63,6 +63,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) context).setUpToolbar(false, "", false);
+        ((MainActivity) context).setUpToolbar(false, false,"", false);
     }
 }

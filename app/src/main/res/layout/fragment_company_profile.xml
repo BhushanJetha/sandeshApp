@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".fragment.CompanyProfileFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clTopView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:background="@drawable/bottom_rectangle_background"
+                android:elevation="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgParcel"
+                    android:layout_width="@dimen/_96sdp"
+                    android:layout_height="@dimen/_96sdp"
+                    android:background="@drawable/ic_parcel"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.10" />
+
+                <ImageView
+                    android:id="@+id/imgParcelCamera"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_camera"
+                    app:layout_constraintEnd_toEndOf="@+id/imgParcel"
+                    app:layout_constraintTop_toTopOf="@+id/imgParcel" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="Company name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imgParcel"
+                    app:layout_constraintStart_toStartOf="@+id/imgParcel"
+                    app:layout_constraintTop_toBottomOf="@+id/imgParcel" />
+
+                <ImageView
+                    android:id="@+id/imgStatus"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:background="@drawable/status_circle"
+                    android:backgroundTint="@color/backgroundCircle"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
+                    app:layout_constraintEnd_toStartOf="@+id/tvStatus"
+                    app:layout_constraintTop_toTopOf="@+id/tvStatus" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:text="Active"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_13sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <ImageView
+                    android:id="@+id/imgDropDown"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgStatus"
+                    app:layout_constraintStart_toEndOf="@+id/tvStatus"
+                    app:layout_constraintTop_toTopOf="@+id/imgStatus" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clTopView">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILAuthorisedName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/etAuthorisedName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Authorised person name*" />
+
+                </android.support.design.widget.TextInputLayout>
+                
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tILAuthorisedName">
+
+                    <EditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email*" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILPassword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tILEmail">
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Password*" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tILPassword">
+
+                    <EditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILAddressLineOne"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tILAddress">
+
+                    <EditText
+                        android:id="@+id/etAddressLineOne"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address line one" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILAddressLineTwo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tILAddressLineOne">
+
+                    <EditText
+                        android:id="@+id/etAddressLineTwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address line two" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tILAddressLineTwo">
+
+                    <EditText
+                        android:id="@+id/etState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="State" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingStateDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILState"
+                    app:layout_constraintEnd_toEndOf="@+id/tILState"
+                    app:layout_constraintTop_toTopOf="@+id/tILState" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILCity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tILState">
+
+                    <EditText
+                        android:id="@+id/etCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="City" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingCityDropDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILCity"
+                    app:layout_constraintEnd_toEndOf="@+id/tILCity"
+                    app:layout_constraintTop_toTopOf="@+id/tILCity" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILPincode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tILCity">
+
+                    <EditText
+                        android:id="@+id/etPincode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Pincode*" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnMyRide"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:text="My Ride"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/btnMyOrders"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tILPincode" />
+
+                <Button
+                    android:id="@+id/btnMyOrders"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:text="MY Orders"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnMyRide"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnMyRide"
+                    app:layout_constraintTop_toTopOf="@+id/btnMyRide" />
+
+                <Button
+                    android:id="@+id/btnUpcomingRides"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:text="Upcoming rides"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/btnUpcomingOrders"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnMyRide" />
+
+                <Button
+                    android:id="@+id/btnUpcomingOrders"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:text="Upcoming orders"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnUpcomingRides"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnUpcomingRides"
+                    app:layout_constraintTop_toTopOf="@+id/btnUpcomingRides" />
+                
+                <TextView
+                    android:id="@+id/tvKYCTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KYC"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/btnUpcomingRides"/>
+
+                <TextView
+                    android:id="@+id/tvKYCSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tvKYCTitle"
+                    android:text="(Mandatory for making transaction)"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILGSTNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tvKYCSubTitle">
+
+                    <EditText
+                        android:id="@+id/etGSTNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="GST no*" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILOTP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@id/tILGSTNo">
+
+                    <EditText
+                        android:id="@+id/etOTP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter OTP" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvResendOTP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resend OTP"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILOTP"
+                    app:layout_constraintEnd_toEndOf="@+id/tILOTP"
+                    app:layout_constraintTop_toTopOf="@+id/tILOTP" />
+
+                <CheckBox
+                    android:id="@+id/cbTermsCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@+id/tILOTP" />
+
+                <TextView
+                    android:id="@+id/tvTermsCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accept terms &amp; conditions"
+                    app:layout_constraintBottom_toBottomOf="@+id/cbTermsCondition"
+                    app:layout_constraintStart_toEndOf="@+id/cbTermsCondition"
+                    app:layout_constraintTop_toTopOf="@+id/cbTermsCondition" />
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@+id/cbTermsCondition" />
+
+                <TextView
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
+                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.constraint.ConstraintLayout>

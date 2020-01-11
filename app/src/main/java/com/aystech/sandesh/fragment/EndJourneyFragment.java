@@ -1,7 +1,6 @@
 package com.aystech.sandesh.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +17,7 @@ public class EndJourneyFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -30,6 +30,6 @@ public class EndJourneyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) context).setUpToolbar(true, "", false);
+        ((MainActivity) context).setUpToolbar(true, false, "", false);
     }
 }
