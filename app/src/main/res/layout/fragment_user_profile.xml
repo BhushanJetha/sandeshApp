@@ -121,7 +121,9 @@
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email*" />
+                        android:hint="Email*"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -129,6 +131,7 @@
                     android:id="@+id/tILPassword"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@id/tILEmail">
@@ -137,7 +140,9 @@
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Password*" />
+                        android:hint="Password*"
+                        android:inputType="textPassword"
+                        android:maxLines="1"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -145,6 +150,7 @@
                     android:id="@+id/tILAddress"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@id/tILPassword">
@@ -153,7 +159,9 @@
                         android:id="@+id/etAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Address" />
+                        android:hint="Address"
+                        android:inputType="text"
+                        android:maxLines="1"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -161,6 +169,7 @@
                     android:id="@+id/tILAddressLineOne"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@id/tILAddress">
@@ -169,7 +178,9 @@
                         android:id="@+id/etAddressLineOne"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Address line one" />
+                        android:hint="Address line one"
+                        android:inputType="text"
+                        android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -177,6 +188,7 @@
                     android:id="@+id/tILAddressLineTwo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@id/tILAddressLineOne">
@@ -185,7 +197,9 @@
                         android:id="@+id/etAddressLineTwo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Address line two" />
+                        android:hint="Address line two"
+                        android:inputType="text"
+                        android:maxLines="1"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -193,6 +207,7 @@
                     android:id="@+id/tILState"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@id/tILAddressLineTwo">
@@ -218,6 +233,7 @@
                     android:id="@+id/tILCity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@id/tILState">
@@ -243,6 +259,7 @@
                     android:id="@+id/tILPincode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@id/tILCity">
@@ -251,7 +268,9 @@
                         android:id="@+id/etPincode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Pincode*" />
+                        android:hint="Pincode*"
+                        android:inputType="number"
+                        android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -336,6 +355,7 @@
                     android:id="@+id/tILAadharNo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@id/tvKYCSubTitle">
@@ -365,6 +385,7 @@
                     android:id="@+id/tILOTP"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@id/tILAadharNo">
@@ -373,7 +394,9 @@
                         android:id="@+id/etOTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter OTP" />
+                        android:hint="Enter OTP"
+                        android:inputType="number"
+                        android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -431,6 +454,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/tILEmail"
                     app:layout_constraintStart_toStartOf="@+id/tILEmail"
                     app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
+
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>

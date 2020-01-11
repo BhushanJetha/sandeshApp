@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.fragment.DashboardFragment;
-import com.aystech.sandesh.fragment.LoginFragment;
 import com.aystech.sandesh.fragment.MobileVerificationFragment;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
@@ -33,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
         mobileVerificationFragment = (MobileVerificationFragment) Fragment.instantiate(this, MobileVerificationFragment.class.getName());
         dashboardFragment = (DashboardFragment) Fragment.instantiate(this, DashboardFragment.class.getName());
 
-        if(Constants.fragmentType.equals("Dashboard")){
+        if (Constants.fragmentType.equals("Dashboard")) {
             FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
                     false);
-        }else {
+        } else {
             FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), mobileVerificationFragment, R.id.frame_container,
                     false);
         }

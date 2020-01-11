@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/colorWhite"
     tools:context=".fragment.SearchTravelerFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -30,13 +30,13 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tvSearchOrderTitle"
+                    android:id="@+id/tvSearchTravelerTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="Search traveler"
+                    android:text="Search a traveler"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -57,9 +57,7 @@
                     android:id="@+id/tILFrom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_6sdp"
-                    android:layout_marginRight="@dimen/_6sdp"
-                    app:layout_constraintEnd_toStartOf="@+id/ingFromCalendar"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -73,11 +71,11 @@
 
                 <ImageView
                     android:id="@+id/ingFromCalendar"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/ic_location"
                     app:layout_constraintBottom_toBottomOf="@+id/tILFrom"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintTop_toTopOf="@+id/tILFrom" />
 
                 <android.support.design.widget.TextInputLayout
@@ -85,9 +83,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:layout_marginEnd="@dimen/_6sdp"
-                    android:layout_marginRight="@dimen/_6sdp"
-                    app:layout_constraintEnd_toStartOf="@+id/ingToCalendar"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILFrom">
 
@@ -101,11 +97,11 @@
 
                 <ImageView
                     android:id="@+id/ingToCalendar"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/ic_location"
                     app:layout_constraintBottom_toBottomOf="@+id/tILTo"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tILTo"
                     app:layout_constraintTop_toTopOf="@+id/tILTo" />
 
                 <android.support.design.widget.TextInputLayout
@@ -113,9 +109,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:layout_marginEnd="@dimen/_6sdp"
-                    android:layout_marginRight="@dimen/_6sdp"
-                    app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILTo">
 
@@ -123,17 +117,22 @@
                         android:id="@+id/etStartDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/start_date" />
+                        android:hint="@string/start_date"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false"
+                        android:inputType="date"
+                        android:paddingRight="@dimen/_16sdp"
+                        android:paddingEnd="@dimen/_16sdp"/>
 
                 </android.support.design.widget.TextInputLayout>
 
                 <ImageView
                     android:id="@+id/ingStartDate"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/ic_calendar"
                     app:layout_constraintBottom_toBottomOf="@+id/tILStartDate"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tILStartDate"
                     app:layout_constraintTop_toTopOf="@+id/tILStartDate" />
 
                 <android.support.design.widget.TextInputLayout
@@ -141,9 +140,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:layout_marginEnd="@dimen/_6sdp"
-                    android:layout_marginRight="@dimen/_6sdp"
-                    app:layout_constraintEnd_toStartOf="@+id/ingStartDate"
+                    app:layout_constraintEnd_toEndOf="@+id/ingFromCalendar"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILStartDate">
 
@@ -151,17 +148,22 @@
                         android:id="@+id/etEndDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/end_date" />
+                        android:hint="@string/end_date"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false"
+                        android:inputType="date"
+                        android:paddingRight="@dimen/_16sdp"
+                        android:paddingEnd="@dimen/_16sdp" />
 
                 </android.support.design.widget.TextInputLayout>
 
                 <ImageView
                     android:id="@+id/ingEndDate"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/ic_calendar"
                     app:layout_constraintBottom_toBottomOf="@+id/tILEndDate"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEndDate"
                     app:layout_constraintTop_toTopOf="@+id/tILEndDate" />
 
                 <Button
