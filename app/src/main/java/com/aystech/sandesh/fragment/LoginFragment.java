@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.aystech.sandesh.activity.CorporateRegistrationActivity;
 import com.aystech.sandesh.activity.IndividualRegistrationActivity;
@@ -17,12 +20,16 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginFragment extends Fragment {
 
-    Context context;
-    DashboardFragment dashboardFragment;
-
-    Button btnLogin;
+    private Context context;
+    private DashboardFragment dashboardFragment;
+    private EditText etOTP;
+    private Button btnLogin;
+    private TextView tvResendOTP;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -51,14 +58,34 @@ public class LoginFragment extends Fragment {
     }
 
     private void initView(View view) {
-        btnLogin = view.findViewById(R.id.btnLogin);
-
+        btnLogin = view.findViewById(R.id.btnVerify);
+        etOTP = view.findViewById(R.id.etOTP);
+        tvResendOTP = view.findViewById(R.id.tvResendOTP);
     }
 
     private void onClickListener() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String strOTP;
+
+                try{
+                    JSONObject jsonObject=new JSONObject();
+                    strOTP = etOTP.getText().toString();
+
+                    if(!strOTP.isEmpty()){
+                        jsonObject.put("mobileNumber","");
+                        jsonObject.put("otp",strOTP);
+
+                        Log.d("Json Request -> ", jsonObject.toString());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 Intent i = null;
                 if(Constants.userType.equals("Individual")){
                     i = new Intent(getActivity(),   IndividualRegistrationActivity.class);

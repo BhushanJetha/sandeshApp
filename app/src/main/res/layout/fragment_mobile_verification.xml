@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgAppLogo" />
 
     <EditText
-        android:id="@+id/etOTP"
+        android:id="@+id/etMobileNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_16sdp"

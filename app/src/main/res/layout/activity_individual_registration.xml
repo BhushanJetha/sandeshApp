@@ -45,7 +45,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imgParcel"
+                    android:id="@+id/imgProfilePicture"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@mipmap/ic_launcher"/>
@@ -71,6 +71,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/etFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="First Name" />
@@ -82,6 +83,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/etMiddleName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Middle Name" />
@@ -93,6 +95,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/etLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Last Name" />
@@ -104,6 +107,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email Id" />
@@ -166,7 +170,7 @@
                     android:src="@drawable/ic_calendar"/>
 
                 <TextView
-                    android:id="@+id/tvDate"
+                    android:id="@+id/tvBirthDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="06 Nov 2019"
@@ -178,6 +182,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="New Password"
@@ -190,6 +195,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/etReEnteredPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Re-Enter Password"
@@ -202,6 +208,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/etReferalCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Referral code"
