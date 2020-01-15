@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         tvRegisterHere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Constants.fragmentType = "Registration";
                 Intent i = new Intent(LoginActivity.this,   MainActivity.class);
                 startActivity(i);
                 finish();

@@ -1,6 +1,7 @@
 package com.aystech.sandesh.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.aystech.sandesh.activity.CorporateRegistrationActivity;
+import com.aystech.sandesh.activity.IndividualRegistrationActivity;
+import com.aystech.sandesh.activity.LoginActivity;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
 
 public class LoginFragment extends Fragment {
@@ -54,8 +59,14 @@ public class LoginFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        dashboardFragment, R.id.frame_container, true);
+                Intent i = null;
+                if(Constants.userType.equals("Individual")){
+                    i = new Intent(getActivity(),   IndividualRegistrationActivity.class);
+                }else  if(Constants.userType.equals("Corporate")) {
+                    i = new Intent(getActivity(), CorporateRegistrationActivity.class);
+                }
+                startActivity(i);
+                getActivity().finish();
             }
         });
     }

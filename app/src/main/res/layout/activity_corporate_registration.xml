@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:orientation="vertical"
-    tools:context="com.aystech.sandesh.activity.IndividualRegistrationActivity">
+    tools:context=".activity.CorporateRegistrationActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registration For Individual User"
+        android:text="Registration For Corporate User"
         android:textSize="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:gravity="center"
@@ -68,12 +68,13 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="First Name" />
+                    android:hint="Company Name" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -84,7 +85,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Middle Name" />
+                    android:hint="Unit/Branch" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -95,7 +96,31 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Last Name" />
+                    android:hint="Authorised Person Name" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Designation" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:hint="Authorized Person Mobile Number" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -137,41 +162,7 @@
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:text="Female"/>
 
-                <RadioButton
-                    android:id="@+id/rbOther"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:text="Other"/>
-
             </RadioGroup>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="Select Birth Date"
-                android:textSize="@dimen/_12sdp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_2sdp">
-
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:src="@drawable/ic_calendar"/>
-
-                <TextView
-                    android:id="@+id/tvDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="06 Nov 2019"
-                    android:textSize="@dimen/_15sdp" />
-            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -209,23 +200,23 @@
 
             </android.support.design.widget.TextInputLayout>
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:orientation="horizontal"
-               android:layout_marginTop="@dimen/_10sdp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_10sdp">
 
-               <CheckBox
-                   android:id="@+id/cbTermsCondition"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@+id/cbTermsCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-               <TextView
-                   android:id="@+id/tvTermsCondition"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="Accept terms &amp; conditions" />
-           </LinearLayout>
+                <TextView
+                    android:id="@+id/tvTermsCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accept terms &amp; conditions" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnSubmit"
