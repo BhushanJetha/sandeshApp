@@ -126,61 +126,51 @@
                     app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
                     app:layout_constraintTop_toBottomOf="@id/tvDateTitle" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILNatureOfGoods"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvNatureGoodsTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Nature of goods"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
                     app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                    app:layout_constraintTop_toBottomOf="@id/tvDate">
+                    app:layout_constraintTop_toBottomOf="@id/tvDate"/>
 
-                    <EditText
-                        android:id="@+id/etNatureOfGoods"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Nature of goods"
-                        android:paddingRight="@dimen/_16sdp"
-                        android:paddingEnd="@dimen/_16sdp"/>
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingNatureOfGoodsDropDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILNatureOfGoods"
-                    app:layout_constraintEnd_toEndOf="@+id/tILNatureOfGoods"
-                    app:layout_constraintTop_toTopOf="@+id/tILNatureOfGoods" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILTypeArticle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
+                <Spinner
+                    android:id="@+id/spinnerNatureGoods"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/nature_of_good"
                     app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
                     app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                    app:layout_constraintTop_toBottomOf="@id/tILNatureOfGoods">
+                    app:layout_constraintTop_toBottomOf="@id/tvNatureGoodsTitle"/>
 
-                    <EditText
-                        android:id="@+id/etTypeArticle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Type of article"
-                        android:paddingRight="@dimen/_16sdp"
-                        android:paddingEnd="@dimen/_16sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingTypeArticleDropDown"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvTypeArticleTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILTypeArticle"
-                    app:layout_constraintEnd_toEndOf="@+id/tILTypeArticle"
-                    app:layout_constraintTop_toTopOf="@+id/tILTypeArticle" />
+                    android:text="Type of article"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerNatureGoods"/>
+
+                <Spinner
+                    android:id="@+id/spinnerTypeArticle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/type_of_article"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tvTypeArticleTitle"/>
 
                 <TextView
                     android:id="@+id/tvHazardousTitle"
@@ -194,7 +184,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/rgHazardous"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tILTypeArticle" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerTypeArticle" />
 
                 <RadioGroup
                     android:id="@+id/rgHazardous"
@@ -354,50 +344,51 @@
 
                 </RadioGroup>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILPackaging"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvTypePkgTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Type of packaging"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
                     app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                    app:layout_constraintTop_toBottomOf="@id/tvFlamableToxicExplosiveTitle">
+                    app:layout_constraintTop_toBottomOf="@id/rgFlamableToxicExplosive"/>
 
-                    <EditText
-                        android:id="@+id/etPackaging"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Type of packaging"
-                        android:paddingRight="@dimen/_16sdp"
-                        android:paddingEnd="@dimen/_16sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingPackagingDropDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILPackaging"
-                    app:layout_constraintEnd_toEndOf="@+id/tILPackaging"
-                    app:layout_constraintTop_toTopOf="@+id/tILPackaging" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILWeight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
+                <Spinner
+                    android:id="@+id/spinnerTypePkg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/type_of_pkg"
                     app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
                     app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                    app:layout_constraintTop_toBottomOf="@id/tILPackaging">
+                    app:layout_constraintTop_toBottomOf="@id/tvTypePkgTitle"/>
 
-                    <EditText
-                        android:id="@+id/etWeight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Weight" />
+                <TextView
+                    android:id="@+id/tvWeightTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Weights"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerTypePkg"/>
 
-                </android.support.design.widget.TextInputLayout>
+                <Spinner
+                    android:id="@+id/spinnerWeights"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/preferred_weight_array"
+                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
+                    app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
+                    app:layout_constraintTop_toBottomOf="@id/tvWeightTitle"/>
 
                 <ImageView
                     android:id="@+id/imgParcel"
@@ -406,7 +397,7 @@
                     android:layout_marginTop="@dimen/_4sdp"
                     android:background="@drawable/ic_parcel"
                     app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                    app:layout_constraintTop_toBottomOf="@+id/tILWeight" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerWeights" />
 
                 <ImageView
                     android:id="@+id/imgParcelCamera"
