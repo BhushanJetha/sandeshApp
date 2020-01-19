@@ -70,17 +70,17 @@ public class LoginActivity extends AppCompatActivity {
                 strUserName = etUserName.getText().toString();
                 strPassword = etPassword.getText().toString();
 
+                /*if(!strUserName.isEmpty() && !strPassword.isEmpty()){
+                        doLoginAPICall();
+                } else {
+                    Toast.makeText(LoginActivity.this,"Please enter user name and password !!", Toast.LENGTH_SHORT).show();
+                }*/
+
                 Constants.fragmentType = "Dashboard";
                 Intent i = new Intent(LoginActivity.this,   MainActivity.class);
                 startActivity(i);
                 finish();
 
-                //TODO API Call
-                if(!strUserName.isEmpty() && !strPassword.isEmpty()) {
-                    //doLoginAPICall();
-
-
-                }
             }
         });
     }

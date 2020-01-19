@@ -30,7 +30,7 @@ public class AddressDetailActivity extends AppCompatActivity {
     private Button btnSubmit;
     private Spinner spState, spCity;
     private EditText etAddressLine1, etAddressLine2, etLandmark, etPincode;
-    private String strState, strCity, strAddressLine1, strAddressLine2, strLandmark, strPincode;
+    private String strStateId, strCityId, strAddressLine1, strAddressLine2, strLandmark, strPincode;
     private ViewProgressDialog viewProgressDialog;
 
     @Override
@@ -76,17 +76,65 @@ public class AddressDetailActivity extends AppCompatActivity {
         strPincode = etPincode.getText().toString();
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("state_id","");
-        jsonObject.addProperty("city_id","");
+        jsonObject.addProperty("state_id",strStateId);
+        jsonObject.addProperty("city_id",strCityId);
         jsonObject.addProperty("address_line1",strAddressLine1);
         jsonObject.addProperty("address_line2",strAddressLine2);
         jsonObject.addProperty("landmark",strLandmark);
         jsonObject.addProperty("pincode",strPincode);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.doLogin(
+        Call<CommonResponse> call = apiInterface.doAddressRegistration(
                 jsonObject
         );
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void getState(){
+        ViewProgressDialog.getInstance().showProgress(this);
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.getState();
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+
+    }
+
+    private void getCity(String strStateId){
+        ViewProgressDialog.getInstance().showProgress(this);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("state_id",strStateId);
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.getCity(jsonObject);
         call.enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {

@@ -111,7 +111,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         jsonObject.addProperty("designation",strDesignation);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.doLogin(
+        Call<CommonResponse> call = apiInterface.doCorporateUserRegistration(
                 jsonObject
         );
         call.enqueue(new Callback<CommonResponse>() {

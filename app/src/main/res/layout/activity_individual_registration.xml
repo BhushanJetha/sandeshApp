@@ -172,6 +172,7 @@
                 android:textSize="@dimen/_12sdp" />
 
             <LinearLayout
+                android:id="@+id/llDateOfBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"

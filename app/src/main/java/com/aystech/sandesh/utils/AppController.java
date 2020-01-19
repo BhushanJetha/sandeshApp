@@ -31,7 +31,7 @@ public class AppController extends MultiDexApplication {
     }
 
     public String getJwtToken() {
-        return "";
+        return "kjgkj";
     }
 
 }
