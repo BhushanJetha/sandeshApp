@@ -109,8 +109,8 @@
 
     <string-array name="delivery_option">
         <item>Door to Door Service</item>
-        <item>Sender's place to Traveler's place</item>
-        <item>Traveler's place to Traveler's place</item>
-        <item>Traveler's place to Receiver's place</item>
+        <item>Senders place to Travelers place</item>
+        <item>Travelers place to Travelers place</item>
+        <item>Travelers place to Receivers place</item>
     </string-array>
 </resources>
