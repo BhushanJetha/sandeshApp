@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".fragment.ContactUsFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clTopView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp"
+                android:background="@drawable/ic_bg_circle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvContactUsTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Contact Us"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_18sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvMobileTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/_6sdp"
+                android:text="Mobile No"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_16sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clTopView"
+                app:layout_constraintVertical_bias="0.25" />
+
+            <TextView
+                android:id="@+id/tvMobileNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:padding="@dimen/_6sdp"
+                android:text="9904228584"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tvMobileTitle"
+                app:layout_constraintStart_toStartOf="@+id/tvMobileTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvMobileTitle" />
+
+            <TextView
+                android:id="@+id/tvOfficeAddressTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:padding="@dimen/_6sdp"
+                android:text="Regd Office:"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tvMobileTitle"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tvMobileTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvMobileNo" />
+
+            <TextView
+                android:id="@+id/tvOfficeAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:gravity="center"
+                android:padding="@dimen/_6sdp"
+                android:text="C-6, Janta Nagar Co-operative Colony, Bahadurpur, Patna, Bihar – 800026, India"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tvMobileTitle"
+                app:layout_constraintStart_toStartOf="@+id/tvMobileTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvOfficeAddressTitle" />
+
+            <TextView
+                android:id="@+id/tvEmailTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:padding="@dimen/_6sdp"
+                android:text="Email"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvMobileTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvOfficeAddress" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:padding="@dimen/_6sdp"
+                android:text="support@avantikasandesh.com"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tvMobileTitle"
+                app:layout_constraintStart_toStartOf="@+id/tvMobileTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvEmailTitle" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.constraint.ConstraintLayout>

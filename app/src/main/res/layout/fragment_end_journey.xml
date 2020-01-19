@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context="com.aystech.sandesh.fragment.EndJourneyFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -32,11 +33,11 @@
                     android:id="@+id/tvPlanTravelTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_medium"
                     android:gravity="center"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="End Journey"
-                    android:fontFamily="@font/gotham_medium"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -75,9 +76,9 @@
                     android:id="@+id/tvDeliveryParcelTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:padding="@dimen/_6sdp"
                     android:text="Delivery Parcel"
-                    android:layout_marginTop="@dimen/_6sdp"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toStartOf="@+id/rgDeliveryParcel"
@@ -118,9 +119,9 @@
                     android:id="@+id/tvReceiveParcelTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:padding="@dimen/_6sdp"
                     android:text="Receive Parcel"
-                    android:layout_marginTop="@dimen/_6sdp"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toStartOf="@+id/rgReceiveParcel"
@@ -161,9 +162,9 @@
                     android:id="@+id/tvDateTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:padding="@dimen/_6sdp"
                     android:text="Date"
-                    android:layout_marginTop="@dimen/_6sdp"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
@@ -217,9 +218,9 @@
                     android:id="@+id/tvReceivedParcel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Photo of parcel received"
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginLeft="@dimen/_6sdp"
+                    android:text="Photo of parcel received"
                     app:layout_constraintBottom_toBottomOf="@+id/imgReceivedParcel"
                     app:layout_constraintLeft_toRightOf="@id/imgReceivedParcel"
                     app:layout_constraintTop_toTopOf="@id/imgReceivedParcel" />
@@ -228,8 +229,8 @@
                     android:id="@+id/imgNewSelfie"
                     android:layout_width="@dimen/_96sdp"
                     android:layout_height="@dimen/_96sdp"
-                    android:background="@drawable/ic_parcel"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@drawable/ic_parcel"
                     app:layout_constraintStart_toStartOf="@+id/imgReceivedParcel"
                     app:layout_constraintTop_toBottomOf="@+id/imgReceivedParcel" />
 
@@ -245,9 +246,9 @@
                     android:id="@+id/tvNewSelfie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upload new selfie"
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginLeft="@dimen/_6sdp"
+                    android:text="Upload new selfie"
                     app:layout_constraintBottom_toBottomOf="@+id/imgNewSelfie"
                     app:layout_constraintLeft_toRightOf="@id/imgNewSelfie"
                     app:layout_constraintTop_toTopOf="@id/imgNewSelfie" />
@@ -331,7 +332,7 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_9sdp"
                     app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
-                    app:layout_constraintTop_toBottomOf="@id/tILNoiInGoodCondition"/>
+                    app:layout_constraintTop_toBottomOf="@id/tILNoiInGoodCondition" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILSatisfied"

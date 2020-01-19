@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context="com.aystech.sandesh.fragment.SendParcelFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -100,7 +101,7 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp"/>
+                        android:paddingRight="@dimen/_18sdp" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -126,12 +127,12 @@
                         android:id="@+id/etStartDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/start_date"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:hint="@string/start_date"
                         android:inputType="date"
                         android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp"/>
+                        android:paddingRight="@dimen/_18sdp" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -157,12 +158,12 @@
                         android:id="@+id/etStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/start_time"
-                        android:inputType="time"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:hint="@string/start_time"
+                        android:inputType="time"
                         android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp"/>
+                        android:paddingRight="@dimen/_18sdp" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -188,12 +189,12 @@
                         android:id="@+id/etEndDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/end_date"
-                        android:inputType="date"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:hint="@string/end_date"
+                        android:inputType="date"
                         android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp"/>
+                        android:paddingRight="@dimen/_18sdp" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -219,12 +220,12 @@
                         android:id="@+id/etEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/end_time"
-                        android:inputType="time"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:hint="@string/end_time"
+                        android:inputType="time"
                         android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp"/>
+                        android:paddingRight="@dimen/_18sdp" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -241,14 +242,14 @@
                     android:id="@+id/tvDeliveryOptionTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
                     android:text="Delivery Option"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILEndTime"/>
+                    app:layout_constraintTop_toBottomOf="@id/tILEndTime" />
 
                 <Spinner
                     android:id="@+id/spinnerDeliveryOption"
@@ -258,20 +259,20 @@
                     android:entries="@array/delivery_option"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tvDeliveryOptionTitle"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvDeliveryOptionTitle" />
 
                 <TextView
                     android:id="@+id/tvNatureGoodsTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
                     android:text="Nature of goods"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/spinnerDeliveryOption"/>
+                    app:layout_constraintTop_toBottomOf="@id/spinnerDeliveryOption" />
 
                 <Spinner
                     android:id="@+id/spinnerNatureGoods"
@@ -281,7 +282,7 @@
                     android:entries="@array/nature_of_good"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tvNatureGoodsTitle"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvNatureGoodsTitle" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILGoodsDescription"
@@ -304,14 +305,14 @@
                     android:id="@+id/tvQualityTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
                     android:text="Quality"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILGoodsDescription"/>
+                    app:layout_constraintTop_toBottomOf="@id/tILGoodsDescription" />
 
                 <Spinner
                     android:id="@+id/spinnerQuality"
@@ -320,20 +321,20 @@
                     android:drawSelectorOnTop="true"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tvQualityTitle"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvQualityTitle" />
 
                 <TextView
                     android:id="@+id/tvWeightTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
                     android:text="Weight"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/spinnerQuality"/>
+                    app:layout_constraintTop_toBottomOf="@id/spinnerQuality" />
 
                 <Spinner
                     android:id="@+id/spinnerWeight"
@@ -343,43 +344,43 @@
                     android:entries="@array/preferred_weight_array"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tvWeightTitle"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvWeightTitle" />
 
                 <TextView
                     android:id="@+id/tvPackagingTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Weight"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:padding="@dimen/_6sdp"
+                    android:text="Packaging"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/spinnerWeight"/>
+                    app:layout_constraintTop_toBottomOf="@id/spinnerWeight" />
 
                 <Spinner
                     android:id="@+id/spinnerPackaging"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
-                    android:entries="@array/preferred_weight_array"
+                    android:entries="@array/type_of_pkg"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tvPackagingTitle"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvPackagingTitle" />
 
                 <TextView
                     android:id="@+id/tvProhibitedTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
                     android:text="Prohibited/Non-prohibited"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/spinnerPackaging"/>
+                    app:layout_constraintTop_toBottomOf="@id/spinnerPackaging" />
 
                 <Spinner
                     android:id="@+id/spinnerProhibited"
@@ -389,7 +390,7 @@
                     android:entries="@array/type_of_pkg"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tvProhibitedTitle"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvProhibitedTitle" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILGoodsValue"
@@ -527,7 +528,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Receiver's mobile no"
-                        android:inputType="number"/>
+                        android:inputType="number" />
 
                 </android.support.design.widget.TextInputLayout>
 

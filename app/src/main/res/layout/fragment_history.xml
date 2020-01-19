@@ -5,19 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    android:padding="@dimen/_6sdp"
-    tools:context=".fragment.FAQFragment">
+    tools:context=".fragment.HistoryFragment">
 
-    <ExpandableListView
-        android:id="@+id/expandableListView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvHistory"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="0.5dp"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/row_order_list" />
 
 </android.support.constraint.ConstraintLayout>

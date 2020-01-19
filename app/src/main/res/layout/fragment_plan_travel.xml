@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context="com.aystech.sandesh.fragment.PlanTravelFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -16,8 +17,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite">
+            android:layout_height="match_parent">
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/clTopView"
@@ -32,11 +32,11 @@
                     android:id="@+id/tvPlanTravelTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:gravity="center"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Plan a travel"
-                    android:fontFamily="@font/gotham_light"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -59,19 +59,19 @@
                     android:id="@+id/tILFrom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_medium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:fontFamily="@font/gotham_medium"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <EditText
                         android:id="@+id/etFrom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
-                        android:maxLines="1"
-                        android:inputType="text"
                         android:fontFamily="@font/gotham_light"
+                        android:hint="From"
+                        android:inputType="text"
+                        android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
 
@@ -100,8 +100,8 @@
                         android:id="@+id/etFromPincode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Pincode"
                         android:fontFamily="@font/gotham_light"
+                        android:hint="Pincode"
                         android:inputType="number"
                         android:maxLines="1" />
 
@@ -121,10 +121,10 @@
                         android:id="@+id/etTo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
                         android:fontFamily="@font/gotham_light"
-                        android:maxLines="1"
+                        android:hint="To"
                         android:inputType="text"
+                        android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
 
@@ -153,8 +153,8 @@
                         android:id="@+id/etToPincode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Pincode"
                         android:fontFamily="@font/gotham_light"
+                        android:hint="Pincode"
                         android:inputType="number"
                         android:maxLines="1" />
 
@@ -174,11 +174,11 @@
                         android:id="@+id/etStartDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/start_date"
-                        android:inputType="date"
-                        android:fontFamily="@font/gotham_light"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:fontFamily="@font/gotham_light"
+                        android:hint="@string/start_date"
+                        android:inputType="date"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
@@ -209,11 +209,11 @@
                         android:id="@+id/etStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:fontFamily="@font/gotham_light"
                         android:hint="@string/start_time"
                         android:inputType="time"
-                        android:focusable="false"
-                        android:fontFamily="@font/gotham_light"
-                        android:focusableInTouchMode="false"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
@@ -244,11 +244,11 @@
                         android:id="@+id/etEndDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:fontFamily="@font/gotham_light"
                         android:hint="@string/end_date"
                         android:inputType="date"
-                        android:focusable="false"
-                        android:fontFamily="@font/gotham_light"
-                        android:focusableInTouchMode="false"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
@@ -279,11 +279,11 @@
                         android:id="@+id/etEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/end_time"
-                        android:inputType="time"
-                        android:fontFamily="@font/gotham_light"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:fontFamily="@font/gotham_light"
+                        android:hint="@string/end_time"
+                        android:inputType="time"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
@@ -344,10 +344,10 @@
                         android:id="@+id/etPreferredWeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Preferred weight"
                         android:fontFamily="@font/gotham_light"
-                        android:maxLines="1"
+                        android:hint="Preferred weight"
                         android:inputType="text"
+                        android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
 
@@ -376,8 +376,8 @@
                         android:id="@+id/etAcceptableVolume"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Acceptable volume"
                         android:fontFamily="@font/gotham_light"
+                        android:hint="Acceptable volume"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
@@ -388,8 +388,8 @@
                     android:id="@+id/tvAcceptableHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Upto 5kg allowed"
                     android:fontFamily="@font/gotham_light"
+                    android:text="Upto 5kg allowed"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILAcceptableVolume" />
@@ -419,8 +419,8 @@
                         android:id="@+id/etVehicleTrainNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Vehicle / Train no"
                         android:fontFamily="@font/gotham_light"
+                        android:hint="Vehicle / Train no"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -429,8 +429,8 @@
                     android:id="@+id/tvVehicleTrainNoHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="if train, then please enter a train number"
                     android:fontFamily="@font/gotham_light"
+                    android:text="if train, then please enter a train number"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILVehicleTrainNo" />
@@ -441,8 +441,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:layout_marginEnd="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
                     android:layout_marginRight="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tvVehicleTrainNoHint">
@@ -462,9 +462,9 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/rounded_button_background"
+                    android:fontFamily="@font/gotham_medium"
                     android:text="Submit"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/gotham_medium"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
@@ -476,9 +476,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_16sdp"
+                    android:fontFamily="@font/gotham_medium"
                     android:gravity="center"
                     android:text="Cancel"
-                    android:fontFamily="@font/gotham_medium"
                     android:textAllCaps="false"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_10sdp"

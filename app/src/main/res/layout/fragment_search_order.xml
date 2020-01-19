@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/colorBackground"
     tools:context=".fragment.SearchOrderFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -33,11 +33,11 @@
                     android:id="@+id/tvSearchOrderTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:gravity="center"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Search Order"
-                    android:fontFamily="@font/gotham_light"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -67,10 +67,10 @@
                         android:id="@+id/etFrom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
                         android:fontFamily="@font/gotham_light"
-                        android:maxLines="1"
+                        android:hint="From"
                         android:inputType="text"
+                        android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
 
@@ -80,8 +80,8 @@
                     android:id="@+id/ingFromCalendar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham_light"
                     android:background="@drawable/ic_location"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintBottom_toBottomOf="@+id/tILFrom"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintTop_toTopOf="@+id/tILFrom" />
@@ -100,10 +100,10 @@
                         android:id="@+id/etTo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
                         android:fontFamily="@font/gotham_light"
-                        android:maxLines="1"
+                        android:hint="To"
                         android:inputType="text"
+                        android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
 
@@ -132,13 +132,13 @@
                         android:id="@+id/etDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/date"
-                        android:fontFamily="@font/gotham_light"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:fontFamily="@font/gotham_light"
+                        android:hint="@string/date"
                         android:inputType="date"
                         android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp"/>
+                        android:paddingRight="@dimen/_18sdp" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -157,8 +157,8 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_14sdp"
                     android:background="@drawable/rounded_button_background"
-                    android:paddingStart="@dimen/_36sdp"
                     android:fontFamily="@font/gotham_light"
+                    android:paddingStart="@dimen/_36sdp"
                     android:paddingEnd="@dimen/_36sdp"
                     android:text="@string/search"
                     android:textAllCaps="false"
@@ -173,16 +173,16 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_16sdp"
                 android:fontFamily="@font/gotham_light"
+                android:padding="@dimen/_16sdp"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
                 <TextView
                     android:id="@+id/tvResultCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2 results found"
                     android:fontFamily="@font/gotham_light"
+                    android:text="2 results found"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -192,8 +192,8 @@
                     android:id="@+id/tvSortBy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sort by"
                     android:fontFamily="@font/gotham_light"
+                    android:text="Sort by"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/tvResultCount"

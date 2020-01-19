@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorBackground"
     tools:context=".activity.AddressDetailActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Address Detail"
-        android:textSize="@dimen/_15sdp"
-        android:gravity="center"
-        android:textColor="@color/colorBlack"
         android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Address Detail"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_15sdp"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/colorBlack"/>
+        android:background="@color/colorBlack" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -32,35 +31,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/gotham_light"
-                android:text="Select State"/>
+                android:text="Select State"
+                android:textSize="@dimen/_12sdp" />
 
             <Spinner
                 android:id="@+id/spState"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/gotham_light"
-                android:text="Select City"/>
+                android:text="Select City"
+                android:textSize="@dimen/_12sdp" />
 
             <Spinner
                 android:id="@+id/spCity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -113,10 +112,10 @@
                     android:id="@+id/etPincode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:fontFamily="@font/gotham_light"
-                    android:maxLength="6"
-                    android:hint="Pincode" />
+                    android:hint="Pincode"
+                    android:inputType="number"
+                    android:maxLength="6" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -124,12 +123,12 @@
                 android:id="@+id/btnSubmit"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginBottom="@dimen/_16sdp"
-                android:layout_gravity="center"
                 android:background="@drawable/rounded_button_background"
-                android:text="Submit"
                 android:fontFamily="@font/gotham_medium"
+                android:text="Submit"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10sdp" />

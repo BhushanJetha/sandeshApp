@@ -11,6 +11,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.CustomExpandableListAdapter;
 import com.aystech.sandesh.utils.ExpandableListDataFAQ;
 
@@ -103,5 +104,11 @@ public class FAQFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) context).setUpToolbar(true, false, "", false);
     }
 }

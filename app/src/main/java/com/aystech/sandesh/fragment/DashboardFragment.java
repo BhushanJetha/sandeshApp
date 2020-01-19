@@ -20,7 +20,7 @@ public class DashboardFragment extends Fragment {
     Button btnNext;
 
     private ImageView imgKYC, imgMyProfile, imgSearchOrders, imgSearchTravelers, imgMyWallet, imgPlanTravel,
-            imgSendParcel, imgTrackYourParcel, imgStartJourney, imgEndJourney, imgTermsAndCondition;
+            imgSendParcel, imgTrackYourParcel, imgStartJourney, imgEndJourney, imgComplaintDispute, imgTermsAndCondition;
     private SearchOrderFragment searchOrderFragment;
     private MyWalletFragmentOne myWalletFragment;
     private PlanTravelFragment planTravelFragment;
@@ -29,6 +29,7 @@ public class DashboardFragment extends Fragment {
     private TrackYourParcelFragment trackYourParcelFragment;
     private StartJourneyFragment startJourneyFragment;
     private EndJourneyFragment endJourneyFragment;
+    private ComplaintDisputeFragment complaintDisputeFragment;
     private TermsAndConditionFragment termsAndConditionFragment;
     private UserProfileFragment userProfileFragment;
 
@@ -56,6 +57,7 @@ public class DashboardFragment extends Fragment {
         trackYourParcelFragment = (TrackYourParcelFragment) Fragment.instantiate(context, TrackYourParcelFragment.class.getName());
         startJourneyFragment = (StartJourneyFragment) Fragment.instantiate(context, StartJourneyFragment.class.getName());
         endJourneyFragment = (EndJourneyFragment) Fragment.instantiate(context, EndJourneyFragment.class.getName());
+        complaintDisputeFragment = (ComplaintDisputeFragment) Fragment.instantiate(context, ComplaintDisputeFragment.class.getName());
         termsAndConditionFragment = (TermsAndConditionFragment) Fragment.instantiate(context, TermsAndConditionFragment.class.getName());
         userProfileFragment = (UserProfileFragment) Fragment.instantiate(context, UserProfileFragment.class.getName());
 
@@ -79,6 +81,7 @@ public class DashboardFragment extends Fragment {
         imgTrackYourParcel = view.findViewById(R.id.imgTrackParcel);
         imgStartJourney = view.findViewById(R.id.imgStartJourney);
         imgEndJourney = view.findViewById(R.id.imgEndJourney);
+        imgComplaintDispute = view.findViewById(R.id.imgComplaintDispute);
         imgTermsAndCondition = view.findViewById(R.id.imgTC);
     }
 
@@ -152,6 +155,14 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                         endJourneyFragment, R.id.frame_container, true);
+            }
+        });
+
+        imgComplaintDispute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        complaintDisputeFragment, R.id.frame_container, true);
             }
         });
 

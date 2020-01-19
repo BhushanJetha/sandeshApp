@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
     tools:context=".activity.CorporateRegistrationActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registration For Corporate User"
-        android:textSize="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:gravity="center"
+        android:text="Registration For Corporate User"
         android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_15sdp"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/colorBlack"/>
+        android:background="@color/colorBlack" />
 
 
     <ScrollView
@@ -34,8 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
 
@@ -49,24 +47,24 @@
                     android:id="@+id/imgProfilePicture"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:background="@mipmap/ic_launcher"/>
+                    android:background="@mipmap/ic_launcher" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Upload Profile Picture"
-                    android:textSize="@dimen/_15sdp"
-                    android:fontFamily="@font/gotham_light"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_15sdp"
-                    android:textColor="@color/colorBlack"/>
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Upload Profile Picture"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_15sdp" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/colorBlack"/>
+                android:background="@color/colorBlack" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -134,10 +132,10 @@
                     android:id="@+id/etAuthorisedPersonMobileNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:fontFamily="@font/gotham_light"
-                    android:maxLength="10"
-                    android:hint="Authorized Person Mobile Number" />
+                    android:hint="Authorized Person Mobile Number"
+                    android:inputType="number"
+                    android:maxLength="10" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -150,8 +148,8 @@
                     android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email Id"
-                    android:fontFamily="@font/gotham_light"/>
+                    android:fontFamily="@font/gotham_light"
+                    android:hint="Email Id" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -159,23 +157,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/gotham_light"
-                android:text="Select Gender"/>
+                android:text="Select Gender"
+                android:textSize="@dimen/_12sdp" />
 
             <RadioGroup
                 android:id="@+id/rbGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_2sdp">
+                android:layout_marginTop="@dimen/_2sdp"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rbMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
-                    android:text="Male"/>
+                    android:text="Male" />
 
                 <RadioButton
                     android:id="@+id/rbFemale"
@@ -183,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:fontFamily="@font/gotham_light"
-                    android:text="Female"/>
+                    android:text="Female" />
 
             </RadioGroup>
 
@@ -196,9 +194,9 @@
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="New Password"
                     android:fontFamily="@font/gotham_light"
-                    android:inputType="textPassword"/>
+                    android:hint="New Password"
+                    android:inputType="textPassword" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -211,9 +209,9 @@
                     android:id="@+id/etReEnteredPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Re-Enter Password"
                     android:fontFamily="@font/gotham_light"
-                    android:inputType="textPassword"/>
+                    android:hint="Re-Enter Password"
+                    android:inputType="textPassword" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -226,17 +224,17 @@
                     android:id="@+id/etReferralCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Referral code"
                     android:fontFamily="@font/gotham_light"
-                    android:inputType="textPassword"/>
+                    android:hint="Referral code"
+                    android:inputType="textPassword" />
 
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/cbTermsCondition"
@@ -254,13 +252,13 @@
             <Button
                 android:id="@+id/btnSubmit"
                 android:layout_width="@dimen/_100sdp"
-                android:layout_gravity="center"
                 android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@drawable/rounded_button_background"
-                android:text="Submit"
                 android:fontFamily="@font/gotham_medium"
+                android:text="Submit"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10sdp" />

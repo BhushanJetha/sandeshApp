@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/colorBackground"
     tools:context=".fragment.MyWalletFragmentOne">
 
     <android.support.v4.widget.NestedScrollView
@@ -124,6 +124,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_36sdp"
                 android:text="Payment History"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="@+id/clTopView"
                 app:layout_constraintHorizontal_bias="0.15"
                 app:layout_constraintStart_toStartOf="@+id/clTopView"
