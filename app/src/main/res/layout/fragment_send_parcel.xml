@@ -23,7 +23,7 @@
                 android:id="@+id/clTopView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_70sdp"
-                android:background="@drawable/ic_bg_circle"
+                android:background="@drawable/bottom_rectangle_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -36,7 +36,6 @@
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Send a parcel"
-                    android:fontFamily="@font/gotham_light"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +58,6 @@
                     android:id="@+id/tILFrom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -69,7 +67,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="From"
-                        android:fontFamily="@font/gotham_light"
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
@@ -91,7 +88,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILFrom">
@@ -101,7 +97,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="To"
-                        android:fontFamily="@font/gotham_light"
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
@@ -123,7 +118,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/ingFromCalendar"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILTo">
@@ -133,7 +127,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/start_date"
-                        android:fontFamily="@font/gotham_light"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:inputType="date"
@@ -155,7 +148,6 @@
                     android:id="@+id/tILStartTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham_light"
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
@@ -166,7 +158,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/start_time"
-                        android:fontFamily="@font/gotham_light"
                         android:inputType="time"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
@@ -189,7 +180,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILStartTime">
@@ -201,7 +191,6 @@
                         android:hint="@string/end_date"
                         android:inputType="date"
                         android:focusable="false"
-                        android:fontFamily="@font/gotham_light"
                         android:focusableInTouchMode="false"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp"/>
@@ -222,7 +211,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILEndDate">
@@ -232,7 +220,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/end_time"
-                        android:fontFamily="@font/gotham_light"
                         android:inputType="time"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
@@ -250,220 +237,173 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tILEndTime" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILDeliveryOption"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvDeliveryOptionTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Delivery Option"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tILEndTime">
-
-                    <EditText
-                        android:id="@+id/etDeliveryOption"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:hint="Delivery Option"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp"/>
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingDeliveryOptionDropDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILDeliveryOption"
-                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                    app:layout_constraintTop_toTopOf="@+id/tILDeliveryOption" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILNatureOfGoods"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham_light"
-                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILDeliveryOption">
+                    app:layout_constraintTop_toBottomOf="@id/tILEndTime"/>
 
-                    <EditText
-                        android:id="@+id/etNatureOfGoods"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Nature of goods"
-                        android:fontFamily="@font/gotham_light"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp" />
+                <Spinner
+                    android:id="@+id/spinnerDeliveryOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/delivery_option"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tvDeliveryOptionTitle"/>
 
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingNatureOfGoodsDropDown"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvNatureGoodsTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILNatureOfGoods"
-                    app:layout_constraintEnd_toEndOf="@+id/tILNatureOfGoods"
-                    app:layout_constraintTop_toTopOf="@+id/tILNatureOfGoods" />
+                    android:text="Nature of goods"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerDeliveryOption"/>
+
+                <Spinner
+                    android:id="@+id/spinnerNatureGoods"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/nature_of_good"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tvNatureGoodsTitle"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILGoodsDescription"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILNatureOfGoods">
+                    app:layout_constraintTop_toBottomOf="@id/spinnerNatureGoods">
 
                     <EditText
                         android:id="@+id/etGoodsDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
                         android:hint="Goods description" />
 
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILQuality"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvQualityTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Quality"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
+                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILGoodsDescription">
+                    app:layout_constraintTop_toBottomOf="@id/tILGoodsDescription"/>
 
-                    <EditText
-                        android:id="@+id/etQuality"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Quality"
-                        android:fontFamily="@font/gotham_light"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingQualityDropDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILQuality"
-                    app:layout_constraintEnd_toEndOf="@+id/tILQuality"
-                    app:layout_constraintTop_toTopOf="@+id/tILQuality" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILWeight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
+                <Spinner
+                    android:id="@+id/spinnerQuality"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILQuality">
+                    app:layout_constraintTop_toBottomOf="@id/tvQualityTitle"/>
 
-                    <EditText
-                        android:id="@+id/etWeight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Weight"
-                        android:fontFamily="@font/gotham_light"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingWeightDropDown"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvWeightTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILWeight"
-                    app:layout_constraintEnd_toEndOf="@+id/tILWeight"
-                    app:layout_constraintTop_toTopOf="@+id/tILWeight" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILPackaging"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:text="Weight"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
+                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILWeight">
+                    app:layout_constraintTop_toBottomOf="@id/spinnerQuality"/>
 
-                    <EditText
-                        android:id="@+id/etPackaging"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Packaging"
-                        android:fontFamily="@font/gotham_light"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingPackagingDropDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILPackaging"
-                    app:layout_constraintEnd_toEndOf="@+id/tILPackaging"
-                    app:layout_constraintTop_toTopOf="@+id/tILPackaging" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILProhibited"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
+                <Spinner
+                    android:id="@+id/spinnerWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/preferred_weight_array"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILPackaging">
+                    app:layout_constraintTop_toBottomOf="@id/tvWeightTitle"/>
 
-                    <EditText
-                        android:id="@+id/etProhibited"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:hint="Prohibited/Non-prohibited"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingProhibitedDropDown"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvPackagingTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILProhibited"
-                    app:layout_constraintEnd_toEndOf="@+id/tILProhibited"
-                    app:layout_constraintTop_toTopOf="@+id/tILProhibited" />
+                    android:text="Weight"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerWeight"/>
+
+                <Spinner
+                    android:id="@+id/spinnerPackaging"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/preferred_weight_array"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tvPackagingTitle"/>
+
+                <TextView
+                    android:id="@+id/tvProhibitedTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Prohibited/Non-prohibited"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerPackaging"/>
+
+                <Spinner
+                    android:id="@+id/spinnerProhibited"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/type_of_pkg"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tvProhibitedTitle"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILGoodsValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham_light"
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILProhibited">
+                    app:layout_constraintTop_toBottomOf="@id/spinnerProhibited">
 
                     <EditText
                         android:id="@+id/etGoodsValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
                         android:hint="Value of goods" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -473,7 +413,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ownership"
-                    android:fontFamily="@font/gotham_light"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintTop_toBottomOf="@+id/tILGoodsValue" />
@@ -489,7 +428,6 @@
                         android:id="@+id/rbCommercial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
                         android:layout_weight="1"
                         android:text="Commercial" />
 
@@ -497,7 +435,6 @@
                         android:id="@+id/rbNonCommercial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
                         android:layout_weight="1"
                         android:text="Non-Commercial" />
 
@@ -527,7 +464,6 @@
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginLeft="@dimen/_6sdp"
                     android:text="Photo of invoice"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintBottom_toBottomOf="@+id/imgInvoice"
                     app:layout_constraintLeft_toRightOf="@id/imgInvoice"
                     app:layout_constraintTop_toTopOf="@id/imgInvoice" />
@@ -556,7 +492,6 @@
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginLeft="@dimen/_6sdp"
                     android:text="Photo of parcel"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintBottom_toBottomOf="@+id/imgParcel"
                     app:layout_constraintLeft_toRightOf="@id/imgParcel"
                     app:layout_constraintTop_toTopOf="@id/imgParcel" />
@@ -566,7 +501,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/imgParcel">
@@ -575,7 +509,6 @@
                         android:id="@+id/etReceiverName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
                         android:hint="Receiver's Name" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -585,7 +518,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILReceiverName">
@@ -595,7 +527,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Receiver's mobile no"
-                        android:fontFamily="@font/gotham_light"
                         android:inputType="number"/>
 
                 </android.support.design.widget.TextInputLayout>
@@ -613,7 +544,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Accept terms &amp; conditions"
-                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintBottom_toBottomOf="@+id/cbTermsCondition"
                     app:layout_constraintStart_toEndOf="@+id/cbTermsCondition"
                     app:layout_constraintTop_toTopOf="@+id/cbTermsCondition" />
@@ -625,7 +555,6 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/rounded_button_background"
                     android:text="Submit"
-                    android:fontFamily="@font/gotham_medium"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
@@ -640,7 +569,6 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:gravity="center"
                     android:text="Cancel"
-                    android:fontFamily="@font/gotham_medium"
                     android:textAllCaps="false"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_10sdp"
