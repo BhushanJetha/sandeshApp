@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/gotham_light"
                 android:text="Select State"/>
 
             <Spinner
@@ -53,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/gotham_light"
                 android:text="Select City"/>
 
             <Spinner
@@ -62,49 +64,57 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etAddressLine1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:hint="Address Line 1" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etAddressLine2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:hint="Address Line 2" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etLandmark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:hint="Landmark" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etPincode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:fontFamily="@font/gotham_light"
                     android:maxLength="6"
                     android:hint="Pincode" />
 
@@ -119,6 +129,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_button_background"
                 android:text="Submit"
+                android:fontFamily="@font/gotham_medium"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10sdp" />

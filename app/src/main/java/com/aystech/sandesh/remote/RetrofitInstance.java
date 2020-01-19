@@ -28,9 +28,9 @@ public class RetrofitInstance {
                 Request original = chain.request();
 
                 // Request customization: add request headers
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header("Authorization", "Bearer " +
-                                AppController.getmInstance().getJwtToken()); // <-- this is the important line
+                Request.Builder requestBuilder = original.newBuilder();
+                       /* .header("Authorization", "Bearer " +
+                                AppController.getmInstance().getJwtToken()); // <-- this is the important line*/
 
                 Request request = requestBuilder.build();
                 Response response = chain.proceed(request);
@@ -52,7 +52,7 @@ public class RetrofitInstance {
                 .build();
 
         return new Retrofit.Builder()
-                .baseUrl("base url")
+                .baseUrl("http://localhost:4444/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

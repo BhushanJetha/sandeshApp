@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/colorWhite"
     tools:context=".fragment.MyWalletFragmentOne">
 
     <android.support.v4.widget.NestedScrollView
@@ -24,7 +24,7 @@
                 android:id="@+id/clTopView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
-                android:background="@drawable/bottom_rectangle_background"
+                android:background="@drawable/ic_bg_circle"
                 android:elevation="@dimen/_1sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
