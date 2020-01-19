@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_36sdp"
         android:gravity="center"
+        android:fontFamily="@font/gotham_medium"
         android:padding="@dimen/_6sdp"
         android:text="Mobile Verification"
         android:textColor="@color/colorBlack"
@@ -41,6 +42,7 @@
         android:layout_marginEnd="@dimen/_16sdp"
         android:background="@drawable/rounded_rectangle"
         android:hint="Enter mobile number"
+        android:fontFamily="@font/gotham_light"
         android:inputType="number"
         android:maxLength="10"
         android:padding="@dimen/_10sdp"
@@ -57,20 +59,22 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="@+id/etOTP"
-        app:layout_constraintStart_toStartOf="@+id/etOTP"
-        app:layout_constraintTop_toBottomOf="@+id/etOTP" >
+        app:layout_constraintEnd_toEndOf="@+id/etMobileNumber"
+        app:layout_constraintStart_toStartOf="@+id/etMobileNumber"
+        app:layout_constraintTop_toBottomOf="@+id/etMobileNumber" >
 
         <RadioButton
             android:id="@+id/rbIndividual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham_light"
             android:text="Individual"/>
 
         <RadioButton
             android:id="@+id/rbCorporate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/gotham_light"
             android:layout_marginLeft="@dimen/_20sdp"
             android:text="Corporate"/>
 
@@ -85,6 +89,7 @@
         android:paddingStart="@dimen/_48sdp"
         android:paddingEnd="@dimen/_48sdp"
         android:text="Get OTP"
+        android:fontFamily="@font/gotham_medium"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/_10sdp"

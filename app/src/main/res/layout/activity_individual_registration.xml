@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     tools:context="com.aystech.sandesh.activity.IndividualRegistrationActivity">
 
@@ -54,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Upload Profile Picture"
+                    android:fontFamily="@font/gotham_light"
                     android:textSize="@dimen/_15sdp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_15sdp"
@@ -68,48 +69,56 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:hint="First Name" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etMiddleName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:hint="Middle Name" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:hint="Last Name" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etEmailId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:hint="Email Id" />
 
             </android.support.design.widget.TextInputLayout>
@@ -119,6 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/gotham_light"
                 android:text="Select Gender"/>
 
             <RadioGroup
@@ -132,6 +142,7 @@
                     android:id="@+id/rbMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:text="Male"/>
 
                 <RadioButton
@@ -139,6 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_20sdp"
+                    android:fontFamily="@font/gotham_light"
                     android:text="Female"/>
 
                 <RadioButton
@@ -146,6 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_20sdp"
+                    android:fontFamily="@font/gotham_light"
                     android:text="Other"/>
 
             </RadioGroup>
@@ -155,6 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="Select Birth Date"
+                android:fontFamily="@font/gotham_light"
                 android:textSize="@dimen/_12sdp" />
 
             <LinearLayout
@@ -174,44 +188,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="06 Nov 2019"
+                    android:fontFamily="@font/gotham_light"
                     android:textSize="@dimen/_15sdp" />
             </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="New Password"
+                    android:fontFamily="@font/gotham_light"
                     android:inputType="textPassword"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etReEnteredPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Re-Enter Password"
+                    android:fontFamily="@font/gotham_light"
                     android:inputType="textPassword"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
 
                 <EditText
                     android:id="@+id/etReferalCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Referral code"
+                    android:fontFamily="@font/gotham_light"
                     android:inputType="textPassword"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -231,6 +252,7 @@
                    android:id="@+id/tvTermsCondition"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
+                   android:fontFamily="@font/gotham_light"
                    android:text="Accept terms &amp; conditions" />
            </LinearLayout>
 
@@ -243,6 +265,7 @@
                 android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@drawable/rounded_button_background"
                 android:text="Submit"
+                android:fontFamily="@font/gotham_medium"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10sdp" />

@@ -23,7 +23,7 @@
                 android:id="@+id/clTopView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_70sdp"
-                android:background="@drawable/bottom_rectangle_background"
+                android:background="@drawable/ic_bg_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -36,6 +36,7 @@
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="End Journey"
+                    android:fontFamily="@font/gotham_medium"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"

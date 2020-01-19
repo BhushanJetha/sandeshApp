@@ -24,7 +24,7 @@
                 android:id="@+id/clTopView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_70sdp"
-                android:background="@drawable/bottom_rectangle_background"
+                android:background="@drawable/ic_bg_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -37,6 +37,7 @@
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Search a traveler"
+                    android:fontFamily="@font/gotham_light"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -57,6 +58,7 @@
                     android:id="@+id/tILFrom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -65,6 +67,7 @@
                         android:id="@+id/etFrom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
                         android:hint="From" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -83,6 +86,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILFrom">
@@ -91,6 +95,7 @@
                         android:id="@+id/etTo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
                         android:hint="To" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -109,6 +114,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILTo">
@@ -120,6 +126,7 @@
                         android:hint="@string/start_date"
                         android:focusableInTouchMode="false"
                         android:focusable="false"
+                        android:fontFamily="@font/gotham_light"
                         android:inputType="date"
                         android:paddingRight="@dimen/_16sdp"
                         android:paddingEnd="@dimen/_16sdp"/>
@@ -140,6 +147,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/ingFromCalendar"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
                     app:layout_constraintTop_toBottomOf="@id/tILStartDate">
@@ -149,6 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/end_date"
+                        android:fontFamily="@font/gotham_light"
                         android:focusableInTouchMode="false"
                         android:focusable="false"
                         android:inputType="date"
@@ -175,6 +184,7 @@
                     android:paddingStart="@dimen/_36sdp"
                     android:paddingEnd="@dimen/_36sdp"
                     android:text="@string/search"
+                    android:fontFamily="@font/gotham_medium"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"

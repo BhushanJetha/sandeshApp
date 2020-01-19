@@ -19,7 +19,7 @@
                 android:id="@+id/clTopView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_70sdp"
-                android:background="@drawable/bottom_rectangle_background"
+                android:background="@drawable/ic_bg_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -31,6 +31,7 @@
                     android:gravity="center"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
                     android:text="Track Your Parcel"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_18sdp"
@@ -52,6 +53,7 @@
                     android:id="@+id/tILTransactionRefNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -60,6 +62,7 @@
                         android:id="@+id/etTransactionRefNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
                         android:hint="Transaction ref no." />
 
                 </android.support.design.widget.TextInputLayout>
@@ -69,6 +72,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_14sdp"
+                    android:fontFamily="@font/gotham_medium"
                     android:background="@drawable/rounded_button_background"
                     android:paddingStart="@dimen/_48sdp"
                     android:paddingEnd="@dimen/_48sdp"
@@ -93,6 +97,7 @@
                 android:background="@color/colorWhite"
                 android:elevation="@dimen/_2sdp"
                 android:padding="@dimen/_10sdp"
+                android:fontFamily="@font/gotham_light"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment"
                 app:layout_constraintEnd_toEndOf="@+id/fragment"
                 app:layout_constraintStart_toStartOf="@+id/fragment"
@@ -103,6 +108,7 @@
                     android:id="@+id/tvExpectedTimeDeliveryTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:gravity="center"
                     android:text="Expected time of delivery"
                     app:layout_constraintEnd_toEndOf="parent"

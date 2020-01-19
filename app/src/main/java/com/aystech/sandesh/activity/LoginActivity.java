@@ -19,19 +19,17 @@ import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private TextView tvRegisterHere, tvForgotPassword;
     private EditText etUserName, etPassword;
-    String strUserName, strPassword;
+    private String strUserName, strPassword;
 
     ViewProgressDialog viewProgressDialog;
 
@@ -72,9 +70,16 @@ public class LoginActivity extends AppCompatActivity {
                 strUserName = etUserName.getText().toString();
                 strPassword = etPassword.getText().toString();
 
+                Constants.fragmentType = "Dashboard";
+                Intent i = new Intent(LoginActivity.this,   MainActivity.class);
+                startActivity(i);
+                finish();
+
                 //TODO API Call
                 if(!strUserName.isEmpty() && !strPassword.isEmpty()) {
-                    doLoginAPICall();
+                    //doLoginAPICall();
+
+
                 }
             }
         });
@@ -84,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         ViewProgressDialog.getInstance().showProgress(this);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("mobile_number",strUserName);
+        jsonObject.addProperty("mobile_no",strUserName);
         jsonObject.addProperty("password",strPassword);
         jsonObject.addProperty("fcm_id","");
 
