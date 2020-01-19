@@ -282,64 +282,51 @@
                     app:layout_constraintEnd_toEndOf="@+id/tILEndTime"
                     app:layout_constraintTop_toTopOf="@+id/tILEndTime" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILDeliveryOption"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvDeliveryOptionTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Delivery Option"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILEndTime">
+                    app:layout_constraintTop_toBottomOf="@id/tILEndTime"/>
 
-                    <EditText
-                        android:id="@+id/etDeliveryOption"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Delivery Option"
-                        android:maxLines="1"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingDeliveryOptionDropDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILDeliveryOption"
-                    app:layout_constraintEnd_toEndOf="@+id/tILDeliveryOption"
-                    app:layout_constraintTop_toTopOf="@+id/tILDeliveryOption" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILPreferredWeight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
+                <Spinner
+                    android:id="@+id/spinnerDeliveryOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/delivery_option"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILDeliveryOption">
+                    app:layout_constraintTop_toBottomOf="@id/tvDeliveryOptionTitle"/>
 
-                    <EditText
-                        android:id="@+id/etPreferredWeight"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Preferred weight"
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingPreferredWeightDropDown"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvPreferredWeightTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILPreferredWeight"
-                    app:layout_constraintEnd_toEndOf="@+id/tILPreferredWeight"
-                    app:layout_constraintTop_toTopOf="@+id/tILPreferredWeight" />
+                    android:text="Preferred weight"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:padding="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerDeliveryOption"/>
+
+                <Spinner
+                    android:id="@+id/spinnerPreferredWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/nature_of_good"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintTop_toBottomOf="@id/tvPreferredWeightTitle"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILAcceptableVolume"
@@ -348,7 +335,7 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILFrom"
                     app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILPreferredWeight">
+                    app:layout_constraintTop_toBottomOf="@id/spinnerPreferredWeight">
 
                     <EditText
                         android:id="@+id/etAcceptableVolume"
