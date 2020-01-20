@@ -107,11 +107,11 @@ public class LoginFragment extends Fragment {
         ViewProgressDialog.getInstance().showProgress(this.getActivity());
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("mobileNumber","");
+        jsonObject.addProperty("mobileNumber",strMobileNumber);
         jsonObject.addProperty("otp",strOTP);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.doLogin(
+        Call<CommonResponse> call = apiInterface.doOTPVerification(
                 jsonObject
         );
         call.enqueue(new Callback<CommonResponse>() {

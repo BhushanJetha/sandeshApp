@@ -82,19 +82,19 @@ public class MobileVerificationFragment extends Fragment {
                 strMobileNumber = etMobileNumber.getText().toString();
 
                 if(!strMobileNumber.isEmpty() && strMobileNumber.length() == 10){
-
+                    doVerifyOTPAPICall();
                 } else {
                     Toast.makeText(getActivity(),"Please enter valid mobile number !!", Toast.LENGTH_SHORT).show();
                 }
 
 
                 if(!Constants.userType.isEmpty()){
-                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                   /* FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                             loginFragment, R.id.frame_container, true);
 
                     Bundle bundle = new Bundle();
                     bundle.putString("mobileNumber", strMobileNumber);
-                    loginFragment.setArguments(bundle);
+                    loginFragment.setArguments(bundle);*/
                 }else {
                     Toast.makeText(getActivity(),"Please select your registration type !!", Toast.LENGTH_SHORT).show();
                 }
@@ -126,7 +126,7 @@ public class MobileVerificationFragment extends Fragment {
         jsonObject.addProperty("user_type",Constants.userType);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.doLogin(
+        Call<CommonResponse> call = apiInterface.getOTP(
                 jsonObject
         );
         call.enqueue(new Callback<CommonResponse>() {
@@ -135,7 +135,7 @@ public class MobileVerificationFragment extends Fragment {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-
+                    Log.d("Response-->",response.body().toString());
                 }
             }
 
