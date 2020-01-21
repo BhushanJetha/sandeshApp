@@ -2,9 +2,9 @@ package com.aystech.sandesh.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -51,11 +51,11 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_individual_registration);
 
         init();
+
         onClick();
     }
 
-    private void init(){
-
+    private void init() {
         viewProgressDialog = ViewProgressDialog.getInstance();
 
         etFirstName = findViewById(R.id.etFirstName);
@@ -77,7 +77,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         llDateOfBirth = findViewById(R.id.llDateOfBirth);
     }
 
-    private void onClick(){
+    private void onClick() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,15 +91,15 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 strFirstName = etFirstName.getText().toString();
                 strFirstName = etFirstName.getText().toString();
 
-                if(!strFirstName.isEmpty()){
-                    if(!strLastName.isEmpty()){
-                        if(!strEmailId.isEmpty()) {
-                            if (!Uitility.isValidEmailId(strEmailId)){
+                if (!strFirstName.isEmpty()) {
+                    if (!strLastName.isEmpty()) {
+                        if (!strEmailId.isEmpty()) {
+                            if (!Uitility.isValidEmailId(strEmailId)) {
                                 if (!strGender.isEmpty()) {
                                     if (!strPassword.isEmpty()) {
                                         if (!strReEnteredPassword.isEmpty()) {
                                             if (strPassword.equals(strReEnteredPassword)) {
-                                                //doRigistrationAPICall();
+                                                doRigistrationAPICall();
                                             } else {
                                                 Uitility.showToast(IndividualRegistrationActivity.this, "Password and re-Entered Password not matched !!");
                                             }
@@ -112,22 +112,18 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                                 } else {
                                     Uitility.showToast(IndividualRegistrationActivity.this, "Please select your gender !!");
                                 }
-                            }else {
+                            } else {
                                 Uitility.showToast(IndividualRegistrationActivity.this, "Please enter valid email id !!");
                             }
-                        }else {
-                            Uitility.showToast(IndividualRegistrationActivity.this,"Please enter your email id !!");
+                        } else {
+                            Uitility.showToast(IndividualRegistrationActivity.this, "Please enter your email id !!");
                         }
-                    }else {
-                        Uitility.showToast(IndividualRegistrationActivity.this,"Please enter your last name !!");
+                    } else {
+                        Uitility.showToast(IndividualRegistrationActivity.this, "Please enter your last name !!");
                     }
-                }else {
-                    Uitility.showToast(IndividualRegistrationActivity.this,"Please enter your first name !!");
+                } else {
+                    Uitility.showToast(IndividualRegistrationActivity.this, "Please enter your first name !!");
                 }
-
-                Intent i = new Intent(IndividualRegistrationActivity.this,   AddressDetailActivity.class);
-                startActivity(i);
-                finish();
             }
         });
 
@@ -164,17 +160,17 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         ViewProgressDialog.getInstance().showProgress(this);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("email_id",strEmailId);
-        jsonObject.addProperty("mobile_no",strMobileNumber);
-        jsonObject.addProperty("first_name",strFirstName);
-        jsonObject.addProperty("middle_name",strMiddleName);
-        jsonObject.addProperty("last_name",strLastName);
-        jsonObject.addProperty("password",strPassword);
-        jsonObject.addProperty("gender",strGender);
-        jsonObject.addProperty("birth_date",strBirthDate);
-        jsonObject.addProperty("refferal_code",strRefferalCode);
-        jsonObject.addProperty("profile_img","");
-        jsonObject.addProperty("fcm_id",strFCMId);
+        jsonObject.addProperty("email_id", strEmailId);
+        jsonObject.addProperty("mobile_no", strMobileNumber);
+        jsonObject.addProperty("first_name", strFirstName);
+        jsonObject.addProperty("middle_name", strMiddleName);
+        jsonObject.addProperty("last_name", strLastName);
+        jsonObject.addProperty("password", strPassword);
+        jsonObject.addProperty("gender", strGender);
+        jsonObject.addProperty("birth_date", strBirthDate);
+        jsonObject.addProperty("refferal_code", strRefferalCode);
+        jsonObject.addProperty("profile_img", "");
+        jsonObject.addProperty("fcm_id", strFCMId);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.doIndividualUserRegistration(
@@ -186,10 +182,13 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    Constants.fragmentType = "Dashboard";
-                    Intent i = new Intent(IndividualRegistrationActivity.this,   MainActivity.class);
-                    startActivity(i);
-                    finish();
+                    if (response.body().getStatus()) {
+                        Intent i = new Intent(IndividualRegistrationActivity.this, AddressDetailActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Toast.makeText(IndividualRegistrationActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

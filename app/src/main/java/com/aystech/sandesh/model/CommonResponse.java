@@ -11,13 +11,13 @@ public class CommonResponse {
 
     @SerializedName("status")
     @Expose
-    private Integer status;
+    private Boolean status;
 
     public String getMessage() {
         return message;
     }
 
-    public Integer getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 }

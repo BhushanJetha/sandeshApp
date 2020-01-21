@@ -1,6 +1,9 @@
 package com.aystech.sandesh.remote;
 
+import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
+import com.aystech.sandesh.model.LoginResponseModel;
+import com.aystech.sandesh.model.StateResponseModel;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -11,7 +14,7 @@ import retrofit2.http.POST;
 public interface ApiInterface {
 
     @POST("api/login")
-    Call<CommonResponse> doLogin(@Body JsonObject jsonObject);
+    Call<LoginResponseModel> doLogin(@Body JsonObject jsonObject);
 
     @POST("api/registerIndividualUser")
     Call<CommonResponse> doIndividualUserRegistration(@Body JsonObject jsonObject);
@@ -23,10 +26,10 @@ public interface ApiInterface {
     Call<CommonResponse> doAddressRegistration(@Body JsonObject jsonObject);
 
     @GET("api/getState")
-    Call<CommonResponse> getState();
+    Call<StateResponseModel> getState();
 
     @POST("api/getCity")
-    Call<CommonResponse> getCity(@Body JsonObject jsonObject);
+    Call<CityResponseModel> getCity(@Body JsonObject jsonObject);
 
     @POST("api/getOTP")
     Call<CommonResponse> getOTP(@Body JsonObject jsonObject);
@@ -37,5 +40,18 @@ public interface ApiInterface {
     @POST("api/forgotPassword")
     Call<CommonResponse> forgotPassword(@Body JsonObject jsonObject);
 
+    @POST("api/planTravel")
+    Call<CommonResponse> planTravel(@Body JsonObject jsonObject);
 
+    @POST("api/sendParcel")
+    Call<CommonResponse> sendParcel(@Body JsonObject jsonObject);
+
+    @POST("api/searchOrder")
+    Call<CommonResponse> searchOrder(@Body JsonObject jsonObject);
+
+    @POST("api/searchTraveller")
+    Call<CommonResponse> searchTraveller(@Body JsonObject jsonObject);
+
+    @GET("api/showHistory")
+    Call<CommonResponse> showHistory(@Body JsonObject jsonObject);
 }

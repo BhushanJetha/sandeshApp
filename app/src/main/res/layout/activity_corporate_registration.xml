@@ -23,7 +23,6 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/colorBlack" />
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

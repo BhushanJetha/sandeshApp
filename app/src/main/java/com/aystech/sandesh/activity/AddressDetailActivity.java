@@ -1,25 +1,31 @@
 package com.aystech.sandesh.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.model.CityModel;
+import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
+import com.aystech.sandesh.model.StateModel;
+import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,10 +33,13 @@ import retrofit2.Response;
 
 public class AddressDetailActivity extends AppCompatActivity {
 
+    StateResponseModel stateResponseModel;
+    CityResponseModel cityResponseModel;
     private Button btnSubmit;
     private Spinner spState, spCity;
     private EditText etAddressLine1, etAddressLine2, etLandmark, etPincode;
-    private String strStateId, strCityId, strAddressLine1, strAddressLine2, strLandmark, strPincode;
+    private String strAddressLine1, strAddressLine2, strLandmark, strPincode;
+    private int strStateId, strCityId;
     private ViewProgressDialog viewProgressDialog;
 
     @Override
@@ -39,13 +48,13 @@ public class AddressDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_address_detail);
 
         init();
-        onClick();
 
+        onClick();
     }
 
-    private void init(){
-
+    private void init() {
         viewProgressDialog = ViewProgressDialog.getInstance();
+
         spState = findViewById(R.id.spState);
         spCity = findViewById(R.id.spCity);
         etAddressLine1 = findViewById(R.id.etAddressLine1);
@@ -55,14 +64,12 @@ public class AddressDetailActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
     }
 
-    private void onClick(){
+    private void onClick() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.fragmentType = "Dashboard";
-                Intent i = new Intent(AddressDetailActivity.this,   MainActivity.class);
-                startActivity(i);
-                finish();
+                //TODO API Call
+                doRigistrationAPICall();
             }
         });
     }
@@ -76,12 +83,12 @@ public class AddressDetailActivity extends AppCompatActivity {
         strPincode = etPincode.getText().toString();
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("state_id",strStateId);
-        jsonObject.addProperty("city_id",strCityId);
-        jsonObject.addProperty("address_line1",strAddressLine1);
-        jsonObject.addProperty("address_line2",strAddressLine2);
-        jsonObject.addProperty("landmark",strLandmark);
-        jsonObject.addProperty("pincode",strPincode);
+        jsonObject.addProperty("state_id", strStateId);
+        jsonObject.addProperty("city_id", strCityId);
+        jsonObject.addProperty("address_line1", strAddressLine1);
+        jsonObject.addProperty("address_line2", strAddressLine2);
+        jsonObject.addProperty("landmark", strLandmark);
+        jsonObject.addProperty("pincode", strPincode);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.doAddressRegistration(
@@ -93,7 +100,14 @@ public class AddressDetailActivity extends AppCompatActivity {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-
+                    if (response.body().getStatus()) {
+                        Constants.fragmentType = "Dashboard";
+                        Intent i = new Intent(AddressDetailActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Toast.makeText(AddressDetailActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -104,51 +118,117 @@ public class AddressDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void getState(){
-        ViewProgressDialog.getInstance().showProgress(this);
-
+    private void getState() {
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.getState();
-        call.enqueue(new Callback<CommonResponse>() {
+        Call<StateResponseModel> call = apiInterface.getState();
+        call.enqueue(new Callback<StateResponseModel>() {
             @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
-                viewProgressDialog.hideDialog();
-
+            public void onResponse(@NonNull Call<StateResponseModel> call, @NonNull Response<StateResponseModel> response) {
                 if (response.body() != null) {
-
+                    if (response.body().getStatus()) {
+                        stateResponseModel = response.body();
+                        bindStateDataToUI(response.body().getData());
+                    } else {
+                        Toast.makeText(AddressDetailActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-                viewProgressDialog.hideDialog();
+            public void onFailure(@NonNull Call<StateResponseModel> call, @NonNull Throwable t) {
             }
         });
 
     }
 
-    private void getCity(String strStateId){
+    private void bindStateDataToUI(List<StateModel> data) {
+        ArrayList<String> manufactureArrayList = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            manufactureArrayList.add(data.get(i).getStateName());
+        }
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, manufactureArrayList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spState.setAdapter(adapter);
+
+        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    strStateId = stateResponseModel.getStateId(selectedItem);
+                    getCity(strStateId);
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void getCity(int strStateId) {
         ViewProgressDialog.getInstance().showProgress(this);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("state_id",strStateId);
+        jsonObject.addProperty("state_id", strStateId);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.getCity(jsonObject);
-        call.enqueue(new Callback<CommonResponse>() {
+        Call<CityResponseModel> call = apiInterface.getCity(jsonObject);
+        call.enqueue(new Callback<CityResponseModel>() {
             @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+            public void onResponse(@NonNull Call<CityResponseModel> call, @NonNull Response<CityResponseModel> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-
+                    if (response.body().getStatus()) {
+                        cityResponseModel = response.body();
+                        bindCityDataToUI(response.body().getData());
+                    }
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<CityResponseModel> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
+    }
+
+    private void bindCityDataToUI(List<CityModel> data) {
+        ArrayList<String> manufactureArrayList = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            manufactureArrayList.add(data.get(i).getCityName());
+        }
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, manufactureArrayList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spCity.setAdapter(adapter);
+
+        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    strCityId = cityResponseModel.getCityId(selectedItem);
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //TODO API Call
+        getState();
     }
 }
