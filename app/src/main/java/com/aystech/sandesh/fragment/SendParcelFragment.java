@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
@@ -48,10 +50,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             spinnerProhibited;
     RadioGroup rgOwnership;
     Button btnSubmit;
+    TextView btnCancel;
 
     String deliveryOption, natureOfGoods, quality, weight, packaging, prohibited, ownership;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
+    UserSession userSession;
     ViewProgressDialog viewProgressDialog;
 
     public SendParcelFragment() {
@@ -78,6 +82,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     }
 
     private void initView(View view) {
+        userSession = new UserSession(context);
         viewProgressDialog = ViewProgressDialog.getInstance();
 
         etFrom = view.findViewById(R.id.etFrom);
@@ -104,6 +109,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         etReceiverName = view.findViewById(R.id.etReceiverName);
         etReceiverMobileNo = view.findViewById(R.id.etReceiverMobileNo);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        btnCancel = view.findViewById(R.id.btnCancel);
     }
 
     private void onClickListener() {
@@ -285,8 +291,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("user_id", "");
-        jsonObject.addProperty("user_type", "");
+        jsonObject.addProperty("user_id", userSession.getUSER_ID());
+        jsonObject.addProperty("user_type", userSession.getUSER_TYPE());
         jsonObject.addProperty("from_city_id", "");
         jsonObject.addProperty("from_pincode", etFromPincode.getText().toString());
         jsonObject.addProperty("to_city_id", "");

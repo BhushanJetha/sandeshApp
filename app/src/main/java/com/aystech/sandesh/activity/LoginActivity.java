@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +19,12 @@ import com.aystech.sandesh.model.LoginResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
+import com.aystech.sandesh.utils.JWTUtils;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUserName, etPassword;
     private String strUserName, strPassword;
 
+    UserSession userSession;
     ViewProgressDialog viewProgressDialog;
 
     @Override
@@ -46,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void init() {
+        userSession = new UserSession(this);
         viewProgressDialog = ViewProgressDialog.getInstance();
 
         btnLogin = findViewById(R.id.btnLogin);
@@ -135,9 +142,9 @@ public class LoginActivity extends AppCompatActivity {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if (response.body().getStatus())
+                    if (response.body().getStatus()) {
                         Toast.makeText(LoginActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    else
+                    } else
                         Toast.makeText(LoginActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -168,6 +175,20 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
+
+                        userSession.setJWTToken(response.body().getToken());
+
+                        try {
+                            String json = JWTUtils.decoded(response.body().getToken().split(" ")[1]);
+                            JSONObject jsonObject1 = new JSONObject(json);
+                            Log.d("LoginActivity", "onResponse: " + jsonObject1.toString());
+                            userSession.setUserId(jsonObject1.getString("user_id"));
+                            userSession.setUserType(jsonObject1.getString("user_type"));
+                            userSession.setUserMobile(jsonObject1.getString("mobile_no"));
+                            userSession.setUserEmail(jsonObject1.getString("email_id"));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         Constants.fragmentType = "Dashboard";
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(i);

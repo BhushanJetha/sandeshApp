@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
@@ -46,10 +48,12 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     EditText etEndDate, etEndTime;
     EditText etFrom, etFromPincode, etTo, etToPincode, etVehicleTrainNo, etOtherDetails;
     Spinner spinnerDeliveryOption, spinnerPreferredWeight;
-    Button btnSubmit, btnCancel;
+    Button btnSubmit;
+    TextView btnCancel;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
+    UserSession userSession;
     ViewProgressDialog viewProgressDialog;
 
     String deliveryOption, preferredWeight;
@@ -78,6 +82,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     }
 
     private void initView(View view) {
+        userSession = new UserSession(context);
         viewProgressDialog = ViewProgressDialog.getInstance();
 
         etFrom = view.findViewById(R.id.etFrom);
@@ -167,8 +172,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("user_id", "");
-        jsonObject.addProperty("user_type", "");
+        jsonObject.addProperty("user_id", userSession.getUSER_ID());
+        jsonObject.addProperty("user_type", userSession.getUSER_TYPE());
         jsonObject.addProperty("from_city_id", "");
         jsonObject.addProperty("from_pincode", etFromPincode.getText().toString());
         jsonObject.addProperty("to_city_id", "");

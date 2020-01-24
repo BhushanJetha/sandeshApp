@@ -28,9 +28,8 @@ public class RetrofitInstance {
                 Request original = chain.request();
 
                 // Request customization: add request headers
-                Request.Builder requestBuilder = original.newBuilder();
-                       /* .header("Authorization", "Bearer " +
-                                AppController.getmInstance().getJwtToken()); // <-- this is the important line*/
+                Request.Builder requestBuilder = original.newBuilder()
+                        .header("Authorization", AppController.getmInstance().getJwtToken()); // <-- this is the important line
 
                 Request request = requestBuilder.build();
                 Response response = chain.proceed(request);

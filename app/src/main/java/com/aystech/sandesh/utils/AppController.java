@@ -10,6 +10,8 @@ public class AppController extends MultiDexApplication {
 
     private static AppController mInstance;
 
+    private UserSession userSession;
+
     public static AppController getmInstance() {
         return mInstance;
     }
@@ -19,10 +21,12 @@ public class AppController extends MultiDexApplication {
         super.onCreate();
         MultiDex.install(this);
         mInstance = this;
+
+        userSession = new UserSession(this);
     }
 
     public void accessUnAuthorization() {
-        //userSession.clearUserSession();
+        userSession.clearUserSession();
 
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -31,7 +35,7 @@ public class AppController extends MultiDexApplication {
     }
 
     public String getJwtToken() {
-        return "kjgkj";
+        return userSession.getJWTToken();
     }
 
 }
