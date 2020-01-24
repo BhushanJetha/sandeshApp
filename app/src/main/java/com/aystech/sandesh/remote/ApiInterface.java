@@ -3,6 +3,7 @@ package com.aystech.sandesh.remote;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.LoginResponseModel;
+import com.aystech.sandesh.model.SearchOrderResponseModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.google.gson.JsonObject;
 
@@ -47,10 +48,10 @@ public interface ApiInterface {
     Call<CommonResponse> sendParcel(@Body JsonObject jsonObject);
 
     @POST("api/searchOrder")
-    Call<CommonResponse> searchOrder(@Body JsonObject jsonObject);
+    Call<SearchOrderResponseModel> searchOrder(@Body JsonObject jsonObject);
 
     @POST("api/searchTraveller")
-    Call<CommonResponse> searchTraveller(@Body JsonObject jsonObject);
+    Call<SearchOrderResponseModel> searchTraveller(@Body JsonObject jsonObject);
 
     @GET("api/showHistory")
     Call<CommonResponse> showHistory(@Body JsonObject jsonObject);

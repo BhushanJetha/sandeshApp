@@ -6,15 +6,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.model.SearchOrderModel;
+
+import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
 
     Context context;
+    List<SearchOrderModel> data;
 
-    public OrderAdapter(Context context) {
+    public OrderAdapter(Context context, List<SearchOrderModel> data) {
         this.context = context;
+        this.data = data;
     }
 
     @NonNull
@@ -31,13 +38,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return 2;
+        return data.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public MyViewHolder(@NonNull View itemView) {
+        private TextView tvName;
+        private TextView tvOrderDate;
+        private TextView tvOrderType;
+        private TextView tvOrderDistance;
+        private TextView tvOrderTypeContent;
+        private TextView tvExpectedIncome;
+        private RatingBar rbOrder;
+
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            tvName = itemView.findViewById(R.id.tvName);
+            tvOrderDate = itemView.findViewById(R.id.tvOrderDate);
+            tvOrderType = itemView.findViewById(R.id.tvOrderType);
+            tvOrderDistance = itemView.findViewById(R.id.tvOrderDistance);
+            tvOrderTypeContent = itemView.findViewById(R.id.tvOrderTypeContent);
+            tvExpectedIncome = itemView.findViewById(R.id.tvExpectedIncome);
+            rbOrder = itemView.findViewById(R.id.rbOrder);
         }
     }
 }

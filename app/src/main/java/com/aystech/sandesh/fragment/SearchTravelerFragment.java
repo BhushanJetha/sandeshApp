@@ -3,6 +3,7 @@ package com.aystech.sandesh.fragment;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,13 +13,24 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.OrderAdapter;
-import com.aystech.sandesh.utils.FragmentUtil;
+import com.aystech.sandesh.model.SearchOrderModel;
+import com.aystech.sandesh.model.SearchOrderResponseModel;
+import com.aystech.sandesh.remote.ApiInterface;
+import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.google.gson.JsonObject;
 
 import java.util.Calendar;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchTravelerFragment extends Fragment implements View.OnClickListener {
 
@@ -26,7 +38,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
     Button btnSearch;
     ImageView ingStartDate, ingEndDate;
-    EditText etStartDate, etEndDate;
+    EditText etFrom, etTo, etStartDate, etEndDate;
 
     RecyclerView rvOrder;
     OrderAdapter orderAdapter;
@@ -34,6 +46,8 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     MyWalletFragmentOne myWalletFragmentOne;
 
     private int mYear, mMonth, mDay;
+
+    ViewProgressDialog viewProgressDialog;
 
     public SearchTravelerFragment() {
         // Required empty public constructor
@@ -62,6 +76,8 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     }
 
     private void initView(View view) {
+        viewProgressDialog = ViewProgressDialog.getInstance();
+
         rvOrder = view.findViewById(R.id.rvOrder);
         btnSearch = view.findViewById(R.id.btnSearch);
 
@@ -70,13 +86,6 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
         ingEndDate = view.findViewById(R.id.ingEndDate);
         etEndDate = view.findViewById(R.id.etEndDate);
-
-        bindDataToRV();
-    }
-
-    private void bindDataToRV() {
-        orderAdapter = new OrderAdapter(context);
-        rvOrder.setAdapter(orderAdapter);
     }
 
     private void onClickListener() {
@@ -97,8 +106,8 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.btnSearch:
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        myWalletFragmentOne, R.id.frame_container, true);
+                //TODO API Call
+                searchTravelerData();
                 break;
         }
     }
@@ -119,13 +128,54 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                                           int monthOfYear, int dayOfMonth) {
                         if (tag.equals("start_date")) {
                             etStartDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                        }else if (tag.equals("end_date")){
+                        } else if (tag.equals("end_date")) {
                             etEndDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                         }
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
     }
+
+
+    private void searchTravelerData() {
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("from_city_id", etFrom.getText().toString());
+        jsonObject.addProperty("to_city_id", etTo.getText().toString());
+        jsonObject.addProperty("start_date", etStartDate.getText().toString());
+        jsonObject.addProperty("end_date", etEndDate.getText().toString());
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<SearchOrderResponseModel> call = apiInterface.searchTraveller(
+                jsonObject
+        );
+        call.enqueue(new Callback<SearchOrderResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<SearchOrderResponseModel> call, @NonNull Response<SearchOrderResponseModel> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        bindDataToRV(response.body().getData());
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SearchOrderResponseModel> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void bindDataToRV(List<SearchOrderModel> data) {
+        orderAdapter = new OrderAdapter(context, data);
+        rvOrder.setAdapter(orderAdapter);
+    }
+
 
     @Override
     public void onResume() {
