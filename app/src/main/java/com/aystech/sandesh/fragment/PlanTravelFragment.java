@@ -172,11 +172,9 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("user_id", userSession.getUSER_ID());
-        jsonObject.addProperty("user_type", userSession.getUSER_TYPE());
-        jsonObject.addProperty("from_city_id", "");
+        jsonObject.addProperty("from_city_id", "1");
         jsonObject.addProperty("from_pincode", etFromPincode.getText().toString());
-        jsonObject.addProperty("to_city_id", "");
+        jsonObject.addProperty("to_city_id", "1");
         jsonObject.addProperty("to_pincode", etToPincode.getText().toString());
         jsonObject.addProperty("start_date", etStartDate.getText().toString());
         jsonObject.addProperty("start_time", etStartTime.getText().toString());

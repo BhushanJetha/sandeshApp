@@ -26,7 +26,7 @@
         android:gravity="center"
         android:fontFamily="@font/gotham_medium"
         android:padding="@dimen/_6sdp"
-        android:text="Mobile Verification"
+        android:text="New User Registration"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"

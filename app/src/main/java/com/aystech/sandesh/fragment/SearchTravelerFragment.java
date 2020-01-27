@@ -107,7 +107,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
             case R.id.btnSearch:
                 //TODO API Call
-                searchTravelerData();
+                //searchTravelerData();
                 break;
         }
     }

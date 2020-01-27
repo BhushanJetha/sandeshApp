@@ -235,7 +235,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 break;
             case R.id.btnSubmit:
                 //TODO API Call
-                sendParcel();
+                //sendParcel();
                 break;
         }
     }

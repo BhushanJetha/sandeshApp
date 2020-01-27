@@ -100,7 +100,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
 
             case R.id.btnSearch:
                 //TODO API Call
-                searchOrderByData();
+                //searchOrderByData();
                 break;
         }
     }

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +60,14 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvRegisterHere = findViewById(R.id.tvRegisterHere);
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
+
+        SpannableString registerUser = new SpannableString(getResources().getString(R.string.new_user));
+        registerUser.setSpan(new UnderlineSpan(), 0, registerUser.length(), 0);
+        tvRegisterHere.setText(registerUser);
+
+        SpannableString forgotPassword = new SpannableString(getResources().getString(R.string.forgot_password));
+        forgotPassword.setSpan(new UnderlineSpan(), 0, forgotPassword.length(), 0);
+        tvForgotPassword.setText(forgotPassword);
 
         etUserName = findViewById(R.id.etUserName);
         etPassword = findViewById(R.id.etPassword);
@@ -186,13 +196,21 @@ public class LoginActivity extends AppCompatActivity {
                             userSession.setUserType(jsonObject1.getString("user_type"));
                             userSession.setUserMobile(jsonObject1.getString("mobile_no"));
                             userSession.setUserEmail(jsonObject1.getString("email_id"));
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        Constants.fragmentType = "Dashboard";
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(i);
-                        finish();
+
+                        if(response.body().getIsAddressAvailable()){
+                            Constants.fragmentType = "Dashboard";
+                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Intent i = new Intent(LoginActivity.this, AddressDetailActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
                     } else {
                         Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }

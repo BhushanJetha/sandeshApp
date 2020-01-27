@@ -81,6 +81,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                 strEmailId = etEmailId.getText().toString();
                 strMobileNumber = etMobileNumber.getText().toString();
                 strPassword = etPassword.getText().toString();
+                strReEnteredPassword = etReEnteredPassword.getText().toString();
                 strRefferalCode = etRefferalCode.getText().toString();
                 strCompanyName = etCompanyName.getText().toString();
                 strBranch = etBranch.getText().toString();
@@ -92,7 +93,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                         if (!strAuthPersonName.isEmpty()) {
                             if (!strDesignation.isEmpty()) {
                                 if (!strEmailId.isEmpty()) {
-                                    if (!Uitility.isValidEmailId(strEmailId)) {
+                                    if (Uitility.isValidEmailId(strEmailId)) {
                                         if (!strGender.isEmpty()) {
                                             if (!strPassword.isEmpty()) {
                                                 if (!strReEnteredPassword.isEmpty()) {
@@ -174,7 +175,8 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        Intent i = new Intent(CorporateRegistrationActivity.this, AddressDetailActivity.class);
+                        Constants.fragmentType = "Dashboard";
+                        Intent i = new Intent(CorporateRegistrationActivity.this, LoginActivity.class);
                         startActivity(i);
                         finish();
                     } else {

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +19,9 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +30,7 @@ import retrofit2.Response;
 public class MobileVerificationFragment extends Fragment {
 
     Context context;
-    private LoginFragment loginFragment;
+    private VerifyOTPFragment verifyOTPFragment;
     private Button btnSubmit;
     private RadioButton rbIndividual, rbCorporate;
     private EditText etMobileNumber;
@@ -56,7 +53,7 @@ public class MobileVerificationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mobile_verification, container, false);
 
-        loginFragment = (LoginFragment) Fragment.instantiate(context, LoginFragment.class.getName());
+        verifyOTPFragment = (VerifyOTPFragment) Fragment.instantiate(context, VerifyOTPFragment.class.getName());
 
         initView(view);
 
@@ -81,20 +78,13 @@ public class MobileVerificationFragment extends Fragment {
 
                 strMobileNumber = etMobileNumber.getText().toString();
 
-                if(!strMobileNumber.isEmpty() && strMobileNumber.length() == 10){
-                    doVerifyOTPAPICall();
-                } else {
-                    Toast.makeText(getActivity(),"Please enter valid mobile number !!", Toast.LENGTH_SHORT).show();
-                }
-
-
                 if(!Constants.userType.isEmpty()){
-                   /* FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                            loginFragment, R.id.frame_container, true);
+                    if(!strMobileNumber.isEmpty() && strMobileNumber.length() == 10){
+                        doVerifyOTPAPICall();
+                    } else {
+                        Toast.makeText(getActivity(),"Please enter valid mobile number !!", Toast.LENGTH_SHORT).show();
+                    }
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("mobileNumber", strMobileNumber);
-                    loginFragment.setArguments(bundle);*/
                 }else {
                     Toast.makeText(getActivity(),"Please select your registration type !!", Toast.LENGTH_SHORT).show();
                 }
@@ -135,7 +125,15 @@ public class MobileVerificationFragment extends Fragment {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    Log.d("Response-->",response.body().toString());
+                    if(response.body().getStatus()){
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                verifyOTPFragment, R.id.frame_container, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("mobileNumber", strMobileNumber);
+                        verifyOTPFragment.setArguments(bundle);
+                    }else {
+                        Uitility.showToast(getActivity(), response.body().getMessage());
+                    }
                 }
             }
 

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
@@ -34,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginFragment extends Fragment {
+public class VerifyOTPFragment extends Fragment {
 
     private Context context;
     private DashboardFragment dashboardFragment;
@@ -44,7 +47,7 @@ public class LoginFragment extends Fragment {
     private String strOTP, strMobileNumber;
     private ViewProgressDialog viewProgressDialog;
 
-    public LoginFragment() {
+    public VerifyOTPFragment() {
         // Required empty public constructor
     }
 
@@ -75,6 +78,10 @@ public class LoginFragment extends Fragment {
         etOTP = view.findViewById(R.id.etOTP);
         tvResendOTP = view.findViewById(R.id.tvResendOTP);
 
+        SpannableString resendOTP = new SpannableString(getResources().getString(R.string.resend_otp));
+        resendOTP.setSpan(new UnderlineSpan(), 0, resendOTP.length(), 0);
+        tvResendOTP.setText(resendOTP);
+
         strMobileNumber = getArguments().getString("mobileNumber");
         viewProgressDialog = ViewProgressDialog.getInstance();
     }
@@ -86,28 +93,51 @@ public class LoginFragment extends Fragment {
 
                 strOTP = etOTP.getText().toString();
                 if(!strOTP.isEmpty()){
-
+                    doVerifyOTPAPICall();
                 } else {
                     Toast.makeText(getActivity(),"Please enter valid OTP !!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
 
-                Intent i = null;
-                if(Constants.userType.equals("individual")){
-                    i = new Intent(getActivity(),   IndividualRegistrationActivity.class);
-                }else  if(Constants.userType.equals("corporate")) {
-                    i = new Intent(getActivity(), CorporateRegistrationActivity.class);
-                }
-                startActivity(i);
-                getActivity().finish();
+        tvResendOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getOTPAPICall();
             }
         });
     }
+
+    private void getOTPAPICall() {
+        ViewProgressDialog.getInstance().showProgress(this.getActivity());
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("mobile_no",strMobileNumber);
+        jsonObject.addProperty("user_type",Constants.userType);
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.getOTP(
+                jsonObject
+        );
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
 
     private void doVerifyOTPAPICall() {
         ViewProgressDialog.getInstance().showProgress(this.getActivity());
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("mobileNumber",strMobileNumber);
+        jsonObject.addProperty("mobile_no",strMobileNumber);
         jsonObject.addProperty("otp",strOTP);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
@@ -120,7 +150,19 @@ public class LoginFragment extends Fragment {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-
+                    if(response.body().getStatus()){
+                        Intent i = null;
+                        if(Constants.userType.equals("individual")){
+                            i = new Intent(getActivity(),   IndividualRegistrationActivity.class);
+                        }else  if(Constants.userType.equals("corporate")) {
+                            i = new Intent(getActivity(), CorporateRegistrationActivity.class);
+                        }
+                        i.putExtra("mobileNumber",strMobileNumber);
+                        startActivity(i);
+                        getActivity().finish();
+                    }else {
+                        Uitility.showToast(getActivity(),response.body().getMessage());
+                    }
                 }
             }
 

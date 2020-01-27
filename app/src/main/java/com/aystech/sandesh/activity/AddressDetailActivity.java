@@ -21,6 +21,7 @@ import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
@@ -48,7 +49,6 @@ public class AddressDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_address_detail);
 
         init();
-
         onClick();
     }
 
@@ -68,8 +68,24 @@ public class AddressDetailActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO API Call
-                doRigistrationAPICall();
+                strAddressLine1 = etAddressLine1.getText().toString();
+                strAddressLine2 = etAddressLine2.getText().toString();
+                strLandmark = etLandmark.getText().toString();
+                strPincode = etPincode.getText().toString();
+
+                if(!strAddressLine1.isEmpty()){
+                    if(!strLandmark.isEmpty()){
+                        if(!strPincode.isEmpty()){
+                            doRigistrationAPICall();
+                        }else {
+                            Uitility.showToast(AddressDetailActivity.this,"Please enter pin code !");
+                        }
+                    }else {
+                        Uitility.showToast(AddressDetailActivity.this,"Please enter landmark !");
+                    }
+                }else {
+                    Uitility.showToast(AddressDetailActivity.this,"Please enter address line 1 !");
+                }
             }
         });
     }
@@ -77,10 +93,6 @@ public class AddressDetailActivity extends AppCompatActivity {
     private void doRigistrationAPICall() {
         ViewProgressDialog.getInstance().showProgress(this);
 
-        strAddressLine1 = etAddressLine1.getText().toString();
-        strAddressLine2 = etAddressLine2.getText().toString();
-        strLandmark = etLandmark.getText().toString();
-        strPincode = etPincode.getText().toString();
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", strStateId);

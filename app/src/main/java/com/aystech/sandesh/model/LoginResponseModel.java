@@ -12,6 +12,10 @@ public class LoginResponseModel extends CommonResponse{
     @Expose
     private String token;
 
+    @SerializedName("isAddressAvailable")
+    @Expose
+    private Boolean isAddressAvailable;
+
     public String getUserType() {
         return userType;
     }
@@ -19,4 +23,6 @@ public class LoginResponseModel extends CommonResponse{
     public String getToken() {
         return token;
     }
+
+    public Boolean getIsAddressAvailable() { return  isAddressAvailable;}
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="bottom"
+        android:layout_gravity="bottom"
         android:layout_marginBottom="40dp"
         android:layout_marginLeft="@dimen/_40sdp"
         android:layout_marginRight="@dimen/_40sdp">
@@ -69,7 +69,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:gravity="center"
             android:fontFamily="@font/gotham_light"
-            android:text="Forgot Password"
+            android:text="@string/forgot_password"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -105,5 +105,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

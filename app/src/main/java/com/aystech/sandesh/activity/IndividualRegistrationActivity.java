@@ -1,10 +1,20 @@
 package com.aystech.sandesh.activity;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -38,11 +48,11 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
             strRefferalCode, strMobileNumber, strFCMId, strGender, strBirthDate;
     private RadioButton rbMale, rbFemale, rbOther;
     private CheckBox cbAccetTermsAndConditions;
-    private TextView tvBirthDate;
+    private TextView tvBirthDate, tvAcceptTermsAndCondition;
     private ImageView ivProfilePicture;
     private Button btnSubmit;
     private ViewProgressDialog viewProgressDialog;
-    private LinearLayout llDateOfBirth;
+    private LinearLayout llDateOfBirth, llProfilePiture;
     private int mYear, mMonth, mDay;
 
     @Override
@@ -51,7 +61,6 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_individual_registration);
 
         init();
-
         onClick();
     }
 
@@ -75,6 +84,15 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         ivProfilePicture = findViewById(R.id.imgProfilePicture);
         btnSubmit = findViewById(R.id.btnSubmit);
         llDateOfBirth = findViewById(R.id.llDateOfBirth);
+        tvAcceptTermsAndCondition =  findViewById(R.id.tvTermsCondition);
+
+        llProfilePiture = findViewById(R.id.llProfilePicture);
+
+        strMobileNumber = getIntent().getStringExtra("mobileNumber");
+
+        SpannableString ssAcceptTermsAndCondition = new SpannableString(getResources().getString(R.string.accept_terms_amp_conditions));
+        ssAcceptTermsAndCondition.setSpan(new UnderlineSpan(), 0, ssAcceptTermsAndCondition.length(), 0);
+        tvAcceptTermsAndCondition.setText(ssAcceptTermsAndCondition);
     }
 
     private void onClick() {
@@ -86,15 +104,13 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 strLastName = etLastName.getText().toString();
                 strEmailId = etEmailId.getText().toString();
                 strPassword = etPassword.getText().toString();
-                strFirstName = etFirstName.getText().toString();
-                strFirstName = etFirstName.getText().toString();
-                strFirstName = etFirstName.getText().toString();
-                strFirstName = etFirstName.getText().toString();
+                strReEnteredPassword = etReEnteredPassword.getText().toString();
+                strRefferalCode = etRefferalCode.getText().toString();
 
                 if (!strFirstName.isEmpty()) {
                     if (!strLastName.isEmpty()) {
                         if (!strEmailId.isEmpty()) {
-                            if (!Uitility.isValidEmailId(strEmailId)) {
+                            if (Uitility.isValidEmailId(strEmailId)) {
                                 if (!strGender.isEmpty()) {
                                     if (!strPassword.isEmpty()) {
                                         if (!strReEnteredPassword.isEmpty()) {
@@ -154,6 +170,46 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 openDatePickerDialog();
             }
         });
+
+        llProfilePiture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // custom dialog
+                final Dialog dialog = new Dialog(IndividualRegistrationActivity.this);
+                dialog.setContentView(R.layout.image_selection_dialog);
+
+                LinearLayout llCamera, llGallery;
+                Button btnCancel;
+
+                llCamera = dialog.findViewById(R.id.llCamera);
+                llGallery = dialog.findViewById(R.id.llGallery);
+                btnCancel = dialog.findViewById(R.id.btnCancel);
+
+
+                llCamera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
+
+                llGallery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+                dialog.show();
+            }
+        });
     }
 
     private void doRigistrationAPICall() {
@@ -183,7 +239,8 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        Intent i = new Intent(IndividualRegistrationActivity.this, AddressDetailActivity.class);
+                        Constants.fragmentType = "Dashboard";
+                        Intent i = new Intent(IndividualRegistrationActivity.this, LoginActivity.class);
                         startActivity(i);
                         finish();
                     } else {
@@ -213,7 +270,14 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        tvBirthDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+
+                        if(String.valueOf(monthOfYear +1).length() ==  1){
+                            strBirthDate = year + "-0" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        }else {
+                            strBirthDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        }
+
+                        tvBirthDate.setText(strBirthDate);
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();

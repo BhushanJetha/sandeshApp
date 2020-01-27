@@ -46,7 +46,7 @@
                     android:id="@+id/imgProfilePicture"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:background="@mipmap/ic_launcher" />
+                    android:background="@drawable/ic_parcel" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -220,12 +220,11 @@
                 android:fontFamily="@font/gotham_light">
 
                 <EditText
-                    android:id="@+id/etReferralCode"
+                    android:id="@+id/etReferalCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
-                    android:hint="Referral code"
-                    android:inputType="textPassword" />
+                    android:hint="Referral code" />
 
             </android.support.design.widget.TextInputLayout>
 

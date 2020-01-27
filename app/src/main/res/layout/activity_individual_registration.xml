@@ -38,6 +38,7 @@
 
 
             <LinearLayout
+                android:id="@+id/llProfilePicture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -47,7 +48,7 @@
                     android:id="@+id/imgProfilePicture"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:background="@mipmap/ic_launcher" />
+                    android:background="@drawable/ic_parcel" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -232,8 +233,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
-                    android:hint="Referral code"
-                    android:inputType="textPassword" />
+                    android:hint="Enter referral code received from your friend"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -253,7 +253,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
-                    android:text="Accept terms &amp; conditions" />
+                    android:text="@string/accept_terms_amp_conditions" />
             </LinearLayout>
 
             <Button
