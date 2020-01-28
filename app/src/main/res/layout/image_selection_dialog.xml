@@ -75,7 +75,7 @@
         android:background="@color/dashboardBackground"/>
 
     <Button
-        android:id="@+id/btnSubmit"
+        android:id="@+id/btnCancel"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_16sdp"
