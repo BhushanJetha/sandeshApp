@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorBackground"
+    android:orientation="vertical"
     tools:context=".activity.AddressDetailActivity">
 
     <TextView
@@ -46,7 +46,8 @@
             <Spinner
                 android:id="@+id/spState"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_height="@dimen/_30sdp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -59,7 +60,8 @@
             <Spinner
                 android:id="@+id/spCity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_height="@dimen/_30sdp" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

@@ -55,73 +55,94 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clTopView">
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILFrom"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvFomState"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Select From State"
+                    android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <EditText
-                        android:id="@+id/etFrom"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="From"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp" />
+                <Spinner
+                    android:id="@+id/spinnerFromState"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/tvFomState" />
 
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingFromCalendar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_location"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILFrom"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tILFrom" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILTo"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvFromCity"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILFrom">
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Select From City"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerFromState" />
 
-                    <EditText
-                        android:id="@+id/etTo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="To"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:paddingEnd="@dimen/_18sdp"
-                        android:paddingRight="@dimen/_18sdp" />
+                <Spinner
+                    android:id="@+id/spinnerFromCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/tvFromCity" />
 
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingToCalendar"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvToState"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_location"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILTo"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tILTo" />
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Select To State"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerFromCity" />
+
+                <Spinner
+                    android:id="@+id/spinnerToState"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/tvToState" />
+
+                <TextView
+                    android:id="@+id/tvToCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Select From City"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerToState" />
+
+                <Spinner
+                    android:id="@+id/spinnerToCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/tvToCity" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILStartDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/ingFromCalendar"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
-                    app:layout_constraintTop_toBottomOf="@id/tILTo">
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerToCity">
 
                     <EditText
                         android:id="@+id/etStartDate"
@@ -150,8 +171,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tILStartDate">
 
                     <EditText
@@ -181,8 +202,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tILStartTime">
 
                     <EditText
@@ -212,8 +233,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tILEndDate">
 
                     <EditText
@@ -247,8 +268,8 @@
                     android:text="Delivery Option"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tILEndTime" />
 
                 <Spinner
@@ -257,8 +278,8 @@
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
                     android:entries="@array/delivery_option"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvDeliveryOptionTitle" />
 
                 <TextView
@@ -270,8 +291,8 @@
                     android:text="Nature of goods"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/spinnerDeliveryOption" />
 
                 <Spinner
@@ -280,8 +301,8 @@
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
                     android:entries="@array/nature_of_good"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvNatureGoodsTitle" />
 
                 <android.support.design.widget.TextInputLayout
@@ -289,8 +310,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/spinnerNatureGoods">
 
                     <EditText
@@ -310,8 +331,8 @@
                     android:text="Quality"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tILGoodsDescription" />
 
                 <Spinner
@@ -319,8 +340,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvQualityTitle" />
 
                 <TextView
@@ -332,8 +353,8 @@
                     android:text="Weight"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/spinnerQuality" />
 
                 <Spinner
@@ -342,8 +363,8 @@
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
                     android:entries="@array/preferred_weight_array"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvWeightTitle" />
 
                 <TextView
@@ -355,8 +376,8 @@
                     android:text="Packaging"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/spinnerWeight" />
 
                 <Spinner
@@ -365,8 +386,8 @@
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
                     android:entries="@array/type_of_pkg"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvPackagingTitle" />
 
                 <TextView
@@ -378,8 +399,8 @@
                     android:text="Prohibited/Non-prohibited"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/spinnerPackaging" />
 
                 <Spinner
@@ -388,8 +409,8 @@
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
                     android:entries="@array/type_of_pkg"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvProhibitedTitle" />
 
                 <android.support.design.widget.TextInputLayout
@@ -397,8 +418,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/spinnerProhibited">
 
                     <EditText
@@ -502,8 +523,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/imgParcel">
 
                     <EditText
@@ -519,8 +540,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tILReceiverName">
 
                     <EditText
@@ -537,7 +558,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@+id/tILReceiverMobileNo" />
 
                 <TextView
@@ -559,8 +580,8 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@+id/cbTermsCondition" />
 
                 <TextView
@@ -573,8 +594,8 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFrom"
-                    app:layout_constraintStart_toStartOf="@+id/tILFrom"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
 
             </android.support.constraint.ConstraintLayout>
