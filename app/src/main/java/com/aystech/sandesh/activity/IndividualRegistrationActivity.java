@@ -55,14 +55,15 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     private RadioButton rbMale, rbFemale, rbOther;
     private CheckBox cbAccetTermsAndConditions;
     private TextView tvBirthDate, tvAcceptTermsAndCondition;
-    private ImageView ivProfilePicture;
+    private ImageView imgProfileShow, imgProfileResult;
     private Button btnSubmit;
-    private ViewProgressDialog viewProgressDialog;
     private LinearLayout llDateOfBirth, llProfilePiture;
     private int mYear, mMonth, mDay;
     Uri picUri;
     Bitmap myBitmap;
     private String strProfileBase64;
+
+    private ViewProgressDialog viewProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,8 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
         cbAccetTermsAndConditions = findViewById(R.id.cbTermsCondition);
         tvBirthDate = findViewById(R.id.tvBirthDate);
-        ivProfilePicture = findViewById(R.id.imgProfilePicture);
+        imgProfileShow = findViewById(R.id.imgProfileShow);
+        imgProfileResult = findViewById(R.id.imgProfileResult);
         btnSubmit = findViewById(R.id.btnSubmit);
         llDateOfBirth = findViewById(R.id.llDateOfBirth);
         tvAcceptTermsAndCondition =  findViewById(R.id.tvTermsCondition);
@@ -339,7 +341,9 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
                     strProfileBase64 = getStringImage(myBitmap);
 
-                    ivProfilePicture.setImageBitmap(myBitmap);
+                    imgProfileShow.setVisibility(View.GONE);
+                    imgProfileResult.setVisibility(View.VISIBLE);
+                    imgProfileResult.setImageBitmap(myBitmap);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -350,7 +354,9 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
                 strProfileBase64 = getStringImage(myBitmap);
 
-                ivProfilePicture.setImageBitmap(myBitmap);
+                imgProfileShow.setVisibility(View.GONE);
+                imgProfileResult.setVisibility(View.VISIBLE);
+                imgProfileResult.setImageBitmap(myBitmap);
             }
         }
     }

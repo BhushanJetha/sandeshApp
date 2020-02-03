@@ -2,14 +2,15 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="#E7F5FD"
-    android:layout_gravity="bottom">
+    android:layout_height="@dimen/_50sdp"
+    android:layout_gravity="bottom"
+    android:background="#E7F5FD">
 
     <android.support.constraint.Group
         android:id="@+id/historyGroup"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/contactUsGroup"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,11 +20,13 @@
         android:id="@+id/imgHistory"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_1sdp"
         android:background="@drawable/ic_history"
+        app:layout_constraintBottom_toBottomOf="@id/historyGroup"
         app:layout_constraintLeft_toLeftOf="@id/historyGroup"
         app:layout_constraintRight_toRightOf="@id/historyGroup"
-        app:layout_constraintTop_toTopOf="@id/historyGroup" />
+        app:layout_constraintTop_toTopOf="@id/historyGroup"
+        app:layout_constraintVertical_bias="0.20" />
 
     <TextView
         android:id="@+id/tvHistory"
@@ -31,17 +34,17 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="History"
-        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@id/historyGroup"
         app:layout_constraintLeft_toLeftOf="@id/imgHistory"
         app:layout_constraintRight_toRightOf="@id/imgHistory"
-        app:layout_constraintTop_toBottomOf="@id/imgHistory" />
+        app:layout_constraintTop_toBottomOf="@+id/imgHistory" />
 
     <android.support.constraint.Group
         android:id="@+id/contactUsGroup"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
         app:layout_constraintEnd_toStartOf="@+id/faqGroup"
         app:layout_constraintHorizontal_bias="0.5"
@@ -52,11 +55,11 @@
         android:id="@+id/imgContactUs"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_2sdp"
         android:background="@drawable/ic_contact"
+        app:layout_constraintBottom_toBottomOf="@+id/imgHistory"
         app:layout_constraintLeft_toLeftOf="@id/contactUsGroup"
         app:layout_constraintRight_toRightOf="@id/contactUsGroup"
-        app:layout_constraintTop_toTopOf="@id/contactUsGroup" />
+        app:layout_constraintTop_toTopOf="@+id/imgHistory" />
 
     <TextView
         android:id="@+id/tvContactUs"
@@ -64,17 +67,17 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Contact Us"
-        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
         app:layout_constraintLeft_toLeftOf="@id/imgContactUs"
         app:layout_constraintRight_toRightOf="@id/imgContactUs"
-        app:layout_constraintTop_toBottomOf="@id/imgContactUs" />
+        app:layout_constraintTop_toTopOf="@+id/tvHistory" />
 
     <android.support.constraint.Group
         android:id="@+id/faqGroup"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
         app:layout_constraintEnd_toStartOf="@+id/referFriendGroup"
         app:layout_constraintHorizontal_bias="0.5"
@@ -85,11 +88,11 @@
         android:id="@+id/imgFAQ"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_2sdp"
         android:background="@drawable/ic_faq"
+        app:layout_constraintBottom_toBottomOf="@+id/imgHistory"
         app:layout_constraintLeft_toLeftOf="@id/faqGroup"
         app:layout_constraintRight_toRightOf="@id/faqGroup"
-        app:layout_constraintTop_toTopOf="@id/faqGroup" />
+        app:layout_constraintTop_toTopOf="@+id/imgHistory" />
 
     <TextView
         android:id="@+id/tvFAQ"
@@ -97,17 +100,17 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="FAQ"
-        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
         app:layout_constraintLeft_toLeftOf="@id/imgFAQ"
         app:layout_constraintRight_toRightOf="@id/imgFAQ"
-        app:layout_constraintTop_toBottomOf="@id/imgFAQ" />
+        app:layout_constraintTop_toTopOf="@+id/tvHistory" />
 
     <android.support.constraint.Group
         android:id="@+id/referFriendGroup"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
         app:layout_constraintEnd_toStartOf="@+id/nominatePersonGroup"
         app:layout_constraintHorizontal_bias="0.5"
@@ -118,11 +121,11 @@
         android:id="@+id/imgReferFriend"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_2sdp"
         android:background="@drawable/ic_refer_a_friend"
+        app:layout_constraintBottom_toBottomOf="@+id/imgHistory"
         app:layout_constraintLeft_toLeftOf="@id/referFriendGroup"
         app:layout_constraintRight_toRightOf="@id/referFriendGroup"
-        app:layout_constraintTop_toTopOf="@id/referFriendGroup" />
+        app:layout_constraintTop_toTopOf="@+id/imgHistory" />
 
     <TextView
         android:id="@+id/tvReferFriend"
@@ -130,17 +133,17 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Refer a Friend"
-        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
         app:layout_constraintLeft_toLeftOf="@id/imgReferFriend"
         app:layout_constraintRight_toRightOf="@id/imgReferFriend"
-        app:layout_constraintTop_toBottomOf="@id/imgReferFriend" />
+        app:layout_constraintTop_toTopOf="@+id/tvHistory" />
 
     <android.support.constraint.Group
         android:id="@+id/nominatePersonGroup"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/historyGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -151,11 +154,11 @@
         android:id="@+id/imgNominatePerson"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_2sdp"
         android:background="@drawable/ic_nominate"
+        app:layout_constraintBottom_toBottomOf="@+id/imgHistory"
         app:layout_constraintLeft_toLeftOf="@id/nominatePersonGroup"
         app:layout_constraintRight_toRightOf="@id/nominatePersonGroup"
-        app:layout_constraintTop_toTopOf="@id/nominatePersonGroup" />
+        app:layout_constraintTop_toTopOf="@+id/imgHistory" />
 
     <TextView
         android:id="@+id/tvNominatePerson"
@@ -163,12 +166,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:maxLines="2"
-        android:text="Nominate\nAlternate Person"
-        android:layout_marginTop="@dimen/_2sdp"
+        android:text="Nominate AP"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvHistory"
         app:layout_constraintLeft_toLeftOf="@id/imgNominatePerson"
         app:layout_constraintRight_toRightOf="@id/imgNominatePerson"
-        app:layout_constraintTop_toBottomOf="@id/imgNominatePerson" />
+        app:layout_constraintTop_toTopOf="@+id/tvHistory" />
 
 </android.support.constraint.ConstraintLayout>

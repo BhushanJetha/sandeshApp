@@ -51,8 +51,8 @@ public class HistoryFragment extends Fragment {
     }
 
     private void bindDataToRV() {
-        orderAdapter = new OrderAdapter(context, null);
-        rvHistory.setAdapter(orderAdapter);
+        /*orderAdapter = new OrderAdapter(context, null);
+        rvHistory.setAdapter(orderAdapter);*/
     }
 
     @Override

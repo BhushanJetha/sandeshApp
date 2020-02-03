@@ -95,6 +95,27 @@
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvFromCity" />
 
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILFromPincode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerFromCity">
+
+                    <EditText
+                        android:id="@+id/etFromPincode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:hint="Pincode"
+                        android:inputType="number"
+                        android:maxLines="1" />
+
+                </android.support.design.widget.TextInputLayout>
+
                 <TextView
                     android:id="@+id/tvToState"
                     android:layout_width="match_parent"
@@ -105,7 +126,7 @@
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
-                    app:layout_constraintTop_toBottomOf="@id/spinnerFromCity" />
+                    app:layout_constraintTop_toBottomOf="@id/tILFromPincode" />
 
                 <Spinner
                     android:id="@+id/spinnerToState"
@@ -136,13 +157,34 @@
                     app:layout_constraintTop_toBottomOf="@id/tvToCity" />
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILToPincode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/spinnerToCity">
+
+                    <EditText
+                        android:id="@+id/etToPincode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:hint="Pincode"
+                        android:inputType="number"
+                        android:maxLines="1" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILStartDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
-                    app:layout_constraintTop_toBottomOf="@id/spinnerToCity">
+                    app:layout_constraintTop_toBottomOf="@id/tILToPincode">
 
                     <EditText
                         android:id="@+id/etStartDate"

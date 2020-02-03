@@ -432,7 +432,6 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
 
                 if (!selectedItem.equals("")) {
                     fromCityId = cityResponseModel.getCityId(selectedItem);
-                    Toast.makeText(context, "from city id:" + fromCityId, Toast.LENGTH_SHORT).show();
                 }
             } // to close the onItemSelected
 
@@ -447,7 +446,6 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
 
                 if (!selectedItem.equals("")) {
                     toCityId = cityResponseModel.getCityId(selectedItem);
-                    Toast.makeText(context, "to city id:" + toCityId, Toast.LENGTH_SHORT).show();
                 }
             } // to close the onItemSelected
 

@@ -1,14 +1,23 @@
 package com.aystech.sandesh.activity;
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +31,13 @@ import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,10 +50,14 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     private String strCompanyName, strBranch, strAuthPersonName, strDesignation, strMobileNumber, strEmailId,
             strPassword, strReEnteredPassword, strRefferalCode, strFCMId, strGender, strBirthDate;
     private RadioButton rbMale, rbFemale;
+    private ImageView imgProfileShow, imgProfileResult;
+    private LinearLayout llProfilePiture;
     private CheckBox cbAccetTermsAndConditions;
     private TextView tvBirthDate;
-    private ImageView ivProfilePicture;
     private Button btnSubmit;
+    Uri picUri;
+    Bitmap myBitmap;
+    private String strProfileBase64;
     private ViewProgressDialog viewProgressDialog;
 
     @Override
@@ -69,7 +89,10 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
         cbAccetTermsAndConditions = findViewById(R.id.cbTermsCondition);
         tvBirthDate = findViewById(R.id.tvBirthDate);
-        ivProfilePicture = findViewById(R.id.imgProfilePicture);
+        imgProfileShow = findViewById(R.id.imgProfileShow);
+        imgProfileResult = findViewById(R.id.imgProfileResult);
+
+        llProfilePiture = findViewById(R.id.llProfilePicture);
 
         btnSubmit = findViewById(R.id.btnSubmit);
     }
@@ -145,6 +168,13 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                 strGender = "Female";
             }
         });
+
+        llProfilePiture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoSelectPicture();
+            }
+        });
     }
 
     private void doRigistrationAPICall() {
@@ -157,7 +187,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         jsonObject.addProperty("gender", strGender);
         jsonObject.addProperty("birth_date", strBirthDate);
         jsonObject.addProperty("refferal_code", strRefferalCode);
-        jsonObject.addProperty("profile_img", "");
+        jsonObject.addProperty("profile_img", strProfileBase64);
         jsonObject.addProperty("fcm_id", strFCMId);
         jsonObject.addProperty("company_name", strCompanyName);
         jsonObject.addProperty("branch", strBranch);
@@ -190,5 +220,142 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                 viewProgressDialog.hideDialog();
             }
         });
+    }
+
+    private void gotoSelectPicture() {
+        startActivityForResult(getPickImageChooserIntent(), 200);
+    }
+
+    private Intent getPickImageChooserIntent() {
+        // Determine Uri of camera image to save.
+        Uri outputFileUri = getCaptureImageOutputUri();
+
+        List<Intent> allIntents = new ArrayList<>();
+
+        // collect all camera intents
+        Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        List<ResolveInfo> listCam = getPackageManager().queryIntentActivities(captureIntent, 0);
+        for (ResolveInfo res : listCam) {
+            Intent intent = new Intent(captureIntent);
+            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
+            intent.setPackage(res.activityInfo.packageName);
+            if (outputFileUri != null) {
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+            }
+            allIntents.add(intent);
+        }
+
+        // collect all gallery intents
+        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        List<ResolveInfo> listGallery = getPackageManager().queryIntentActivities(galleryIntent, 0);
+        for (ResolveInfo res : listGallery) {
+            Intent intent = new Intent(galleryIntent);
+            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
+            intent.setPackage(res.activityInfo.packageName);
+            allIntents.add(intent);
+        }
+
+        Intent mainIntent = allIntents.get(allIntents.size() - 1);
+        for (Intent intent : allIntents) {
+            if (Objects.requireNonNull(intent.getComponent()).getClassName().equals("com.android.documentsui.DocumentsActivity")) {
+                mainIntent = intent;
+                break;
+            }
+        }
+        allIntents.remove(mainIntent);
+
+        // Create a chooser from the main intent
+        Intent chooserIntent = Intent.createChooser(mainIntent, "Select source");
+
+        // Add all other intents
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, allIntents.toArray(new Parcelable[allIntents.size()]));
+
+        return chooserIntent;
+    }
+
+    /**
+     * Get URI to image received from capture by camera.
+     */
+    private Uri getCaptureImageOutputUri() {
+        Uri outputFileUri = null;
+        File getImage = getExternalCacheDir();
+        if (getImage != null) {
+            outputFileUri = Uri.fromFile(new File(getImage.getPath(), "profile.png"));
+        }
+        return outputFileUri;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Bitmap bitmap;
+        if (resultCode == Activity.RESULT_OK) {
+            if (getPickImageResultUri(data) != null) {
+                picUri = getPickImageResultUri(data);
+
+                try {
+                    myBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picUri);
+                    myBitmap = getResizedBitmap(myBitmap, 500);
+
+                    strProfileBase64 = getStringImage(myBitmap);
+
+                    imgProfileShow.setVisibility(View.GONE);
+                    imgProfileResult.setVisibility(View.VISIBLE);
+                    imgProfileResult.setImageBitmap(myBitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                bitmap = (Bitmap) data.getExtras().get("data");
+                myBitmap = bitmap;
+
+                strProfileBase64 = getStringImage(myBitmap);
+
+                imgProfileShow.setVisibility(View.GONE);
+                imgProfileResult.setVisibility(View.VISIBLE);
+                imgProfileResult.setImageBitmap(myBitmap);
+            }
+        }
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 0) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+    /**
+     * Get the URI of the selected image from {@link #getPickImageChooserIntent()}.<br />
+     * Will return the correct URI for camera and gallery image.
+     *
+     * @param data the returned data of the activity result
+     */
+    public Uri getPickImageResultUri(Intent data) {
+        boolean isCamera = true;
+        if (data != null) {
+            String action = data.getAction();
+            isCamera = action != null && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
+        }
+
+        return isCamera ? getCaptureImageOutputUri() : data.getData();
+    }
+
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+        byte[] imageBytes = outputStream.toByteArray();
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 }

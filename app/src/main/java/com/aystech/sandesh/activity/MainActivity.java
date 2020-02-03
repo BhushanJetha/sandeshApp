@@ -9,8 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.fragment.ContactUsFragment;
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ConstraintLayout clDashboard, clOther;
     ConstraintLayout bottomBar;
     Group historyGroup, contactUsGroup, faqGroup, referFriendGroup;
+    ImageView imgHistory, imgContactUs, imgFAQ, imgReferFriend, imgNominatePerson;
+    TextView tvHistory, tvContactUs, tvFAQ, tvReferFriend, tvNominatePerson;
 
     MobileVerificationFragment mobileVerificationFragment;
     DashboardFragment dashboardFragment;
@@ -38,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     HistoryFragment historyFragment;
     ContactUsFragment contactUsFragment;
     ReferFriendFragment referFriendFragment;
+
+    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +85,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         clOther = findViewById(R.id.clOther);
         bottomBar = findViewById(R.id.bottomBar);
 
-        faqGroup = findViewById(R.id.faqGroup);
         historyGroup = findViewById(R.id.historyGroup);
-        referFriendGroup = findViewById(R.id.referFriendGroup);
+        imgHistory = findViewById(R.id.imgHistory);
+        tvHistory = findViewById(R.id.tvHistory);
         contactUsGroup = findViewById(R.id.contactUsGroup);
+        imgContactUs = findViewById(R.id.imgContactUs);
+        tvContactUs = findViewById(R.id.tvContactUs);
+        faqGroup = findViewById(R.id.faqGroup);
+        imgFAQ = findViewById(R.id.imgFAQ);
+        tvFAQ = findViewById(R.id.tvFAQ);
+        referFriendGroup = findViewById(R.id.referFriendGroup);
+        imgReferFriend = findViewById(R.id.imgReferFriend);
+        tvReferFriend = findViewById(R.id.tvReferFriend);
     }
 
     private void onClickListener() {
@@ -90,10 +105,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgLogout.setOnClickListener(this);
         imgOtherLogout.setOnClickListener(this);
         imgOtherHome.setOnClickListener(this);
-        faqGroup.setOnClickListener(this);
+
         historyGroup.setOnClickListener(this);
-        referFriendGroup.setOnClickListener(this);
+        imgHistory.setOnClickListener(this);
+        tvHistory.setOnClickListener(this);
         contactUsGroup.setOnClickListener(this);
+        imgContactUs.setOnClickListener(this);
+        tvContactUs.setOnClickListener(this);
+        faqGroup.setOnClickListener(this);
+        imgFAQ.setOnClickListener(this);
+        tvFAQ.setOnClickListener(this);
+        referFriendGroup.setOnClickListener(this);
+        imgReferFriend.setOnClickListener(this);
+        tvReferFriend.setOnClickListener(this);
     }
 
     public void setUpToolbar(boolean isToolBar, boolean isDashboard, String toolbarTitle,
@@ -142,22 +166,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         false);
                 break;
 
-            case R.id.faqGroup:
-                FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), faqFragment, R.id.frame_container,
-                        true);
-                break;
-
             case R.id.historyGroup:
+            case R.id.imgHistory:
+            case R.id.tvHistory:
                 FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), historyFragment, R.id.frame_container,
                         true);
                 break;
 
             case R.id.contactUsGroup:
+            case R.id.imgContactUs:
+            case R.id.tvContactUs:
                 FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), contactUsFragment, R.id.frame_container,
                         true);
                 break;
 
+            case R.id.faqGroup:
+            case R.id.imgFAQ:
+            case R.id.tvFAQ:
+                FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), faqFragment, R.id.frame_container,
+                        true);
+                break;
+
             case R.id.referFriendGroup:
+            case R.id.imgReferFriend:
+            case R.id.tvReferFriend:
                 FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), referFriendFragment, R.id.frame_container,
                         true);
                 break;
@@ -187,5 +219,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        counter++;
+        boolean isBack = true;
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_container);
+        if (f != null) {
+            if ("DashboardFragment".equals(f.getClass().getSimpleName())) {
+                isBack = false;
+                if (counter == 1) {
+                    Toast.makeText(this, "Press back again to exit.", Toast.LENGTH_SHORT).show();
+                } else if (counter > 1) {
+                    counter = 0;
+                    finish();
+                }
+            } else {
+                counter--;
+            }
+        }
+        if (isBack) {
+            super.onBackPressed();
+        }
     }
 }

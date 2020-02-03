@@ -9,22 +9,30 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.OrderAdapter;
+import com.aystech.sandesh.model.CityModel;
+import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchOrderResponseModel;
+import com.aystech.sandesh.model.StateModel;
+import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -36,9 +44,13 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
     Context context;
 
+    StateResponseModel stateResponseModel;
+    CityResponseModel cityResponseModel;
+
+    private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     Button btnSearch;
     ImageView ingStartDate, ingEndDate;
-    EditText etFrom, etTo, etStartDate, etEndDate;
+    EditText etFromPincode, etToPincode, etStartDate, etEndDate;
 
     RecyclerView rvOrder;
     OrderAdapter orderAdapter;
@@ -46,6 +58,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     MyWalletFragmentOne myWalletFragmentOne;
 
     private int mYear, mMonth, mDay;
+    private int fromStateId, fromCityId, toStateId, toCityId;
 
     ViewProgressDialog viewProgressDialog;
 
@@ -78,14 +91,20 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
 
-        rvOrder = view.findViewById(R.id.rvOrder);
-        btnSearch = view.findViewById(R.id.btnSearch);
-
+        spinnerFromState = view.findViewById(R.id.spinnerFromState);
+        spinnerFromCity = view.findViewById(R.id.spinnerFromCity);
+        etFromPincode = view.findViewById(R.id.etFromPincode);
+        spinnerToState = view.findViewById(R.id.spinnerToState);
+        spinnerToCity = view.findViewById(R.id.spinnerToCity);
+        etToPincode = view.findViewById(R.id.etToPincode);
         ingStartDate = view.findViewById(R.id.ingStartDate);
         etStartDate = view.findViewById(R.id.etStartDate);
-
         ingEndDate = view.findViewById(R.id.ingEndDate);
         etEndDate = view.findViewById(R.id.etEndDate);
+
+
+        rvOrder = view.findViewById(R.id.rvOrder);
+        btnSearch = view.findViewById(R.id.btnSearch);
     }
 
     private void onClickListener() {
@@ -136,13 +155,14 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         datePickerDialog.show();
     }
 
-
     private void searchTravelerData() {
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("from_city_id", etFrom.getText().toString());
-        jsonObject.addProperty("to_city_id", etTo.getText().toString());
+        jsonObject.addProperty("from_city_id", fromCityId);
+        jsonObject.addProperty("from_pincode", etFromPincode.getText().toString());
+        jsonObject.addProperty("to_city_id", toCityId);
+        jsonObject.addProperty("to_pincode", etToPincode.getText().toString());
         jsonObject.addProperty("start_date", etStartDate.getText().toString());
         jsonObject.addProperty("end_date", etEndDate.getText().toString());
 
@@ -181,5 +201,161 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
+
+        //TODO API Call
+        getState();
+    }
+
+    private void getState() {
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<StateResponseModel> call = apiInterface.getState();
+        call.enqueue(new Callback<StateResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<StateResponseModel> call, @NonNull Response<StateResponseModel> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        stateResponseModel = response.body();
+                        bindStateDataToUI(response.body().getData());
+                    } else {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<StateResponseModel> call, @NonNull Throwable t) {
+            }
+        });
+
+    }
+
+    private void bindStateDataToUI(List<StateModel> data) {
+        ArrayList<String> manufactureArrayList = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            manufactureArrayList.add(data.get(i).getStateName());
+        }
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, manufactureArrayList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerFromState.setAdapter(adapter);
+        spinnerToState.setAdapter(adapter);
+
+        spinnerFromState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    fromStateId = stateResponseModel.getStateId(selectedItem);
+                    getCity(fromStateId, "from");
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerToState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    toStateId = stateResponseModel.getStateId(selectedItem);
+                    getCity(toStateId, "to");
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void getCity(int strStateId, final String tag) {
+        if (tag.equals("to"))
+            ViewProgressDialog.getInstance().showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("state_id", strStateId);
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CityResponseModel> call = apiInterface.getCity(jsonObject);
+        call.enqueue(new Callback<CityResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<CityResponseModel> call, @NonNull Response<CityResponseModel> response) {
+                if (tag.equals("to"))
+                    viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        cityResponseModel = response.body();
+                        bindCityDataToUI(response.body().getData(), tag);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CityResponseModel> call, @NonNull Throwable t) {
+                if (tag.equals("to"))
+                    viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void bindCityDataToUI(List<CityModel> data, String tag) {
+        if (tag.equals("from")) {
+            ArrayList<String> manufactureArrayList = new ArrayList<>();
+
+            for (int i = 0; i < data.size(); i++) {
+                manufactureArrayList.add(data.get(i).getCityName());
+            }
+            ArrayAdapter<String> adapter =
+                    new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, manufactureArrayList);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spinnerFromCity.setAdapter(adapter);
+        }
+        if (tag.equals("to")) {
+            ArrayList<String> manufactureArrayList = new ArrayList<>();
+
+            for (int i = 0; i < data.size(); i++) {
+                manufactureArrayList.add(data.get(i).getCityName());
+            }
+            ArrayAdapter<String> adapter =
+                    new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, manufactureArrayList);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spinnerToCity.setAdapter(adapter);
+        }
+
+        spinnerFromCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    fromCityId = cityResponseModel.getCityId(selectedItem);
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerToCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    toCityId = cityResponseModel.getCityId(selectedItem);
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }
