@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -55,7 +56,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     private RadioButton rbMale, rbFemale, rbOther;
     private CheckBox cbAccetTermsAndConditions;
     private TextView tvBirthDate, tvAcceptTermsAndCondition;
-    private ImageView imgProfileShow, imgProfileResult;
+    private ImageView imgProfileResult;
     private Button btnSubmit;
     private LinearLayout llDateOfBirth, llProfilePiture;
     private int mYear, mMonth, mDay;
@@ -92,8 +93,9 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
         cbAccetTermsAndConditions = findViewById(R.id.cbTermsCondition);
         tvBirthDate = findViewById(R.id.tvBirthDate);
-        imgProfileShow = findViewById(R.id.imgProfileShow);
         imgProfileResult = findViewById(R.id.imgProfileResult);
+        imgProfileResult.setImageResource(R.drawable.ic_parcel);
+
         btnSubmit = findViewById(R.id.btnSubmit);
         llDateOfBirth = findViewById(R.id.llDateOfBirth);
         tvAcceptTermsAndCondition =  findViewById(R.id.tvTermsCondition);
@@ -341,8 +343,6 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
                     strProfileBase64 = getStringImage(myBitmap);
 
-                    imgProfileShow.setVisibility(View.GONE);
-                    imgProfileResult.setVisibility(View.VISIBLE);
                     imgProfileResult.setImageBitmap(myBitmap);
 
                 } catch (IOException e) {
@@ -354,8 +354,6 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
                 strProfileBase64 = getStringImage(myBitmap);
 
-                imgProfileShow.setVisibility(View.GONE);
-                imgProfileResult.setVisibility(View.VISIBLE);
                 imgProfileResult.setImageBitmap(myBitmap);
             }
         }

@@ -50,7 +50,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     private String strCompanyName, strBranch, strAuthPersonName, strDesignation, strMobileNumber, strEmailId,
             strPassword, strReEnteredPassword, strRefferalCode, strFCMId, strGender, strBirthDate;
     private RadioButton rbMale, rbFemale;
-    private ImageView imgProfileShow, imgProfileResult;
+    private ImageView imgProfileResult;
     private LinearLayout llProfilePiture;
     private CheckBox cbAccetTermsAndConditions;
     private TextView tvBirthDate;
@@ -89,8 +89,8 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
         cbAccetTermsAndConditions = findViewById(R.id.cbTermsCondition);
         tvBirthDate = findViewById(R.id.tvBirthDate);
-        imgProfileShow = findViewById(R.id.imgProfileShow);
         imgProfileResult = findViewById(R.id.imgProfileResult);
+        imgProfileResult.setImageResource(R.drawable.ic_parcel);
 
         llProfilePiture = findViewById(R.id.llProfilePicture);
 
@@ -301,8 +301,6 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
                     strProfileBase64 = getStringImage(myBitmap);
 
-                    imgProfileShow.setVisibility(View.GONE);
-                    imgProfileResult.setVisibility(View.VISIBLE);
                     imgProfileResult.setImageBitmap(myBitmap);
 
                 } catch (IOException e) {
@@ -314,8 +312,6 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
                 strProfileBase64 = getStringImage(myBitmap);
 
-                imgProfileShow.setVisibility(View.GONE);
-                imgProfileResult.setVisibility(View.VISIBLE);
                 imgProfileResult.setImageBitmap(myBitmap);
             }
         }

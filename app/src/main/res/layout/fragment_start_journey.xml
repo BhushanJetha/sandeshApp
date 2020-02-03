@@ -392,7 +392,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tvWeightTitle"/>
 
                 <android.support.constraint.Group
-                    android:id="@+id/grParcelPhoto"
+                    android:id="@+id/gpParcelPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toTopOf="@+id/tILReceiverName"
@@ -405,7 +405,6 @@
                     android:layout_width="@dimen/_96sdp"
                     android:layout_height="@dimen/_96sdp"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:background="@drawable/ic_parcel"
                     app:layout_constraintStart_toStartOf="@+id/tILDeliveryOption"
                     app:layout_constraintTop_toBottomOf="@+id/spinnerWeights" />
 
@@ -425,7 +424,7 @@
                     android:layout_marginLeft="@dimen/_6sdp"
                     android:text="Photo of parcel"
                     android:fontFamily="@font/gotham_light"
-                    android:textSize="@dimen/_13sdp"
+                    android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/imgParcel"
                     app:layout_constraintLeft_toRightOf="@id/imgParcel"
                     app:layout_constraintTop_toTopOf="@id/imgParcel" />

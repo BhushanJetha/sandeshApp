@@ -44,17 +44,9 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imgProfileShow"
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="@dimen/_70sdp"
-                    android:visibility="visible"
-                    android:background="@drawable/ic_parcel" />
-
-                <ImageView
                     android:id="@+id/imgProfileResult"
                     android:layout_width="@dimen/_70sdp"
-                    android:layout_height="@dimen/_70sdp"
-                    android:visibility="gone" />
+                    android:layout_height="@dimen/_70sdp" />
 
                 <TextView
                     android:layout_width="match_parent"
