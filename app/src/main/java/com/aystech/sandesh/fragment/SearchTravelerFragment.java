@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
@@ -59,6 +61,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
     private int mYear, mMonth, mDay;
     private int fromStateId, fromCityId, toStateId, toCityId;
+    private String strToPinCode, strFromPincode, strStartDate ="", strEndDate = "";
 
     ViewProgressDialog viewProgressDialog;
 
@@ -125,8 +128,26 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.btnSearch:
-                //TODO API Call
-                //searchTravelerData();
+                strToPinCode = etToPincode.getText().toString();
+                strFromPincode = etFromPincode.getText().toString();
+
+                if(!strToPinCode.isEmpty()){
+                    if(!strFromPincode.isEmpty()){
+                        if(!strStartDate.isEmpty()){
+                            if(!strEndDate.isEmpty()){
+                                searchTravelerData();
+                            }else {
+                                Uitility.showToast(getActivity(),"Please select end Date !!");
+                            }
+                        }else {
+                            Uitility.showToast(getActivity(),"Please select start Date !!");
+                        }
+                    }else {
+                        Uitility.showToast(getActivity(),"Please enter Pincode !!");
+                    }
+                }else {
+                    Uitility.showToast(getActivity(),"Please enter Pincode !!");
+                }
                 break;
         }
     }
@@ -146,9 +167,11 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         if (tag.equals("start_date")) {
-                            etStartDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            strStartDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            etStartDate.setText(strStartDate);
                         } else if (tag.equals("end_date")) {
-                            etEndDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            strEndDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            etEndDate.setText(strEndDate);
                         }
                     }
                 }, mYear, mMonth, mDay);
@@ -160,11 +183,11 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("from_city_id", fromCityId);
-        jsonObject.addProperty("from_pincode", etFromPincode.getText().toString());
+        jsonObject.addProperty("from_pincode", strFromPincode);
         jsonObject.addProperty("to_city_id", toCityId);
-        jsonObject.addProperty("to_pincode", etToPincode.getText().toString());
-        jsonObject.addProperty("start_date", etStartDate.getText().toString());
-        jsonObject.addProperty("end_date", etEndDate.getText().toString());
+        jsonObject.addProperty("to_pincode", strToPinCode);
+        jsonObject.addProperty("start_date", strStartDate);
+        jsonObject.addProperty("end_date", strEndDate);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<SearchOrderResponseModel> call = apiInterface.searchTraveller(

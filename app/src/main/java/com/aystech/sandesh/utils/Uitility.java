@@ -11,6 +11,17 @@ public class Uitility {
         Toast.makeText(context,message,Toast.LENGTH_LONG).show();
     }
 
+    public static String dateFormat(int year, int month, int day){
+        String formatedMonth = "";
+
+        if(String.valueOf(month).length() == 1){
+            formatedMonth = "0"+ month;
+        }else {
+            formatedMonth = String.valueOf(month+1);
+        }
+        return  year + "-" + formatedMonth + "-" +day;
+    }
+
     public static boolean isValidEmailId(String email){
 
         return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"

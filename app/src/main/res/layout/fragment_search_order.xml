@@ -111,6 +111,7 @@
                         android:fontFamily="@font/gotham_light"
                         android:hint="Pincode"
                         android:inputType="number"
+                        android:maxLength="6"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -172,6 +173,7 @@
                         android:fontFamily="@font/gotham_light"
                         android:hint="Pincode"
                         android:inputType="number"
+                        android:maxLength="6"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>

@@ -71,6 +71,7 @@
                     android:id="@+id/spinnerFromState"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvFomState" />
@@ -91,6 +92,7 @@
                     android:id="@+id/spinnerFromCity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvFromCity" />
@@ -112,6 +114,7 @@
                         android:fontFamily="@font/gotham_light"
                         android:hint="Pincode"
                         android:inputType="number"
+                        android:maxLength="6"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -173,6 +176,7 @@
                         android:fontFamily="@font/gotham_light"
                         android:hint="Pincode"
                         android:inputType="number"
+                        android:maxLength="6"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -357,7 +361,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
-                    android:entries="@array/nature_of_good"
+                    android:entries="@array/preferred_weight_array"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvPreferredWeightTitle" />

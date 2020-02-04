@@ -29,6 +29,7 @@ import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
@@ -42,25 +43,21 @@ import retrofit2.Response;
 
 public class SearchOrderFragment extends Fragment implements View.OnClickListener {
 
-    Context context;
+    private Context context;
 
-    SearchTravelerFragment searchTravelerFragment;
-
-    StateResponseModel stateResponseModel;
-    CityResponseModel cityResponseModel;
-
+    private SearchTravelerFragment searchTravelerFragment;
+    private StateResponseModel stateResponseModel;
+    private CityResponseModel cityResponseModel;
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
-    Button btnSearch;
-    ImageView ingDate;
-    EditText etFromPincode, etToPincode, etDate;
-
-    RecyclerView rvOrder;
-    OrderAdapter orderAdapter;
-
+    private Button btnSearch;
+    private ImageView ingDate;
+    private EditText etFromPincode, etToPincode, etDate;
+    private RecyclerView rvOrder;
+    private OrderAdapter orderAdapter;
     private int mYear, mMonth, mDay;
     private int fromStateId, fromCityId, toStateId, toCityId;
-
-    ViewProgressDialog viewProgressDialog;
+    private String strToPinCode, strFromPincode, strDate ="";
+    private ViewProgressDialog viewProgressDialog;
 
     public SearchOrderFragment() {
         // Required empty public constructor
@@ -116,8 +113,24 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.btnSearch:
-                //TODO API Call
-                //searchOrderByData();
+
+                strToPinCode = etToPincode.getText().toString();
+                strFromPincode = etFromPincode.getText().toString();
+
+                if(!strToPinCode.isEmpty()){
+                    if(!strFromPincode.isEmpty()){
+                        if(!strDate.isEmpty()){
+                            searchOrderByData();
+                        }else {
+                            Uitility.showToast(getActivity(),"Please select Date !!");
+                        }
+                    }else {
+                        Uitility.showToast(getActivity(),"Please enter Pincode !!");
+                    }
+                }else {
+                    Uitility.showToast(getActivity(),"Please enter Pincode !!");
+                }
+
                 break;
         }
     }
@@ -136,7 +149,8 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        etDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                        strDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                        etDate.setText(strDate);
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
@@ -147,10 +161,10 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("from_city_id", fromCityId);
-        jsonObject.addProperty("from_pincode", etFromPincode.getText().toString());
+        jsonObject.addProperty("from_pincode", strFromPincode);
         jsonObject.addProperty("to_city_id", toCityId);
-        jsonObject.addProperty("to_pincode", etToPincode.getText().toString());
-        jsonObject.addProperty("date", etDate.getText().toString());
+        jsonObject.addProperty("to_pincode", strToPinCode);
+        jsonObject.addProperty("date", strDate);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<SearchOrderResponseModel> call = apiInterface.searchOrder(
