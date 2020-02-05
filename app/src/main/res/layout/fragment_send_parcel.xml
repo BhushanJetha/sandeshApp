@@ -111,6 +111,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
                         android:hint="Pincode"
+                        android:maxLength="6"
                         android:inputType="number"
                         android:maxLines="1" />
 
@@ -173,6 +174,7 @@
                         android:fontFamily="@font/gotham_light"
                         android:hint="Pincode"
                         android:inputType="number"
+                        android:maxLength="6"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -382,6 +384,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
+                    android:entries="@array/nature_of_good"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvQualityTitle" />
@@ -607,6 +610,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Receiver's mobile no"
+                        android:maxLength="10"
                         android:inputType="number" />
 
                 </android.support.design.widget.TextInputLayout>

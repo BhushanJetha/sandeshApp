@@ -12,14 +12,21 @@ public class Uitility {
     }
 
     public static String dateFormat(int year, int month, int day){
-        String formatedMonth = "";
+        String formatedMonth = "", formatedDay = "";
 
         if(String.valueOf(month).length() == 1){
             formatedMonth = "0"+ month;
         }else {
             formatedMonth = String.valueOf(month+1);
         }
-        return  year + "-" + formatedMonth + "-" +day;
+
+        if(String.valueOf(day).length() ==1){
+            formatedDay = "0" + day;
+        }else {
+            formatedDay = String.valueOf(day);
+        }
+
+        return  year + "-" + formatedMonth + "-" + formatedDay;
     }
 
     public static boolean isValidEmailId(String email){

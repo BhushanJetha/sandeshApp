@@ -30,6 +30,7 @@ import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
@@ -69,7 +70,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     UserSession userSession;
     ViewProgressDialog viewProgressDialog;
 
-    String deliveryOption, preferredWeight, modeOfTravel;
+    String deliveryOption, preferredWeight, modeOfTravel, strStartTime, strEndTime, strStartDate, strEndDate, strFromPincode,
+            strToPincode, strAcceptableLength, strAcceptableBreadth, strAcceptableHeight, strVehicleNo, strOtherDetail;
 
     public PlanTravelFragment() {
         // Required empty public constructor
@@ -192,7 +194,14 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 break;
 
             case R.id.btnSubmit:
-                //TODO API Call
+                strFromPincode = etFromPincode.getText().toString();
+                strToPincode = etToPincode.getText().toString();
+                strAcceptableLength = etAcceptableLength.getText().toString();
+                strAcceptableBreadth = etAcceptableBreadth.getText().toString();
+                strAcceptableHeight = etAcceptableHeight.getText().toString();
+                strVehicleNo = etVehicleTrainNo.getText().toString();
+                strOtherDetail = etOtherDetails.getText().toString();
+
                 planTravel();
                 break;
 
@@ -206,21 +215,21 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("from_city_id", fromCityId);
-        jsonObject.addProperty("from_pincode", etFromPincode.getText().toString());
+        jsonObject.addProperty("from_pincode", strFromPincode);
         jsonObject.addProperty("to_city_id", toCityId);
-        jsonObject.addProperty("to_pincode", etToPincode.getText().toString());
-        jsonObject.addProperty("start_date", etStartDate.getText().toString());
-        jsonObject.addProperty("start_time", etStartTime.getText().toString());
-        jsonObject.addProperty("end_date", etEndDate.getText().toString());
-        jsonObject.addProperty("end_time", etEndTime.getText().toString());
+        jsonObject.addProperty("to_pincode", strToPincode);
+        jsonObject.addProperty("start_date", strStartDate);
+        jsonObject.addProperty("start_time", strStartTime);
+        jsonObject.addProperty("end_dUate", strEndDate);
+        jsonObject.addProperty("end_time", strEndTime);
         jsonObject.addProperty("delivery_option", deliveryOption);
         jsonObject.addProperty("preferred_weight", preferredWeight);
-        jsonObject.addProperty("acceptable_volume_length", etAcceptableLength.getText().toString());
-        jsonObject.addProperty("acceptable_volume_breadth", etAcceptableBreadth.getText().toString());
-        jsonObject.addProperty("acceptable_volume_width", etAcceptableHeight.getText().toString());
+        jsonObject.addProperty("acceptable_volume_length", strAcceptableLength);
+        jsonObject.addProperty("acceptable_volume_breadth", strAcceptableBreadth);
+        jsonObject.addProperty("acceptable_volume_width", strAcceptableHeight);
         jsonObject.addProperty("mode_of_travel", modeOfTravel);
-        jsonObject.addProperty("vehicle_train_number", etVehicleTrainNo.getText().toString());
-        jsonObject.addProperty("other_detail", etOtherDetails.getText().toString());
+        jsonObject.addProperty("vehicle_train_number", strVehicleNo);
+        jsonObject.addProperty("other_detail", strOtherDetail);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.planTravel(
@@ -261,9 +270,11 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         if (tag.equals("start_date")) {
-                            etStartDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            strStartDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            etStartDate.setText(strStartDate);
                         } else if (tag.equals("end_date")) {
-                            etEndDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            strEndDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            etEndDate.setText(strEndDate);
                         }
                     }
                 }, mYear, mMonth, mDay);
@@ -284,9 +295,11 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
                         if (tag.equals("start_time")) {
-                            etStartTime.setText(hourOfDay + ":" + minute);
+                            strStartTime = hourOfDay + ":" + minute;
+                            etStartTime.setText(strStartTime);
                         } else if (tag.equals("end_time")) {
-                            etEndTime.setText(hourOfDay + ":" + minute);
+                            strEndTime = hourOfDay + ":" + minute;
+                            etEndTime.setText(strEndTime);
                         }
                     }
                 }, mHour, mMinute, false);
@@ -455,3 +468,4 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         });
     }
 }
+

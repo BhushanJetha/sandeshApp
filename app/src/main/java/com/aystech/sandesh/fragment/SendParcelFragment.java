@@ -41,6 +41,7 @@ import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
@@ -79,7 +80,9 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     Button btnSubmit;
     TextView btnCancel;
 
-    String deliveryOption, natureOfGoods, quality, weight, packaging, prohibited, ownership;
+    String deliveryOption, natureOfGoods, quality, weight, packaging, prohibited, ownership, strFromPincode, strtoPincode,
+            strStartDate, strStartTime, strEndDate, strEndTime, strGoodsDescription, strValueOgGood,
+            strReceiverName, strReceiverMobileNo;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId;
 
@@ -278,7 +281,13 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 break;
             case R.id.btnSubmit:
                 //TODO API Call
-                //sendParcel();
+                strtoPincode = etToPincode.getText().toString();
+                strFromPincode = etFromPincode.getText().toString();
+                strGoodsDescription = etGoodsDescription.getText().toString();
+                strValueOgGood = etGoodsValue.getText().toString();
+                strReceiverName = etReceiverName.getText().toString();
+                strReceiverMobileNo = etReceiverMobileNo.getText().toString();
+                sendParcel();
                 break;
             case R.id.gpInvoice:
                 gotoSelectPicture("invoice");
@@ -304,9 +313,11 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         if (tag.equals("start_date")) {
-                            etStartDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            strStartDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            etStartDate.setText(strStartDate);
                         } else if (tag.equals("end_date")) {
-                            etEndDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            strEndDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            etEndDate.setText(strEndDate);
                         }
                     }
                 }, mYear, mMonth, mDay);
@@ -327,9 +338,11 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
                         if (tag.equals("start_time")) {
-                            etStartTime.setText(hourOfDay + ":" + minute);
+                            strStartTime = hourOfDay + ":" + minute;
+                            etStartTime.setText(strStartTime);
                         } else if (tag.equals("end_time")) {
-                            etEndTime.setText(hourOfDay + ":" + minute);
+                            strEndTime = hourOfDay + ":" + minute;
+                            etEndTime.setText(strEndTime);
                         }
                     }
                 }, mHour, mMinute, false);
@@ -340,29 +353,27 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("user_id", userSession.getUSER_ID());
-        jsonObject.addProperty("user_type", userSession.getUSER_TYPE());
         jsonObject.addProperty("from_city_id", fromCityId);
-        jsonObject.addProperty("from_pincode", etFromPincode.getText().toString());
+        jsonObject.addProperty("from_pincode", strFromPincode);
         jsonObject.addProperty("to_city_id", toCityId);
-        jsonObject.addProperty("to_pincode", etToPincode.getText().toString());
-        jsonObject.addProperty("start_date", etStartDate.getText().toString());
-        jsonObject.addProperty("start_time", etStartTime.getText().toString());
-        jsonObject.addProperty("end_date", etEndDate.getText().toString());
-        jsonObject.addProperty("end_time", etEndTime.getText().toString());
+        jsonObject.addProperty("to_pincode", strtoPincode);
+        jsonObject.addProperty("start_date", strStartDate);
+        jsonObject.addProperty("start_time", strStartTime);
+        jsonObject.addProperty("end_date", strEndDate);
+        jsonObject.addProperty("end_time", strEndTime);
         jsonObject.addProperty("delivery_option", deliveryOption);
         jsonObject.addProperty("nature_of_goods", natureOfGoods);
-        jsonObject.addProperty("good_description", etGoodsDescription.getText().toString());
+        jsonObject.addProperty("good_description", strGoodsDescription);
         jsonObject.addProperty("quality", quality);
         jsonObject.addProperty("weight", weight);
         jsonObject.addProperty("packaging", packaging);
         jsonObject.addProperty("isProhibited", prohibited);
-        jsonObject.addProperty("value_of_goods", etGoodsValue.getText().toString());
+        jsonObject.addProperty("value_of_goods", strValueOgGood);
         jsonObject.addProperty("ownership", ownership);
         jsonObject.addProperty("invoice_pic", strInvoiceBase64);
         jsonObject.addProperty("parcel_pic", strParcelBase64);
-        jsonObject.addProperty("receiver_name", etReceiverName.getText().toString());
-        jsonObject.addProperty("receiver_mobile_no", etReceiverMobileNo.getText().toString());
+        jsonObject.addProperty("receiver_name", strReceiverName);
+        jsonObject.addProperty("receiver_mobile_no", strReceiverMobileNo);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.sendParcel(
