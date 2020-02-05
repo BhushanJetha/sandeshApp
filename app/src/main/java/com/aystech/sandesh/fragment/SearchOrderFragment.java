@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
@@ -46,8 +48,12 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     private Context context;
 
     private SearchTravelerFragment searchTravelerFragment;
+
     private StateResponseModel stateResponseModel;
     private CityResponseModel cityResponseModel;
+
+    ConstraintLayout clOrderList;
+    TextView tvResultCount;
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private Button btnSearch;
     private ImageView ingDate;
@@ -56,7 +62,8 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     private OrderAdapter orderAdapter;
     private int mYear, mMonth, mDay;
     private int fromStateId, fromCityId, toStateId, toCityId;
-    private String strToPinCode, strFromPincode, strDate ="";
+    private String strToPinCode, strFromPincode, strDate = "";
+
     private ViewProgressDialog viewProgressDialog;
 
     public SearchOrderFragment() {
@@ -88,6 +95,9 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
 
+        clOrderList = view.findViewById(R.id.clOrderList);
+        tvResultCount = view.findViewById(R.id.tvResultCount);
+
         spinnerFromState = view.findViewById(R.id.spinnerFromState);
         spinnerFromCity = view.findViewById(R.id.spinnerFromCity);
         etFromPincode = view.findViewById(R.id.etFromPincode);
@@ -117,18 +127,18 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 strToPinCode = etToPincode.getText().toString();
                 strFromPincode = etFromPincode.getText().toString();
 
-                if(!strToPinCode.isEmpty()){
-                    if(!strFromPincode.isEmpty()){
-                        if(!strDate.isEmpty()){
+                if (!strToPinCode.isEmpty()) {
+                    if (!strFromPincode.isEmpty()) {
+                        if (!strDate.isEmpty()) {
                             searchOrderByData();
-                        }else {
-                            Uitility.showToast(getActivity(),"Please select Date !!");
+                        } else {
+                            Uitility.showToast(getActivity(), "Please select Date !!");
                         }
-                    }else {
-                        Uitility.showToast(getActivity(),"Please enter Pincode !!");
+                    } else {
+                        Uitility.showToast(getActivity(), "Please enter Pincode !!");
                     }
-                }else {
-                    Uitility.showToast(getActivity(),"Please enter Pincode !!");
+                } else {
+                    Uitility.showToast(getActivity(), "Please enter Pincode !!");
                 }
 
                 break;
@@ -149,7 +159,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        strDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                        strDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
                         etDate.setText(strDate);
                     }
                 }, mYear, mMonth, mDay);
@@ -192,8 +202,18 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     }
 
     private void bindDataToRV(List<SearchOrderModel> data) {
-        orderAdapter = new OrderAdapter(context, data);
-        rvOrder.setAdapter(orderAdapter);
+        if (data.size() > 0) {
+            clOrderList.setVisibility(View.VISIBLE);
+            if (data.size() == 1)
+                tvResultCount.setText(data.size() + " result found");
+            else
+                tvResultCount.setText(data.size() + " results found");
+
+            orderAdapter = new OrderAdapter(context, data);
+            rvOrder.setAdapter(orderAdapter);
+        } else {
+            clOrderList.setVisibility(View.GONE);
+        }
     }
 
     @Override

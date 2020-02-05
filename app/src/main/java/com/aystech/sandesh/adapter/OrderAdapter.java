@@ -11,17 +11,26 @@ import android.widget.TextView;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.model.SearchOrderModel;
+import com.aystech.sandesh.model.SearchTravellerModel;
 
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
 
-    Context context;
-    List<SearchOrderModel> data;
+    private Context context;
+    private List<SearchOrderModel> searchOrderModels;
+    private List<SearchTravellerModel> searchTravellerModels;
+    private String tag;
 
     public OrderAdapter(Context context, List<SearchOrderModel> data) {
         this.context = context;
-        this.data = data;
+        this.searchOrderModels = data;
+    }
+
+    public OrderAdapter(Context context, List<SearchTravellerModel> data, String tag) {
+        this.context = context;
+        this.searchTravellerModels = data;
+        this.tag = tag;
     }
 
     @NonNull
@@ -33,12 +42,27 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-
+        if (tag != null && tag.equals("traveller")) {
+            myViewHolder.tvName.setText("" /*+ searchTravellerModels.get(i).getReceiverName()*/);
+            myViewHolder.tvOrderDate.setText("" + searchTravellerModels.get(i).getStartDate());
+            myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
+            myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
+            myViewHolder.tvOrderTypeContent.setText("" + searchTravellerModels.get(i).getModeOfTravel());
+        } else {
+            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getReceiverName());
+            myViewHolder.tvOrderDate.setText("" + searchOrderModels.get(i).getStartDate());
+            myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
+            myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
+            myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if (tag != null && tag.equals("traveller")) {
+            return searchTravellerModels.size();
+        }
+        return searchOrderModels.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

@@ -4,6 +4,7 @@ import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.LoginResponseModel;
 import com.aystech.sandesh.model.SearchOrderResponseModel;
+import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.google.gson.JsonObject;
 
@@ -51,7 +52,7 @@ public interface ApiInterface {
     Call<SearchOrderResponseModel> searchOrder(@Body JsonObject jsonObject);
 
     @POST("api/searchTraveller")
-    Call<SearchOrderResponseModel> searchTraveller(@Body JsonObject jsonObject);
+    Call<SearchTravellerResponseModel> searchTraveller(@Body JsonObject jsonObject);
 
     @GET("api/showHistory")
     Call<CommonResponse> showHistory(@Body JsonObject jsonObject);

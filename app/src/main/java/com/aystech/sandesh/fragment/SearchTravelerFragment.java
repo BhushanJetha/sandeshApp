@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
@@ -26,6 +28,8 @@ import com.aystech.sandesh.model.CityModel;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchOrderResponseModel;
+import com.aystech.sandesh.model.SearchTravellerModel;
+import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
@@ -48,6 +52,9 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
     StateResponseModel stateResponseModel;
     CityResponseModel cityResponseModel;
+
+    ConstraintLayout clTravellerList;
+    TextView tvResultCount;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     Button btnSearch;
@@ -93,6 +100,9 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
+
+        clTravellerList = view.findViewById(R.id.clTravellerList);
+        tvResultCount = view.findViewById(R.id.tvResultCount);
 
         spinnerFromState = view.findViewById(R.id.spinnerFromState);
         spinnerFromCity = view.findViewById(R.id.spinnerFromCity);
@@ -190,12 +200,12 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         jsonObject.addProperty("end_date", strEndDate);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<SearchOrderResponseModel> call = apiInterface.searchTraveller(
+        Call<SearchTravellerResponseModel> call = apiInterface.searchTraveller(
                 jsonObject
         );
-        call.enqueue(new Callback<SearchOrderResponseModel>() {
+        call.enqueue(new Callback<SearchTravellerResponseModel>() {
             @Override
-            public void onResponse(@NonNull Call<SearchOrderResponseModel> call, @NonNull Response<SearchOrderResponseModel> response) {
+            public void onResponse(@NonNull Call<SearchTravellerResponseModel> call, @NonNull Response<SearchTravellerResponseModel> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
@@ -208,15 +218,25 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
             }
 
             @Override
-            public void onFailure(@NonNull Call<SearchOrderResponseModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<SearchTravellerResponseModel> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
     }
 
-    private void bindDataToRV(List<SearchOrderModel> data) {
-        orderAdapter = new OrderAdapter(context, data);
-        rvOrder.setAdapter(orderAdapter);
+    private void bindDataToRV(List<SearchTravellerModel> data) {
+        if (data.size()>0) {
+            clTravellerList.setVisibility(View.VISIBLE);
+            if (data.size() == 1)
+                tvResultCount.setText(data.size() + " result found");
+            else
+                tvResultCount.setText(data.size() + " results found");
+
+            orderAdapter = new OrderAdapter(context, data, "traveller");
+            rvOrder.setAdapter(orderAdapter);
+        }else{
+            clTravellerList.setVisibility(View.GONE);
+        }
     }
 
 
