@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
+import com.aystech.sandesh.model.ShowHistoryInnerModel;
 
 import java.util.List;
 
@@ -31,6 +32,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         this.context = context;
         this.searchTravellerModels = data;
         this.tag = tag;
+    }
+
+    public OrderAdapter(Context context, ShowHistoryInnerModel data, String history, String travel) {
+
     }
 
     @NonNull

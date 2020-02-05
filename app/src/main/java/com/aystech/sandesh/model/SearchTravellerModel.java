@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class SearchTravellerModel {
+    @SerializedName("travel_id")
+    @Expose
+    private Integer travelId;
     @SerializedName("user_id")
     @Expose
     private Integer userId;
@@ -25,6 +28,12 @@ public class SearchTravellerModel {
     @SerializedName("start_date")
     @Expose
     private String startDate;
+    @SerializedName("start_time")
+    @Expose
+    private String startTime;
+    @SerializedName("end_date")
+    @Expose
+    private String endDate;
     @SerializedName("end_time")
     @Expose
     private String endTime;
@@ -37,12 +46,12 @@ public class SearchTravellerModel {
     @SerializedName("acceptable_volume_length")
     @Expose
     private String acceptableVolumeLength;
-    @SerializedName("acceptable_volume_width")
-    @Expose
-    private String acceptableVolumeWidth;
     @SerializedName("acceptable_volume_breadth")
     @Expose
     private String acceptableVolumeBreadth;
+    @SerializedName("acceptable_volume_width")
+    @Expose
+    private String acceptableVolumeWidth;
     @SerializedName("mode_of_travel")
     @Expose
     private String modeOfTravel;
@@ -52,6 +61,29 @@ public class SearchTravellerModel {
     @SerializedName("other_detail")
     @Expose
     private String otherDetail;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("date")
+    @Expose
+    private String date;
+    @SerializedName("time")
+    @Expose
+    private String time;
+    @SerializedName("created_date")
+    @Expose
+    private String createdDate;
+    @SerializedName("updated_date")
+    @Expose
+    private String updatedDate;
+
+    public Integer getTravelId() {
+        return travelId;
+    }
+
+    public void setTravelId(Integer travelId) {
+        this.travelId = travelId;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -109,6 +141,22 @@ public class SearchTravellerModel {
         this.startDate = startDate;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
     public String getEndTime() {
         return endTime;
     }
@@ -141,20 +189,20 @@ public class SearchTravellerModel {
         this.acceptableVolumeLength = acceptableVolumeLength;
     }
 
-    public String getAcceptableVolumeWidth() {
-        return acceptableVolumeWidth;
-    }
-
-    public void setAcceptableVolumeWidth(String acceptableVolumeWidth) {
-        this.acceptableVolumeWidth = acceptableVolumeWidth;
-    }
-
     public String getAcceptableVolumeBreadth() {
         return acceptableVolumeBreadth;
     }
 
     public void setAcceptableVolumeBreadth(String acceptableVolumeBreadth) {
         this.acceptableVolumeBreadth = acceptableVolumeBreadth;
+    }
+
+    public String getAcceptableVolumeWidth() {
+        return acceptableVolumeWidth;
+    }
+
+    public void setAcceptableVolumeWidth(String acceptableVolumeWidth) {
+        this.acceptableVolumeWidth = acceptableVolumeWidth;
     }
 
     public String getModeOfTravel() {
@@ -179,5 +227,45 @@ public class SearchTravellerModel {
 
     public void setOtherDetail(String otherDetail) {
         this.otherDetail = otherDetail;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(String updatedDate) {
+        this.updatedDate = updatedDate;
     }
 }
