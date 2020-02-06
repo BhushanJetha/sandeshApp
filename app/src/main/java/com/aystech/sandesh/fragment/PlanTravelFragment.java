@@ -220,7 +220,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         jsonObject.addProperty("to_pincode", strToPincode);
         jsonObject.addProperty("start_date", strStartDate);
         jsonObject.addProperty("start_time", strStartTime);
-        jsonObject.addProperty("end_dUate", strEndDate);
+        jsonObject.addProperty("end_date", strEndDate);
         jsonObject.addProperty("end_time", strEndTime);
         jsonObject.addProperty("delivery_option", deliveryOption);
         jsonObject.addProperty("preferred_weight", preferredWeight);

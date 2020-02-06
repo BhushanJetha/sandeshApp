@@ -22,7 +22,7 @@ public class TermsAndConditionFragment extends Fragment {
         webView = (WebView) view.findViewById(R.id.webView);
         // displaying content in WebView from html file that stored in assets folder
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("file:///android_res/raw/" + "guidelines_and_policies.html");
+        webView.loadUrl("file:///android_res/raw/" + "terms_and_condition.html");
         return  view;
     }
 }

@@ -11,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CityModel;
 import com.aystech.sandesh.model.CityResponseModel;
+import com.aystech.sandesh.model.ShowHistoryResponseModel;
 import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
@@ -36,15 +38,10 @@ import retrofit2.Response;
  */
 public class UserProfileFragment extends Fragment {
 
-    Context context;
-
-    StateResponseModel stateResponseModel;
-    CityResponseModel cityResponseModel;
-
-    private Spinner spinnerState, spinnerCity;
-    private int stateId, cityId;
-
-    ViewProgressDialog viewProgressDialog;
+    private Context context;
+    private ViewProgressDialog viewProgressDialog;
+    private TextView tvFullName, tvEmailID, tvMobileNumber, tvDateOfBirth, tvGender, tvAddresLine1, tvAddresLine2, tvLandmark,
+            tvState, tvCity;
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -70,122 +67,49 @@ public class UserProfileFragment extends Fragment {
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
 
-        spinnerState = view.findViewById(R.id.spinnerState);
-        spinnerCity = view.findViewById(R.id.spinnerCity);
+        tvFullName = view.findViewById(R.id.tvFullName);
+        tvMobileNumber = view.findViewById(R.id.tvMobileNumber);
+        tvEmailID = view.findViewById(R.id.tvEmailId);
+        tvGender = view.findViewById(R.id.tvGender);
+        tvDateOfBirth = view.findViewById(R.id.tvDateOfBirth);
+        tvAddresLine1 = view.findViewById(R.id.tvAddressLine1);
+        tvAddresLine2 = view.findViewById(R.id.tvAddressLine2);
+        tvLandmark = view.findViewById(R.id.tvLandmark);
+        tvState = view.findViewById(R.id.tvState);
+        tvCity = view.findViewById(R.id.tvCity);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
-
-        //TODO API Call
-        getState();
     }
 
-    private void getState() {
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<StateResponseModel> call = apiInterface.getState();
-        call.enqueue(new Callback<StateResponseModel>() {
-            @Override
-            public void onResponse(@NonNull Call<StateResponseModel> call, @NonNull Response<StateResponseModel> response) {
-                if (response.body() != null) {
-                    if (response.body().getStatus()) {
-                        stateResponseModel = response.body();
-                        bindStateDataToUI(response.body().getData());
-                    } else {
-                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<StateResponseModel> call, @NonNull Throwable t) {
-            }
-        });
-
-    }
-
-    private void bindStateDataToUI(List<StateModel> data) {
-        ArrayList<String> manufactureArrayList = new ArrayList<>();
-
-        for (int i = 0; i < data.size(); i++) {
-            manufactureArrayList.add(data.get(i).getStateName());
-        }
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, manufactureArrayList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerState.setAdapter(adapter);
-
-        spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-
-                if (!selectedItem.equals("")) {
-                    stateId = stateResponseModel.getStateId(selectedItem);
-                    getCity(stateId);
-                }
-            } // to close the onItemSelected
-
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
-    private void getCity(int strStateId) {
+    private void getProfile() {
         ViewProgressDialog.getInstance().showProgress(context);
 
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("state_id", strStateId);
-
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CityResponseModel> call = apiInterface.getCity(jsonObject);
-        call.enqueue(new Callback<CityResponseModel>() {
+        Call<ShowHistoryResponseModel> call = apiInterface.getProfile();
+        call.enqueue(new Callback<ShowHistoryResponseModel>() {
             @Override
-            public void onResponse(@NonNull Call<CityResponseModel> call, @NonNull Response<CityResponseModel> response) {
+            public void onResponse(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Response<ShowHistoryResponseModel> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        cityResponseModel = response.body();
-                        bindCityDataToUI(response.body().getData());
+                        //showHistoryInnerModel = response.body().getData();
+                        //bindDataToRV("travel");
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<CityResponseModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
     }
 
-    private void bindCityDataToUI(List<CityModel> data) {
-        ArrayList<String> manufactureArrayList = new ArrayList<>();
-
-        for (int i = 0; i < data.size(); i++) {
-            manufactureArrayList.add(data.get(i).getCityName());
-        }
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, manufactureArrayList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerCity.setAdapter(adapter);
-
-        spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-
-                if (!selectedItem.equals("")) {
-                    cityId = cityResponseModel.getCityId(selectedItem);
-                }
-            } // to close the onItemSelected
-
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
 }

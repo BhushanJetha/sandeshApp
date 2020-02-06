@@ -57,4 +57,13 @@ public interface ApiInterface {
 
     @GET("api/showHistory")
     Call<ShowHistoryResponseModel> showHistory();
+
+    @GET("api/getProfile")
+    Call<ShowHistoryResponseModel> getProfile();
+
+    @GET("api/updateProfile")
+    Call<ShowHistoryResponseModel> updateProfile();
+
+    @GET("api/updateAddress")
+    Call<ShowHistoryResponseModel> updateAddress();
 }
