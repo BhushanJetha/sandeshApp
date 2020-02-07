@@ -3,6 +3,7 @@ package com.aystech.sandesh.remote;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.LoginResponseModel;
+import com.aystech.sandesh.model.ProfileResponseModel;
 import com.aystech.sandesh.model.SearchOrderResponseModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.model.ShowHistoryResponseModel;
@@ -59,11 +60,11 @@ public interface ApiInterface {
     Call<ShowHistoryResponseModel> showHistory();
 
     @GET("api/getProfile")
-    Call<ShowHistoryResponseModel> getProfile();
+    Call<ProfileResponseModel> getProfile();
 
-    @GET("api/updateProfile")
-    Call<ShowHistoryResponseModel> updateProfile();
+    @POST("api/updateProfile")
+    Call<CommonResponse> updateProfile(@Body JsonObject jsonObject);
 
-    @GET("api/updateAddress")
-    Call<ShowHistoryResponseModel> updateAddress();
+    @POST("api/updateAddress")
+    Call<CommonResponse> updateAddress(@Body JsonObject jsonObject);
 }

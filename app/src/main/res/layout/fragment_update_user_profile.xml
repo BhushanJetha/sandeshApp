@@ -154,7 +154,7 @@
                         android:textSize="@dimen/_12sdp" />
 
                     <RadioGroup
-                        android:id="@+id/rbGender"
+                        android:id="@+id/rgGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
@@ -211,6 +211,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/gotham_light"
+                            android:layout_gravity="center"
                             android:text="06 Nov 2019"
                             android:textSize="@dimen/_15sdp" />
                     </LinearLayout>

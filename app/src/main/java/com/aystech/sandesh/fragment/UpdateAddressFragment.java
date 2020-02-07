@@ -16,9 +16,10 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.model.AddressModel;
 import com.aystech.sandesh.model.CityModel;
 import com.aystech.sandesh.model.CityResponseModel;
-import com.aystech.sandesh.model.ShowHistoryResponseModel;
+import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
@@ -37,14 +38,20 @@ import retrofit2.Response;
 public class UpdateAddressFragment extends Fragment {
 
     private Context context;
+
+    private AddressModel addressModel;
+
     private StateResponseModel stateResponseModel;
     private CityResponseModel cityResponseModel;
+
     private Spinner spinnerState, spinnerCity;
-    private int stateId, cityId;
-    private ViewProgressDialog viewProgressDialog;
     private EditText etAddressLine1, etAddressLine2, etLandmark, etPincode;
     private Button btnUpdateAddress;
+
+    private int stateId, cityId;
     private String strAddressLine1, strAddressLine2, strLandmark, strPincode;
+
+    private ViewProgressDialog viewProgressDialog;
 
     public UpdateAddressFragment() {
         // Required empty public constructor
@@ -61,7 +68,13 @@ public class UpdateAddressFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_update_address, container, false);
 
+        if (getArguments() != null)
+            addressModel = getArguments().getParcelable("addressModel");
+
         initView(view);
+
+        setDataToUI();
+
         onClick();
 
         return view;
@@ -80,7 +93,17 @@ public class UpdateAddressFragment extends Fragment {
         btnUpdateAddress = view.findViewById(R.id.btnUpdateAddress);
     }
 
-    private void onClick(){
+    private void setDataToUI() {
+        etAddressLine1.setText(addressModel.getAddressLine1());
+        if (addressModel.getAddressLine2() != null &&
+                !addressModel.getAddressLine2().equals("")) {
+            etAddressLine2.setText(addressModel.getAddressLine2());
+        }
+        etLandmark.setText(addressModel.getLandmark());
+        etPincode.setText("" + addressModel.getPincode());
+    }
+
+    private void onClick() {
         btnUpdateAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +111,9 @@ public class UpdateAddressFragment extends Fragment {
                 strAddressLine2 = etAddressLine2.getText().toString();
                 strLandmark = etLandmark.getText().toString();
                 strPincode = etPincode.getText().toString();
+
+                //TODO API Call
+                updateAddress();
             }
         });
     }
@@ -207,33 +233,6 @@ public class UpdateAddressFragment extends Fragment {
         });
     }
 
-    private void getProfile() {
-        ViewProgressDialog.getInstance().showProgress(context);
-
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<ShowHistoryResponseModel> call = apiInterface.getProfile();
-        call.enqueue(new Callback<ShowHistoryResponseModel>() {
-            @Override
-            public void onResponse(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Response<ShowHistoryResponseModel> response) {
-                viewProgressDialog.hideDialog();
-
-                if (response.body() != null) {
-                    if (response.body().getStatus()) {
-                        //showHistoryInnerModel = response.body().getData();
-                        //bindDataToRV("travel");
-                    } else {
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Throwable t) {
-                viewProgressDialog.hideDialog();
-            }
-        });
-    }
-
     private void updateAddress() {
         ViewProgressDialog.getInstance().showProgress(context);
 
@@ -245,16 +244,15 @@ public class UpdateAddressFragment extends Fragment {
         jsonObject.addProperty("pincode", strPincode);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<ShowHistoryResponseModel> call = apiInterface.updateAddress();
-        call.enqueue(new Callback<ShowHistoryResponseModel>() {
+        Call<CommonResponse> call = apiInterface.updateAddress(jsonObject);
+        call.enqueue(new Callback<CommonResponse>() {
             @Override
-            public void onResponse(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Response<ShowHistoryResponseModel> response) {
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        //showHistoryInnerModel = response.body().getData();
-                        //bindDataToRV("travel");
+
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -262,7 +260,7 @@ public class UpdateAddressFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });

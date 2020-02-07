@@ -21,6 +21,7 @@ public class DashboardFragment extends Fragment {
 
     private ImageView imgKYC, imgMyProfile, imgSearchOrders, imgSearchTravelers, imgMyWallet, imgPlanTravel,
             imgSendParcel, imgTrackYourParcel, imgStartJourney, imgEndJourney, imgComplaintDispute, imgTermsAndCondition;
+
     private SearchOrderFragment searchOrderFragment;
     private MyWalletFragmentOne myWalletFragment;
     private PlanTravelFragment planTravelFragment;
@@ -49,17 +50,28 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        searchOrderFragment = (SearchOrderFragment) Fragment.instantiate(context, SearchOrderFragment.class.getName());
-        myWalletFragment = (MyWalletFragmentOne) Fragment.instantiate(context, MyWalletFragmentOne.class.getName());
-        planTravelFragment = (PlanTravelFragment) Fragment.instantiate(context, PlanTravelFragment.class.getName());
-        searchTravelerFragment = (SearchTravelerFragment) Fragment.instantiate(context, SearchTravelerFragment.class.getName());
-        sendParcelFragment = (SendParcelFragment) Fragment.instantiate(context, SendParcelFragment.class.getName());
-        trackYourParcelFragment = (TrackYourParcelFragment) Fragment.instantiate(context, TrackYourParcelFragment.class.getName());
-        startJourneyFragment = (StartJourneyFragment) Fragment.instantiate(context, StartJourneyFragment.class.getName());
-        endJourneyFragment = (EndJourneyFragment) Fragment.instantiate(context, EndJourneyFragment.class.getName());
-        complaintDisputeFragment = (ComplaintDisputeFragment) Fragment.instantiate(context, ComplaintDisputeFragment.class.getName());
-        termsAndConditionFragment = (TermsAndConditionFragment) Fragment.instantiate(context, TermsAndConditionFragment.class.getName());
-        userProfileFragment = (UserProfileFragment) Fragment.instantiate(context, UserProfileFragment.class.getName());
+        searchOrderFragment = (SearchOrderFragment)
+                Fragment.instantiate(context, SearchOrderFragment.class.getName());
+        myWalletFragment = (MyWalletFragmentOne)
+                Fragment.instantiate(context, MyWalletFragmentOne.class.getName());
+        planTravelFragment = (PlanTravelFragment)
+                Fragment.instantiate(context, PlanTravelFragment.class.getName());
+        searchTravelerFragment = (SearchTravelerFragment)
+                Fragment.instantiate(context, SearchTravelerFragment.class.getName());
+        sendParcelFragment = (SendParcelFragment)
+                Fragment.instantiate(context, SendParcelFragment.class.getName());
+        trackYourParcelFragment = (TrackYourParcelFragment)
+                Fragment.instantiate(context, TrackYourParcelFragment.class.getName());
+        startJourneyFragment = (StartJourneyFragment)
+                Fragment.instantiate(context, StartJourneyFragment.class.getName());
+        endJourneyFragment = (EndJourneyFragment)
+                Fragment.instantiate(context, EndJourneyFragment.class.getName());
+        complaintDisputeFragment = (ComplaintDisputeFragment)
+                Fragment.instantiate(context, ComplaintDisputeFragment.class.getName());
+        termsAndConditionFragment = (TermsAndConditionFragment)
+                Fragment.instantiate(context, TermsAndConditionFragment.class.getName());
+        userProfileFragment = (UserProfileFragment)
+                Fragment.instantiate(context, UserProfileFragment.class.getName());
 
         initView(view);
 
@@ -85,7 +97,7 @@ public class DashboardFragment extends Fragment {
         imgTermsAndCondition = view.findViewById(R.id.imgTC);
     }
 
-    private void onClickListener(){
+    private void onClickListener() {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +118,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                       searchTravelerFragment , R.id.frame_container, true);
+                        searchTravelerFragment, R.id.frame_container, true);
             }
         });
 
@@ -130,7 +142,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        sendParcelFragment , R.id.frame_container, true);
+                        sendParcelFragment, R.id.frame_container, true);
             }
         });
 
@@ -186,6 +198,6 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) context).setUpToolbar(true, true,"", true);
+        ((MainActivity) context).setUpToolbar(true, true, "", true);
     }
 }

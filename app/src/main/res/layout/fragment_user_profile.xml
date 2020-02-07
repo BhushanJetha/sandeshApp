@@ -117,6 +117,7 @@
                 app:layout_constraintTop_toBottomOf="@id/clTopView">
 
                 <LinearLayout
+                    android:id="@+id/editPersonalDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -239,6 +240,7 @@
                     android:text="20 Mar 1993"
                     android:textColor="@color/colorBlack"
                     android:fontFamily="@font/gotham_light"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold"/>
 
@@ -338,6 +340,7 @@
                 app:layout_constraintTop_toBottomOf="@id/llUserActions">
 
                 <LinearLayout
+                    android:id="@+id/editAddressDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">

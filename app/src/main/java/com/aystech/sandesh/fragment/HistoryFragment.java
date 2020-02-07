@@ -1,6 +1,5 @@
 package com.aystech.sandesh.fragment;
 
-
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
