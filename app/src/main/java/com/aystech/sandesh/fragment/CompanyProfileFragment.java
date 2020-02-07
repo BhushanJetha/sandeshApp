@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.AddressModel;
+import com.aystech.sandesh.model.CorporateModel;
 import com.aystech.sandesh.model.ProfileResponseModel;
 import com.aystech.sandesh.model.UserModel;
 import com.aystech.sandesh.remote.ApiInterface;
@@ -31,9 +32,11 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
 
     private Context context;
 
+    private UpdateCompanyProfileFragment updateCompanyProfileFragment;
     private UpdateAddressFragment updateAddressFragment;
 
     private UserModel userModel;
+    private CorporateModel corporateModel;
     private AddressModel addressModel;
 
     private ImageView imgCompanyProfile;
@@ -59,6 +62,8 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_company_profile, container, false);
 
+        updateCompanyProfileFragment = (UpdateCompanyProfileFragment)
+                Fragment.instantiate(context, UpdateCompanyProfileFragment.class.getName());
         updateAddressFragment = (UpdateAddressFragment)
                 Fragment.instantiate(context, UpdateAddressFragment.class.getName());
 
@@ -100,6 +105,11 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.editCompanyDetail:
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        updateCompanyProfileFragment, R.id.frame_container, true);
+                bundle.putParcelable("userModel", userModel);
+                bundle.putParcelable("corporateModel", corporateModel);
+                updateCompanyProfileFragment.setArguments(bundle);
                 break;
 
             case R.id.editAddressDetail:
@@ -133,6 +143,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         userModel = response.body().getData().getUserData();
+                        corporateModel = response.body().getData().getCorporateData();
                         addressModel = response.body().getData().getAddress();
 
                         //this is for profile

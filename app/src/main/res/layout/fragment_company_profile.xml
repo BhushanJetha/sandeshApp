@@ -108,6 +108,7 @@
                 android:elevation="@dimen/_3sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clTopView">
@@ -292,6 +293,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:padding="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@id/llCompanyDetail"
                 app:layout_constraintStart_toStartOf="@id/llCompanyDetail"
                 app:layout_constraintTop_toBottomOf="@id/llCompanyDetail">
@@ -306,8 +308,6 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_16sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
                         android:background="@drawable/rounded_button_background"
                         android:text="My Ride"
                         android:textAllCaps="false"
@@ -320,9 +320,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_16sdp"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
                         android:background="@drawable/rounded_button_background"
                         android:text="MY Orders"
                         android:textAllCaps="false"
@@ -333,7 +331,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_16sdp"
                     android:orientation="horizontal">
                     <Button
                         android:id="@+id/btnUpcomingRides"
@@ -341,7 +338,6 @@
                         android:layout_weight="1"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
                         android:background="@drawable/rounded_button_background"
                         android:text="Upcoming rides"
                         android:textAllCaps="false"
@@ -356,7 +352,6 @@
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
                         android:background="@drawable/rounded_button_background"
                         android:text="Upcoming orders"
                         android:textAllCaps="false"
@@ -370,12 +365,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
                 android:background="@drawable/row_rounded_white_rectangle"
                 android:elevation="@dimen/_3sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/llCompanyDetail"
                 app:layout_constraintStart_toStartOf="@id/llCompanyDetail"
                 app:layout_constraintTop_toBottomOf="@id/llUserActions">
@@ -388,146 +385,146 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_medium"
                         android:padding="@dimen/_4sdp"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_10sdp"
                         android:text="Address Detail"
                         android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/gotham_medium"
                         android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:padding="@dimen/_6sdp"
-                        android:src="@drawable/ic_edit_black_24dp"/>
+                        android:src="@drawable/ic_edit_black_24dp" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/colorAccent"/>
+                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="Address Line1"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
-                    android:textSize="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_10sdp" />
 
                 <TextView
                     android:id="@+id/tvAddressLine1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="C- 1106, Eletra C wing"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
                     android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="Address Line2"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
-                    android:textSize="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_10sdp" />
 
                 <TextView
                     android:id="@+id/tvAddressLine2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Casa bella gold"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
                     android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="Landmark"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
-                    android:textSize="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_10sdp" />
 
                 <TextView
                     android:id="@+id/tvLandmark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Xeperia Mall, Lodha Palava"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
                     android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="State"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
-                    android:textSize="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_10sdp" />
 
                 <TextView
                     android:id="@+id/tvState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Maharashtra"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
                     android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="City"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
-                    android:textSize="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_10sdp" />
 
                 <TextView
                     android:id="@+id/tvCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Thane"
                     android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/gotham_light"
                     android:textSize="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

@@ -196,22 +196,19 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     private void doRegistrationAPICall() {
         ViewProgressDialog.getInstance().showProgress(this);
 
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("email_id", strEmailId);
-        jsonObject.addProperty("mobile_no", strMobileNumber);
-        jsonObject.addProperty("first_name", strFirstName);
-        jsonObject.addProperty("middle_name", strMiddleName);
-        jsonObject.addProperty("last_name", strLastName);
-        jsonObject.addProperty("password", strPassword);
-        jsonObject.addProperty("gender", strGender);
-        jsonObject.addProperty("birth_date", strBirthDate);
-        jsonObject.addProperty("refferal_code", strRefferalCode);
-        jsonObject.addProperty("profile_img", strProfileBase64);
-        jsonObject.addProperty("fcm_id", strFCMId);
-
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.doIndividualUserRegistration(
-                jsonObject
+                strEmailId,
+                strMobileNumber,
+                strFirstName,
+                strMiddleName,
+                strLastName,
+                strPassword,
+                strGender,
+                strBirthDate,
+                strRefferalCode,
+                strProfileBase64,
+                strFCMId
         );
         call.enqueue(new Callback<CommonResponse>() {
             @Override

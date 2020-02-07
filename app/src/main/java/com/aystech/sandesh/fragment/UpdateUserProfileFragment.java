@@ -36,9 +36,6 @@ import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.google.gson.JsonObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -209,17 +206,16 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     private void updateProfile() {
         ViewProgressDialog.getInstance().showProgress(context);
 
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("email_id", strEmailId);
-        jsonObject.addProperty("first_name", strFirstName);
-        jsonObject.addProperty("middle_name", strMiddleName);
-        jsonObject.addProperty("last_name", strLastName);
-        jsonObject.addProperty("gender", strGender);
-        jsonObject.addProperty("birth_date", strDateOfBirth);
-        jsonObject.addProperty("file", strProfilePicBase64);
-
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.updateProfile(jsonObject);
+        Call<CommonResponse> call = apiInterface.updateUserProfile(
+                strEmailId,
+                strFirstName,
+                strMiddleName,
+                strLastName,
+                strGender,
+                strDateOfBirth,
+                strProfilePicBase64
+        );
         call.enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {

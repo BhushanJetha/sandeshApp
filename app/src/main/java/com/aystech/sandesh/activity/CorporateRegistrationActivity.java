@@ -180,23 +180,20 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     private void doRigistrationAPICall() {
         ViewProgressDialog.getInstance().showProgress(this);
 
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("email_id", strEmailId);
-        jsonObject.addProperty("mobile_no", strMobileNumber);
-        jsonObject.addProperty("password", strPassword);
-        jsonObject.addProperty("gender", strGender);
-        jsonObject.addProperty("birth_date", strBirthDate);
-        jsonObject.addProperty("refferal_code", strRefferalCode);
-        jsonObject.addProperty("profile_img", strProfileBase64);
-        jsonObject.addProperty("fcm_id", strFCMId);
-        jsonObject.addProperty("company_name", strCompanyName);
-        jsonObject.addProperty("branch", strBranch);
-        jsonObject.addProperty("auth_person_name", strAuthPersonName);
-        jsonObject.addProperty("designation", strDesignation);
-
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.doCorporateUserRegistration(
-                jsonObject
+                strEmailId,
+                strMobileNumber,
+                strPassword,
+                strGender,
+                strBirthDate,
+                strRefferalCode,
+                strProfileBase64,
+                strFCMId,
+                strCompanyName,
+                strBranch,
+                strAuthPersonName,
+                strDesignation
         );
         call.enqueue(new Callback<CommonResponse>() {
             @Override

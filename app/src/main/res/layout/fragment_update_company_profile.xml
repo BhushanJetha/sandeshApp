@@ -80,7 +80,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILMiddleName"
+                    android:id="@+id/tILBranch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
@@ -89,29 +89,48 @@
                     app:layout_constraintTop_toBottomOf="@id/tILCompanyName">
 
                     <EditText
-                        android:id="@+id/etMiddleName"
+                        android:id="@+id/etBranch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Middle Name"
+                        android:hint="Branch"
                         android:inputType="text"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILLastName"
+                    android:id="@+id/tILAuthorisedName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
                     app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
-                    app:layout_constraintTop_toBottomOf="@id/tILMiddleName">
+                    app:layout_constraintTop_toBottomOf="@id/tILBranch">
 
                     <EditText
-                        android:id="@+id/etLastName"
+                        android:id="@+id/etAuthorisedName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Last Name"
+                        android:hint="Authorised person name"
+                        android:inputType="text"
+                        android:maxLines="1" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILDesignation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
+                    app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
+                    app:layout_constraintTop_toBottomOf="@id/tILAuthorisedName">
+
+                    <EditText
+                        android:id="@+id/etDesignation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Designation"
                         android:inputType="text"
                         android:maxLines="1" />
 
@@ -124,98 +143,17 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
                     app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
-                    app:layout_constraintTop_toBottomOf="@id/tILLastName">
+                    app:layout_constraintTop_toBottomOf="@id/tILDesignation">
 
                     <EditText
                         android:id="@+id/etEmailId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="EmailId"
+                        android:hint="Email Id"
                         android:inputType="textEmailAddress"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
-
-                <LinearLayout
-                    android:id="@+id/llUserPersonalDetail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tILEmailId">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Select Gender"
-                        android:textSize="@dimen/_12sdp" />
-
-                    <RadioGroup
-                        android:id="@+id/rgGender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/rbMale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="Male" />
-
-                        <RadioButton
-                            android:id="@+id/rbFemale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_20sdp"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="Female" />
-
-                        <RadioButton
-                            android:id="@+id/rbOther"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_20sdp"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="Other" />
-
-                    </RadioGroup>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Select Birth Date"
-                        android:textSize="@dimen/_12sdp" />
-
-                    <LinearLayout
-                        android:id="@+id/llDateOfBirth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_24sdp"
-                            android:layout_height="@dimen/_24sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:src="@drawable/ic_calendar" />
-
-                        <TextView
-                            android:id="@+id/tvBirthDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/gotham_light"
-                            android:layout_gravity="center"
-                            android:text="06 Nov 2019"
-                            android:textSize="@dimen/_15sdp" />
-                    </LinearLayout>
-
-                </LinearLayout>
 
                 <Button
                     android:id="@+id/btnUpdate"
@@ -229,7 +167,7 @@
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
                     app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
-                    app:layout_constraintTop_toBottomOf="@+id/llUserPersonalDetail" />
+                    app:layout_constraintTop_toBottomOf="@+id/tILEmailId" />
 
             </android.support.constraint.ConstraintLayout>
 

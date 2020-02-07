@@ -1,9 +1,12 @@
 package com.aystech.sandesh.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CorporateModel {
+public class CorporateModel implements Parcelable {
     @SerializedName("company_name")
     @Expose
     private String companyName;
@@ -16,6 +19,25 @@ public class CorporateModel {
     @SerializedName("designation")
     @Expose
     private String designation;
+
+    protected CorporateModel(Parcel in) {
+        companyName = in.readString();
+        branch = in.readString();
+        authPersonName = in.readString();
+        designation = in.readString();
+    }
+
+    public static final Creator<CorporateModel> CREATOR = new Creator<CorporateModel>() {
+        @Override
+        public CorporateModel createFromParcel(Parcel in) {
+            return new CorporateModel(in);
+        }
+
+        @Override
+        public CorporateModel[] newArray(int size) {
+            return new CorporateModel[size];
+        }
+    };
 
     public String getCompanyName() {
         return companyName;
@@ -47,5 +69,18 @@ public class CorporateModel {
 
     public void setDesignation(String designation) {
         this.designation = designation;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(companyName);
+        dest.writeString(branch);
+        dest.writeString(authPersonName);
+        dest.writeString(designation);
     }
 }
