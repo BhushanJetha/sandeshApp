@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.UpdateUserProfileFragment">
+    tools:context=".fragment.UpdateCompanyProfileFragment">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView3"
@@ -32,7 +32,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgUserProfile"
+                    android:id="@+id/imgCompanyProfile"
                     android:layout_width="@dimen/_96sdp"
                     android:layout_height="@dimen/_96sdp"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -43,12 +43,12 @@
                     app:layout_constraintVertical_bias="0.10" />
 
                 <ImageView
-                    android:id="@+id/imgUserProfileCamera"
+                    android:id="@+id/imgCompanyProfileCamera"
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
                     android:background="@drawable/ic_camera"
-                    app:layout_constraintEnd_toEndOf="@+id/imgUserProfile"
-                    app:layout_constraintTop_toTopOf="@+id/imgUserProfile" />
+                    app:layout_constraintEnd_toEndOf="@+id/imgCompanyProfile"
+                    app:layout_constraintTop_toTopOf="@+id/imgCompanyProfile" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -61,7 +61,7 @@
                 app:layout_constraintTop_toBottomOf="@id/clTopView">
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILFirstName"
+                    android:id="@+id/tILCompanyName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -70,10 +70,10 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <EditText
-                        android:id="@+id/etFirstName"
+                        android:id="@+id/etCompanyName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="First Name"
+                        android:hint="Company Name"
                         android:inputType="text"
                         android:maxLines="1" />
 
@@ -84,9 +84,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFirstName"
-                    app:layout_constraintStart_toStartOf="@+id/tILFirstName"
-                    app:layout_constraintTop_toBottomOf="@id/tILFirstName">
+                    app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
+                    app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
+                    app:layout_constraintTop_toBottomOf="@id/tILCompanyName">
 
                     <EditText
                         android:id="@+id/etMiddleName"
@@ -103,8 +103,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFirstName"
-                    app:layout_constraintStart_toStartOf="@+id/tILFirstName"
+                    app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
+                    app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
                     app:layout_constraintTop_toBottomOf="@id/tILMiddleName">
 
                     <EditText
@@ -122,8 +122,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFirstName"
-                    app:layout_constraintStart_toStartOf="@+id/tILFirstName"
+                    app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
+                    app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
                     app:layout_constraintTop_toBottomOf="@id/tILLastName">
 
                     <EditText
@@ -227,8 +227,8 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILFirstName"
-                    app:layout_constraintStart_toStartOf="@+id/tILFirstName"
+                    app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
+                    app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
                     app:layout_constraintTop_toBottomOf="@+id/llUserPersonalDetail" />
 
             </android.support.constraint.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.utils.FragmentUtil;
+import com.aystech.sandesh.utils.UserSession;
 
 public class DashboardFragment extends Fragment {
 
@@ -33,6 +34,9 @@ public class DashboardFragment extends Fragment {
     private ComplaintDisputeFragment complaintDisputeFragment;
     private TermsAndConditionFragment termsAndConditionFragment;
     private UserProfileFragment userProfileFragment;
+    private CompanyProfileFragment companyProfileFragment;
+
+    UserSession userSession;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -72,6 +76,8 @@ public class DashboardFragment extends Fragment {
                 Fragment.instantiate(context, TermsAndConditionFragment.class.getName());
         userProfileFragment = (UserProfileFragment)
                 Fragment.instantiate(context, UserProfileFragment.class.getName());
+        companyProfileFragment = (CompanyProfileFragment)
+                Fragment.instantiate(context, CompanyProfileFragment.class.getName());
 
         initView(view);
 
@@ -81,6 +87,8 @@ public class DashboardFragment extends Fragment {
     }
 
     private void initView(View view) {
+        userSession = new UserSession(context);
+
         btnNext = view.findViewById(R.id.btnNext);
 
         imgKYC = view.findViewById(R.id.imgKYC);
@@ -189,8 +197,13 @@ public class DashboardFragment extends Fragment {
         imgMyProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        userProfileFragment, R.id.frame_container, true);
+                if (userSession.getUSER_TYPE().equals("individual")) {
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            userProfileFragment, R.id.frame_container, true);
+                } else {
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            companyProfileFragment, R.id.frame_container, true);
+                }
             }
         });
     }

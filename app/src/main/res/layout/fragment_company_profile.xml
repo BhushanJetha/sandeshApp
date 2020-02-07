@@ -32,10 +32,9 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgParcel"
+                    android:id="@+id/imgCompanyProfile"
                     android:layout_width="@dimen/_96sdp"
                     android:layout_height="@dimen/_96sdp"
-                    android:background="@drawable/ic_parcel"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -47,11 +46,11 @@
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
                     android:background="@drawable/ic_camera"
-                    app:layout_constraintEnd_toEndOf="@+id/imgParcel"
-                    app:layout_constraintTop_toTopOf="@+id/imgParcel" />
+                    app:layout_constraintEnd_toEndOf="@+id/imgCompanyProfile"
+                    app:layout_constraintTop_toTopOf="@+id/imgCompanyProfile" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/tvCompanyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
@@ -59,9 +58,9 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/imgParcel"
-                    app:layout_constraintStart_toStartOf="@+id/imgParcel"
-                    app:layout_constraintTop_toBottomOf="@+id/imgParcel" />
+                    app:layout_constraintEnd_toEndOf="@+id/imgCompanyProfile"
+                    app:layout_constraintStart_toStartOf="@+id/imgCompanyProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/imgCompanyProfile" />
 
                 <ImageView
                     android:id="@+id/imgStatus"
@@ -83,9 +82,9 @@
                     android:text="Active"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_13sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/textView"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintEnd_toEndOf="@+id/tvCompanyName"
+                    app:layout_constraintStart_toStartOf="@+id/tvCompanyName"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCompanyName" />
 
                 <ImageView
                     android:id="@+id/imgDropDown"
@@ -100,352 +99,437 @@
 
             </android.support.constraint.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
+                android:id="@+id/llCompanyDetail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/_16sdp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/row_rounded_white_rectangle"
+                android:elevation="@dimen/_3sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clTopView">
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILAuthorisedName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <EditText
-                        android:id="@+id/etAuthorisedName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Authorised person name*" />
-
-                </android.support.design.widget.TextInputLayout>
-                
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILEmail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tILAuthorisedName">
-
-                    <EditText
-                        android:id="@+id/etEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Email*" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILPassword"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tILEmail">
-
-                    <EditText
-                        android:id="@+id/etPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Password*" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILAddress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tILPassword">
-
-                    <EditText
-                        android:id="@+id/etAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Address" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILAddressLineOne"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tILAddress">
-
-                    <EditText
-                        android:id="@+id/etAddressLineOne"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Address line one" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILAddressLineTwo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tILAddressLineOne">
-
-                    <EditText
-                        android:id="@+id/etAddressLineTwo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Address line two" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILState"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tILAddressLineTwo">
-
-                    <EditText
-                        android:id="@+id/etState"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="State" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingStateDropDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILState"
-                    app:layout_constraintEnd_toEndOf="@+id/tILState"
-                    app:layout_constraintTop_toTopOf="@+id/tILState" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILCity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tILState">
-
-                    <EditText
-                        android:id="@+id/etCity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="City" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ingCityDropDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILCity"
-                    app:layout_constraintEnd_toEndOf="@+id/tILCity"
-                    app:layout_constraintTop_toTopOf="@+id/tILCity" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILPincode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tILCity">
-
-                    <EditText
-                        android:id="@+id/etPincode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Pincode*" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btnMyRide"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/rounded_button_background"
-                    android:text="My Ride"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintEnd_toStartOf="@+id/btnMyOrders"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tILPincode" />
-
-                <Button
-                    android:id="@+id/btnMyOrders"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:background="@drawable/rounded_button_background"
-                    android:text="MY Orders"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/btnMyRide"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/btnMyRide"
-                    app:layout_constraintTop_toTopOf="@+id/btnMyRide" />
-
-                <Button
-                    android:id="@+id/btnUpcomingRides"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/rounded_button_background"
-                    android:text="Upcoming rides"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintEnd_toStartOf="@+id/btnUpcomingOrders"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnMyRide" />
-
-                <Button
-                    android:id="@+id/btnUpcomingOrders"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:background="@drawable/rounded_button_background"
-                    android:text="Upcoming orders"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/btnUpcomingRides"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/btnUpcomingRides"
-                    app:layout_constraintTop_toTopOf="@+id/btnUpcomingRides" />
-                
-                <TextView
-                    android:id="@+id/tvKYCTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="KYC"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/btnUpcomingRides"/>
-
-                <TextView
-                    android:id="@+id/tvKYCSubTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tvKYCTitle"
-                    android:text="(Mandatory for making transaction)"/>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILGSTNo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tvKYCSubTitle">
-
-                    <EditText
-                        android:id="@+id/etGSTNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="GST no*" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILOTP"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@id/tILGSTNo">
-
-                    <EditText
-                        android:id="@+id/etOTP"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter OTP" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tvResendOTP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Resend OTP"
-                    android:textColor="@color/colorAccent"
-                    app:layout_constraintBottom_toBottomOf="@+id/tILOTP"
-                    app:layout_constraintEnd_toEndOf="@+id/tILOTP"
-                    app:layout_constraintTop_toTopOf="@+id/tILOTP" />
-
-                <CheckBox
-                    android:id="@+id/cbTermsCondition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@+id/tILOTP" />
-
-                <TextView
-                    android:id="@+id/tvTermsCondition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Accept terms &amp; conditions"
-                    app:layout_constraintBottom_toBottomOf="@+id/cbTermsCondition"
-                    app:layout_constraintStart_toEndOf="@+id/cbTermsCondition"
-                    app:layout_constraintTop_toTopOf="@+id/cbTermsCondition" />
-
-                <Button
-                    android:id="@+id/btnSubmit"
+                <LinearLayout
+                    android:id="@+id/editCompanyDetail"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@drawable/rounded_button_background"
-                    android:text="Submit"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@+id/cbTermsCondition" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_4sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:text="Company Detail"
+                        android:textColor="@color/colorBlack"
+                        android:fontFamily="@font/gotham_medium"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:padding="@dimen/_6sdp"
+                        android:src="@drawable/ic_edit_black_24dp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorAccent"/>
 
                 <TextView
-                    android:id="@+id/btnCancel"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="Cancel"
-                    android:textAllCaps="false"
-                    android:gravity="center"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
-                    app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Company Name"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
 
-            </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tvCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="DrabsTech"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Branch"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvBranch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Pune"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Authorised person name"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvAuthorisedName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Abhijit"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Designation"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvDesignation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="20 Mar 1993"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Mobile Number"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvMobileNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="9766616910"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Email Id"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvEmailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="xyz@gmail.com"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llUserActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/llCompanyDetail"
+                app:layout_constraintStart_toStartOf="@id/llCompanyDetail"
+                app:layout_constraintTop_toBottomOf="@id/llCompanyDetail">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnMyRide"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:background="@drawable/rounded_button_background"
+                        android:text="My Ride"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10sdp"
+                        />
+
+                    <Button
+                        android:id="@+id/btnMyOrders"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/rounded_button_background"
+                        android:text="MY Orders"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10sdp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btnUpcomingRides"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:background="@drawable/rounded_button_background"
+                        android:text="Upcoming rides"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10sdp"
+                        />
+
+                    <Button
+                        android:id="@+id/btnUpcomingOrders"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/rounded_button_background"
+                        android:text="Upcoming orders"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10sdp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/row_rounded_white_rectangle"
+                android:elevation="@dimen/_3sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/llCompanyDetail"
+                app:layout_constraintStart_toStartOf="@id/llCompanyDetail"
+                app:layout_constraintTop_toBottomOf="@id/llUserActions">
+
+                <LinearLayout
+                    android:id="@+id/editAddressDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_4sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:text="Address Detail"
+                        android:textColor="@color/colorBlack"
+                        android:fontFamily="@font/gotham_medium"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:padding="@dimen/_6sdp"
+                        android:src="@drawable/ic_edit_black_24dp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorAccent"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Address Line1"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvAddressLine1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="C- 1106, Eletra C wing"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Address Line2"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvAddressLine2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Casa bella gold"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Landmark"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvLandmark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Xeperia Mall, Lodha Palava"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="State"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Maharashtra"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="City"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Thane"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
 

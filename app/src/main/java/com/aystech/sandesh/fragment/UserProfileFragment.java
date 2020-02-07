@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.bumptech.glide.Glide;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,9 +41,9 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
     private UserModel userModel;
     private AddressModel addressModel;
 
+    private ImageView imgUserProfile;
     private TextView tvFullName, tvEmailID, tvMobileNumber, tvDateOfBirth, tvGender,
-            tvAddresLine1, tvAddresLine2, tvLandmark,
-            tvState, tvCity;
+            tvAddresLine1, tvAddresLine2, tvLandmark, tvState, tvCity;
     private LinearLayout editPersonalDetail;
     private LinearLayout editAddressDetail;
 
@@ -80,6 +82,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
 
         editPersonalDetail = view.findViewById(R.id.editPersonalDetail);
         editAddressDetail = view.findViewById(R.id.editAddressDetail);
+        imgUserProfile = view.findViewById(R.id.imgUserProfile);
         tvFullName = view.findViewById(R.id.tvFullName);
         tvMobileNumber = view.findViewById(R.id.tvMobileNumber);
         tvEmailID = view.findViewById(R.id.tvEmailId);
@@ -95,6 +98,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
     private void onCLickListener() {
         editPersonalDetail.setOnClickListener(this);
         editAddressDetail.setOnClickListener(this);
+        imgUserProfile.setOnClickListener(this);
     }
 
     @Override
@@ -122,6 +126,11 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                         addressModel = response.body().getData().getAddress();
 
                         //this is for profile
+                        Glide.with(context)
+                                .load(response.body().getData().getUserData().getProfileImg())
+                                .error(R.drawable.ic_logo_sandesh)
+                                .into(imgUserProfile);
+
                         if (response.body().getData().getUserData().getFirstName() != null
                                 && !response.body().getData().getUserData().getFirstName().equals("")) {
                             tvFullName.setText(response.body().getData().getUserData().getFirstName());

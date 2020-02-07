@@ -34,7 +34,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class UpdateAddressFragment extends Fragment {
 
     private Context context;
@@ -161,6 +160,10 @@ public class UpdateAddressFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerState.setAdapter(adapter);
+        if (addressModel.getState() != null) {
+            int spinnerPosition = adapter.getPosition(addressModel.getState());
+            spinnerState.setSelection(spinnerPosition);
+        }
 
         spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -217,6 +220,10 @@ public class UpdateAddressFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerCity.setAdapter(adapter);
+        if (addressModel.getCity() != null) {
+            int spinnerPosition = adapter.getPosition(addressModel.getCity());
+            spinnerCity.setSelection(spinnerPosition);
+        }
 
         spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -242,6 +249,7 @@ public class UpdateAddressFragment extends Fragment {
         jsonObject.addProperty("address_line1", strAddressLine1);
         jsonObject.addProperty("address_line2", strAddressLine2);
         jsonObject.addProperty("pincode", strPincode);
+        jsonObject.addProperty("landmark", strLandmark);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.updateAddress(jsonObject);
