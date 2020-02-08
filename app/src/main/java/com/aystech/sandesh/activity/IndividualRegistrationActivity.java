@@ -3,19 +3,19 @@ package com.aystech.sandesh.activity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -34,9 +34,7 @@ import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
-import com.google.gson.JsonObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,6 +42,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,17 +53,19 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
     private EditText etFirstName, etMiddleName, etLastName, etEmailId, etPassword, etReEnteredPassword, etRefferalCode;
     private String strFirstName, strMiddleName, strLastName, strEmailId, strPassword, strReEnteredPassword,
-            strRefferalCode, strMobileNumber, strFCMId, strGender, strBirthDate;
+            strRefferalCode, strMobileNumber, strFCMId = "kdgjflgfjlfjglfgjflgj", strGender, strBirthDate;
     private RadioButton rbMale, rbFemale, rbOther;
     private CheckBox cbAccetTermsAndConditions;
     private TextView tvBirthDate, tvAcceptTermsAndCondition;
     private ImageView imgProfileResult;
     private Button btnSubmit;
     private LinearLayout llDateOfBirth, llProfilePiture;
+
     private int mYear, mMonth, mDay;
+
     Uri picUri;
     Bitmap myBitmap;
-    private String strProfileBase64;
+    private String filepath;
 
     private ViewProgressDialog viewProgressDialog;
 
@@ -98,11 +101,11 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
         btnSubmit = findViewById(R.id.btnSubmit);
         llDateOfBirth = findViewById(R.id.llDateOfBirth);
-        tvAcceptTermsAndCondition =  findViewById(R.id.tvTermsCondition);
+        tvAcceptTermsAndCondition = findViewById(R.id.tvTermsCondition);
 
         llProfilePiture = findViewById(R.id.llProfilePicture);
 
-        strMobileNumber = getIntent().getStringExtra("mobileNumber");
+        strMobileNumber = "9975860674";
 
         SpannableString ssAcceptTermsAndCondition = new SpannableString(getResources().getString(R.string.accept_terms_amp_conditions));
         ssAcceptTermsAndCondition.setSpan(new UnderlineSpan(), 0, ssAcceptTermsAndCondition.length(), 0);
@@ -196,19 +199,40 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     private void doRegistrationAPICall() {
         ViewProgressDialog.getInstance().showProgress(this);
 
+        RequestBody emailIdPart = RequestBody.create(MultipartBody.FORM, strEmailId);
+        RequestBody mobileNoPart = RequestBody.create(MultipartBody.FORM, strMobileNumber);
+        RequestBody firstNamePart = RequestBody.create(MultipartBody.FORM, strFirstName);
+        RequestBody middleNamePart = RequestBody.create(MultipartBody.FORM, strMiddleName);
+        RequestBody lastNamePart = RequestBody.create(MultipartBody.FORM, strLastName);
+        RequestBody passwordPart = RequestBody.create(MultipartBody.FORM, strPassword);
+        RequestBody genderPart = RequestBody.create(MultipartBody.FORM, strGender);
+        RequestBody birthDatePart = RequestBody.create(MultipartBody.FORM, strBirthDate);
+        RequestBody refferalCodePart = RequestBody.create(MultipartBody.FORM, strRefferalCode);
+        RequestBody fcmIdPart = RequestBody.create(MultipartBody.FORM, strFCMId);
+
+        MultipartBody.Part body;
+        if (filepath != null && !filepath.equals("")) {
+            File file = new File(filepath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            body = MultipartBody.Part.createFormData("file", "", requestBody);
+        }
+
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.doIndividualUserRegistration(
-                strEmailId,
-                strMobileNumber,
-                strFirstName,
-                strMiddleName,
-                strLastName,
-                strPassword,
-                strGender,
-                strBirthDate,
-                strRefferalCode,
-                strProfileBase64,
-                strFCMId
+                emailIdPart,
+                mobileNoPart,
+                firstNamePart,
+                middleNamePart,
+                lastNamePart,
+                passwordPart,
+                genderPart,
+                birthDatePart,
+                refferalCodePart,
+                fcmIdPart,
+                body
         );
         call.enqueue(new Callback<CommonResponse>() {
             @Override
@@ -249,9 +273,9 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
 
-                        if(String.valueOf(monthOfYear +1).length() ==  1){
+                        if (String.valueOf(monthOfYear + 1).length() == 1) {
                             strBirthDate = year + "-0" + (monthOfYear + 1) + "-" + dayOfMonth;
-                        }else {
+                        } else {
                             strBirthDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                         }
 
@@ -329,31 +353,58 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap bitmap;
         if (resultCode == Activity.RESULT_OK) {
             if (getPickImageResultUri(data) != null) {
                 picUri = getPickImageResultUri(data);
+                filepath = getPath(getApplicationContext(), picUri);
+
+                if (filepath.equals("Not found")) {
+                    filepath = picUri.getPath();
+                }
 
                 try {
                     myBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picUri);
                     myBitmap = getResizedBitmap(myBitmap, 500);
-
-                    strProfileBase64 = getStringImage(myBitmap);
 
                     imgProfileResult.setImageBitmap(myBitmap);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else {
-                bitmap = (Bitmap) data.getExtras().get("data");
-                myBitmap = bitmap;
-
-                strProfileBase64 = getStringImage(myBitmap);
-
-                imgProfileResult.setImageBitmap(myBitmap);
             }
         }
+    }
+
+    /**
+     * Get the URI of the selected image from {@link #getPickImageChooserIntent()}.<br />
+     * Will return the correct URI for camera and gallery image.
+     *
+     * @param data the returned data of the activity result
+     */
+    public Uri getPickImageResultUri(Intent data) {
+        boolean isCamera = true;
+        if (data != null) {
+            String action = data.getAction();
+            isCamera = action != null && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
+        }
+        return isCamera ? getCaptureImageOutputUri() : data.getData();
+    }
+
+    public static String getPath(Context context, Uri uri) {
+        String result = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(uri, proj, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int column_index = cursor.getColumnIndexOrThrow(proj[0]);
+                result = cursor.getString(column_index);
+            }
+            cursor.close();
+        }
+        if (result == null) {
+            result = "Not found";
+        }
+        return result;
     }
 
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
@@ -369,28 +420,5 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
             width = (int) (height * bitmapRatio);
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
-    }
-
-    /**
-     * Get the URI of the selected image from {@link #getPickImageChooserIntent()}.<br />
-     * Will return the correct URI for camera and gallery image.
-     *
-     * @param data the returned data of the activity result
-     */
-    public Uri getPickImageResultUri(Intent data) {
-        boolean isCamera = true;
-        if (data != null) {
-            String action = data.getAction();
-            isCamera = action != null && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
-        }
-
-        return isCamera ? getCaptureImageOutputUri() : data.getData();
-    }
-
-    public String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
-        byte[] imageBytes = outputStream.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 }

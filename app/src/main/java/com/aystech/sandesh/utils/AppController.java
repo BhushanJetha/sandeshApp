@@ -8,6 +8,8 @@ import com.aystech.sandesh.activity.LoginActivity;
 
 public class AppController extends MultiDexApplication {
 
+    public static String imageURL = "http://13.127.119.95:4444/api/assets/";
+
     private static AppController mInstance;
 
     private UserSession userSession;

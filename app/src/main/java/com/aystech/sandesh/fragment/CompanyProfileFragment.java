@@ -20,6 +20,7 @@ import com.aystech.sandesh.model.ProfileResponseModel;
 import com.aystech.sandesh.model.UserModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
@@ -148,7 +149,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
 
                         //this is for profile
                         Glide.with(context)
-                                .load(response.body().getData().getUserData().getProfileImg())
+                                .load(AppController.imageURL + response.body().getData().getUserData().getProfileImg())
                                 .error(R.drawable.ic_logo_sandesh)
                                 .into(imgCompanyProfile);
 

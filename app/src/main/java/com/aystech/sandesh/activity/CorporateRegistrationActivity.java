@@ -2,8 +2,10 @@ package com.aystech.sandesh.activity;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,15 +13,12 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
@@ -29,15 +28,16 @@ import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
-import com.google.gson.JsonObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,18 +46,17 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
     private EditText etCompanyName, etBranch, etAuthorisedPersonName, etDesignation, etMobileNumber, etEmailId,
             etPassword, etReEnteredPassword, etRefferalCode;
-
     private String strCompanyName, strBranch, strAuthPersonName, strDesignation, strMobileNumber, strEmailId,
-            strPassword, strReEnteredPassword, strRefferalCode, strFCMId, strGender, strBirthDate;
-    private RadioButton rbMale, rbFemale;
+            strPassword, strReEnteredPassword, strRefferalCode, strFCMId = "dfjdkfjdlfkdjfdlkfj";
     private ImageView imgProfileResult;
     private LinearLayout llProfilePiture;
     private CheckBox cbAccetTermsAndConditions;
-    private TextView tvBirthDate;
     private Button btnSubmit;
+
     Uri picUri;
     Bitmap myBitmap;
-    private String strProfileBase64;
+    private String filepath;
+
     private ViewProgressDialog viewProgressDialog;
 
     @Override
@@ -83,12 +82,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etReEnteredPassword = findViewById(R.id.etReEnteredPassword);
         etRefferalCode = findViewById(R.id.etReferalCode);
-
-        rbMale = findViewById(R.id.rbMale);
-        rbFemale = findViewById(R.id.rbFemale);
-
         cbAccetTermsAndConditions = findViewById(R.id.cbTermsCondition);
-        tvBirthDate = findViewById(R.id.tvBirthDate);
         imgProfileResult = findViewById(R.id.imgProfileResult);
         imgProfileResult.setImageResource(R.drawable.ic_parcel);
 
@@ -117,22 +111,18 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                             if (!strDesignation.isEmpty()) {
                                 if (!strEmailId.isEmpty()) {
                                     if (Uitility.isValidEmailId(strEmailId)) {
-                                        if (!strGender.isEmpty()) {
-                                            if (!strPassword.isEmpty()) {
-                                                if (!strReEnteredPassword.isEmpty()) {
-                                                    if (strPassword.equals(strReEnteredPassword)) {
-                                                        doRigistrationAPICall();
-                                                    } else {
-                                                        Uitility.showToast(CorporateRegistrationActivity.this, "Password and re-Entered Password not matched !!");
-                                                    }
+                                        if (!strPassword.isEmpty()) {
+                                            if (!strReEnteredPassword.isEmpty()) {
+                                                if (strPassword.equals(strReEnteredPassword)) {
+                                                    doRigistrationAPICall();
                                                 } else {
-                                                    Uitility.showToast(CorporateRegistrationActivity.this, "Please re-enter your password !!");
+                                                    Uitility.showToast(CorporateRegistrationActivity.this, "Password and re-Entered Password not matched !!");
                                                 }
                                             } else {
-                                                Uitility.showToast(CorporateRegistrationActivity.this, "Password enter you password !!");
+                                                Uitility.showToast(CorporateRegistrationActivity.this, "Please re-enter your password !!");
                                             }
                                         } else {
-                                            Uitility.showToast(CorporateRegistrationActivity.this, "Please select your gender !!");
+                                            Uitility.showToast(CorporateRegistrationActivity.this, "Password enter you password !!");
                                         }
                                     } else {
                                         Uitility.showToast(CorporateRegistrationActivity.this, "Please enter valid email id !!");
@@ -155,20 +145,6 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
             }
         });
 
-        rbMale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                strGender = "Male";
-            }
-        });
-
-        rbFemale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                strGender = "Female";
-            }
-        });
-
         llProfilePiture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,20 +156,38 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     private void doRigistrationAPICall() {
         ViewProgressDialog.getInstance().showProgress(this);
 
+        RequestBody emailIdPart = RequestBody.create(MultipartBody.FORM, strEmailId);
+        RequestBody mobileNoPart = RequestBody.create(MultipartBody.FORM, strMobileNumber);
+        RequestBody passwordPart = RequestBody.create(MultipartBody.FORM, strPassword);
+        RequestBody refferalCodePart = RequestBody.create(MultipartBody.FORM, strRefferalCode);
+        RequestBody fcmIdPart = RequestBody.create(MultipartBody.FORM, strFCMId);
+        RequestBody companyNamePart = RequestBody.create(MultipartBody.FORM, strCompanyName);
+        RequestBody branchPart = RequestBody.create(MultipartBody.FORM, strBranch);
+        RequestBody authPersonNamePart = RequestBody.create(MultipartBody.FORM, strAuthPersonName);
+        RequestBody designationPart = RequestBody.create(MultipartBody.FORM, strDesignation);
+
+        MultipartBody.Part body;
+        if (filepath != null && !filepath.equals("")) {
+            File file = new File(filepath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            body = MultipartBody.Part.createFormData("file", "", requestBody);
+        }
+
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.doCorporateUserRegistration(
-                strEmailId,
-                strMobileNumber,
-                strPassword,
-                strGender,
-                strBirthDate,
-                strRefferalCode,
-                strProfileBase64,
-                strFCMId,
-                strCompanyName,
-                strBranch,
-                strAuthPersonName,
-                strDesignation
+                emailIdPart,
+                mobileNoPart,
+                passwordPart,
+                refferalCodePart,
+                fcmIdPart,
+                companyNamePart,
+                branchPart,
+                authPersonNamePart,
+                designationPart,
+                body
         );
         call.enqueue(new Callback<CommonResponse>() {
             @Override
@@ -287,46 +281,25 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap bitmap;
         if (resultCode == Activity.RESULT_OK) {
             if (getPickImageResultUri(data) != null) {
                 picUri = getPickImageResultUri(data);
+                filepath = getPath(getApplicationContext(), picUri);
+
+                if (filepath.equals("Not found")) {
+                    filepath = picUri.getPath();
+                }
 
                 try {
                     myBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picUri);
                     myBitmap = getResizedBitmap(myBitmap, 500);
 
-                    strProfileBase64 = getStringImage(myBitmap);
-
                     imgProfileResult.setImageBitmap(myBitmap);
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else {
-                bitmap = (Bitmap) data.getExtras().get("data");
-                myBitmap = bitmap;
-
-                strProfileBase64 = getStringImage(myBitmap);
-
-                imgProfileResult.setImageBitmap(myBitmap);
             }
         }
-    }
-
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        float bitmapRatio = (float) width / (float) height;
-        if (bitmapRatio > 0) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
     /**
@@ -345,10 +318,35 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         return isCamera ? getCaptureImageOutputUri() : data.getData();
     }
 
-    public String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
-        byte[] imageBytes = outputStream.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    public static String getPath(Context context, Uri uri) {
+        String result = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(uri, proj, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int column_index = cursor.getColumnIndexOrThrow(proj[0]);
+                result = cursor.getString(column_index);
+            }
+            cursor.close();
+        }
+        if (result == null) {
+            result = "Not found";
+        }
+        return result;
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 0) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 }

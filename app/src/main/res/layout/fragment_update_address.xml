@@ -21,37 +21,12 @@
             android:background="@color/colorWhite">
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/clTopView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
-                android:background="@drawable/ic_bg_circle"
-                android:elevation="@dimen/_1sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:text="Mr John Deo"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_14sdp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/imgParcel"
-                    app:layout_constraintStart_toStartOf="@+id/imgParcel"
-                    app:layout_constraintTop_toBottomOf="@+id/imgParcel" />
-
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clTopView">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILAddressLine1"

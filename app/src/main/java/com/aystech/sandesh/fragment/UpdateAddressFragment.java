@@ -260,7 +260,8 @@ public class UpdateAddressFragment extends Fragment {
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }

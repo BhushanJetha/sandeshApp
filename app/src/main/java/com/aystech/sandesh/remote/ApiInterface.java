@@ -10,49 +10,49 @@ import com.aystech.sandesh.model.ShowHistoryResponseModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.google.gson.JsonObject;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface ApiInterface {
 
     @POST("api/login")
     Call<LoginResponseModel> doLogin(@Body JsonObject jsonObject);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("api/registerIndividualUser")
     Call<CommonResponse> doIndividualUserRegistration(
-            @Field("email_id") String emailId,
-            @Field("mobile_no") String mobileNo,
-            @Field("first_name") String fristName,
-            @Field("middle_name") String middleName,
-            @Field("last_name") String lastName,
-            @Field("password") String password,
-            @Field("gender") String gender,
-            @Field("birth_date") String birthDate,
-            @Field("refferal_code") String refferalCode,
-            @Field("file") String file,
-            @Field("fcm_id") String fcmId
+            @Part("email_id") RequestBody emailId,
+            @Part("mobile_no") RequestBody mobileNo,
+            @Part("first_name") RequestBody fristName,
+            @Part("middle_name") RequestBody middleName,
+            @Part("last_name") RequestBody lastName,
+            @Part("password") RequestBody password,
+            @Part("gender") RequestBody gender,
+            @Part("birth_date") RequestBody birthDate,
+            @Part("refferal_code") RequestBody refferalCode,
+            @Part("fcm_id") RequestBody fcmId,
+            @Part MultipartBody.Part image
     );
 
-    @FormUrlEncoded
+    @Multipart
     @POST("api/registerCoporateUser")
     Call<CommonResponse> doCorporateUserRegistration(
-            @Field("email_id") String emailId,
-            @Field("mobile_no") String mobileNo,
-            @Field("password") String password,
-            @Field("gender") String gender,
-            @Field("birth_date") String birthDate,
-            @Field("refferal_code") String refferalCode,
-            @Field("file") String file,
-            @Field("fcm_id") String fcmId,
-            @Field("company_name") String companyName,
-            @Field("branch") String branch,
-            @Field("auth_person_name") String authPersonName,
-            @Field("designation") String designation
+            @Part("email_id") RequestBody emailId,
+            @Part("mobile_no") RequestBody mobileNo,
+            @Part("password") RequestBody password,
+            @Part("refferal_code") RequestBody refferalCode,
+            @Part("fcm_id") RequestBody fcmId,
+            @Part("company_name") RequestBody companyName,
+            @Part("branch") RequestBody branch,
+            @Part("auth_person_name") RequestBody authPersonName,
+            @Part("designation") RequestBody designation,
+            @Part MultipartBody.Part image
     );
 
     @POST("api/registerUserAddress")
@@ -94,24 +94,26 @@ public interface ApiInterface {
     @POST("api/registerUserAddress")
     Call<CommonResponse> updateAddress(@Body JsonObject jsonObject);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("api/updateProfile")
     Call<CommonResponse> updateCompanyProfile(
-            @Field("email_id") String email_id,
-            @Field("company_name") String company_name,
-            @Field("branch") String branch,
-            @Field("auth_person_name") String auth_person_name,
-            @Field("designation") String designation,
-            @Field("file") String file);
+            @Part("email_id") RequestBody email_id,
+            @Part("company_name") RequestBody company_name,
+            @Part("branch") RequestBody branch,
+            @Part("auth_person_name") RequestBody auth_person_name,
+            @Part("designation") RequestBody designation,
+            @Part MultipartBody.Part image
+    );
 
-    @FormUrlEncoded
+    @Multipart
     @POST("api/updateProfile")
     Call<CommonResponse> updateUserProfile(
-            @Field("email_id") String email_id,
-            @Field("first_name") String first_name,
-            @Field("middle_name") String middle_name,
-            @Field("last_name") String last_name,
-            @Field("gender") String gender,
-            @Field("birth_date") String birth_date,
-            @Field("file") String file);
+            @Part("email_id") RequestBody email_id,
+            @Part("first_name") RequestBody first_name,
+            @Part("middle_name") RequestBody middle_name,
+            @Part("last_name") RequestBody last_name,
+            @Part("gender") RequestBody gender,
+            @Part("birth_date") RequestBody birth_date,
+            @Part MultipartBody.Part image
+    );
 }

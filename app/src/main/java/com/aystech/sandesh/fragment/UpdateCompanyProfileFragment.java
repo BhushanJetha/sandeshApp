@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,16 +28,19 @@ import com.aystech.sandesh.model.CorporateModel;
 import com.aystech.sandesh.model.UserModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +60,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
 
     Uri picUri;
     Bitmap myBitmap;
-    private String strProfilePicBase64;
+    private String filepath;
 
     private ViewProgressDialog viewProgressDialog;
 
@@ -106,14 +109,24 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
 
     private void setDataToUI() {
         Glide.with(context)
-                .load(userModel.getProfileImg())
+                .load(AppController.imageURL + userModel.getProfileImg())
                 .error(R.drawable.ic_logo_sandesh)
                 .into(imgCompanyProfile);
+
         etCompanyName.setText(corporateModel.getCompanyName());
+        strCompanyName = corporateModel.getCompanyName();
+
         etBranch.setText(corporateModel.getBranch());
+        strBranch = corporateModel.getBranch();
+
         etAuthorisedName.setText(corporateModel.getAuthPersonName());
+        strAuthorisedName = corporateModel.getAuthPersonName();
+
         etDesignation.setText(corporateModel.getDesignation());
+        strDesignation = corporateModel.getDesignation();
+
         etEmailId.setText(userModel.getEmailId());
+        strEmailId = userModel.getEmailId();
     }
 
     private void onClickListener() {
@@ -145,14 +158,30 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
     private void updateProfile() {
         ViewProgressDialog.getInstance().showProgress(context);
 
+        RequestBody emailIdPart = RequestBody.create(MultipartBody.FORM, strEmailId);
+        RequestBody companyNamePart = RequestBody.create(MultipartBody.FORM, strCompanyName);
+        RequestBody branchPart = RequestBody.create(MultipartBody.FORM, strBranch);
+        RequestBody authPersonNamePart = RequestBody.create(MultipartBody.FORM, strAuthorisedName);
+        RequestBody designationPart = RequestBody.create(MultipartBody.FORM, strDesignation);
+
+        MultipartBody.Part body;
+        if (filepath != null && !filepath.equals("")) {
+            File file = new File(filepath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            body = MultipartBody.Part.createFormData("file", "", requestBody);
+        }
+
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.updateCompanyProfile(
-                strEmailId,
-                strCompanyName,
-                strBranch,
-                strAuthorisedName,
-                strDesignation,
-                strProfilePicBase64
+                emailIdPart,
+                companyNamePart,
+                branchPart,
+                authPersonNamePart,
+                designationPart,
+                body
         );
         call.enqueue(new Callback<CommonResponse>() {
             @Override
@@ -161,7 +190,8 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -243,16 +273,19 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap bitmap;
         if (resultCode == Activity.RESULT_OK) {
             if (getPickImageResultUri(data) != null) {
                 picUri = getPickImageResultUri(data);
+                filepath = getPath(context, picUri);
+
+                if (filepath.equals("Not found")) {
+                    filepath = picUri.getPath();
+                }
 
                 try {
                     myBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), picUri);
                     myBitmap = getResizedBitmap(myBitmap, 500);
 
-                    strProfilePicBase64 = getStringImage(myBitmap);
                     Glide.with(imgCompanyProfile.getContext())
                             .asBitmap()
                             .load(myBitmap)
@@ -260,32 +293,8 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else {
-                bitmap = (Bitmap) data.getExtras().get("data");
-                myBitmap = bitmap;
-
-                strProfilePicBase64 = getStringImage(myBitmap);
-                Glide.with(imgCompanyProfile.getContext())
-                        .asBitmap()
-                        .load(myBitmap)
-                        .into(imgCompanyProfile);
             }
         }
-    }
-
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        float bitmapRatio = (float) width / (float) height;
-        if (bitmapRatio > 0) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
     /**
@@ -304,11 +313,36 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
         return isCamera ? getCaptureImageOutputUri() : data.getData();
     }
 
-    public String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
-        byte[] imageBytes = outputStream.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    public static String getPath(Context context, Uri uri) {
+        String result = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(uri, proj, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int column_index = cursor.getColumnIndexOrThrow(proj[0]);
+                result = cursor.getString(column_index);
+            }
+            cursor.close();
+        }
+        if (result == null) {
+            result = "Not found";
+        }
+        return result;
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 0) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
     @Override
