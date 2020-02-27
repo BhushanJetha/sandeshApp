@@ -67,7 +67,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     EditText etFromPincode, etToPincode, etGoodsDescription,
-            etGoodsValue, etReceiverName, etReceiverMobileNo;
+            etGoodsValue, etReceiverName, etReceiverMobileNo, etReceiverAddress;
     ImageView ingStartDate, ingStartTime;
     EditText etStartDate, etStartTime;
     ImageView ingEndDate, ingEndTime;
@@ -76,13 +76,13 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     EditText etEndDate, etEndTime;
     Spinner spinnerDeliveryOption, spinnerNatureGoods, spinnerQuality, spinnerWeight, spinnerPackaging,
             spinnerProhibited;
-    RadioGroup rgOwnership;
+    RadioGroup rgOwnership, rgHazardous, rgProhibited, rgFraglle, rgFlamableToxicExplosive;
     Button btnSubmit;
     TextView btnCancel;
 
     String deliveryOption, natureOfGoods, quality, weight, packaging, prohibited, ownership, strFromPincode, strtoPincode,
             strStartDate, strStartTime, strEndDate, strEndTime, strGoodsDescription, strValueOgGood,
-            strReceiverName, strReceiverMobileNo;
+            strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous, rgStrProhibited, rgStrFraglle, rgStrFlamableToxicExplosive;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId;
 
@@ -150,8 +150,13 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         etGoodsDescription = view.findViewById(R.id.etGoodsDescription);
         etGoodsValue = view.findViewById(R.id.etGoodsValue);
         rgOwnership = view.findViewById(R.id.rgOwnership);
+        rgHazardous = view.findViewById(R.id.rgHazardous);
+        rgProhibited = view.findViewById(R.id.rgProhibited);
+        rgFraglle = view.findViewById(R.id.rgFraglle);
+        rgFlamableToxicExplosive = view.findViewById(R.id.rgFlamableToxicExplosive);
         etReceiverName = view.findViewById(R.id.etReceiverName);
         etReceiverMobileNo = view.findViewById(R.id.etReceiverMobileNo);
+        etReceiverAddress = view.findViewById(R.id.etReceiverAddress);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         btnCancel = view.findViewById(R.id.btnCancel);
     }
@@ -262,6 +267,62 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 }
             }
         });
+
+        // This overrides the radiogroup onCheckListener
+        rgHazardous.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // This will get the radiobutton that has changed in its check state
+                RadioButton checkedRadioButton = group.findViewById(checkedId);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked) {
+                    rgStrHazardous = checkedRadioButton.getText().toString();
+                }
+            }
+        });
+
+        // This overrides the radiogroup onCheckListener
+        rgProhibited.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // This will get the radiobutton that has changed in its check state
+                RadioButton checkedRadioButton = group.findViewById(checkedId);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked) {
+                    rgStrProhibited = checkedRadioButton.getText().toString();
+                }
+            }
+        });
+
+        // This overrides the radiogroup onCheckListener
+        rgFraglle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // This will get the radiobutton that has changed in its check state
+                RadioButton checkedRadioButton = group.findViewById(checkedId);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked) {
+                    rgStrFraglle = checkedRadioButton.getText().toString();
+                }
+            }
+        });
+
+        // This overrides the radiogroup onCheckListener
+        rgFlamableToxicExplosive.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // This will get the radiobutton that has changed in its check state
+                RadioButton checkedRadioButton = group.findViewById(checkedId);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked) {
+                    rgStrFlamableToxicExplosive = checkedRadioButton.getText().toString();
+                }
+            }
+        });
     }
 
     @Override
@@ -287,6 +348,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 strValueOgGood = etGoodsValue.getText().toString();
                 strReceiverName = etReceiverName.getText().toString();
                 strReceiverMobileNo = etReceiverMobileNo.getText().toString();
+                strReceiverAddress = etReceiverAddress.getText().toString();
                 sendParcel();
                 break;
             case R.id.gpInvoice:
@@ -313,10 +375,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         if (tag.equals("start_date")) {
-                            strStartDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            strStartDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
                             etStartDate.setText(strStartDate);
                         } else if (tag.equals("end_date")) {
-                            strEndDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            strEndDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
                             etEndDate.setText(strEndDate);
                         }
                     }
@@ -374,6 +436,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         jsonObject.addProperty("parcel_pic", strParcelBase64);
         jsonObject.addProperty("receiver_name", strReceiverName);
         jsonObject.addProperty("receiver_mobile_no", strReceiverMobileNo);
+        jsonObject.addProperty("receiver_address_detail", strReceiverAddress);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.sendParcel(

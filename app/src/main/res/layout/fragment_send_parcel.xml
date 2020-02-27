@@ -579,6 +579,178 @@
                     app:layout_constraintLeft_toRightOf="@id/imgParcel"
                     app:layout_constraintTop_toTopOf="@id/imgParcel" />
 
+                <TextView
+                    android:id="@+id/tvHazardousTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Hazardous"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgHazardous"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gpParcel" />
+
+                <RadioGroup
+                    android:id="@+id/rgHazardous"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvHazardousTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvHazardousTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvHazardousTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbHazardousYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbHazardousNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvProhibitedRGTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Prohibited"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgProhibited"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHazardousTitle" />
+
+                <RadioGroup
+                    android:id="@+id/rgProhibited"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvProhibitedRGTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvProhibitedRGTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvProhibitedRGTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbProhibitedYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbProhibitedNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvFraglleTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Fraglle"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgFraglle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProhibitedRGTitle" />
+
+                <RadioGroup
+                    android:id="@+id/rgFraglle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFraglleTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFraglleTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvFraglleTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbFraglleYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbFraglleNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvFlamableToxicExplosiveTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Flamable / Toxic / Explosive"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgFlamableToxicExplosive"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFraglleTitle" />
+
+                <RadioGroup
+                    android:id="@+id/rgFlamableToxicExplosive"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFlamableToxicExplosiveTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFlamableToxicExplosiveTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvFlamableToxicExplosiveTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbFlamableToxicExplosiveYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbFlamableToxicExplosiveNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No" />
+
+                </RadioGroup>
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILReceiverName"
                     android:layout_width="0dp"
@@ -586,7 +758,7 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
-                    app:layout_constraintTop_toBottomOf="@id/imgParcel">
+                    app:layout_constraintTop_toBottomOf="@id/tvFlamableToxicExplosiveTitle">
 
                     <EditText
                         android:id="@+id/etReceiverName"
@@ -615,13 +787,32 @@
 
                 </android.support.design.widget.TextInputLayout>
 
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILReceiverAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/tILReceiverMobileNo">
+
+                    <EditText
+                        android:id="@+id/etReceiverAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Receiver's address"
+                        android:maxLength="10"
+                        android:inputType="number" />
+
+                </android.support.design.widget.TextInputLayout>
+
                 <CheckBox
                     android:id="@+id/cbTermsCondition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
-                    app:layout_constraintTop_toBottomOf="@+id/tILReceiverMobileNo" />
+                    app:layout_constraintTop_toBottomOf="@+id/tILReceiverAddress" />
 
                 <TextView
                     android:id="@+id/tvTermsCondition"

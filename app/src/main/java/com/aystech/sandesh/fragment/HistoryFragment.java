@@ -83,6 +83,34 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         tvParcel.setOnClickListener(this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvTraveller:
+                tag = "travel";
+
+                tvTraveller.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorAccent));
+                tvTraveller.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
+                tvParcel.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorWhite));
+                tvParcel.setTextColor(ContextCompat.getColor(context, R.color.colorBlack));
+
+                bindDataToRV(tag);
+                break;
+
+            case R.id.tvParcel:
+                tag = "parcel";
+
+                tvParcel.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorAccent));
+                tvParcel.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
+                tvTraveller.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorWhite));
+                tvTraveller.setTextColor(ContextCompat.getColor(context, R.color.colorBlack));
+
+                bindDataToRV(tag);
+                break;
+        }
+    }
+
     private void getHistoryData() {
         ViewProgressDialog.getInstance().showProgress(context);
 
@@ -125,33 +153,5 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tvTraveller:
-                tag = "travel";
-
-                tvTraveller.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorAccent));
-                tvTraveller.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
-                tvParcel.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorWhite));
-                tvParcel.setTextColor(ContextCompat.getColor(context, R.color.colorBlack));
-
-                bindDataToRV(tag);
-                break;
-
-            case R.id.tvParcel:
-                tag = "parcel";
-
-                tvParcel.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorAccent));
-                tvParcel.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
-                tvTraveller.setBackgroundTintList(context.getResources().getColorStateList(R.color.colorWhite));
-                tvTraveller.setTextColor(ContextCompat.getColor(context, R.color.colorBlack));
-
-                bindDataToRV(tag);
-                break;
-        }
     }
 }

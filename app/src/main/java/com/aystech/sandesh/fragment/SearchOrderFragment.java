@@ -31,6 +31,7 @@ import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
@@ -47,7 +48,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
 
     private Context context;
 
-    private SearchTravelerFragment searchTravelerFragment;
+    private OrderDetailFragment orderDetailFragment;
 
     private StateResponseModel stateResponseModel;
     private CityResponseModel cityResponseModel;
@@ -82,8 +83,8 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search_order, container, false);
 
-        searchTravelerFragment = (SearchTravelerFragment) Fragment.instantiate(context,
-                SearchTravelerFragment.class.getName());
+        orderDetailFragment = (OrderDetailFragment) Fragment.instantiate(context,
+                OrderDetailFragment.class.getName());
 
         initView(view);
 
@@ -130,7 +131,10 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 if (!strToPinCode.isEmpty()) {
                     if (!strFromPincode.isEmpty()) {
                         if (!strDate.isEmpty()) {
-                            searchOrderByData();
+                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
+                                    false);
+                            //TODO API Call
+                            //searchOrderByData();
                         } else {
                             Uitility.showToast(getActivity(), "Please select Date !!");
                         }
