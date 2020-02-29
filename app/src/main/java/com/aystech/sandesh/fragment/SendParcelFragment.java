@@ -74,13 +74,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     Group gpInvoice, gpParcel;
     ImageView imgInvoice, imgParcel;
     EditText etEndDate, etEndTime;
-    Spinner spinnerDeliveryOption, spinnerNatureGoods, spinnerQuality, spinnerWeight, spinnerPackaging,
-            spinnerProhibited;
+    Spinner spinnerDeliveryOption, spinnerNatureGoods, spinnerQuality, spinnerWeight, spinnerPackaging;
     RadioGroup rgOwnership, rgHazardous, rgProhibited, rgFraglle, rgFlamableToxicExplosive;
     Button btnSubmit;
     TextView btnCancel;
 
-    String deliveryOption, natureOfGoods, quality, weight, packaging, prohibited, ownership, strFromPincode, strtoPincode,
+    String deliveryOption, natureOfGoods, quality, weight, packaging, ownership, strFromPincode, strtoPincode,
             strStartDate, strStartTime, strEndDate, strEndTime, strGoodsDescription, strValueOgGood,
             strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous, rgStrProhibited, rgStrFraglle, rgStrFlamableToxicExplosive;
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -146,7 +145,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         spinnerQuality = view.findViewById(R.id.spinnerQuality);
         spinnerWeight = view.findViewById(R.id.spinnerWeight);
         spinnerPackaging = view.findViewById(R.id.spinnerPackaging);
-        spinnerProhibited = view.findViewById(R.id.spinnerProhibited);
         etGoodsDescription = view.findViewById(R.id.etGoodsDescription);
         etGoodsValue = view.findViewById(R.id.etGoodsValue);
         rgOwnership = view.findViewById(R.id.rgOwnership);
@@ -232,20 +230,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
                 if (!selectedItem.equals("")) {
                     packaging = selectedItem;
-                }
-            } // to close the onItemSelected
-
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spinnerProhibited.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-
-                if (!selectedItem.equals("")) {
-                    prohibited = selectedItem;
                 }
             } // to close the onItemSelected
 
@@ -429,7 +413,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         jsonObject.addProperty("quality", quality);
         jsonObject.addProperty("weight", weight);
         jsonObject.addProperty("packaging", packaging);
-        jsonObject.addProperty("isProhibited", prohibited);
+        jsonObject.addProperty("isProhibited", rgStrProhibited);
         jsonObject.addProperty("value_of_goods", strValueOgGood);
         jsonObject.addProperty("ownership", ownership);
         jsonObject.addProperty("invoice_pic", strInvoiceBase64);

@@ -30,13 +30,12 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tvSearchTravelTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="Send a parcel"
+                    android:text="Send a Parcel"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -435,29 +434,6 @@
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvPackagingTitle" />
 
-                <TextView
-                    android:id="@+id/tvProhibitedTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:padding="@dimen/_6sdp"
-                    android:text="Prohibited/Non-prohibited"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
-                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
-                    app:layout_constraintTop_toBottomOf="@id/spinnerPackaging" />
-
-                <Spinner
-                    android:id="@+id/spinnerProhibited"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:drawSelectorOnTop="true"
-                    android:entries="@array/type_of_pkg"
-                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
-                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
-                    app:layout_constraintTop_toBottomOf="@id/tvProhibitedTitle" />
-
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILGoodsValue"
                     android:layout_width="0dp"
@@ -465,7 +441,7 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
-                    app:layout_constraintTop_toBottomOf="@id/spinnerProhibited">
+                    app:layout_constraintTop_toBottomOf="@id/spinnerPackaging">
 
                     <EditText
                         android:id="@+id/etGoodsValue"

@@ -1,6 +1,5 @@
 package com.aystech.sandesh.fragment;
 
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -43,9 +42,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PlanTravelFragment extends Fragment implements View.OnClickListener {
 
     Context context;

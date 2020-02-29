@@ -116,4 +116,7 @@ public interface ApiInterface {
             @Part("birth_date") RequestBody birth_date,
             @Part MultipartBody.Part image
     );
+
+    @POST("api/getOrderDetail")
+    Call<CommonResponse> orderDetail(@Body JsonObject jsonObject);
 }

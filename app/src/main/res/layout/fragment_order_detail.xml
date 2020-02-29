@@ -28,16 +28,14 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tvPlanTravelTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham_light"
                     android:gravity="center"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:text="Order Detail"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_15sdp"
+                    android:textSize="@dimen/_18sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +117,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/parcelBreakUpLine" />
 
                     <TextView
-                        android:id="@+id/tvMobileNumber"
+                        android:id="@+id/tvFromCityName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
@@ -147,7 +145,7 @@
                         app:layout_constraintTop_toTopOf="@+id/tvParcelFromCity" />
 
                     <TextView
-                        android:id="@+id/tvEmailId"
+                        android:id="@+id/tvToCityName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
@@ -422,7 +420,7 @@
                         android:text="Packaging"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvProhibitedTitle"
+                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
                         app:layout_constraintTop_toBottomOf="@id/tvQuality" />
@@ -436,39 +434,10 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_9sdp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tvProhibited"
+                        app:layout_constraintEnd_toEndOf="@+id/tvPackagingTitle"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/tvPackagingTitle"
                         app:layout_constraintTop_toBottomOf="@id/tvPackagingTitle" />
-
-                    <TextView
-                        android:id="@+id/tvProhibitedTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Prohibited/Non-prohibited"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvPackagingTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvPackagingTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvPackagingTitle" />
-
-                    <TextView
-                        android:id="@+id/tvProhibited"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Plastic bag"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvPackaging"
-                        app:layout_constraintEnd_toEndOf="@+id/tvProhibitedTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvPackaging"
-                        app:layout_constraintTop_toTopOf="@+id/tvPackaging" />
 
                     <TextView
                         android:id="@+id/tvGoodsTitle"
@@ -502,6 +471,7 @@
                         android:fontFamily="@font/gotham_light"
                         android:text="Ownership"
                         android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/colorBlack"
                         app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
                         app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
                         app:layout_constraintTop_toBottomOf="@+id/tvGoods" />
