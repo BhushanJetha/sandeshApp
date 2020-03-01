@@ -14,7 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
-import com.aystech.sandesh.model.CommonResponse;
+import com.aystech.sandesh.model.OrderDetailResponseModel;
+import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.ViewProgressDialog;
@@ -112,26 +113,66 @@ public class OrderDetailFragment extends Fragment {
         jsonObject.addProperty("order_id", order_id);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.orderDetail(
+        Call<OrderDetailResponseModel> call = apiInterface.orderDetail(
                 jsonObject
         );
-        call.enqueue(new Callback<CommonResponse>() {
+        call.enqueue(new Callback<OrderDetailResponseModel>() {
             @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+            public void onResponse(@NonNull Call<OrderDetailResponseModel> call, @NonNull Response<OrderDetailResponseModel> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
                     if (response.body().getStatus())
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        bindDataToUI(response.body().getData());
                     else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<OrderDetailResponseModel> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
+    }
+
+    private void bindDataToUI(SearchOrderModel data) {
+        tvFromCityName.setText(""); //need to set data
+        tvToCityName.setText(""); //need to set data
+        tvStartDate.setText(data.getStartDate());
+        tvStartTime.setText(data.getStartTime());
+        tvEndDate.setText(""); //need to set data
+        tvEndTime.setText(""); //need to set data
+        tvDeliveryOption.setText(data.getDeliveryOption());
+        tvNatureGoods.setText(data.getNatureOfGoods());
+
+        if (data.getGoodDescription() != null && !data.getGoodDescription().equals(""))
+            tvGoodsDesc.setText(data.getGoodDescription());
+        else
+            tvGoodsDesc.setText("-");
+
+        tvQuality.setText(data.getQuality());
+        tvWeight.setText(data.getWeight());
+        tvPackaging.setText(data.getPackaging());
+
+        if (data.getValueOfGoods() != null && !data.getValueOfGoods().equals(""))
+            tvGoods.setText(data.getValueOfGoods());
+        else
+            tvGoods.setText("-");
+
+        if (data.getReceiverName() != null && !data.getReceiverName().equals(""))
+            tvReceiverName.setText(data.getReceiverName());
+        else
+            tvReceiverName.setText("-");
+
+        if (data.getReceiverMobileNo() != null && !data.getReceiverMobileNo().equals(""))
+            tvReceiverMobileNo.setText(data.getReceiverMobileNo());
+        else
+            tvReceiverMobileNo.setText("-");
+
+        if (data.getReceiverAddressDetail() != null && !data.getReceiverAddressDetail().equals(""))
+            tvReceiverAddress.setText(data.getReceiverAddressDetail());
+        else
+            tvReceiverAddress.setText("-");
     }
 }

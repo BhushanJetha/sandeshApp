@@ -406,7 +406,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
-                    android:entries="@array/preferred_weight_array"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvWeightTitle" />
@@ -561,13 +560,13 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_6sdp"
                     android:text="Hazardous"
-                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toStartOf="@+id/rgHazardous"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/gpParcel" />
+                    app:layout_constraintTop_toBottomOf="@+id/imgParcel" />
 
                 <RadioGroup
                     android:id="@+id/rgHazardous"
@@ -776,9 +775,7 @@
                         android:id="@+id/etReceiverAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Receiver's address"
-                        android:maxLength="10"
-                        android:inputType="number" />
+                        android:hint="Receiver's address" />
 
                 </android.support.design.widget.TextInputLayout>
 

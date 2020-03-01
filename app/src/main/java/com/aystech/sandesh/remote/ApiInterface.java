@@ -3,11 +3,14 @@ package com.aystech.sandesh.remote;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.LoginResponseModel;
+import com.aystech.sandesh.model.OrderDetailResponseModel;
 import com.aystech.sandesh.model.ProfileResponseModel;
 import com.aystech.sandesh.model.SearchOrderResponseModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.model.ShowHistoryResponseModel;
 import com.aystech.sandesh.model.StateResponseModel;
+import com.aystech.sandesh.model.TravelDetailResponseModel;
+import com.aystech.sandesh.model.WeightResponseModel;
 import com.google.gson.JsonObject;
 
 import okhttp3.MultipartBody;
@@ -118,5 +121,11 @@ public interface ApiInterface {
     );
 
     @POST("api/getOrderDetail")
-    Call<CommonResponse> orderDetail(@Body JsonObject jsonObject);
+    Call<OrderDetailResponseModel> orderDetail(@Body JsonObject jsonObject);
+
+    @GET("api/getWeight")
+    Call<WeightResponseModel> getWeights();
+
+    @POST("api/getTravelDetail")
+    Call<TravelDetailResponseModel> travelDetail(@Body JsonObject jsonObject);
 }

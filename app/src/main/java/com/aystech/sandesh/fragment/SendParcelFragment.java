@@ -39,6 +39,8 @@ import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
+import com.aystech.sandesh.model.WeightModel;
+import com.aystech.sandesh.model.WeightResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Uitility;
@@ -62,6 +64,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
     Context context;
 
+    WeightResponseModel weightResponseModel;
     StateResponseModel stateResponseModel;
     CityResponseModel cityResponseModel;
 
@@ -79,11 +82,11 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     Button btnSubmit;
     TextView btnCancel;
 
-    String deliveryOption, natureOfGoods, quality, weight, packaging, ownership, strFromPincode, strtoPincode,
+    String deliveryOption, natureOfGoods, quality, packaging, ownership, strFromPincode, strtoPincode,
             strStartDate, strStartTime, strEndDate, strEndTime, strGoodsDescription, strValueOgGood,
             strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous, rgStrProhibited, rgStrFraglle, rgStrFlamableToxicExplosive;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private int fromStateId, fromCityId, toStateId, toCityId;
+    private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
 
     Uri picUri;
     Bitmap myBitmap;
@@ -215,7 +218,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 String selectedItem = parent.getItemAtPosition(position).toString();
 
                 if (!selectedItem.equals("")) {
-                    weight = selectedItem;
+                    weight_id = weightResponseModel.getWeightId(selectedItem);
                 }
             } // to close the onItemSelected
 
@@ -411,9 +414,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         jsonObject.addProperty("nature_of_goods", natureOfGoods);
         jsonObject.addProperty("good_description", strGoodsDescription);
         jsonObject.addProperty("quality", quality);
-        jsonObject.addProperty("weight", weight);
+        jsonObject.addProperty("weight_id", weight_id);
         jsonObject.addProperty("packaging", packaging);
+        jsonObject.addProperty("isHazardous", rgStrHazardous);
         jsonObject.addProperty("isProhibited", rgStrProhibited);
+        jsonObject.addProperty("isFragile", rgStrFraglle);
+        jsonObject.addProperty("isFlamable", rgStrFlamableToxicExplosive);
         jsonObject.addProperty("value_of_goods", strValueOgGood);
         jsonObject.addProperty("ownership", ownership);
         jsonObject.addProperty("invoice_pic", strInvoiceBase64);
@@ -432,9 +438,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if (response.body().getStatus())
+                    if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    else
+                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                    } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -452,7 +459,41 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         ((MainActivity) context).setUpToolbar(true, false, "", false);
 
         //TODO API Call
+        getWeights();
+
+        //TODO API Call
         getState();
+    }
+
+    private void getWeights() {
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<WeightResponseModel> call = apiInterface.getWeights();
+        call.enqueue(new Callback<WeightResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<WeightResponseModel> call, @NonNull Response<WeightResponseModel> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        weightResponseModel = response.body();
+                        bindStateDataToSpinner(response.body().getData());
+                    } else {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<WeightResponseModel> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void bindStateDataToSpinner(List<WeightModel> data) {
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter<WeightModel> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
+                data);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinnerWeight.setAdapter(aa);
     }
 
     private void getState() {
@@ -475,7 +516,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             public void onFailure(@NonNull Call<StateResponseModel> call, @NonNull Throwable t) {
             }
         });
-
     }
 
     private void bindStateDataToUI(List<StateModel> data) {

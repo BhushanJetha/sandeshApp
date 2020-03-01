@@ -2,24 +2,40 @@ package com.aystech.sandesh.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.model.SearchTravellerModel;
+import com.aystech.sandesh.model.TravelDetailResponseModel;
+import com.aystech.sandesh.remote.ApiInterface;
+import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.google.gson.JsonObject;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class TravellerDetailFragment extends Fragment {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class TravellerDetailFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
 
     private TextView tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
             tvDeliveryOption, tvWeight, tvLength, tvBreadth, tvHeight, tvVehicleType, tvVehicleTrainNo,
             tvOtherDetail;
+
+    private Button btnSendRequest;
+
+    private String travel_id;
+
+    ViewProgressDialog viewProgressDialog;
 
     public TravellerDetailFragment() {
         // Required empty public constructor
@@ -39,6 +55,8 @@ public class TravellerDetailFragment extends Fragment {
 
         initView(view);
 
+        onClickListener();
+
         //TODO API Call
         getTravellerDetail();
 
@@ -46,6 +64,8 @@ public class TravellerDetailFragment extends Fragment {
     }
 
     private void initView(View view) {
+        viewProgressDialog = ViewProgressDialog.getInstance();
+
         tvFromCityName = view.findViewById(R.id.tvFromCityName);
         tvToCityName = view.findViewById(R.id.tvToCityName);
         tvStartDate = view.findViewById(R.id.tvStartDate);
@@ -60,9 +80,86 @@ public class TravellerDetailFragment extends Fragment {
         tvVehicleType = view.findViewById(R.id.tvVehicleType);
         tvVehicleTrainNo = view.findViewById(R.id.tvVehicleTrainNo);
         tvOtherDetail = view.findViewById(R.id.tvOtherDetail);
+        btnSendRequest = view.findViewById(R.id.btnSendRequest);
+    }
+
+    private void onClickListener() {
+        btnSendRequest.setOnClickListener(this);
     }
 
     private void getTravellerDetail() {
+        ViewProgressDialog.getInstance().showProgress(context);
 
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("travel_id", travel_id);
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<TravelDetailResponseModel> call = apiInterface.travelDetail(
+                jsonObject
+        );
+        call.enqueue(new Callback<TravelDetailResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<TravelDetailResponseModel> call, @NonNull Response<TravelDetailResponseModel> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus())
+                        bindDataToUI(response.body().getData());
+                    else
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TravelDetailResponseModel> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void bindDataToUI(SearchTravellerModel data) {
+        tvFromCityName.setText(""); //need to set data
+        tvToCityName.setText(""); //need to set data
+        tvStartDate.setText(data.getStartDate());
+        tvStartTime.setText(data.getStartTime());
+        tvEndDate.setText(""); //need to set data
+        tvEndTime.setText(""); //need to set data
+        tvDeliveryOption.setText(data.getDeliveryOption());
+        tvWeight.setText(data.getPreferredWeight());
+
+        if (data.getAcceptableVolumeLength() != null && !data.getAcceptableVolumeLength().equals(""))
+            tvLength.setText(data.getAcceptableVolumeLength());
+        else
+            tvLength.setText("-");
+
+        if (data.getAcceptableVolumeBreadth() != null && !data.getAcceptableVolumeBreadth().equals(""))
+            tvBreadth.setText(data.getAcceptableVolumeBreadth());
+        else
+            tvBreadth.setText("-");
+
+        if (data.getAcceptableVolumeWidth() != null && !data.getAcceptableVolumeWidth().equals(""))
+            tvHeight.setText(data.getAcceptableVolumeWidth());
+        else
+            tvHeight.setText("-");
+
+        tvVehicleType.setText(data.getModeOfTravel());
+
+        if (data.getVehicleTrainNumber() != null && !data.getVehicleTrainNumber().equals(""))
+            tvVehicleTrainNo.setText(data.getVehicleTrainNumber());
+        else
+            tvVehicleTrainNo.setText("-");
+
+        if (data.getOtherDetail() != null && !data.getOtherDetail().equals(""))
+            tvOtherDetail.setText(data.getOtherDetail());
+        else
+            tvOtherDetail.setText("-");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnSendRequest:
+                break;
+        }
     }
 }

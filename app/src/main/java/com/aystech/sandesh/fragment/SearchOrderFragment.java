@@ -131,10 +131,10 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 if (!strToPinCode.isEmpty()) {
                     if (!strFromPincode.isEmpty()) {
                         if (!strDate.isEmpty()) {
-                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
-                                    false);
+                            /*FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
+                                    false);*/
                             //TODO API Call
-                            //searchOrderByData();
+                            searchOrderByData();
                         } else {
                             Uitility.showToast(getActivity(), "Please select Date !!");
                         }

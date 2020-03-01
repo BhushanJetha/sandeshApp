@@ -30,6 +30,7 @@
     <string name="cancel">Cancel</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="accept_terms_amp_conditions"><![CDATA[Accept terms & conditions]]></string>
+    <string name="send_request">Send Request</string>
 
     <string-array name="preferred_weight_array">
         <item>Up to 250 gms</item>
