@@ -27,9 +27,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HistoryFragment extends Fragment implements View.OnClickListener {
 
     Context context;
@@ -62,7 +59,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
         initView(view);
 
-        onClickListner();
+        onClickListener();
 
         //TODO API Call
         getHistoryData();
@@ -78,7 +75,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         rvHistory = view.findViewById(R.id.rvHistory);
     }
 
-    private void onClickListner() {
+    private void onClickListener() {
         tvTraveller.setOnClickListener(this);
         tvParcel.setOnClickListener(this);
     }

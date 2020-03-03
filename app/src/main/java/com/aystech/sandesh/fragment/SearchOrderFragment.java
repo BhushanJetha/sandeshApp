@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.OrderAdapter;
+import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.CityModel;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.SearchOrderModel;
@@ -131,8 +132,6 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 if (!strToPinCode.isEmpty()) {
                     if (!strFromPincode.isEmpty()) {
                         if (!strDate.isEmpty()) {
-                            /*FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
-                                    false);*/
                             //TODO API Call
                             searchOrderByData();
                         } else {
@@ -213,7 +212,16 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             else
                 tvResultCount.setText(data.size() + " results found");
 
-            orderAdapter = new OrderAdapter(context, data);
+            orderAdapter = new OrderAdapter(context, data, "order", new OnItemClickListener() {
+                @Override
+                public void onItemClicked(SearchOrderModel searchOrderModel) {
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
+                                    false);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("order_id", searchOrderModel.getParcelId());
+                    orderDetailFragment.setArguments(bundle);
+                }
+            });
             rvOrder.setAdapter(orderAdapter);
         } else {
             clOrderList.setVisibility(View.GONE);

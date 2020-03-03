@@ -10,9 +10,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
-import com.aystech.sandesh.model.ShowHistoryInnerModel;
 
 import java.util.List;
 
@@ -22,20 +22,27 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private List<SearchOrderModel> searchOrderModels;
     private List<SearchTravellerModel> searchTravellerModels;
     private String tag;
+    private OnItemClickListener onItemClickListener;
 
-    public OrderAdapter(Context context, List<SearchOrderModel> data) {
+    //this form SearchOrderFragment for order section
+    public OrderAdapter(Context context, List<SearchOrderModel> data, String tag, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.searchOrderModels = data;
+        this.tag = tag;
+        this.onItemClickListener = onItemClickListener;
     }
 
+    //this form SearchTravellerFragment & HistoryFragment for traveller section
     public OrderAdapter(Context context, List<SearchTravellerModel> data, String tag) {
         this.context = context;
         this.searchTravellerModels = data;
         this.tag = tag;
     }
 
-    public OrderAdapter(Context context, ShowHistoryInnerModel data, String history, String travel) {
-
+    //this form HistoryFragment for parcel section
+    public OrderAdapter(Context context, List<SearchOrderModel> parcel) {
+        this.context = context;
+        this.searchOrderModels = parcel;
     }
 
     @NonNull
@@ -46,13 +53,26 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
         if (tag != null && tag.equals("traveller")) {
             myViewHolder.tvName.setText("" /*+ searchTravellerModels.get(i).getReceiverName()*/);
             myViewHolder.tvOrderDate.setText("" + searchTravellerModels.get(i).getStartDate());
             myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchTravellerModels.get(i).getModeOfTravel());
+        } else if (tag != null && tag.equals("order")) {
+            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getReceiverName());
+            myViewHolder.tvOrderDate.setText("" + searchOrderModels.get(i).getStartDate());
+            myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
+            myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
+            myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
+
+            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClicked(searchOrderModels.get(i));
+                }
+            });
         } else {
             myViewHolder.tvName.setText("" + searchOrderModels.get(i).getReceiverName());
             myViewHolder.tvOrderDate.setText("" + searchOrderModels.get(i).getStartDate());

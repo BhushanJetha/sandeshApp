@@ -40,7 +40,7 @@ public class OrderDetailFragment extends Fragment {
 
     private ImageView imgInvoice, imgParcel;
 
-    private String order_id;
+    private int order_id;
 
     ViewProgressDialog viewProgressDialog;
 
@@ -59,6 +59,9 @@ public class OrderDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_detail, container, false);
+
+        if (getArguments() != null)
+            order_id = getArguments().getInt("order_id");
 
         initView(view);
 

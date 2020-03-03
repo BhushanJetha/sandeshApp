@@ -7,24 +7,24 @@ public class SearchOrderModel {
     @SerializedName("parcel_id")
     @Expose
     private Integer parcelId;
-    @SerializedName("user_id")
+    @SerializedName("first_name")
     @Expose
-    private Integer userId;
-    @SerializedName("user_type")
+    private String firstName;
+    @SerializedName("middle_name")
     @Expose
-    private String userType;
-    @SerializedName("from_city_id")
+    private String middleName;
+    @SerializedName("last_name")
     @Expose
-    private Integer fromCityId;
+    private String lastName;
+    @SerializedName("company_name")
+    @Expose
+    private String companyName;
     @SerializedName("from_pincode")
     @Expose
     private String fromPincode;
     @SerializedName("from_address_detail")
     @Expose
     private String fromAddressDetail;
-    @SerializedName("to_city_id")
-    @Expose
-    private Integer toCityId;
     @SerializedName("to_pincode")
     @Expose
     private String toPincode;
@@ -34,12 +34,18 @@ public class SearchOrderModel {
     @SerializedName("start_time")
     @Expose
     private String startTime;
-    @SerializedName("nature_of_goods")
+    @SerializedName("end_date")
     @Expose
-    private String natureOfGoods;
+    private String endDate;
+    @SerializedName("end_time")
+    @Expose
+    private String endTime;
     @SerializedName("delivery_option")
     @Expose
     private String deliveryOption;
+    @SerializedName("nature_of_goods")
+    @Expose
+    private String natureOfGoods;
     @SerializedName("good_description")
     @Expose
     private String goodDescription;
@@ -79,18 +85,6 @@ public class SearchOrderModel {
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("date")
-    @Expose
-    private String date;
-    @SerializedName("time")
-    @Expose
-    private String time;
-    @SerializedName("created_date")
-    @Expose
-    private String createdDate;
-    @SerializedName("updated_date")
-    @Expose
-    private String updatedDate;
 
     public Integer getParcelId() {
         return parcelId;
@@ -100,28 +94,36 @@ public class SearchOrderModel {
         this.parcelId = parcelId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getUserType() {
-        return userType;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public Integer getFromCityId() {
-        return fromCityId;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setFromCityId(Integer fromCityId) {
-        this.fromCityId = fromCityId;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getFromPincode() {
@@ -138,14 +140,6 @@ public class SearchOrderModel {
 
     public void setFromAddressDetail(String fromAddressDetail) {
         this.fromAddressDetail = fromAddressDetail;
-    }
-
-    public Integer getToCityId() {
-        return toCityId;
-    }
-
-    public void setToCityId(Integer toCityId) {
-        this.toCityId = toCityId;
     }
 
     public String getToPincode() {
@@ -172,12 +166,20 @@ public class SearchOrderModel {
         this.startTime = startTime;
     }
 
-    public String getNatureOfGoods() {
-        return natureOfGoods;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setNatureOfGoods(String natureOfGoods) {
-        this.natureOfGoods = natureOfGoods;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getDeliveryOption() {
@@ -186,6 +188,14 @@ public class SearchOrderModel {
 
     public void setDeliveryOption(String deliveryOption) {
         this.deliveryOption = deliveryOption;
+    }
+
+    public String getNatureOfGoods() {
+        return natureOfGoods;
+    }
+
+    public void setNatureOfGoods(String natureOfGoods) {
+        this.natureOfGoods = natureOfGoods;
     }
 
     public String getGoodDescription() {
@@ -290,37 +300,5 @@ public class SearchOrderModel {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(String updatedDate) {
-        this.updatedDate = updatedDate;
     }
 }
