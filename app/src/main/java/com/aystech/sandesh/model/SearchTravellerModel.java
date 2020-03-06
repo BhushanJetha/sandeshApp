@@ -43,13 +43,13 @@ public class SearchTravellerModel {
     @SerializedName("preferred_weight")
     @Expose
     private String preferredWeight;
-    @SerializedName("acceptable_volume_length")
+    @SerializedName(value = "acceptable_volume_length", alternate = "length")
     @Expose
     private String acceptableVolumeLength;
-    @SerializedName("acceptable_volume_breadth")
+    @SerializedName(value = "acceptable_volume_breadth", alternate = "breadth")
     @Expose
     private String acceptableVolumeBreadth;
-    @SerializedName("acceptable_volume_width")
+    @SerializedName(value = "acceptable_volume_width", alternate = "width")
     @Expose
     private String acceptableVolumeWidth;
     @SerializedName("mode_of_travel")
@@ -76,6 +76,12 @@ public class SearchTravellerModel {
     @SerializedName("updated_date")
     @Expose
     private String updatedDate;
+    @SerializedName("from_city")
+    @Expose
+    private String fromCity;
+    @SerializedName("to_city")
+    @Expose
+    private String toCity;
 
     public Integer getTravelId() {
         return travelId;
@@ -267,5 +273,21 @@ public class SearchTravellerModel {
 
     public void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public String getFromCity() {
+        return fromCity;
+    }
+
+    public void setFromCity(String fromCity) {
+        this.fromCity = fromCity;
+    }
+
+    public String getToCity() {
+        return toCity;
+    }
+
+    public void setToCity(String toCity) {
+        this.toCity = toCity;
     }
 }

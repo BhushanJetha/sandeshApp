@@ -23,14 +23,17 @@ import android.widget.Toast;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.OrderAdapter;
+import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.CityModel;
 import com.aystech.sandesh.model.CityResponseModel;
+import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
@@ -61,7 +64,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     RecyclerView rvOrder;
     OrderAdapter orderAdapter;
 
-    MyWalletFragmentOne myWalletFragmentOne;
+    TravellerDetailFragment travellerDetailFragment;
 
     private int mYear, mMonth, mDay;
     private int fromStateId, fromCityId, toStateId, toCityId;
@@ -85,8 +88,8 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search_traveler, container, false);
 
-        myWalletFragmentOne = (MyWalletFragmentOne) Fragment.instantiate(context,
-                MyWalletFragmentOne.class.getName());
+        travellerDetailFragment = (TravellerDetailFragment) Fragment.instantiate(context,
+                TravellerDetailFragment.class.getName());
 
         initView(view);
 
@@ -230,7 +233,26 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
             else
                 tvResultCount.setText(data.size() + " results found");
 
-            orderAdapter = new OrderAdapter(context, data, "traveller");
+            orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
+                @Override
+                public void onItemClicked(SearchOrderModel searchOrderModel) {
+                }
+
+                @Override
+                public void onItemClicked(SearchTravellerModel searchTravellerModel) {
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            travellerDetailFragment, R.id.frame_container,
+                            false);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("traveller_id", searchTravellerModel.getTravelId());
+                    travellerDetailFragment.setArguments(bundle);
+                }
+
+                @Override
+                public void openOtpDialog() {
+                }
+            });
+            orderAdapter.addTravellerList(data);
             rvOrder.setAdapter(orderAdapter);
         }else{
             clTravellerList.setVisibility(View.GONE);

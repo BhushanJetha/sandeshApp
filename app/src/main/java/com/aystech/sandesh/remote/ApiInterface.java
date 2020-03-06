@@ -128,4 +128,13 @@ public interface ApiInterface {
 
     @POST("api/getTravelDetail")
     Call<TravelDetailResponseModel> travelDetail(@Body JsonObject jsonObject);
+
+    @GET("api/getMyTravelList")
+    Call<SearchTravellerResponseModel> getMyTravellerList();
+
+    @GET("api/getMyOrderList")
+    Call<SearchOrderResponseModel> getOrderList();
+
+    @POST("api/sendDeliveryRequest")
+    Call<CommonResponse> sendDeliveryRequest(@Body JsonObject jsonObject);
 }

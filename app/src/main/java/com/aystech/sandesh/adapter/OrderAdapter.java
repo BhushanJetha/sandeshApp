@@ -25,9 +25,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private OnItemClickListener onItemClickListener;
 
     //this form SearchOrderFragment for order section
-    public OrderAdapter(Context context, List<SearchOrderModel> data, String tag, OnItemClickListener onItemClickListener) {
+    public OrderAdapter(Context context, String tag, OnItemClickListener onItemClickListener) {
         this.context = context;
-        this.searchOrderModels = data;
         this.tag = tag;
         this.onItemClickListener = onItemClickListener;
     }
@@ -60,8 +59,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchTravellerModels.get(i).getModeOfTravel());
+
+            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClicked(searchTravellerModels.get(i));
+                }
+            });
+
         } else if (tag != null && tag.equals("order")) {
-            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getReceiverName());
+            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
             myViewHolder.tvOrderDate.setText("" + searchOrderModels.get(i).getStartDate());
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
@@ -73,8 +80,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                     onItemClickListener.onItemClicked(searchOrderModels.get(i));
                 }
             });
+        } else if (tag != null && tag.equals("order_clicked_verify")) {
+            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
+            myViewHolder.tvOrderDate.setText("" + searchOrderModels.get(i).getStartDate());
+            myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
+            myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
+            myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
+
+            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.openOtpDialog();
+                }
+            });
         } else {
-            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getReceiverName());
+            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
             myViewHolder.tvOrderDate.setText("" + searchOrderModels.get(i).getStartDate());
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
@@ -88,6 +108,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             return searchTravellerModels.size();
         }
         return searchOrderModels.size();
+    }
+
+    public void addTravellerList(List<SearchTravellerModel> data) {
+        this.searchTravellerModels = data;
+    }
+
+    public void addOrderList(List<SearchOrderModel> data) {
+        this.searchOrderModels = data;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

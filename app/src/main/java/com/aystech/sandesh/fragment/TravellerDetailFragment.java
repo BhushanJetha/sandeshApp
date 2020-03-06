@@ -1,9 +1,11 @@
 package com.aystech.sandesh.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
@@ -33,7 +37,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
     private Button btnSendRequest;
 
-    private String travel_id;
+    private int travel_id, parcel_id;
 
     ViewProgressDialog viewProgressDialog;
 
@@ -52,6 +56,9 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_traveller_detail, container, false);
+
+        if (getArguments() != null)
+            travel_id = getArguments().getInt("traveller_id");
 
         initView(view);
 
@@ -159,7 +166,63 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSendRequest:
+                openDialog();
                 break;
         }
+    }
+
+    private void openDialog() {
+        new AlertDialog.Builder(context)
+                .setTitle("Send Request")
+                .setMessage("Do you want to send the request?")
+                .setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                        //TODO API Call
+                        sendDeliveryRequest();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void sendDeliveryRequest() {
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("travel_id", travel_id);
+        jsonObject.addProperty("parcel_id", parcel_id);
+        jsonObject.addProperty("requestor_type", "Travel");
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.sendDeliveryRequest(
+                jsonObject
+        );
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus())
+                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                    else
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
     }
 }
