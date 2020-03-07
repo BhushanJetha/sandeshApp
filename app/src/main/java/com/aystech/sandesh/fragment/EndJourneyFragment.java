@@ -60,17 +60,17 @@ public class EndJourneyFragment extends Fragment implements View.OnClickListener
     }
 
     private void initView(View view) {
-        gpNewSelfie = view.findViewById(R.id.gpNewSelfie);
+        /*gpNewSelfie = view.findViewById(R.id.gpNewSelfie);
         imgNewSelfie = view.findViewById(R.id.imgNewSelfie);
         imgNewSelfie.setImageResource(R.drawable.ic_parcel);
         gpReceivedParcel = view.findViewById(R.id.gpReceivedParcel);
         imgReceivedParcel = view.findViewById(R.id.imgReceivedParcel);
-        imgReceivedParcel.setImageResource(R.drawable.ic_parcel);
+        imgReceivedParcel.setImageResource(R.drawable.ic_parcel);*/
     }
 
     private void onClickListener() {
-        gpNewSelfie.setOnClickListener(this);
-        gpReceivedParcel.setOnClickListener(this);
+       /* gpNewSelfie.setOnClickListener(this);
+        gpReceivedParcel.setOnClickListener(this);*/
     }
 
     @Override
@@ -81,7 +81,7 @@ public class EndJourneyFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        /*switch (v.getId()) {
             case R.id.gpNewSelfie:
                 gotoSelectPicture("selfie");
                 break;
@@ -89,7 +89,7 @@ public class EndJourneyFragment extends Fragment implements View.OnClickListener
             case R.id.gpReceivedParcel:
                 gotoSelectPicture("parcel");
                 break;
-        }
+        }*/
     }
 
     private void gotoSelectPicture(String type) {

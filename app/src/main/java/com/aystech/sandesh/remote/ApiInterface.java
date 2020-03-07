@@ -126,7 +126,7 @@ public interface ApiInterface {
     @GET("api/getWeight")
     Call<WeightResponseModel> getWeights();
 
-    @POST("api/getTravelDetail")
+    @POST("api/getTraveDetail")
     Call<TravelDetailResponseModel> travelDetail(@Body JsonObject jsonObject);
 
     @GET("api/getMyTravelList")
@@ -137,4 +137,7 @@ public interface ApiInterface {
 
     @POST("api/sendDeliveryRequest")
     Call<CommonResponse> sendDeliveryRequest(@Body JsonObject jsonObject);
+
+    @POST("api/getMyAcceptedOrders")
+    Call<CommonResponse> getMyAcceptedOrders(@Body JsonObject jsonObject);
 }

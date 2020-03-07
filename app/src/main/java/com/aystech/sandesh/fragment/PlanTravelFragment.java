@@ -224,7 +224,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         jsonObject.addProperty("acceptable_volume_breadth", strAcceptableBreadth);
         jsonObject.addProperty("acceptable_volume_width", strAcceptableHeight);
         jsonObject.addProperty("mode_of_travel", modeOfTravel);
-        jsonObject.addProperty("vehicle_train_number", strVehicleNo);
+        jsonObject.addProperty("vehicle_number", strVehicleNo);
         jsonObject.addProperty("other_detail", strOtherDetail);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();

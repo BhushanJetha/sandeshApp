@@ -382,6 +382,7 @@
                         android:fontFamily="@font/gotham_light"
                         android:hint="Acceptable length"
                         android:maxLines="1"
+                        android:inputType="number"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
 
@@ -404,6 +405,7 @@
                         android:fontFamily="@font/gotham_light"
                         android:hint="Acceptable breadth"
                         android:maxLines="1"
+                        android:inputType="number"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
 
@@ -426,6 +428,7 @@
                         android:fontFamily="@font/gotham_light"
                         android:hint="Acceptable height"
                         android:maxLines="1"
+                        android:inputType="number"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
 
