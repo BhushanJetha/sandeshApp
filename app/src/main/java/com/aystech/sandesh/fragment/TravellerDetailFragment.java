@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
-import com.aystech.sandesh.model.SearchTravellerModel;
+import com.aystech.sandesh.model.TravelDetailModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
@@ -124,40 +124,40 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         });
     }
 
-    private void bindDataToUI(SearchTravellerModel data) {
-        tvFromCityName.setText(""); //need to set data
-        tvToCityName.setText(""); //need to set data
-        tvStartDate.setText(data.getStartDate());
-        tvStartTime.setText(data.getStartTime());
-        tvEndDate.setText(""); //need to set data
-        tvEndTime.setText(""); //need to set data
-        tvDeliveryOption.setText(data.getDeliveryOption());
-        tvWeight.setText(data.getPreferredWeight());
+    private void bindDataToUI(TravelDetailModel data) {
+        tvFromCityName.setText(data.getTravelPlan().getFromCity()); //need to set data
+        tvToCityName.setText(data.getTravelPlan().getToCity()); //need to set data
+        tvStartDate.setText(data.getTravelPlan().getStartDate());
+        tvStartTime.setText(data.getTravelPlan().getStartTime());
+        tvEndDate.setText(data.getTravelPlan().getEndDate()); //need to set data
+        tvEndTime.setText(data.getTravelPlan().getEndTime()); //need to set data
+        tvDeliveryOption.setText(data.getTravelPlan().getDeliveryOption());
+        tvWeight.setText(data.getTravelPlan().getPreferredWeight());
 
-        if (data.getAcceptableVolumeLength() != null && !data.getAcceptableVolumeLength().equals(""))
-            tvLength.setText(data.getAcceptableVolumeLength());
+        if (data.getTravelPlan().getAcceptableVolumeLength() != null && !data.getTravelPlan().getAcceptableVolumeLength().equals(""))
+            tvLength.setText(data.getTravelPlan().getAcceptableVolumeLength());
         else
             tvLength.setText("-");
 
-        if (data.getAcceptableVolumeBreadth() != null && !data.getAcceptableVolumeBreadth().equals(""))
-            tvBreadth.setText(data.getAcceptableVolumeBreadth());
+        if (data.getTravelPlan().getAcceptableVolumeBreadth() != null && !data.getTravelPlan().getAcceptableVolumeBreadth().equals(""))
+            tvBreadth.setText(data.getTravelPlan().getAcceptableVolumeBreadth());
         else
             tvBreadth.setText("-");
 
-        if (data.getAcceptableVolumeWidth() != null && !data.getAcceptableVolumeWidth().equals(""))
-            tvHeight.setText(data.getAcceptableVolumeWidth());
+        if (data.getTravelPlan().getAcceptableVolumeWidth() != null && !data.getTravelPlan().getAcceptableVolumeWidth().equals(""))
+            tvHeight.setText(data.getTravelPlan().getAcceptableVolumeWidth());
         else
             tvHeight.setText("-");
 
-        tvVehicleType.setText(data.getModeOfTravel());
+        tvVehicleType.setText(data.getTravelPlan().getModeOfTravel());
 
-        if (data.getVehicleTrainNumber() != null && !data.getVehicleTrainNumber().equals(""))
-            tvVehicleTrainNo.setText(data.getVehicleTrainNumber());
+        if (data.getTravelPlan().getVehicleTrainNumber() != null && !data.getTravelPlan().getVehicleTrainNumber().equals(""))
+            tvVehicleTrainNo.setText(data.getTravelPlan().getVehicleTrainNumber());
         else
             tvVehicleTrainNo.setText("-");
 
-        if (data.getOtherDetail() != null && !data.getOtherDetail().equals(""))
-            tvOtherDetail.setText(data.getOtherDetail());
+        if (data.getTravelPlan().getOtherDetail() != null && !data.getTravelPlan().getOtherDetail().equals(""))
+            tvOtherDetail.setText(data.getTravelPlan().getOtherDetail());
         else
             tvOtherDetail.setText("-");
     }

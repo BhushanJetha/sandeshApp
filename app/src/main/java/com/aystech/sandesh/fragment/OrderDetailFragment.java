@@ -1,12 +1,15 @@
 package com.aystech.sandesh.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.OrderDetailResponseModel;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.remote.ApiInterface;
@@ -25,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderDetailFragment extends Fragment {
+public class OrderDetailFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
 
@@ -40,7 +45,9 @@ public class OrderDetailFragment extends Fragment {
 
     private ImageView imgInvoice, imgParcel;
 
-    private int order_id;
+    private Button btnSendRequest;
+
+    private int order_id, travel_id;
 
     ViewProgressDialog viewProgressDialog;
 
@@ -64,6 +71,8 @@ public class OrderDetailFragment extends Fragment {
             order_id = getArguments().getInt("order_id");
 
         initView(view);
+
+        onClickListener();
 
         //TODO API Call
         getOrderDetail();
@@ -107,6 +116,11 @@ public class OrderDetailFragment extends Fragment {
         tvReceiverName = view.findViewById(R.id.tvReceiverName);
         tvReceiverMobileNo = view.findViewById(R.id.tvReceiverMobileNo);
         tvReceiverAddress = view.findViewById(R.id.tvReceiverAddress);
+        btnSendRequest = view.findViewById(R.id.btnSendRequest);
+    }
+
+    private void onClickListener() {
+        btnSendRequest.setOnClickListener(this);
     }
 
     private void getOrderDetail() {
@@ -144,8 +158,8 @@ public class OrderDetailFragment extends Fragment {
         tvToCityName.setText(""); //need to set data
         tvStartDate.setText(data.getStartDate());
         tvStartTime.setText(data.getStartTime());
-        tvEndDate.setText(""); //need to set data
-        tvEndTime.setText(""); //need to set data
+        tvEndDate.setText(data.getEndDate()); //need to set data
+        tvEndTime.setText(data.getEndTime()); //need to set data
         tvDeliveryOption.setText(data.getDeliveryOption());
         tvNatureGoods.setText(data.getNatureOfGoods());
 
@@ -177,5 +191,69 @@ public class OrderDetailFragment extends Fragment {
             tvReceiverAddress.setText(data.getReceiverAddressDetail());
         else
             tvReceiverAddress.setText("-");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnSendRequest:
+                openDialog();
+                break;
+        }
+    }
+
+    private void openDialog() {
+        new AlertDialog.Builder(context)
+                .setTitle("Send Request")
+                .setMessage("Do you want to send the request?")
+                .setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                        //TODO API Call
+                        sendDeliveryRequest();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void sendDeliveryRequest() {
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("travel_id", travel_id);
+        jsonObject.addProperty("parcel_id", order_id);
+        jsonObject.addProperty("requestor_type", "Order");
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.sendDeliveryRequest(
+                jsonObject
+        );
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus())
+                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                    else
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
     }
 }

@@ -242,7 +242,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                 public void onItemClicked(SearchTravellerModel searchTravellerModel) {
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                             travellerDetailFragment, R.id.frame_container,
-                            false);
+                            true);
                     Bundle bundle = new Bundle();
                     bundle.putInt("traveller_id", searchTravellerModel.getTravelId());
                     travellerDetailFragment.setArguments(bundle);

@@ -7,6 +7,9 @@ public class SearchTravellerModel {
     @SerializedName("travel_id")
     @Expose
     private Integer travelId;
+    @SerializedName("estimate_amount")
+    @Expose
+    private Integer estimate_amount;
     @SerializedName("user_id")
     @Expose
     private Integer userId;
@@ -55,7 +58,7 @@ public class SearchTravellerModel {
     @SerializedName("mode_of_travel")
     @Expose
     private String modeOfTravel;
-    @SerializedName("vehicle_train_number")
+    @SerializedName(value = "vehicle_train_number", alternate = "vehicle_number")
     @Expose
     private String vehicleTrainNumber;
     @SerializedName("other_detail")
@@ -82,6 +85,18 @@ public class SearchTravellerModel {
     @SerializedName("to_city")
     @Expose
     private String toCity;
+    @SerializedName("first_name")
+    @Expose
+    private String firstName;
+    @SerializedName("last_name")
+    @Expose
+    private String lastName;
+    @SerializedName("mobile_no")
+    @Expose
+    private String mobileNo;
+    @SerializedName("email_id")
+    @Expose
+    private String emailId;
 
     public Integer getTravelId() {
         return travelId;
@@ -89,6 +104,14 @@ public class SearchTravellerModel {
 
     public void setTravelId(Integer travelId) {
         this.travelId = travelId;
+    }
+
+    public Integer getEstimate_amount() {
+        return estimate_amount;
+    }
+
+    public void setEstimate_amount(Integer estimate_amount) {
+        this.estimate_amount = estimate_amount;
     }
 
     public Integer getUserId() {
@@ -289,5 +312,33 @@ public class SearchTravellerModel {
 
     public void setToCity(String toCity) {
         this.toCity = toCity;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public String getEmailId() {
+        return emailId;
     }
 }

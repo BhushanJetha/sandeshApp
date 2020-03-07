@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 public class TravelDetailResponseModel extends CommonResponse{
     @SerializedName("data")
     @Expose
-    private SearchTravellerModel data = null;
+    private TravelDetailModel data = null;
 
-    public SearchTravellerModel getData() {
+    public TravelDetailModel getData() {
         return data;
     }
 }

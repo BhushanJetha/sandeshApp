@@ -7,6 +7,9 @@ public class SearchOrderModel {
     @SerializedName("parcel_id")
     @Expose
     private Integer parcelId;
+    @SerializedName("estimate_amount")
+    @Expose
+    private Integer estimate_amount;
     @SerializedName("first_name")
     @Expose
     private String firstName;
@@ -92,6 +95,14 @@ public class SearchOrderModel {
 
     public void setParcelId(Integer parcelId) {
         this.parcelId = parcelId;
+    }
+
+    public Integer getEstimate_amount() {
+        return estimate_amount;
+    }
+
+    public void setEstimate_amount(Integer estimate_amount) {
+        this.estimate_amount = estimate_amount;
     }
 
     public String getFirstName() {

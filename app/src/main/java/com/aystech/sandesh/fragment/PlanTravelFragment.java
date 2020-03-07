@@ -237,9 +237,10 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if (response.body().getStatus())
+                    if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    else
+                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                    } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -266,10 +267,10 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         if (tag.equals("start_date")) {
-                            strStartDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            strStartDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
                             etStartDate.setText(strStartDate);
                         } else if (tag.equals("end_date")) {
-                            strEndDate = Uitility.dateFormat(year,monthOfYear+1,dayOfMonth);
+                            strEndDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
                             etEndDate.setText(strEndDate);
                         }
                     }

@@ -217,7 +217,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 @Override
                 public void onItemClicked(SearchOrderModel searchOrderModel) {
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
-                                    false);
+                                    true);
                     Bundle bundle = new Bundle();
                     bundle.putInt("order_id", searchOrderModel.getParcelId());
                     orderDetailFragment.setArguments(bundle);

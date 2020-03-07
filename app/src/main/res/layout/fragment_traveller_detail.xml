@@ -59,7 +59,6 @@
                     android:background="@drawable/row_rounded_white_rectangle"
                     android:elevation="@dimen/_3sdp"
                     android:padding="@dimen/_4sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">

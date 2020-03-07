@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -29,11 +30,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_4sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
                 android:text="Abhijit"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_13sdp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/tvOrderDate"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -47,7 +48,7 @@
                 android:padding="@dimen/_4sdp"
                 android:text="6 Nov - 8 Nov 2019"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/_11sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -68,11 +69,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_4sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
                 android:text="Door to Door"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/tvOrderDistance"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -86,7 +87,7 @@
                 android:padding="@dimen/_4sdp"
                 android:text="upto 1 kg"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tvOrderType"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,32 +95,54 @@
                 app:layout_constraintStart_toEndOf="@+id/tvOrderType"
                 app:layout_constraintTop_toTopOf="@+id/tvOrderType" />
 
-            <TextView
-                android:id="@+id/tvOrderTypeContent"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clDocInfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_4sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:text="Documents"
-                android:textSize="@dimen/_8sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
                 app:layout_constraintEnd_toEndOf="@+id/tvOrderType"
                 app:layout_constraintStart_toStartOf="@+id/tvOrderType"
-                app:layout_constraintTop_toBottomOf="@+id/tvOrderType" />
+                app:layout_constraintTop_toBottomOf="@+id/tvOrderType">
+
+                <TextView
+                    android:id="@+id/tvOrderTypeContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Documents"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvVolumeInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:text="Vol: 2 * 2 * 3 fts"
+                    android:textSize="@dimen/_9sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvOrderTypeContent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvOrderTypeContent"
+                    app:layout_constraintTop_toTopOf="@+id/tvOrderTypeContent" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvExpectedIncome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_4sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
                 android:text="Expected income: Rs. 250"
-                android:visibility="gone"
-                android:textSize="@dimen/_8sdp"
+                android:textSize="@dimen/_9sdp"
                 app:layout_constraintEnd_toEndOf="@+id/tvOrderType"
                 app:layout_constraintStart_toStartOf="@+id/tvOrderType"
-                app:layout_constraintTop_toBottomOf="@+id/tvOrderTypeContent" />
+                app:layout_constraintTop_toBottomOf="@+id/clDocInfo" />
 
             <RatingBar
                 android:id="@+id/rbOrder"
@@ -134,7 +157,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/tvOrderDistance"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/tvExpectedIncome"
-                app:layout_constraintTop_toBottomOf="@+id/tvOrderTypeContent" />
+                app:layout_constraintTop_toBottomOf="@+id/clDocInfo" />
 
         </android.support.constraint.ConstraintLayout>
 

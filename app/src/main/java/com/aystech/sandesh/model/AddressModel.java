@@ -10,7 +10,7 @@ public class AddressModel implements Parcelable {
     @SerializedName("state")
     @Expose
     private String state;
-    @SerializedName("city")
+    @SerializedName(value = "city", alternate = "address_city")
     @Expose
     private String city;
     @SerializedName("address_line1")

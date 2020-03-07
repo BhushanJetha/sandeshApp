@@ -1,5 +1,6 @@
 package com.aystech.sandesh.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -24,14 +25,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private String tag;
     private OnItemClickListener onItemClickListener;
 
-    //this form SearchOrderFragment for order section
+    //this form SearchOrderFragment & SearchTravellerFragment for order/traveller section
     public OrderAdapter(Context context, String tag, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.tag = tag;
         this.onItemClickListener = onItemClickListener;
     }
 
-    //this form SearchTravellerFragment & HistoryFragment for traveller section
+    //this form HistoryFragment for traveller section
     public OrderAdapter(Context context, List<SearchTravellerModel> data, String tag) {
         this.context = context;
         this.searchTravellerModels = data;
@@ -51,6 +52,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         return new MyViewHolder(contentView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
         if (tag != null && tag.equals("traveller")) {
@@ -59,6 +61,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchTravellerModels.get(i).getModeOfTravel());
+            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getEstimate_amount());
+            myViewHolder.tvVolumeInfo.setVisibility(View.VISIBLE);
+            myViewHolder.tvVolumeInfo.setText("Vol: " + searchTravellerModels.get(i).getAcceptableVolumeLength() + " * " +
+                    searchTravellerModels.get(i).getAcceptableVolumeBreadth() +" * "+ searchTravellerModels.get(i).getAcceptableVolumeWidth());
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -73,6 +79,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
+            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getEstimate_amount());
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,6 +93,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
+            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getEstimate_amount());
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,6 +107,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
+            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getEstimate_amount());
         }
     }
 
@@ -126,6 +135,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         private TextView tvOrderDistance;
         private TextView tvOrderTypeContent;
         private TextView tvExpectedIncome;
+        private TextView tvVolumeInfo;
         private RatingBar rbOrder;
 
         MyViewHolder(@NonNull View itemView) {
@@ -137,6 +147,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             tvOrderDistance = itemView.findViewById(R.id.tvOrderDistance);
             tvOrderTypeContent = itemView.findViewById(R.id.tvOrderTypeContent);
             tvExpectedIncome = itemView.findViewById(R.id.tvExpectedIncome);
+            tvVolumeInfo = itemView.findViewById(R.id.tvVolumeInfo);
             rbOrder = itemView.findViewById(R.id.rbOrder);
         }
     }
