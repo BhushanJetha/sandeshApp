@@ -16,4 +16,7 @@
     <color name="backgroundCircle">#84DD24</color>
 
     <color name="colorViewLine">#bcbcbc</color>
+
+    <color name="colorGreen">#4CAF50</color>
+    <color name="colorRed">#F44336</color>
 </resources>

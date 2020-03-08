@@ -244,12 +244,12 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                             travellerDetailFragment, R.id.frame_container,
                             true);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("traveller_id", searchTravellerModel.getTravelId());
+                    bundle.putInt("travel_id", searchTravellerModel.getTravelId());
                     travellerDetailFragment.setArguments(bundle);
                 }
 
                 @Override
-                public void openOtpDialog() {
+                public void openOtpDialog(SearchTravellerModel searchTravellerModel) {
                 }
             });
             orderAdapter.addTravellerList(data);

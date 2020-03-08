@@ -10,24 +10,33 @@ public class SearchOrderModel {
     @SerializedName("estimate_amount")
     @Expose
     private Integer estimate_amount;
+    @SerializedName("user_id")
+    @Expose
+    private Integer userId;
     @SerializedName("first_name")
     @Expose
     private String firstName;
-    @SerializedName("middle_name")
-    @Expose
-    private String middleName;
     @SerializedName("last_name")
     @Expose
     private String lastName;
-    @SerializedName("company_name")
+    @SerializedName("mobile_no")
     @Expose
-    private String companyName;
+    private String mobileNo;
+    @SerializedName("email_id")
+    @Expose
+    private String emailId;
+    @SerializedName("from_city")
+    @Expose
+    private String fromCity;
     @SerializedName("from_pincode")
     @Expose
     private String fromPincode;
     @SerializedName("from_address_detail")
     @Expose
     private String fromAddressDetail;
+    @SerializedName("to_city")
+    @Expose
+    private String toCity;
     @SerializedName("to_pincode")
     @Expose
     private String toPincode;
@@ -55,7 +64,7 @@ public class SearchOrderModel {
     @SerializedName("quality")
     @Expose
     private String quality;
-    @SerializedName("weight")
+    @SerializedName(value = "weight", alternate = "preferred_weight")
     @Expose
     private String weight;
     @SerializedName("packaging")
@@ -64,6 +73,15 @@ public class SearchOrderModel {
     @SerializedName("isProhibited")
     @Expose
     private String isProhibited;
+    @SerializedName("isHazardous")
+    @Expose
+    private String isHazardous;
+    @SerializedName("isFragile")
+    @Expose
+    private String isFragile;
+    @SerializedName("isFlamable")
+    @Expose
+    private String isFlamable;
     @SerializedName("value_of_goods")
     @Expose
     private String valueOfGoods;
@@ -85,9 +103,27 @@ public class SearchOrderModel {
     @SerializedName("receiver_address_detail")
     @Expose
     private String receiverAddressDetail;
+    @SerializedName("order_charges")
+    @Expose
+    private Integer orderCharges;
+    @SerializedName("gst_amount")
+    @Expose
+    private Integer gstAmount;
+    @SerializedName("total_amount")
+    @Expose
+    private Integer totalAmount;
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("comment")
+    @Expose
+    private String comment;
+    @SerializedName("verification_status")
+    @Expose
+    private String verificationStatus;
+    @SerializedName("paymnet_status")
+    @Expose
+    private String paymnetStatus;
 
     public Integer getParcelId() {
         return parcelId;
@@ -105,20 +141,20 @@ public class SearchOrderModel {
         this.estimate_amount = estimate_amount;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
     }
 
     public String getLastName() {
@@ -129,12 +165,28 @@ public class SearchOrderModel {
         this.lastName = lastName;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getMobileNo() {
+        return mobileNo;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getFromCity() {
+        return fromCity;
+    }
+
+    public void setFromCity(String fromCity) {
+        this.fromCity = fromCity;
     }
 
     public String getFromPincode() {
@@ -151,6 +203,14 @@ public class SearchOrderModel {
 
     public void setFromAddressDetail(String fromAddressDetail) {
         this.fromAddressDetail = fromAddressDetail;
+    }
+
+    public String getToCity() {
+        return toCity;
+    }
+
+    public void setToCity(String toCity) {
+        this.toCity = toCity;
     }
 
     public String getToPincode() {
@@ -249,6 +309,30 @@ public class SearchOrderModel {
         this.isProhibited = isProhibited;
     }
 
+    public String getIsHazardous() {
+        return isHazardous;
+    }
+
+    public void setIsHazardous(String isHazardous) {
+        this.isHazardous = isHazardous;
+    }
+
+    public String getIsFragile() {
+        return isFragile;
+    }
+
+    public void setIsFragile(String isFragile) {
+        this.isFragile = isFragile;
+    }
+
+    public String getIsFlamable() {
+        return isFlamable;
+    }
+
+    public void setIsFlamable(String isFlamable) {
+        this.isFlamable = isFlamable;
+    }
+
     public String getValueOfGoods() {
         return valueOfGoods;
     }
@@ -305,11 +389,59 @@ public class SearchOrderModel {
         this.receiverAddressDetail = receiverAddressDetail;
     }
 
+    public Integer getOrderCharges() {
+        return orderCharges;
+    }
+
+    public void setOrderCharges(Integer orderCharges) {
+        this.orderCharges = orderCharges;
+    }
+
+    public Integer getGstAmount() {
+        return gstAmount;
+    }
+
+    public void setGstAmount(Integer gstAmount) {
+        this.gstAmount = gstAmount;
+    }
+
+    public Integer getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Integer totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getVerificationStatus() {
+        return verificationStatus;
+    }
+
+    public void setVerificationStatus(String verificationStatus) {
+        this.verificationStatus = verificationStatus;
+    }
+
+    public String getPaymnetStatus() {
+        return paymnetStatus;
+    }
+
+    public void setPaymnetStatus(String paymnetStatus) {
+        this.paymnetStatus = paymnetStatus;
     }
 }

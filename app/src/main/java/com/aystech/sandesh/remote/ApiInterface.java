@@ -133,11 +133,26 @@ public interface ApiInterface {
     Call<SearchTravellerResponseModel> getMyTravellerList();
 
     @GET("api/getMyOrderList")
-    Call<SearchOrderResponseModel> getOrderList();
+    Call<SearchOrderResponseModel> getMyOrderList();
 
     @POST("api/sendDeliveryRequest")
     Call<CommonResponse> sendDeliveryRequest(@Body JsonObject jsonObject);
 
     @POST("api/getMyAcceptedOrders")
-    Call<CommonResponse> getMyAcceptedOrders(@Body JsonObject jsonObject);
+    Call<SearchTravellerResponseModel> getMyAcceptedOrders(@Body JsonObject jsonObject);
+
+    @POST("api/sendOTP")
+    Call<CommonResponse> sendOTP(@Body JsonObject jsonObject);
+
+    @POST("api/verifyOrderOTP")
+    Call<CommonResponse> verifyOTP(@Body JsonObject jsonObject);
+
+    @POST("api/sendVerificationStatus")
+    Call<CommonResponse> sendVerificationStatus(@Body JsonObject jsonObject);
+
+    @GET("api/getMyStartedJourney")
+    Call<SearchTravellerResponseModel> getMyStartedJourney();
+
+    @POST("api/endJourney")
+    Call<CommonResponse> endJourney(@Body JsonObject jsonObject);
 }

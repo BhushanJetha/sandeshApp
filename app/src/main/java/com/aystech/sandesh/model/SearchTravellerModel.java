@@ -4,6 +4,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class SearchTravellerModel {
+    @SerializedName("delivery_id")
+    @Expose
+    private Integer deliveryId;
+    @SerializedName("requestor_type")
+    @Expose
+    private String requestorType;
     @SerializedName("travel_id")
     @Expose
     private Integer travelId;
@@ -97,6 +103,22 @@ public class SearchTravellerModel {
     @SerializedName("email_id")
     @Expose
     private String emailId;
+
+    public Integer getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(Integer deliveryId) {
+        this.deliveryId = deliveryId;
+    }
+
+    public String getRequestorType() {
+        return requestorType;
+    }
+
+    public void setRequestorType(String requestorType) {
+        this.requestorType = requestorType;
+    }
 
     public Integer getTravelId() {
         return travelId;

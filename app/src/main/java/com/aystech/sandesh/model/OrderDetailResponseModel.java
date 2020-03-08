@@ -7,9 +7,9 @@ public class OrderDetailResponseModel extends CommonResponse {
 
     @SerializedName("data")
     @Expose
-    private SearchOrderModel data = null;
+    private TravelDetailModel data = null;
 
-    public SearchOrderModel getData() {
+    public TravelDetailModel getData() {
         return data;
     }
 }

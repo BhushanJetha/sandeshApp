@@ -219,7 +219,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
                                     true);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("order_id", searchOrderModel.getParcelId());
+                    bundle.putInt("parcel_id", searchOrderModel.getParcelId());
                     orderDetailFragment.setArguments(bundle);
                 }
 
@@ -228,7 +228,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 }
 
                 @Override
-                public void openOtpDialog() {
+                public void openOtpDialog(SearchTravellerModel searchTravellerModel) {
                 }
             });
             orderAdapter.addOrderList(data);

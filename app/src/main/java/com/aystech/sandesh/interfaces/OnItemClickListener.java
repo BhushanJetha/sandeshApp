@@ -8,5 +8,5 @@ public interface OnItemClickListener {
 
     void onItemClicked(SearchTravellerModel searchTravellerModel);
 
-    void openOtpDialog();
+    void openOtpDialog(SearchTravellerModel searchTravellerModel);
 }

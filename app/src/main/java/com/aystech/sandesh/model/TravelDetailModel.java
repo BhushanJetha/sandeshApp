@@ -13,6 +13,9 @@ public class TravelDetailModel {
     @SerializedName("corporateData")
     @Expose
     private CorporateModel corporateData;
+    @SerializedName("parcelData")
+    @Expose
+    private SearchOrderModel parcelData;
 
     public SearchTravellerModel getTravelPlan() {
         return travelPlan;
@@ -36,5 +39,13 @@ public class TravelDetailModel {
 
     public void setCorporateData(CorporateModel corporateData) {
         this.corporateData = corporateData;
+    }
+
+    public SearchOrderModel getParcelData() {
+        return parcelData;
+    }
+
+    public void setParcelData(SearchOrderModel parcelData) {
+        this.parcelData = parcelData;
     }
 }

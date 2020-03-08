@@ -469,8 +469,8 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/gotham_light"
                         android:text="Ownership"
-                        android:textSize="@dimen/_10sdp"
                         android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
                         app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
                         app:layout_constraintTop_toBottomOf="@+id/tvGoods" />
@@ -568,7 +568,6 @@
                         android:layout_width="@dimen/_72sdp"
                         android:layout_height="@dimen/_72sdp"
                         android:layout_marginTop="@dimen/_6sdp"
-                        android:background="@drawable/ic_parcel"
                         app:layout_constraintEnd_toEndOf="@+id/tvInvoicePicTitle"
                         app:layout_constraintStart_toStartOf="@+id/tvInvoicePicTitle"
                         app:layout_constraintTop_toBottomOf="@+id/tvInvoicePicTitle" />
@@ -578,7 +577,6 @@
                         android:layout_width="@dimen/_72sdp"
                         android:layout_height="@dimen/_72sdp"
                         android:layout_marginTop="@dimen/_6sdp"
-                        android:background="@drawable/ic_parcel"
                         app:layout_constraintEnd_toEndOf="@+id/tvParcelPicTitle"
                         app:layout_constraintStart_toStartOf="@+id/tvParcelPicTitle"
                         app:layout_constraintTop_toBottomOf="@+id/tvParcelPicTitle" />
@@ -615,9 +613,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
                         android:padding="@dimen/_6sdp"
                         android:text="Hazardous"
-                        android:fontFamily="@font/gotham_light"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintEnd_toStartOf="@+id/rgHazardous"
@@ -642,20 +640,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Yes"
                             android:fontFamily="@font/gotham_light"
+                            android:text="Yes"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp"  />
+                            android:textSize="@dimen/_9sdp" />
 
                         <RadioButton
                             android:id="@+id/rbHazardousNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="No"
                             android:fontFamily="@font/gotham_light"
+                            android:text="No"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp"  />
+                            android:textSize="@dimen/_9sdp" />
 
                     </RadioGroup>
 
@@ -664,10 +662,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
                         android:padding="@dimen/_6sdp"
                         android:text="Prohibited"
                         android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/gotham_light"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintEnd_toStartOf="@+id/rgProhibited"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -692,20 +690,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Yes"
                             android:fontFamily="@font/gotham_light"
+                            android:text="Yes"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp"  />
+                            android:textSize="@dimen/_9sdp" />
 
                         <RadioButton
                             android:id="@+id/rbProhibitedNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="No"
                             android:fontFamily="@font/gotham_light"
+                            android:text="No"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp"  />
+                            android:textSize="@dimen/_9sdp" />
 
                     </RadioGroup>
 
@@ -713,11 +711,11 @@
                         android:id="@+id/tvFraglleTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
                         android:padding="@dimen/_6sdp"
                         android:text="Fraglle"
-                        android:layout_marginTop="@dimen/_6sdp"
                         android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/gotham_light"
                         android:textSize="@dimen/_10sdp"
                         app:layout_constraintEnd_toStartOf="@+id/rgFraglle"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -742,20 +740,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Yes"
                             android:fontFamily="@font/gotham_light"
+                            android:text="Yes"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp"  />
+                            android:textSize="@dimen/_9sdp" />
 
                         <RadioButton
                             android:id="@+id/rbFraglleNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="No"
                             android:fontFamily="@font/gotham_light"
+                            android:text="No"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp"  />
+                            android:textSize="@dimen/_9sdp" />
 
                     </RadioGroup>
 
@@ -763,12 +761,12 @@
                         android:id="@+id/tvFlamableToxicExplosiveTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
                         android:padding="@dimen/_6sdp"
                         android:text="Flamable / Toxic / Explosive"
                         android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/gotham_light"
                         android:textSize="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_6sdp"
                         app:layout_constraintEnd_toStartOf="@+id/rgFlamableToxicExplosive"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
@@ -792,20 +790,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Yes"
                             android:fontFamily="@font/gotham_light"
+                            android:text="Yes"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp"  />
+                            android:textSize="@dimen/_9sdp" />
 
                         <RadioButton
                             android:id="@+id/rbFlamableToxicExplosiveNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="No"
                             android:fontFamily="@font/gotham_light"
+                            android:text="No"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp"  />
+                            android:textSize="@dimen/_9sdp" />
 
                     </RadioGroup>
 
@@ -940,9 +938,79 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_10sdp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
                     app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/clAfterVerify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tILComment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <EditText
+                            android:id="@+id/etComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gotham_light"
+                            android:hint="Enter your comment here" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnReject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:background="@drawable/rounded_button_background"
+                        android:backgroundTint="@color/colorRed"
+                        android:fontFamily="@font/gotham_medium"
+                        android:paddingStart="@dimen/_36sdp"
+                        android:paddingEnd="@dimen/_36sdp"
+                        android:text="@string/send_request"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tILComment" />
+
+                    <Button
+                        android:id="@+id/btnVerify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:background="@drawable/rounded_button_background"
+                        android:backgroundTint="@color/colorGreen"
+                        android:fontFamily="@font/gotham_medium"
+                        android:paddingStart="@dimen/_36sdp"
+                        android:paddingEnd="@dimen/_36sdp"
+                        android:text="@string/send_request"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnReject"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/btnReject"
+                        app:layout_constraintTop_toTopOf="@+id/btnReject" />
+
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.constraint.ConstraintLayout>
 

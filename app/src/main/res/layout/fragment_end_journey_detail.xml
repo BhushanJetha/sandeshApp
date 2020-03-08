@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.EndJourneyDetailFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clTopView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp"
+                android:background="@drawable/ic_bg_circle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="End Journey Detail"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_18sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clTopView">
+
+                <android.support.constraint.Group
+                    android:id="@+id/gpReceivedParcel"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_96sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgReceivedParcel"
+                    android:layout_width="@dimen/_96sdp"
+                    android:layout_height="@dimen/_96sdp"
+                    app:layout_constraintStart_toStartOf="@+id/gpReceivedParcel"
+                    app:layout_constraintTop_toTopOf="@+id/gpReceivedParcel" />
+
+                <ImageView
+                    android:id="@+id/imgReceivedParcelCamera"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_camera"
+                    app:layout_constraintEnd_toEndOf="@+id/imgReceivedParcel"
+                    app:layout_constraintTop_toTopOf="@+id/imgReceivedParcel" />
+
+                <TextView
+                    android:id="@+id/tvReceivedParcel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Photo of parcel received"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgReceivedParcel"
+                    app:layout_constraintLeft_toRightOf="@id/imgReceivedParcel"
+                    app:layout_constraintTop_toTopOf="@id/imgReceivedParcel" />
+
+                <android.support.constraint.Group
+                    android:id="@+id/gpNewSelfie"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_96sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:layout_constraintStart_toStartOf="@+id/imgReceivedParcel"
+                    app:layout_constraintTop_toBottomOf="@+id/imgReceivedParcel" />
+
+                <ImageView
+                    android:id="@+id/imgNewSelfie"
+                    android:layout_width="@dimen/_96sdp"
+                    android:layout_height="@dimen/_96sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:layout_constraintStart_toStartOf="@+id/imgReceivedParcel"
+                    app:layout_constraintTop_toBottomOf="@+id/imgReceivedParcel" />
+
+                <ImageView
+                    android:id="@+id/imgNewSelfieCamera"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/ic_camera"
+                    app:layout_constraintEnd_toEndOf="@+id/imgNewSelfie"
+                    app:layout_constraintTop_toTopOf="@+id/imgNewSelfie" />
+
+                <TextView
+                    android:id="@+id/tvNewSelfie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Upload new selfie"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgNewSelfie"
+                    app:layout_constraintLeft_toRightOf="@id/imgNewSelfie"
+                    app:layout_constraintTop_toTopOf="@id/imgNewSelfie" />
+
+                <Button
+                    android:id="@+id/btnEndJourney"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:fontFamily="@font/gotham_light"
+                    android:paddingStart="@dimen/_36sdp"
+                    android:paddingEnd="@dimen/_36sdp"
+                    android:text="@string/end_journey"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/imgNewSelfie"
+                    app:layout_constraintStart_toStartOf="@+id/imgNewSelfie"
+                    app:layout_constraintTop_toBottomOf="@+id/imgNewSelfie" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.constraint.ConstraintLayout>

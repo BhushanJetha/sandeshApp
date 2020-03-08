@@ -20,6 +20,7 @@ import com.aystech.sandesh.model.TravelDetailModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
@@ -30,6 +31,8 @@ import retrofit2.Response;
 public class TravellerDetailFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
+
+    OrderListFragment orderListFragment;
 
     private TextView tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
             tvDeliveryOption, tvWeight, tvLength, tvBreadth, tvHeight, tvVehicleType, tvVehicleTrainNo,
@@ -57,8 +60,11 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_traveller_detail, container, false);
 
+        orderListFragment = (OrderListFragment) Fragment.instantiate(context,
+                OrderListFragment.class.getName());
+
         if (getArguments() != null)
-            travel_id = getArguments().getInt("traveller_id");
+            travel_id = getArguments().getInt("travel_id");
 
         initView(view);
 
@@ -166,63 +172,14 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSendRequest:
-                openDialog();
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderListFragment, R.id.frame_container,
+                        false);
+                Bundle bundle = new Bundle();
+                bundle.putInt("travel_id", travel_id);
+                bundle.putString("tag", "traveller");
+                orderListFragment.setArguments(bundle);
                 break;
         }
     }
 
-    private void openDialog() {
-        new AlertDialog.Builder(context)
-                .setTitle("Send Request")
-                .setMessage("Do you want to send the request?")
-                .setCancelable(true)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-
-                        //TODO API Call
-                        sendDeliveryRequest();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
-    }
-
-    private void sendDeliveryRequest() {
-        ViewProgressDialog.getInstance().showProgress(context);
-
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("travel_id", travel_id);
-        jsonObject.addProperty("parcel_id", parcel_id);
-        jsonObject.addProperty("requestor_type", "Travel");
-
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.sendDeliveryRequest(
-                jsonObject
-        );
-        call.enqueue(new Callback<CommonResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
-                viewProgressDialog.hideDialog();
-
-                if (response.body() != null) {
-                    if (response.body().getStatus())
-                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
-                    else
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-                viewProgressDialog.hideDialog();
-            }
-        });
-    }
 }

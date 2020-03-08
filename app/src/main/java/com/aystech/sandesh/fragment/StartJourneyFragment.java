@@ -104,14 +104,15 @@ public class StartJourneyFragment extends Fragment {
             public void onItemClicked(SearchTravellerModel searchTravellerModel) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                         orderListFragment, R.id.frame_container,
-                        false);
+                        true);
                 Bundle bundle = new Bundle();
-                bundle.putInt("traveller_id", searchTravellerModel.getTravelId());
+                bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                bundle.putString("tag", "order_clicked_verify");
                 orderListFragment.setArguments(bundle);
             }
 
             @Override
-            public void openOtpDialog() {
+            public void openOtpDialog(SearchTravellerModel searchTravellerModel) {
             }
         });
         orderAdapter.addTravellerList(data);

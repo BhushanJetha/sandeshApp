@@ -88,17 +88,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 }
             });
         } else if (tag != null && tag.equals("order_clicked_verify")) {
-            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
-            myViewHolder.tvOrderDate.setText("" + searchOrderModels.get(i).getStartDate());
-            myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
-            myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
-            myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
-            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getEstimate_amount());
+            myViewHolder.tvName.setText("" /*+ searchTravellerModels.get(i).getReceiverName()*/);
+            myViewHolder.tvOrderDate.setText("" + searchTravellerModels.get(i).getStartDate());
+            myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
+            myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
+            myViewHolder.tvOrderTypeContent.setText("" + searchTravellerModels.get(i).getModeOfTravel());
+            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getEstimate_amount());
+            myViewHolder.tvVolumeInfo.setVisibility(View.VISIBLE);
+            myViewHolder.tvVolumeInfo.setText("Vol: " + searchTravellerModels.get(i).getAcceptableVolumeLength() + " * " +
+                    searchTravellerModels.get(i).getAcceptableVolumeBreadth() +" * "+ searchTravellerModels.get(i).getAcceptableVolumeWidth());
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.openOtpDialog();
+                    onItemClickListener.openOtpDialog(searchTravellerModels.get(i));
                 }
             });
         } else {
@@ -114,6 +117,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public int getItemCount() {
         if (tag != null && tag.equals("traveller")) {
+            return searchTravellerModels.size();
+        }
+        if (tag != null && tag.equals("order_clicked_verify")) {
             return searchTravellerModels.size();
         }
         return searchOrderModels.size();
