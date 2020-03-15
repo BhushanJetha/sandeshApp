@@ -52,6 +52,15 @@
             android:name=".activity.IndividualRegistrationActivity"
             android:screenOrientation="portrait" />
 
+        <!-- Live API key -->
+        <!--<meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_F27NsrX8Juu1OA" />-->
+
+        <!-- Test API key -->
+        <!--<meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_asLMvowHq4z6fv" />-->
     </application>
 
 </manifest>

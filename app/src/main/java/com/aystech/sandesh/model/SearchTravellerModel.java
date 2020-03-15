@@ -13,9 +13,18 @@ public class SearchTravellerModel {
     @SerializedName("travel_id")
     @Expose
     private Integer travelId;
-    @SerializedName("estimate_amount")
+    @SerializedName("c_to_c")
     @Expose
-    private Integer estimate_amount;
+    private Double c_to_c;
+    @SerializedName("c_to_d")
+    @Expose
+    private Double c_to_d;
+    @SerializedName("d_to_d")
+    @Expose
+    private Double d_to_d;
+    @SerializedName("d_to_c")
+    @Expose
+    private Double d_to_c;
     @SerializedName("user_id")
     @Expose
     private Integer userId;
@@ -128,12 +137,36 @@ public class SearchTravellerModel {
         this.travelId = travelId;
     }
 
-    public Integer getEstimate_amount() {
-        return estimate_amount;
+    public Double getC_to_c() {
+        return c_to_c;
     }
 
-    public void setEstimate_amount(Integer estimate_amount) {
-        this.estimate_amount = estimate_amount;
+    public void setC_to_c(Double c_to_c) {
+        this.c_to_c = c_to_c;
+    }
+
+    public Double getC_to_d() {
+        return c_to_d;
+    }
+
+    public void setC_to_d(Double c_to_d) {
+        this.c_to_d = c_to_d;
+    }
+
+    public Double getD_to_d() {
+        return d_to_d;
+    }
+
+    public void setD_to_d(Double d_to_d) {
+        this.d_to_d = d_to_d;
+    }
+
+    public Double getD_to_c() {
+        return d_to_c;
+    }
+
+    public void setD_to_c(Double d_to_c) {
+        this.d_to_c = d_to_c;
     }
 
     public Integer getUserId() {

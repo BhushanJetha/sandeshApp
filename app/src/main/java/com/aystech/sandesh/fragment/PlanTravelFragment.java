@@ -27,6 +27,8 @@ import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
+import com.aystech.sandesh.model.WeightModel;
+import com.aystech.sandesh.model.WeightResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Uitility;
@@ -46,6 +48,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
 
     Context context;
 
+    WeightResponseModel weightResponseModel;
     StateResponseModel stateResponseModel;
     CityResponseModel cityResponseModel;
 
@@ -61,12 +64,12 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     TextView btnCancel;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private int fromStateId, fromCityId, toStateId, toCityId;
+    private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
 
     UserSession userSession;
     ViewProgressDialog viewProgressDialog;
 
-    String deliveryOption, preferredWeight, modeOfTravel, strStartTime, strEndTime, strStartDate, strEndDate, strFromPincode,
+    String deliveryOption, modeOfTravel, strStartTime, strEndTime, strStartDate, strEndDate, strFromPincode,
             strToPincode, strAcceptableLength, strAcceptableBreadth, strAcceptableHeight, strVehicleNo, strOtherDetail;
 
     public PlanTravelFragment() {
@@ -149,7 +152,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 String selectedItem = parent.getItemAtPosition(position).toString();
 
                 if (!selectedItem.equals("")) {
-                    preferredWeight = selectedItem;
+                    weight_id = weightResponseModel.getWeightId(selectedItem);
                 }
             } // to close the onItemSelected
 
@@ -219,7 +222,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         jsonObject.addProperty("end_date", strEndDate);
         jsonObject.addProperty("end_time", strEndTime);
         jsonObject.addProperty("delivery_option", deliveryOption);
-        jsonObject.addProperty("preferred_weight", preferredWeight);
+        jsonObject.addProperty("preferred_weight", weight_id);
         jsonObject.addProperty("acceptable_volume_length", strAcceptableLength);
         jsonObject.addProperty("acceptable_volume_breadth", strAcceptableBreadth);
         jsonObject.addProperty("acceptable_volume_width", strAcceptableHeight);
@@ -309,7 +312,41 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         ((MainActivity) context).setUpToolbar(true, false, "", false);
 
         //TODO API Call
+        getWeights();
+
+        //TODO API Call
         getState();
+    }
+
+    private void getWeights() {
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<WeightResponseModel> call = apiInterface.getWeights();
+        call.enqueue(new Callback<WeightResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<WeightResponseModel> call, @NonNull Response<WeightResponseModel> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        weightResponseModel = response.body();
+                        bindStateDataToSpinner(response.body().getData());
+                    } else {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<WeightResponseModel> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void bindStateDataToSpinner(List<WeightModel> data) {
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter<WeightModel> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
+                data);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinnerPreferredWeight.setAdapter(aa);
     }
 
     private void getState() {

@@ -74,6 +74,9 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_registration);
 
+        if (getIntent() != null)
+            strMobileNumber = getIntent().getStringExtra("mobileNumber");
+
         init();
 
         onClick();
@@ -104,8 +107,6 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         tvAcceptTermsAndCondition = findViewById(R.id.tvTermsCondition);
 
         llProfilePiture = findViewById(R.id.llProfilePicture);
-
-        strMobileNumber = "9975860674";
 
         SpannableString ssAcceptTermsAndCondition = new SpannableString(getResources().getString(R.string.accept_terms_amp_conditions));
         ssAcceptTermsAndCondition.setSpan(new UnderlineSpan(), 0, ssAcceptTermsAndCondition.length(), 0);

@@ -94,7 +94,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
         initView(view);
 
-        if (tag.equals("after_verify")) {
+        if (tag != null && tag.equals("after_verify")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.VISIBLE);
         } else {
@@ -330,6 +330,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
                                 false);
                     } else {

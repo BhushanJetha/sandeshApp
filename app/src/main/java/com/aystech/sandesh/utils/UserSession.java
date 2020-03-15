@@ -78,12 +78,15 @@ public class UserSession {
         editor.commit();
     }
 
-
     void clearUserSession() {
         setUserId(null);
         setUserType(null);
         setUserEmail(null);
         setUserMobile(null);
         setJWTToken(null);
+    }
+
+    public void logout() {
+        editor.clear().commit();
     }
 }

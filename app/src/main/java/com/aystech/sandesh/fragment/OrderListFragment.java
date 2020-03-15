@@ -19,6 +19,8 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
+import com.aystech.sandesh.model.AcceptedOrdersModel;
+import com.aystech.sandesh.model.AcceptedOrdersResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchOrderResponseModel;
@@ -48,7 +50,7 @@ public class OrderListFragment extends Fragment {
     private OrderAdapter orderAdapter;
     private TextView tvScreenTitle;
 
-    private int travel_id, parcel_id;
+    private int travel_id, parcel_id, delivery_id;
     private String tag = ""; //default value
 
     private ViewProgressDialog viewProgressDialog;
@@ -154,7 +156,7 @@ public class OrderListFragment extends Fragment {
                 }
 
                 @Override
-                public void openOtpDialog(SearchTravellerModel searchTravellerModel) {
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
                 }
             });
             orderAdapter.addOrderList(data);
@@ -202,7 +204,7 @@ public class OrderListFragment extends Fragment {
                 }
 
                 @Override
-                public void openOtpDialog(SearchTravellerModel searchTravellerModel) {
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
                 }
             });
             orderAdapter.addTravellerList(data);
@@ -217,12 +219,12 @@ public class OrderListFragment extends Fragment {
         jsonObject.addProperty("travel_id", travel_id);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<SearchTravellerResponseModel> call = apiInterface.getMyAcceptedOrders(
+        Call<AcceptedOrdersResponseModel> call = apiInterface.getMyAcceptedOrders(
                 jsonObject
         );
-        call.enqueue(new Callback<SearchTravellerResponseModel>() {
+        call.enqueue(new Callback<AcceptedOrdersResponseModel>() {
             @Override
-            public void onResponse(@NonNull Call<SearchTravellerResponseModel> call, @NonNull Response<SearchTravellerResponseModel> response) {
+            public void onResponse(@NonNull Call<AcceptedOrdersResponseModel> call, @NonNull Response<AcceptedOrdersResponseModel> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
@@ -235,13 +237,13 @@ public class OrderListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<SearchTravellerResponseModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<AcceptedOrdersResponseModel> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
     }
 
-    private void bindMyAcceptedOrderDataToRV(List<SearchTravellerModel> data) {
+    private void bindMyAcceptedOrderDataToRV(List<AcceptedOrdersModel> data) {
         if (data.size() > 0) {
             orderAdapter = new OrderAdapter(context, "order_clicked_verify", new OnItemClickListener() {
                 @Override
@@ -253,12 +255,15 @@ public class OrderListFragment extends Fragment {
                 }
 
                 @Override
-                public void openOtpDialog(SearchTravellerModel searchTravellerModel) {
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                    parcel_id = searchTravellerModel.getParcelId();
+                    travel_id = searchTravellerModel.getTravelId();
+                    delivery_id = searchTravellerModel.getDeliveryId();
                     //TODO API Call
                     sendOTP(searchTravellerModel.getDeliveryId());
                 }
             });
-            orderAdapter.addTravellerList(data);
+            orderAdapter.addAcceptedOrders(data);
             rvOrder.setAdapter(orderAdapter);
         }
     }
@@ -307,10 +312,11 @@ public class OrderListFragment extends Fragment {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if (response.body().getStatus())
+                    if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
                                 false);
-                    else
+                    } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -396,6 +402,11 @@ public class OrderListFragment extends Fragment {
                         if (tag.equals("order_clicked_verify_end_journey")) {
                             FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), endJourneyDetailFragment, R.id.frame_container,
                                     false);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("parcel_id", parcel_id);
+                            bundle.putInt("travel_id", travel_id);
+                            bundle.putInt("delivery_id", delivery_id);
+                            endJourneyDetailFragment.setArguments(bundle);
                         } else {
                             FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
                                     false);

@@ -14,6 +14,7 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
+import com.aystech.sandesh.model.AcceptedOrdersModel;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
@@ -112,7 +113,7 @@ public class EndJourneyFragment extends Fragment {
             }
 
             @Override
-            public void openOtpDialog(SearchTravellerModel searchTravellerModel) {
+            public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
             }
         });
         orderAdapter.addTravellerList(data);

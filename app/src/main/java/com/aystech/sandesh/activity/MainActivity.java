@@ -25,6 +25,7 @@ import com.aystech.sandesh.fragment.NotificationFragment;
 import com.aystech.sandesh.fragment.ReferFriendFragment;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
+import com.aystech.sandesh.utils.UserSession;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ReferFriendFragment referFriendFragment;
 
     private int counter = 0;
+
+    UserSession userSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         toolBar = findViewById(R.id.toolBar);
         setSupportActionBar(toolBar);
+
+        userSession = new UserSession(this);
+
         imgNotification = findViewById(R.id.imgNotification);
         imgOtherNotification = findViewById(R.id.imgOtherNotification);
         imgLogout = findViewById(R.id.imgLogout);
@@ -205,6 +211,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+
+                        userSession.logout();
 
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

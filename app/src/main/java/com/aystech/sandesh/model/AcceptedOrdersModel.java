@@ -3,49 +3,41 @@ package com.aystech.sandesh.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SearchOrderModel {
+public class AcceptedOrdersModel {
+
+    @SerializedName("delivery_id")
+    @Expose
+    private Integer deliveryId;
+    @SerializedName("requestor_type")
+    @Expose
+    private String requestorType;
+    @SerializedName("travel_id")
+    @Expose
+    private Integer travelId;
+    @SerializedName("c_to_c")
+    @Expose
+    private Double cToC;
+    @SerializedName("c_to_d")
+    @Expose
+    private Integer cToD;
+    @SerializedName("d_to_d")
+    @Expose
+    private Double dToD;
+    @SerializedName("d_to_c")
+    @Expose
+    private Integer dToC;
     @SerializedName("parcel_id")
     @Expose
     private Integer parcelId;
-    @SerializedName("c_to_c")
-    @Expose
-    private Double c_to_c;
-    @SerializedName("c_to_d")
-    @Expose
-    private Double c_to_d;
-    @SerializedName("d_to_d")
-    @Expose
-    private Double d_to_d;
-    @SerializedName("d_to_c")
-    @Expose
-    private Double d_to_c;
     @SerializedName("user_id")
     @Expose
     private Integer userId;
-    @SerializedName("first_name")
-    @Expose
-    private String firstName;
-    @SerializedName("last_name")
-    @Expose
-    private String lastName;
-    @SerializedName("mobile_no")
-    @Expose
-    private String mobileNo;
-    @SerializedName("email_id")
-    @Expose
-    private String emailId;
-    @SerializedName("from_city")
-    @Expose
-    private String fromCity;
     @SerializedName("from_pincode")
     @Expose
     private String fromPincode;
     @SerializedName("from_address_detail")
     @Expose
     private String fromAddressDetail;
-    @SerializedName("to_city")
-    @Expose
-    private String toCity;
     @SerializedName("to_pincode")
     @Expose
     private String toPincode;
@@ -73,9 +65,6 @@ public class SearchOrderModel {
     @SerializedName("quality")
     @Expose
     private String quality;
-    @SerializedName(value = "weight", alternate = "preferred_weight")
-    @Expose
-    private String weight;
     @SerializedName("packaging")
     @Expose
     private String packaging;
@@ -133,6 +122,83 @@ public class SearchOrderModel {
     @SerializedName("paymnet_status")
     @Expose
     private String paymnetStatus;
+    @SerializedName("weight")
+    @Expose
+    private String weight;
+    @SerializedName("first_name")
+    @Expose
+    private String firstName;
+    @SerializedName("last_name")
+    @Expose
+    private String lastName;
+    @SerializedName("mobile_no")
+    @Expose
+    private String mobileNo;
+    @SerializedName("email_id")
+    @Expose
+    private String emailId;
+    @SerializedName("from_city")
+    @Expose
+    private String fromCity;
+    @SerializedName("to_city")
+    @Expose
+    private String toCity;
+
+    public Integer getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(Integer deliveryId) {
+        this.deliveryId = deliveryId;
+    }
+
+    public String getRequestorType() {
+        return requestorType;
+    }
+
+    public void setRequestorType(String requestorType) {
+        this.requestorType = requestorType;
+    }
+
+    public Integer getTravelId() {
+        return travelId;
+    }
+
+    public void setTravelId(Integer travelId) {
+        this.travelId = travelId;
+    }
+
+    public Double getCToC() {
+        return cToC;
+    }
+
+    public void setCToC(Double cToC) {
+        this.cToC = cToC;
+    }
+
+    public Integer getCToD() {
+        return cToD;
+    }
+
+    public void setCToD(Integer cToD) {
+        this.cToD = cToD;
+    }
+
+    public Double getDToD() {
+        return dToD;
+    }
+
+    public void setDToD(Double dToD) {
+        this.dToD = dToD;
+    }
+
+    public Integer getDToC() {
+        return dToC;
+    }
+
+    public void setDToC(Integer dToC) {
+        this.dToC = dToC;
+    }
 
     public Integer getParcelId() {
         return parcelId;
@@ -142,84 +208,12 @@ public class SearchOrderModel {
         this.parcelId = parcelId;
     }
 
-    public Double getC_to_c() {
-        return c_to_c;
-    }
-
-    public void setC_to_c(Double c_to_c) {
-        this.c_to_c = c_to_c;
-    }
-
-    public Double getC_to_d() {
-        return c_to_d;
-    }
-
-    public void setC_to_d(Double c_to_d) {
-        this.c_to_d = c_to_d;
-    }
-
-    public Double getD_to_d() {
-        return d_to_d;
-    }
-
-    public void setD_to_d(Double d_to_d) {
-        this.d_to_d = d_to_d;
-    }
-
-    public Double getD_to_c() {
-        return d_to_c;
-    }
-
-    public void setD_to_c(Double d_to_c) {
-        this.d_to_c = d_to_c;
-    }
-
     public Integer getUserId() {
         return userId;
     }
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMobileNo() {
-        return mobileNo;
-    }
-
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
-    public String getFromCity() {
-        return fromCity;
-    }
-
-    public void setFromCity(String fromCity) {
-        this.fromCity = fromCity;
     }
 
     public String getFromPincode() {
@@ -236,14 +230,6 @@ public class SearchOrderModel {
 
     public void setFromAddressDetail(String fromAddressDetail) {
         this.fromAddressDetail = fromAddressDetail;
-    }
-
-    public String getToCity() {
-        return toCity;
-    }
-
-    public void setToCity(String toCity) {
-        this.toCity = toCity;
     }
 
     public String getToPincode() {
@@ -316,14 +302,6 @@ public class SearchOrderModel {
 
     public void setQuality(String quality) {
         this.quality = quality;
-    }
-
-    public String getWeight() {
-        return weight;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
     }
 
     public String getPackaging() {
@@ -476,5 +454,61 @@ public class SearchOrderModel {
 
     public void setPaymnetStatus(String paymnetStatus) {
         this.paymnetStatus = paymnetStatus;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getFromCity() {
+        return fromCity;
+    }
+
+    public void setFromCity(String fromCity) {
+        this.fromCity = fromCity;
+    }
+
+    public String getToCity() {
+        return toCity;
+    }
+
+    public void setToCity(String toCity) {
+        this.toCity = toCity;
     }
 }

@@ -44,9 +44,9 @@ import retrofit2.Response;
 
 public class CorporateRegistrationActivity extends AppCompatActivity {
 
-    private EditText etCompanyName, etBranch, etAuthorisedPersonName, etDesignation, etMobileNumber, etEmailId,
+    private EditText etCompanyName, etBranch, etAuthorisedPersonName, etDesignation, etAuthorisedPersonMobileNumber, etEmailId,
             etPassword, etReEnteredPassword, etRefferalCode;
-    private String strCompanyName, strBranch, strAuthPersonName, strDesignation, strMobileNumber, strEmailId,
+    private String strCompanyName, strBranch, strAuthPersonName, strDesignation, strMobileNumber, strAuthMobileNo, strEmailId,
             strPassword, strReEnteredPassword, strRefferalCode, strFCMId = "dfjdkfjdlfkdjfdlkfj";
     private ImageView imgProfileResult;
     private LinearLayout llProfilePiture;
@@ -64,20 +64,22 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_corporate_registration);
 
+        if (getIntent() != null)
+            strMobileNumber = getIntent().getStringExtra("mobileNumber");
+
         init();
 
         onClick();
     }
 
     private void init() {
-
         viewProgressDialog = ViewProgressDialog.getInstance();
 
         etCompanyName = findViewById(R.id.etCompanyName);
         etBranch = findViewById(R.id.etBranch);
         etAuthorisedPersonName = findViewById(R.id.etAuthorisedPersonName);
         etDesignation = findViewById(R.id.etDesignation);
-        etMobileNumber = findViewById(R.id.etAuthorisedPersonMobileNumber);
+        etAuthorisedPersonMobileNumber = findViewById(R.id.etAuthorisedPersonMobileNumber);
         etEmailId = findViewById(R.id.etEmailId);
         etPassword = findViewById(R.id.etPassword);
         etReEnteredPassword = findViewById(R.id.etReEnteredPassword);
@@ -96,7 +98,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 strEmailId = etEmailId.getText().toString();
-                strMobileNumber = etMobileNumber.getText().toString();
+                strAuthMobileNo = etAuthorisedPersonMobileNumber.getText().toString();
                 strPassword = etPassword.getText().toString();
                 strReEnteredPassword = etReEnteredPassword.getText().toString();
                 strRefferalCode = etRefferalCode.getText().toString();
@@ -158,6 +160,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
         RequestBody emailIdPart = RequestBody.create(MultipartBody.FORM, strEmailId);
         RequestBody mobileNoPart = RequestBody.create(MultipartBody.FORM, strMobileNumber);
+        RequestBody authMobileNo = RequestBody.create(MultipartBody.FORM, strAuthMobileNo);
         RequestBody passwordPart = RequestBody.create(MultipartBody.FORM, strPassword);
         RequestBody refferalCodePart = RequestBody.create(MultipartBody.FORM, strRefferalCode);
         RequestBody fcmIdPart = RequestBody.create(MultipartBody.FORM, strFCMId);
@@ -180,6 +183,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         Call<CommonResponse> call = apiInterface.doCorporateUserRegistration(
                 emailIdPart,
                 mobileNoPart,
+                authMobileNo,
                 passwordPart,
                 refferalCodePart,
                 fcmIdPart,

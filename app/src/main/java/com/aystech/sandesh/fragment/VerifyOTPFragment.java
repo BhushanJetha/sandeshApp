@@ -57,6 +57,9 @@ public class VerifyOTPFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        if (getArguments() != null)
+            strMobileNumber = getArguments().getString("mobileNumber");
+
         dashboardFragment = (DashboardFragment) Fragment.instantiate(context,
                 DashboardFragment.class.getName());
 
@@ -68,6 +71,8 @@ public class VerifyOTPFragment extends Fragment {
     }
 
     private void initView(View view) {
+        viewProgressDialog = ViewProgressDialog.getInstance();
+
         btnLogin = view.findViewById(R.id.btnVerify);
         etOTP = view.findViewById(R.id.etOTP);
         tvResendOTP = view.findViewById(R.id.tvResendOTP);
@@ -75,9 +80,6 @@ public class VerifyOTPFragment extends Fragment {
         SpannableString resendOTP = new SpannableString(getResources().getString(R.string.resend_otp));
         resendOTP.setSpan(new UnderlineSpan(), 0, resendOTP.length(), 0);
         tvResendOTP.setText(resendOTP);
-
-        strMobileNumber = getArguments().getString("mobileNumber");
-        viewProgressDialog = ViewProgressDialog.getInstance();
     }
 
     private void onClickListener() {
@@ -86,10 +88,10 @@ public class VerifyOTPFragment extends Fragment {
             public void onClick(View v) {
 
                 strOTP = etOTP.getText().toString();
-                if(!strOTP.isEmpty()){
+                if (!strOTP.isEmpty()) {
                     doVerifyOTPAPICall();
                 } else {
-                    Toast.makeText(getActivity(),"Please enter valid OTP !!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please enter valid OTP !!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -106,8 +108,8 @@ public class VerifyOTPFragment extends Fragment {
         ViewProgressDialog.getInstance().showProgress(this.getActivity());
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("mobile_no",strMobileNumber);
-        jsonObject.addProperty("user_type",Constants.userType);
+        jsonObject.addProperty("mobile_no", strMobileNumber);
+        jsonObject.addProperty("user_type", Constants.userType);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.getOTP(
@@ -126,13 +128,12 @@ public class VerifyOTPFragment extends Fragment {
         });
     }
 
-
     private void doVerifyOTPAPICall() {
         ViewProgressDialog.getInstance().showProgress(this.getActivity());
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("mobile_no",strMobileNumber);
-        jsonObject.addProperty("otp",strOTP);
+        jsonObject.addProperty("mobile_no", strMobileNumber);
+        jsonObject.addProperty("otp", strOTP);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.doOTPVerification(
@@ -144,18 +145,18 @@ public class VerifyOTPFragment extends Fragment {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if(response.body().getStatus()){
+                    if (response.body().getStatus()) {
                         Intent i = null;
-                        if(Constants.userType.equals("individual")){
-                            i = new Intent(getActivity(),   IndividualRegistrationActivity.class);
-                        }else  if(Constants.userType.equals("corporate")) {
+                        if (Constants.userType.equals("individual")) {
+                            i = new Intent(getActivity(), IndividualRegistrationActivity.class);
+                        } else if (Constants.userType.equals("corporate")) {
                             i = new Intent(getActivity(), CorporateRegistrationActivity.class);
                         }
-                        i.putExtra("mobileNumber",strMobileNumber);
+                        i.putExtra("mobileNumber", strMobileNumber);
                         startActivity(i);
                         getActivity().finish();
-                    }else {
-                        Uitility.showToast(getActivity(),response.body().getMessage());
+                    } else {
+                        Uitility.showToast(getActivity(), response.body().getMessage());
                     }
                 }
             }
@@ -170,6 +171,6 @@ public class VerifyOTPFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) context).setUpToolbar(false, false,"", false);
+        ((MainActivity) context).setUpToolbar(false, false, "", false);
     }
 }

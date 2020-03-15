@@ -1,5 +1,6 @@
 package com.aystech.sandesh.remote;
 
+import com.aystech.sandesh.model.AcceptedOrdersResponseModel;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.LoginResponseModel;
@@ -48,6 +49,7 @@ public interface ApiInterface {
     Call<CommonResponse> doCorporateUserRegistration(
             @Part("email_id") RequestBody emailId,
             @Part("mobile_no") RequestBody mobileNo,
+            @Part("auth_mobile_no") RequestBody authMobileNo,
             @Part("password") RequestBody password,
             @Part("refferal_code") RequestBody refferalCode,
             @Part("fcm_id") RequestBody fcmId,
@@ -139,7 +141,7 @@ public interface ApiInterface {
     Call<CommonResponse> sendDeliveryRequest(@Body JsonObject jsonObject);
 
     @POST("api/getMyAcceptedOrders")
-    Call<SearchTravellerResponseModel> getMyAcceptedOrders(@Body JsonObject jsonObject);
+    Call<AcceptedOrdersResponseModel> getMyAcceptedOrders(@Body JsonObject jsonObject);
 
     @POST("api/sendOTP")
     Call<CommonResponse> sendOTP(@Body JsonObject jsonObject);

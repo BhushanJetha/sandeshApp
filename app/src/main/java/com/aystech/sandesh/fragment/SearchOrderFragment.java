@@ -24,6 +24,7 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
+import com.aystech.sandesh.model.AcceptedOrdersModel;
 import com.aystech.sandesh.model.CityModel;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.SearchOrderModel;
@@ -220,6 +221,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                                     true);
                     Bundle bundle = new Bundle();
                     bundle.putInt("parcel_id", searchOrderModel.getParcelId());
+                    bundle.putString("tag", "");
                     orderDetailFragment.setArguments(bundle);
                 }
 
@@ -228,7 +230,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 }
 
                 @Override
-                public void openOtpDialog(SearchTravellerModel searchTravellerModel) {
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
                 }
             });
             orderAdapter.addOrderList(data);

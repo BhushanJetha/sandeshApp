@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import retrofit2.Response;
 
 public class HistoryFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "HistoryFragment";
     Context context;
 
     ShowHistoryInnerModel showHistoryInnerModel;
@@ -130,6 +132,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Throwable t) {
+                Log.e(TAG, "onFailure: "+ t.getLocalizedMessage());
                 viewProgressDialog.hideDialog();
             }
         });

@@ -55,7 +55,7 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
 
     private String strSelfieBase64, strParcelBase64;
     private String tag;
-    private int parcel_id, travel_id;
+    private int parcel_id, travel_id, delivery_id;
 
     public EndJourneyDetailFragment() {
         // Required empty public constructor
@@ -73,6 +73,11 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_end_journey_detail, container, false);
 
+        if (getArguments() != null){
+            parcel_id = getArguments().getInt("parcel_id");
+            travel_id = getArguments().getInt("travel_id");
+            delivery_id = getArguments().getInt("delivery_id");
+        }
         dashboardFragment = (DashboardFragment) Fragment.instantiate(context,
                 DashboardFragment.class.getName());
 
@@ -96,6 +101,7 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
     private void onClickListener() {
         gpNewSelfie.setOnClickListener(this);
         gpReceivedParcel.setOnClickListener(this);
+        btnEndJourney.setOnClickListener(this);
     }
 
     @Override
@@ -116,10 +122,8 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
                 break;
 
             case R.id.btnEndJourney:
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
-                        false);
-                /*//TODO API Call
-                endJourney();*/
+                //TODO API Call
+                endJourney();
                 break;
         }
     }
@@ -269,6 +273,7 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("travel_id", travel_id);
         jsonObject.addProperty("parcel_id", parcel_id);
+        jsonObject.addProperty("delivery_id", delivery_id);
         jsonObject.addProperty("parcel_picture", strParcelBase64);
         jsonObject.addProperty("selfie_picture", strSelfieBase64);
 
@@ -281,6 +286,7 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
                                 false);
                     } else {

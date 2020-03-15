@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
+import com.aystech.sandesh.model.AcceptedOrdersModel;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
 
@@ -22,6 +23,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private Context context;
     private List<SearchOrderModel> searchOrderModels;
     private List<SearchTravellerModel> searchTravellerModels;
+    private List<AcceptedOrdersModel> acceptedOrdersModels;
     private String tag;
     private OnItemClickListener onItemClickListener;
 
@@ -61,10 +63,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchTravellerModels.get(i).getModeOfTravel());
-            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getEstimate_amount());
+            switch (searchTravellerModels.get(i).getDeliveryOption()) {
+                case "Door to Door Service":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getD_to_d());
+                    break;
+                case "Senders place to Travelers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getD_to_c());
+                    break;
+                case "Travelers place to Travelers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getC_to_c());
+                    break;
+                case "Travelers place to Receivers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getC_to_d());
+                    break;
+            }
             myViewHolder.tvVolumeInfo.setVisibility(View.VISIBLE);
             myViewHolder.tvVolumeInfo.setText("Vol: " + searchTravellerModels.get(i).getAcceptableVolumeLength() + " * " +
-                    searchTravellerModels.get(i).getAcceptableVolumeBreadth() +" * "+ searchTravellerModels.get(i).getAcceptableVolumeWidth());
+                    searchTravellerModels.get(i).getAcceptableVolumeBreadth() + " * " + searchTravellerModels.get(i).getAcceptableVolumeWidth());
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,7 +94,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
-            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getEstimate_amount());
+            switch (searchOrderModels.get(i).getDeliveryOption()) {
+                case "Door to Door Service":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getD_to_d());
+                    break;
+                case "Senders place to Travelers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getD_to_c());
+                    break;
+                case "Travelers place to Travelers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getC_to_c());
+                    break;
+                case "Travelers place to Receivers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getC_to_d());
+                    break;
+            }
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,20 +116,30 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 }
             });
         } else if (tag != null && tag.equals("order_clicked_verify")) {
-            myViewHolder.tvName.setText("" /*+ searchTravellerModels.get(i).getReceiverName()*/);
-            myViewHolder.tvOrderDate.setText("" + searchTravellerModels.get(i).getStartDate());
-            myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
-            myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
-            myViewHolder.tvOrderTypeContent.setText("" + searchTravellerModels.get(i).getModeOfTravel());
-            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getEstimate_amount());
-            myViewHolder.tvVolumeInfo.setVisibility(View.VISIBLE);
-            myViewHolder.tvVolumeInfo.setText("Vol: " + searchTravellerModels.get(i).getAcceptableVolumeLength() + " * " +
-                    searchTravellerModels.get(i).getAcceptableVolumeBreadth() +" * "+ searchTravellerModels.get(i).getAcceptableVolumeWidth());
+            myViewHolder.tvName.setText("" + acceptedOrdersModels.get(i).getFirstName());
+            myViewHolder.tvOrderDate.setText("" + acceptedOrdersModels.get(i).getStartDate());
+            myViewHolder.tvOrderType.setText("" + acceptedOrdersModels.get(i).getDeliveryOption());
+            myViewHolder.tvOrderDistance.setText("" + acceptedOrdersModels.get(i).getWeight());
+            myViewHolder.tvOrderTypeContent.setText("" + acceptedOrdersModels.get(i).getNatureOfGoods());
+            switch (acceptedOrdersModels.get(i).getDeliveryOption()) {
+                case "Door to Door Service":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + acceptedOrdersModels.get(i).getDToD());
+                    break;
+                case "Senders place to Travelers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + acceptedOrdersModels.get(i).getDToC());
+                    break;
+                case "Travelers place to Travelers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + acceptedOrdersModels.get(i).getCToC());
+                    break;
+                case "Travelers place to Receivers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + acceptedOrdersModels.get(i).getCToD());
+                    break;
+            }
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.openOtpDialog(searchTravellerModels.get(i));
+                    onItemClickListener.openOtpDialog(acceptedOrdersModels.get(i));
                 }
             });
         } else {
@@ -110,7 +148,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
-            myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getEstimate_amount());
+                switch (searchOrderModels.get(i).getDeliveryOption()) {
+                case "Door to Door Service":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getD_to_d());
+                    break;
+                case "Senders place to Travelers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getD_to_c());
+                    break;
+                case "Travelers place to Travelers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getC_to_c());
+                    break;
+                case "Travelers place to Receivers place":
+                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getC_to_d());
+                    break;
+            }
         }
     }
 
@@ -120,7 +171,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             return searchTravellerModels.size();
         }
         if (tag != null && tag.equals("order_clicked_verify")) {
-            return searchTravellerModels.size();
+            return acceptedOrdersModels.size();
         }
         return searchOrderModels.size();
     }
@@ -131,6 +182,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     public void addOrderList(List<SearchOrderModel> data) {
         this.searchOrderModels = data;
+    }
+
+    public void addAcceptedOrders(List<AcceptedOrdersModel> data) {
+        this.acceptedOrdersModels = data;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
