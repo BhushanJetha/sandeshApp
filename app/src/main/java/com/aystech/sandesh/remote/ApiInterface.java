@@ -11,6 +11,7 @@ import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.model.ShowHistoryResponseModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
+import com.aystech.sandesh.model.WalletTransactionResponseModel;
 import com.aystech.sandesh.model.WeightResponseModel;
 import com.google.gson.JsonObject;
 
@@ -157,4 +158,13 @@ public interface ApiInterface {
 
     @POST("api/endJourney")
     Call<CommonResponse> endJourney(@Body JsonObject jsonObject);
+
+    @POST("api/addBalance")
+    Call<CommonResponse> verifyPaymentDetail(@Body JsonObject jsonObject);
+
+    @GET("api/getMyTransactionList")
+    Call<WalletTransactionResponseModel> getMyTransactionList();
+
+    @POST("api/getMyOrderRequestList")
+    Call<SearchOrderResponseModel> myRequestedOrders(@Body JsonObject jsonObject);
 }

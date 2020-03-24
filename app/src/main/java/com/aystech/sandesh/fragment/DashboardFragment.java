@@ -21,7 +21,8 @@ public class DashboardFragment extends Fragment {
     Button btnNext;
 
     private ImageView imgKYC, imgMyProfile, imgSearchOrders, imgSearchTravelers, imgMyWallet, imgPlanTravel,
-            imgSendParcel, imgTrackYourParcel, imgStartJourney, imgEndJourney, imgComplaintDispute, imgTermsAndCondition;
+            imgSendParcel, imgTrackYourParcel, imgStartJourney, imgEndJourney, imgComplaintDispute, imgTermsAndCondition,
+            imgMyRequestedOrders;
 
     private SearchOrderFragment searchOrderFragment;
     private MyWalletFragmentOne myWalletFragment;
@@ -35,6 +36,7 @@ public class DashboardFragment extends Fragment {
     private TermsAndConditionFragment termsAndConditionFragment;
     private UserProfileFragment userProfileFragment;
     private CompanyProfileFragment companyProfileFragment;
+    private MyRequestedOrderFragments myRequestedOrderFragments;
 
     UserSession userSession;
 
@@ -78,6 +80,8 @@ public class DashboardFragment extends Fragment {
                 Fragment.instantiate(context, UserProfileFragment.class.getName());
         companyProfileFragment = (CompanyProfileFragment)
                 Fragment.instantiate(context, CompanyProfileFragment.class.getName());
+        myRequestedOrderFragments = (MyRequestedOrderFragments) Fragment.instantiate(context,
+                MyRequestedOrderFragments.class.getName());
 
         initView(view);
 
@@ -103,6 +107,7 @@ public class DashboardFragment extends Fragment {
         imgEndJourney = view.findViewById(R.id.imgEndJourney);
         imgComplaintDispute = view.findViewById(R.id.imgComplaintDispute);
         imgTermsAndCondition = view.findViewById(R.id.imgTC);
+        imgMyRequestedOrders = view.findViewById(R.id.imgMyRequestedOrders);
     }
 
     private void onClickListener() {
@@ -204,6 +209,14 @@ public class DashboardFragment extends Fragment {
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                             companyProfileFragment, R.id.frame_container, true);
                 }
+            }
+        });
+
+        imgMyRequestedOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        myRequestedOrderFragments, R.id.frame_container, true);
             }
         });
     }

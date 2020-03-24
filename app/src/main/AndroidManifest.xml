@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.PaymentActivity"
+            android:screenOrientation="portrait" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -31,36 +34,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.CorporateRegistrationActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.AddressDetailActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.IndividualRegistrationActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- Live API key -->
-        <!--<meta-data
+            android:screenOrientation="portrait" /> <!-- Live API key -->
+        <!--
+        <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_F27NsrX8Juu1OA" />-->
-
+            android:value="rzp_live_F27NsrX8Juu1OA" />
+        -->
         <!-- Test API key -->
-        <!--<meta-data
+        <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_asLMvowHq4z6fv" />-->
+            android:value="rzp_test_Hf2MMuT0zBin2o" />
     </application>
 
 </manifest>

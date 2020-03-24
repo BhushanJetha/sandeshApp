@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_margin="@dimen/_6sdp"
     android:elevation="@dimen/_3sdp"
     android:background="@drawable/row_rounded_white_rectangle"
     android:padding="@dimen/_6sdp">
@@ -31,29 +31,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvFromAccNo"
+        android:id="@+id/tvPaymentMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="From xxxx1234"
+        android:text="netbanking"
         app:layout_constraintStart_toStartOf="@+id/tvWalletPaymentStatus"
         app:layout_constraintTop_toTopOf="@+id/imgWalletPaymentStatus" />
 
-    <TextView
-        android:id="@+id/tvToPerson"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="To AHDC Bank"
-        app:layout_constraintBottom_toBottomOf="@+id/imgWalletPaymentStatus"
-        app:layout_constraintStart_toStartOf="@+id/tvWalletPaymentStatus"
-        app:layout_constraintTop_toBottomOf="@+id/tvFromAccNo" />
-
     <ImageView
         android:id="@+id/imgWalletPaymentStatus"
-        android:layout_width="@dimen/_36sdp"
-        android:layout_height="@dimen/_36sdp"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_2sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/ic_credit"
+        app:layout_constraintEnd_toEndOf="@+id/tvWalletPaymentAmt"
         app:layout_constraintStart_toStartOf="@+id/tvWalletPaymentAmt"
         app:layout_constraintTop_toBottomOf="@+id/tvWalletPaymentAmt" />
 

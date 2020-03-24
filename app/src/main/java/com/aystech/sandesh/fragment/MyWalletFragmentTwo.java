@@ -1,6 +1,5 @@
 package com.aystech.sandesh.fragment;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -14,9 +13,6 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.MyWalletTabLayoutAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyWalletFragmentTwo extends Fragment {
 
     Context context;

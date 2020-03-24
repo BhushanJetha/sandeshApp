@@ -147,20 +147,6 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
             }
         });
 
-        spinnerPreferredWeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-
-                if (!selectedItem.equals("")) {
-                    weight_id = weightResponseModel.getWeightId(selectedItem);
-                }
-            } // to close the onItemSelected
-
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         spinnerVehicleType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
@@ -347,6 +333,20 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spinnerPreferredWeight.setAdapter(aa);
+
+        spinnerPreferredWeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    weight_id = weightResponseModel.getWeightId(selectedItem);
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void getState() {

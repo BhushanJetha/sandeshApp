@@ -16,6 +16,10 @@ import com.aystech.sandesh.model.AcceptedOrdersModel;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
@@ -58,8 +62,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
         if (tag != null && tag.equals("traveller")) {
-            myViewHolder.tvName.setText("" /*+ searchTravellerModels.get(i).getReceiverName()*/);
-            myViewHolder.tvOrderDate.setText("" + searchTravellerModels.get(i).getStartDate());
+            if (searchTravellerModels.get(i).getFirstName() != null &&
+                    !searchTravellerModels.get(i).getFirstName().equals(""))
+                myViewHolder.tvName.setText("" + searchTravellerModels.get(i).getFirstName());
+            else
+                myViewHolder.tvName.setText("-");
+
+            if ((searchTravellerModels.get(i).getStartDate() != null &&
+                    !searchTravellerModels.get(i).getStartDate().equals("")) &&
+                    (searchTravellerModels.get(i).getEndDate() != null &&
+                            !searchTravellerModels.get(i).getEndDate().equals("")))
+                myViewHolder.tvOrderDate.setText("" + startDateFormatConvert(searchTravellerModels.get(i).getStartDate()) + " - "
+                        + endDateFormatConvert(searchTravellerModels.get(i).getEndDate()));
+            else
+                myViewHolder.tvOrderDate.setText("-");
+
             myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchTravellerModels.get(i).getModeOfTravel());
@@ -89,8 +106,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             });
 
         } else if (tag != null && tag.equals("order")) {
-            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
-            myViewHolder.tvOrderDate.setText("" + searchOrderModels.get(i).getStartDate());
+            if (searchOrderModels.get(i).getFirstName() != null &&
+                    !searchOrderModels.get(i).getFirstName().equals(""))
+                myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
+            else
+                myViewHolder.tvName.setText("-");
+
+            if ((searchOrderModels.get(i).getStartDate() != null &&
+                    !searchOrderModels.get(i).getStartDate().equals("")) &&
+                    (searchOrderModels.get(i).getEndDate() != null &&
+                            !searchOrderModels.get(i).getEndDate().equals("")))
+                myViewHolder.tvOrderDate.setText("" + startDateFormatConvert(searchOrderModels.get(i).getStartDate()) + " - "
+                        + endDateFormatConvert(searchOrderModels.get(i).getEndDate()));
+            else
+                myViewHolder.tvOrderDate.setText("-");
+
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
@@ -116,8 +146,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 }
             });
         } else if (tag != null && tag.equals("order_clicked_verify")) {
-            myViewHolder.tvName.setText("" + acceptedOrdersModels.get(i).getFirstName());
-            myViewHolder.tvOrderDate.setText("" + acceptedOrdersModels.get(i).getStartDate());
+            if (acceptedOrdersModels.get(i).getFirstName() != null &&
+                    !acceptedOrdersModels.get(i).getFirstName().equals(""))
+                myViewHolder.tvName.setText("" + acceptedOrdersModels.get(i).getFirstName());
+            else
+                myViewHolder.tvName.setText("-");
+
+            if ((acceptedOrdersModels.get(i).getStartDate() != null &&
+                    !acceptedOrdersModels.get(i).getStartDate().equals("")) &&
+                    (acceptedOrdersModels.get(i).getEndDate() != null &&
+                            !acceptedOrdersModels.get(i).getEndDate().equals("")))
+                myViewHolder.tvOrderDate.setText("" + startDateFormatConvert(acceptedOrdersModels.get(i).getStartDate()) + " - "
+                        + endDateFormatConvert(acceptedOrdersModels.get(i).getEndDate()));
+            else
+                myViewHolder.tvOrderDate.setText("-");
+
             myViewHolder.tvOrderType.setText("" + acceptedOrdersModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + acceptedOrdersModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + acceptedOrdersModels.get(i).getNatureOfGoods());
@@ -143,12 +186,25 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 }
             });
         } else {
-            myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
-            myViewHolder.tvOrderDate.setText("" + searchOrderModels.get(i).getStartDate());
+            if (searchOrderModels.get(i).getFirstName() != null &&
+                    !searchOrderModels.get(i).getFirstName().equals(""))
+                myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
+            else
+                myViewHolder.tvName.setText("-");
+
+            if ((searchOrderModels.get(i).getStartDate() != null &&
+                    !searchOrderModels.get(i).getStartDate().equals("")) &&
+                    (searchOrderModels.get(i).getEndDate() != null &&
+                            !searchOrderModels.get(i).getEndDate().equals("")))
+                myViewHolder.tvOrderDate.setText("" + startDateFormatConvert(searchOrderModels.get(i).getStartDate()) + " - "
+                        + endDateFormatConvert(searchOrderModels.get(i).getEndDate()));
+            else
+                myViewHolder.tvOrderDate.setText("-");
+
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
-                switch (searchOrderModels.get(i).getDeliveryOption()) {
+            switch (searchOrderModels.get(i).getDeliveryOption()) {
                 case "Door to Door Service":
                     myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getD_to_d());
                     break;
@@ -163,6 +219,40 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                     break;
             }
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String startDateFormatConvert(String startDate) {
+        SimpleDateFormat startDateFormat = null;
+        Date date = null;
+        if (startDate != null && !startDate.equals("")) {
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                date = inputFormat.parse(startDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            startDateFormat = new SimpleDateFormat("MMM d");
+        }
+        assert startDateFormat != null;
+        return startDateFormat.format(date);
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String endDateFormatConvert(String endDate) {
+        SimpleDateFormat endDateFormat = null;
+        Date date = null;
+        if (endDate != null && !endDate.equals("")) {
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                date = inputFormat.parse(endDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            endDateFormat = new SimpleDateFormat("MMM d yyyy");
+        }
+        assert endDateFormat != null;
+        return endDateFormat.format(date);
     }
 
     @Override

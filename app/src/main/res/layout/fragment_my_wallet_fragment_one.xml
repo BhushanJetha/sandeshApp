@@ -95,6 +95,35 @@
                     app:layout_constraintStart_toStartOf="@+id/tvBalTitle"
                     app:layout_constraintTop_toBottomOf="@+id/tvBalTitle" />
 
+                <TextView
+                    android:id="@+id/tvRupeeSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="Rs. "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILAddAmt"
+                    app:layout_constraintStart_toStartOf="@+id/btnAddBal"
+                    app:layout_constraintTop_toTopOf="@+id/tILAddAmt" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILAddAmt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    app:layout_constraintBottom_toTopOf="@+id/btnAddBal"
+                    app:layout_constraintEnd_toEndOf="@+id/btnAddBal"
+                    app:layout_constraintStart_toEndOf="@+id/tvRupeeSymbol">
+
+                    <EditText
+                        android:id="@+id/etAddAmt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Add Amount" />
+
+                </android.support.design.widget.TextInputLayout>
+
                 <Button
                     android:id="@+id/btnAddBal"
                     android:layout_width="wrap_content"

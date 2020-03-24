@@ -127,7 +127,6 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.btnSearch:
-
                 strToPinCode = etToPincode.getText().toString();
                 strFromPincode = etFromPincode.getText().toString();
 

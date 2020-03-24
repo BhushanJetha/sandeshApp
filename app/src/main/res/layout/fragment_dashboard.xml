@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,19 +26,19 @@
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_kyc"
                 app:layout_constraintEnd_toStartOf="@+id/imgProfile"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_kyc" />
 
             <TextView
                 android:id="@+id/tvKYC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="KYC"
                 android:fontFamily="@font/gotham_light"
+                android:text="KYC"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgKYC"
@@ -52,20 +51,20 @@
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_profile"
                 app:layout_constraintBottom_toBottomOf="@+id/imgKYC"
                 app:layout_constraintEnd_toStartOf="@+id/imgWallet"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imgKYC"
-                app:layout_constraintTop_toTopOf="@+id/imgKYC" />
+                app:layout_constraintTop_toTopOf="@+id/imgKYC"
+                app:srcCompat="@drawable/ic_profile" />
 
             <TextView
                 android:id="@+id/tvProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="My Profile"
                 android:fontFamily="@font/gotham_light"
+                android:text="My Profile"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgProfile"
@@ -78,20 +77,20 @@
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_my_wallet"
                 app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imgProfile"
-                app:layout_constraintTop_toTopOf="@+id/imgProfile" />
+                app:layout_constraintTop_toTopOf="@+id/imgProfile"
+                app:srcCompat="@drawable/ic_my_wallet" />
 
             <TextView
                 android:id="@+id/tvWallet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="My Wallet"
                 android:fontFamily="@font/gotham_light"
+                android:text="My Wallet"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgWallet"
@@ -105,19 +104,19 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_search_order"
                 app:layout_constraintEnd_toStartOf="@+id/imgSearchTravellers"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvKYC" />
+                app:layout_constraintTop_toBottomOf="@+id/tvKYC"
+                app:srcCompat="@drawable/ic_search_order" />
 
             <TextView
                 android:id="@+id/tvSendersOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="Search Orders"
                 android:fontFamily="@font/gotham_light"
+                android:text="Search Orders"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgSendersOrders"
@@ -130,20 +129,20 @@
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_search_travelar"
                 app:layout_constraintBottom_toBottomOf="@+id/imgSendersOrders"
                 app:layout_constraintEnd_toStartOf="@+id/imgPlanTravel"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imgSendersOrders"
-                app:layout_constraintTop_toTopOf="@+id/imgSendersOrders" />
+                app:layout_constraintTop_toTopOf="@+id/imgSendersOrders"
+                app:srcCompat="@drawable/ic_search_travelar" />
 
             <TextView
                 android:id="@+id/tvSearchTravellers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="Search Travellers"
                 android:fontFamily="@font/gotham_light"
+                android:text="Search Travellers"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgSearchTravellers"
@@ -156,20 +155,20 @@
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_plan_a_travel"
                 app:layout_constraintBottom_toBottomOf="@+id/imgSearchTravellers"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imgSearchTravellers"
-                app:layout_constraintTop_toTopOf="@+id/imgSearchTravellers" />
+                app:layout_constraintTop_toTopOf="@+id/imgSearchTravellers"
+                app:srcCompat="@drawable/ic_plan_a_travel" />
 
             <TextView
                 android:id="@+id/tvPlanTravel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="Plan a Travel"
                 android:fontFamily="@font/gotham_light"
+                android:text="Plan a Travel"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgPlanTravel"
@@ -183,19 +182,19 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_send_parcel"
                 app:layout_constraintEnd_toStartOf="@+id/imgTrackParcel"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSendersOrders" />
+                app:layout_constraintTop_toBottomOf="@+id/tvSendersOrders"
+                app:srcCompat="@drawable/ic_send_parcel" />
 
             <TextView
                 android:id="@+id/tvSendParcel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="Send Parcel"
                 android:fontFamily="@font/gotham_light"
+                android:text="Send Parcel"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgSendParcel"
@@ -208,20 +207,20 @@
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_track_your_parcel"
                 app:layout_constraintBottom_toBottomOf="@+id/imgSendParcel"
                 app:layout_constraintEnd_toStartOf="@+id/imgStartJourney"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imgSendParcel"
-                app:layout_constraintTop_toTopOf="@+id/imgSendParcel" />
+                app:layout_constraintTop_toTopOf="@+id/imgSendParcel"
+                app:srcCompat="@drawable/ic_track_your_parcel" />
 
             <TextView
                 android:id="@+id/tvTrackParcel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="Track Your Parcel"
                 android:fontFamily="@font/gotham_light"
+                android:text="Track Your Parcel"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgTrackParcel"
@@ -234,20 +233,20 @@
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_start_journey"
                 app:layout_constraintBottom_toBottomOf="@+id/imgTrackParcel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imgTrackParcel"
-                app:layout_constraintTop_toTopOf="@+id/imgTrackParcel" />
+                app:layout_constraintTop_toTopOf="@+id/imgTrackParcel"
+                app:srcCompat="@drawable/ic_start_journey" />
 
             <TextView
                 android:id="@+id/tvStartJourney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="Start Journey"
                 android:fontFamily="@font/gotham_light"
+                android:text="Start Journey"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgStartJourney"
@@ -261,19 +260,19 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_end_journey"
                 app:layout_constraintEnd_toStartOf="@+id/imgComplaintDispute"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSendParcel" />
+                app:layout_constraintTop_toBottomOf="@+id/tvSendParcel"
+                app:srcCompat="@drawable/ic_end_journey" />
 
             <TextView
                 android:id="@+id/tvEndJourney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="End Journey"
                 android:fontFamily="@font/gotham_light"
+                android:text="End Journey"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgEndJourney"
@@ -286,20 +285,20 @@
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_complaint_dispute"
                 app:layout_constraintBottom_toBottomOf="@+id/imgEndJourney"
                 app:layout_constraintEnd_toStartOf="@+id/imgTC"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imgEndJourney"
-                app:layout_constraintTop_toTopOf="@+id/imgEndJourney" />
+                app:layout_constraintTop_toTopOf="@+id/imgEndJourney"
+                app:srcCompat="@drawable/ic_complaint_dispute" />
 
             <TextView
                 android:id="@+id/tvComplaintDispute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="Complaint/Dispute"
                 android:fontFamily="@font/gotham_light"
+                android:text="Complaint/Dispute"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgComplaintDispute"
@@ -312,25 +311,51 @@
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_terms_and_conditions"
                 app:layout_constraintBottom_toBottomOf="@+id/imgComplaintDispute"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imgComplaintDispute"
-                app:layout_constraintTop_toTopOf="@+id/imgComplaintDispute" />
+                app:layout_constraintTop_toTopOf="@+id/imgComplaintDispute"
+                app:srcCompat="@drawable/ic_terms_and_conditions" />
 
             <TextView
                 android:id="@+id/tvTC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:text="T&amp;C"
                 android:fontFamily="@font/gotham_light"
+                android:text="T&amp;C"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="@+id/imgTC"
                 app:layout_constraintStart_toStartOf="@+id/imgTC"
                 app:layout_constraintTop_toBottomOf="@id/imgTC" />
+
+            <ImageView
+                android:id="@+id/imgMyRequestedOrders"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="12dp"
+                app:layout_constraintEnd_toStartOf="@+id/imgProfile"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvEndJourney"
+                app:srcCompat="@drawable/ic_terms_and_conditions" />
+
+            <TextView
+                android:id="@+id/tvMyRequestedOrders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/gotham_light"
+                android:text="My Requested Orders"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgMyRequestedOrders"
+                app:layout_constraintStart_toStartOf="@+id/imgMyRequestedOrders"
+                app:layout_constraintTop_toBottomOf="@id/imgMyRequestedOrders" />
 
             <Button
                 android:id="@+id/btnNext"
