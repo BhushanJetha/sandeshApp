@@ -12,9 +12,9 @@ public class CommonResponse {
     @SerializedName("status")
     @Expose
     private Boolean status;
-    @SerializedName("balance")
+    @SerializedName(value = "balance", alternate = "amount")
     @Expose
-    private Integer balance;
+    private Double balance;
 
     public String getMessage() {
         return message;
@@ -24,8 +24,7 @@ public class CommonResponse {
         return status;
     }
 
-
-    public Integer getBalance() {
+    public Double getBalance() {
         return balance;
     }
 }

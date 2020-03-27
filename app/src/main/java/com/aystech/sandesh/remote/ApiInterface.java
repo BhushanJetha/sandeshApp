@@ -167,4 +167,10 @@ public interface ApiInterface {
 
     @POST("api/getMyOrderRequestList")
     Call<SearchOrderResponseModel> myRequestedOrders(@Body JsonObject jsonObject);
+
+    @POST("api/sendOrderRequestStatus")
+    Call<CommonResponse> sendOrderRequestStatus(@Body JsonObject jsonObject);
+
+    @POST("api/sendComplaint")
+    Call<CommonResponse> sendComplaint(@Body JsonObject jsonObject);
 }

@@ -15,13 +15,17 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -62,39 +66,41 @@ import retrofit2.Response;
 
 public class SendParcelFragment extends Fragment implements View.OnClickListener {
 
-    Context context;
+    private Context context;
 
-    WeightResponseModel weightResponseModel;
-    StateResponseModel stateResponseModel;
-    CityResponseModel cityResponseModel;
+    private WeightResponseModel weightResponseModel;
+    private StateResponseModel stateResponseModel;
+    private CityResponseModel cityResponseModel;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     EditText etFromPincode, etToPincode, etGoodsDescription,
             etGoodsValue, etReceiverName, etReceiverMobileNo, etReceiverAddress;
-    ImageView ingStartDate, ingStartTime;
-    EditText etStartDate, etStartTime;
-    ImageView ingEndDate, ingEndTime;
-    Group gpInvoice, gpParcel;
-    ImageView imgInvoice, imgParcel;
-    EditText etEndDate, etEndTime;
-    Spinner spinnerDeliveryOption, spinnerNatureGoods, spinnerQuality, spinnerWeight, spinnerPackaging;
-    RadioGroup rgOwnership, rgHazardous, rgProhibited, rgFraglle, rgFlamableToxicExplosive;
-    Button btnSubmit;
-    TextView btnCancel;
+    private ImageView ingStartDate, ingStartTime;
+    private EditText etStartDate, etStartTime;
+    private ImageView ingEndDate, ingEndTime;
+    private Group gpInvoice, gpParcel;
+    private ImageView imgInvoice, imgParcel;
+    private EditText etEndDate, etEndTime;
+    private Spinner spinnerDeliveryOption, spinnerNatureGoods, spinnerQuality, spinnerWeight, spinnerPackaging;
+    private RadioGroup rgOwnership, rgHazardous, rgProhibited, rgFraglle, rgFlamableToxicExplosive;
+    private Button btnSubmit;
+    private TextView btnCancel;
+    private CheckBox cbTermsCondition;
 
-    String deliveryOption, natureOfGoods, quality, packaging, ownership, strFromPincode, strtoPincode,
+    private String deliveryOption, natureOfGoods, quality, packaging, ownership, strFromPincode, strtoPincode,
             strStartDate, strStartTime, strEndDate, strEndTime, strGoodsDescription, strValueOgGood,
             strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous, rgStrProhibited, rgStrFraglle, rgStrFlamableToxicExplosive;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
+    private boolean onceClicked = false;
 
-    Uri picUri;
-    Bitmap myBitmap;
+    private Uri picUri;
+    private Bitmap myBitmap;
     private String strInvoiceBase64, strParcelBase64;
     private String tag;
 
-    UserSession userSession;
-    ViewProgressDialog viewProgressDialog;
+    private UserSession userSession;
+    private ViewProgressDialog viewProgressDialog;
 
     public SendParcelFragment() {
         // Required empty public constructor
@@ -160,6 +166,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         etReceiverAddress = view.findViewById(R.id.etReceiverAddress);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         btnCancel = view.findViewById(R.id.btnCancel);
+        cbTermsCondition = view.findViewById(R.id.cbTermsCondition);
     }
 
     private void onClickListener() {
@@ -170,6 +177,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         ingEndDate.setOnClickListener(this);
         ingEndTime.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+        cbTermsCondition.setOnClickListener(this);
 
         spinnerDeliveryOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -330,7 +339,44 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             case R.id.gpParcel:
                 gotoSelectPicture("parcel");
                 break;
+            case R.id.btnCancel:
+                ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                break;
+            case R.id.cbTermsCondition:
+                if (!onceClicked) {
+                    cbTermsCondition.setClickable(false);
+                    showTermsConditions();
+                }
+                break;
         }
+    }
+
+    private void showTermsConditions() {
+        LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
+        final View alertLayout = inflater.inflate(R.layout.dialog_terms_condition, null);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(true);
+
+        final AlertDialog dialog = alert.create();
+        dialog.show();
+
+        WebView wvTermsConditions = alertLayout.findViewById(R.id.wvTermsCondition);
+        // displaying content in WebView from html file that stored in assets folder
+        wvTermsConditions.getSettings().setJavaScriptEnabled(true);
+        wvTermsConditions.loadUrl("file:///android_res/raw/" + "terms_and_condition.html");
+
+        TextView tvOk = alertLayout.findViewById(R.id.tvOk);
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onceClicked = true;
+                dialog.dismiss();
+            }
+        });
     }
 
     private void openDatePickerDialog(final String tag) {

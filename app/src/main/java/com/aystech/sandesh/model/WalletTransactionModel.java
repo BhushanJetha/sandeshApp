@@ -9,7 +9,7 @@ public class WalletTransactionModel {
     private Integer transId;
     @SerializedName("amount")
     @Expose
-    private Integer amount;
+    private Double amount;
     @SerializedName("paymentMode")
     @Expose
     private String paymentMode;
@@ -25,11 +25,11 @@ public class WalletTransactionModel {
         this.transId = transId;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

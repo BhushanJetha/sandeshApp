@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -58,6 +60,20 @@
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_Hf2MMuT0zBin2o" />
+
+        <!--
+            Because android:exported is set to "false",
+            the service is only available to this app.
+        -->
+        <service
+            android:name=".services.MyService"
+            android:exported="false" />
+
+        <service
+            android:name=".services.OnTimeService"
+            android:exported="false" />
+
+        <receiver android:name=".receivers.AlarmReceiver" />
     </application>
 
 </manifest>

@@ -101,7 +101,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClicked(searchTravellerModels.get(i));
+                    onItemClickListener.onTravellerItemClicked(searchTravellerModels.get(i));
                 }
             });
 
@@ -142,7 +142,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClicked(searchOrderModels.get(i));
+                    onItemClickListener.onOrderItemClicked(searchOrderModels.get(i));
                 }
             });
         } else if (tag != null && tag.equals("order_clicked_verify")) {

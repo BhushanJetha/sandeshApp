@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,8 +58,9 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     private StateResponseModel stateResponseModel;
     private CityResponseModel cityResponseModel;
 
-    ConstraintLayout clOrderList;
-    TextView tvResultCount;
+    private NestedScrollView nestedScrollView;
+    private ConstraintLayout clOrderList;
+    private TextView tvResultCount;
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private Button btnSearch;
     private ImageView ingDate;
@@ -99,6 +102,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
 
+        nestedScrollView = view.findViewById(R.id.nestedScrollView);
         clOrderList = view.findViewById(R.id.clOrderList);
         tvResultCount = view.findViewById(R.id.tvResultCount);
 
@@ -112,6 +116,24 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
         ingDate = view.findViewById(R.id.ingDate);
         rvOrder = view.findViewById(R.id.rvOrder);
         btnSearch = view.findViewById(R.id.btnSearch);
+
+        nestedScrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final int scrollViewHeight = nestedScrollView.getHeight();
+                if (scrollViewHeight > 0) {
+                    nestedScrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                    final View lastView = nestedScrollView.getChildAt(nestedScrollView.getChildCount() - 1);
+                    final int lastViewBottom = lastView.getBottom() + nestedScrollView.getPaddingBottom();
+                    final int deltaScrollY = lastViewBottom - scrollViewHeight - nestedScrollView.getScrollY();
+                    /* If you want to see the scroll animation, call this. */
+                    nestedScrollView.smoothScrollBy(0, deltaScrollY);
+                    /* If you don't want, call this. */
+                    nestedScrollView.scrollBy(0, deltaScrollY);
+                }
+            }
+        });
     }
 
     private void onClickListener() {
@@ -215,7 +237,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
 
             orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
                 @Override
-                public void onItemClicked(SearchOrderModel searchOrderModel) {
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
                                     true);
                     Bundle bundle = new Bundle();
@@ -225,7 +247,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 }
 
                 @Override
-                public void onItemClicked(SearchTravellerModel searchTravellerModel) {
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                 }
 
                 @Override
@@ -268,7 +290,6 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             public void onFailure(@NonNull Call<StateResponseModel> call, @NonNull Throwable t) {
             }
         });
-
     }
 
     private void bindStateDataToUI(List<StateModel> data) {

@@ -86,6 +86,7 @@
                         android:layout_marginEnd="@dimen/_6sdp"
                         android:background="@drawable/ic_edit_black_24dp"
                         android:padding="@dimen/_6sdp"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/tvParcelInformation"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvParcelInformation" />
@@ -937,7 +938,7 @@
                     android:text="@string/send_request"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/_9sdp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
                     app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
@@ -983,11 +984,13 @@
                         android:fontFamily="@font/gotham_medium"
                         android:paddingStart="@dimen/_36sdp"
                         android:paddingEnd="@dimen/_36sdp"
-                        android:text="@string/send_request"
+                        android:text="@string/reject"
                         android:textAllCaps="false"
                         android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_10sdp"
+                        android:textSize="@dimen/_9sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnVerify"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tILComment" />
 
@@ -1001,14 +1004,87 @@
                         android:fontFamily="@font/gotham_medium"
                         android:paddingStart="@dimen/_36sdp"
                         android:paddingEnd="@dimen/_36sdp"
-                        android:text="@string/send_request"
+                        android:text="@string/verify"
                         android:textAllCaps="false"
                         android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_10sdp"
+                        android:textSize="@dimen/_9sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/btnReject"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/btnReject"
                         app:layout_constraintTop_toTopOf="@+id/btnReject" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/clAcceptRejectOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tILAcceptRejectComment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <EditText
+                            android:id="@+id/etAcceptRejectComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gotham_light"
+                            android:hint="Enter your rejection reason here..." />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnRejectOrder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:background="@drawable/rounded_button_background"
+                        android:backgroundTint="@color/colorRed"
+                        android:fontFamily="@font/gotham_medium"
+                        android:paddingStart="@dimen/_36sdp"
+                        android:paddingEnd="@dimen/_36sdp"
+                        android:text="@string/reject_order"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_9sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnAcceptOrder"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tILAcceptRejectComment" />
+
+                    <Button
+                        android:id="@+id/btnAcceptOrder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:background="@drawable/rounded_button_background"
+                        android:backgroundTint="@color/colorGreen"
+                        android:fontFamily="@font/gotham_medium"
+                        android:paddingStart="@dimen/_36sdp"
+                        android:paddingEnd="@dimen/_36sdp"
+                        android:text="@string/accept_order"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_9sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnRejectOrder"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/btnRejectOrder"
+                        app:layout_constraintTop_toTopOf="@+id/btnRejectOrder" />
 
                 </android.support.constraint.ConstraintLayout>
 

@@ -33,7 +33,7 @@ public class StartJourneyFragment extends Fragment {
 
     private Context context;
 
-    OrderListFragment orderListFragment;
+    private OrderListFragment orderListFragment;
 
     private RecyclerView rvTraveller;
     private OrderAdapter orderAdapter;
@@ -98,11 +98,11 @@ public class StartJourneyFragment extends Fragment {
     private void bindDataToRV(List<SearchTravellerModel> data) {
         orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
             @Override
-            public void onItemClicked(SearchOrderModel searchOrderModel) {
+            public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
             }
 
             @Override
-            public void onItemClicked(SearchTravellerModel searchTravellerModel) {
+            public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                         orderListFragment, R.id.frame_container,
                         true);

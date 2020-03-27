@@ -5,9 +5,9 @@ import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
 
 public interface OnItemClickListener {
-    void onItemClicked(SearchOrderModel searchOrderModel);
+    void onOrderItemClicked(SearchOrderModel searchOrderModel);
 
-    void onItemClicked(SearchTravellerModel searchTravellerModel);
+    void onTravellerItemClicked(SearchTravellerModel searchTravellerModel);
 
     void openOtpDialog(AcceptedOrdersModel searchTravellerModel);
 }

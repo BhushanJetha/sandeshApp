@@ -2,11 +2,15 @@ package com.aystech.sandesh.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.activity.PaymentActivity;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.AcceptedOrdersModel;
@@ -40,17 +45,19 @@ import retrofit2.Response;
 
 public class OrderListFragment extends Fragment {
 
+    private static final String TAG = "OrderListFragment";
     private Context context;
 
-    DashboardFragment dashboardFragment;
-    OrderDetailFragment orderDetailFragment;
-    EndJourneyDetailFragment endJourneyDetailFragment;
+    private DashboardFragment dashboardFragment;
+    private OrderDetailFragment orderDetailFragment;
+    private EndJourneyDetailFragment endJourneyDetailFragment;
 
     private RecyclerView rvOrder;
     private OrderAdapter orderAdapter;
     private TextView tvScreenTitle;
 
     private int travel_id, parcel_id, delivery_id;
+    private double estimate_amt;
     private String tag = ""; //default value
 
     private ViewProgressDialog viewProgressDialog;
@@ -103,6 +110,10 @@ public class OrderListFragment extends Fragment {
             //TODO API Call
             getMyAcceptedOrderList();
             tvScreenTitle.setText("Accepted Order List");
+        } else if (tag.equals("order_clicked_accept_reject")) { //this is for order list
+            //TODO API Call
+            getMyRequestedOrders();
+            tvScreenTitle.setText("My Requested Orders List");
         }
 
         return view;
@@ -145,14 +156,42 @@ public class OrderListFragment extends Fragment {
         if (data.size() > 0) {
             orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
                 @Override
-                public void onItemClicked(SearchOrderModel searchOrderModel) {
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                     parcel_id = searchOrderModel.getParcelId();
-                    openDialog();
+                    switch (searchOrderModel.getDeliveryOption()) {
+                        case "Door to Door Service":
+                            estimate_amt = searchOrderModel.getD_to_d();
+                            break;
+                        case "Senders place to Travelers place":
+                            estimate_amt = searchOrderModel.getD_to_c();
+                            break;
+                        case "Travelers place to Travelers place":
+                            estimate_amt = searchOrderModel.getC_to_c();
+                            break;
+                        case "Travelers place to Receivers place":
+                            estimate_amt = searchOrderModel.getC_to_d();
+                            break;
+                    }
+                    openDialog(); //bindMyOrderDataToRV ----> onOrderItemClicked
                 }
 
                 @Override
-                public void onItemClicked(SearchTravellerModel searchTravellerModel) {
-                    openDialog();
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                    switch (searchTravellerModel.getDeliveryOption()) {
+                        case "Door to Door Service":
+                            estimate_amt = searchTravellerModel.getD_to_d();
+                            break;
+                        case "Senders place to Travelers place":
+                            estimate_amt = searchTravellerModel.getD_to_c();
+                            break;
+                        case "Travelers place to Travelers place":
+                            estimate_amt = searchTravellerModel.getC_to_c();
+                            break;
+                        case "Travelers place to Receivers place":
+                            estimate_amt = searchTravellerModel.getC_to_d();
+                            break;
+                    }
+                    openDialog(); //bindMyOrderDataToRV ----> onTravellerItemClicked
                 }
 
                 @Override
@@ -194,13 +233,27 @@ public class OrderListFragment extends Fragment {
         if (data.size() > 0) {
             orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
                 @Override
-                public void onItemClicked(SearchOrderModel searchOrderModel) {
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                 }
 
                 @Override
-                public void onItemClicked(SearchTravellerModel searchTravellerModel) {
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                     travel_id = searchTravellerModel.getTravelId();
-                    openDialog();
+                    switch (searchTravellerModel.getDeliveryOption()) {
+                        case "Door to Door Service":
+                            estimate_amt = searchTravellerModel.getD_to_d();
+                            break;
+                        case "Senders place to Travelers place":
+                            estimate_amt = searchTravellerModel.getD_to_c();
+                            break;
+                        case "Travelers place to Travelers place":
+                            estimate_amt = searchTravellerModel.getC_to_c();
+                            break;
+                        case "Travelers place to Receivers place":
+                            estimate_amt = searchTravellerModel.getC_to_d();
+                            break;
+                    }
+                    openDialog(); //bindMyTravellerDataToRV ----> onTravellerItemClicked
                 }
 
                 @Override
@@ -247,11 +300,11 @@ public class OrderListFragment extends Fragment {
         if (data.size() > 0) {
             orderAdapter = new OrderAdapter(context, "order_clicked_verify", new OnItemClickListener() {
                 @Override
-                public void onItemClicked(SearchOrderModel searchOrderModel) {
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                 }
 
                 @Override
-                public void onItemClicked(SearchTravellerModel searchTravellerModel) {
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                 }
 
                 @Override
@@ -264,6 +317,66 @@ public class OrderListFragment extends Fragment {
                 }
             });
             orderAdapter.addAcceptedOrders(data);
+            rvOrder.setAdapter(orderAdapter);
+        }
+    }
+
+    private void getMyRequestedOrders() {
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("travel_id", travel_id);
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<SearchOrderResponseModel> call = apiInterface.myRequestedOrders(
+                jsonObject
+        );
+        call.enqueue(new Callback<SearchOrderResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<SearchOrderResponseModel> call, @NonNull Response<SearchOrderResponseModel> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        bindDataToRV(response.body().getData());
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SearchOrderResponseModel> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void bindDataToRV(List<SearchOrderModel> data) {
+        if (data.size() > 0) {
+            orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
+                @Override
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                    delivery_id = searchOrderModel.getDeliveryId();
+                    parcel_id = searchOrderModel.getParcelId();
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            orderDetailFragment, R.id.frame_container, false);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("delivery_id", delivery_id);
+                    bundle.putInt("parcel_id", parcel_id);
+                    bundle.putString("tag", "accept_reject_order");
+                    orderDetailFragment.setArguments(bundle);
+                }
+
+                @Override
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                }
+
+                @Override
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                }
+            });
+            orderAdapter.addOrderList(data);
             rvOrder.setAdapter(orderAdapter);
         }
     }
@@ -295,6 +408,7 @@ public class OrderListFragment extends Fragment {
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("estimate_amount", estimate_amt);
         jsonObject.addProperty("travel_id", travel_id);
         jsonObject.addProperty("parcel_id", parcel_id);
         if (tag.equals("order"))
@@ -316,6 +430,8 @@ public class OrderListFragment extends Fragment {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
                                 false);
+                    } else if (response.body().getBalance() > 0.0) { //Insufficient wallet balance.
+                        addAmountInWalletDialog(response.body().getBalance());
                     } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -323,7 +439,44 @@ public class OrderListFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                Log.e(TAG, "onFailure: "+t.getLocalizedMessage());
                 viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void addAmountInWalletDialog(Double balance) {
+        LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
+        final View alertLayout = inflater.inflate(R.layout.dialog_add_amt_in_wallet, null);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(true);
+
+        final AlertDialog dialog = alert.create();
+        dialog.show();
+
+        final EditText etAddBal = alertLayout.findViewById(R.id.etAddBal);
+        etAddBal.setText("" + balance);
+        Button btnAddBalance = alertLayout.findViewById(R.id.btnAddBalance);
+
+        btnAddBalance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(etAddBal.getText().toString().trim())) {
+                    etAddBal.setError("Please enter valid amount");
+                    etAddBal.requestFocus();
+                } else {
+                    etAddBal.setError(null);
+
+                    dialog.dismiss();
+
+                    Intent intent = new Intent(context, PaymentActivity.class);
+                    intent.putExtra("add_amt", etAddBal.getText().toString().trim());
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -408,8 +561,8 @@ public class OrderListFragment extends Fragment {
                             bundle.putInt("delivery_id", delivery_id);
                             endJourneyDetailFragment.setArguments(bundle);
                         } else {
-                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
-                                    false);
+                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                    orderDetailFragment, R.id.frame_container, false);
                             Bundle bundle = new Bundle();
                             bundle.putInt("parcel_id", parcel_id);
                             bundle.putString("tag", "after_verify");

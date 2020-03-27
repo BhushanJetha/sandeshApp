@@ -46,30 +46,30 @@ import retrofit2.Response;
 
 public class PlanTravelFragment extends Fragment implements View.OnClickListener {
 
-    Context context;
+    private Context context;
 
-    WeightResponseModel weightResponseModel;
-    StateResponseModel stateResponseModel;
-    CityResponseModel cityResponseModel;
+    private WeightResponseModel weightResponseModel;
+    private StateResponseModel stateResponseModel;
+    private CityResponseModel cityResponseModel;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
-    ImageView ingStartDate, ingStartTime;
-    EditText etStartDate, etStartTime;
-    ImageView ingEndDate, ingEndTime;
-    EditText etEndDate, etEndTime;
-    EditText etFromPincode, etToPincode, etAcceptableLength, etAcceptableBreadth, etAcceptableHeight,
+    private ImageView ingStartDate, ingStartTime;
+    private EditText etStartDate, etStartTime;
+    private ImageView ingEndDate, ingEndTime;
+    private EditText etEndDate, etEndTime;
+    private EditText etFromPincode, etToPincode, etAcceptableLength, etAcceptableBreadth, etAcceptableHeight,
             etVehicleTrainNo, etOtherDetails;
-    Spinner spinnerDeliveryOption, spinnerPreferredWeight, spinnerVehicleType;
-    Button btnSubmit;
-    TextView btnCancel;
+    private Spinner spinnerDeliveryOption, spinnerPreferredWeight, spinnerVehicleType;
+    private Button btnSubmit;
+    private TextView btnCancel;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
 
-    UserSession userSession;
-    ViewProgressDialog viewProgressDialog;
+    private UserSession userSession;
+    private ViewProgressDialog viewProgressDialog;
 
-    String deliveryOption, modeOfTravel, strStartTime, strEndTime, strStartDate, strEndDate, strFromPincode,
+    private String deliveryOption, modeOfTravel, strStartTime, strEndTime, strStartDate, strEndDate, strFromPincode,
             strToPincode, strAcceptableLength, strAcceptableBreadth, strAcceptableHeight, strVehicleNo, strOtherDetail;
 
     public PlanTravelFragment() {
@@ -191,6 +191,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 break;
 
             case R.id.btnCancel:
+                ((MainActivity) context).getSupportFragmentManager().popBackStack();
                 break;
         }
     }

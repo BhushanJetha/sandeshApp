@@ -187,6 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.body().getStatus()) {
 
                         userSession.setJWTToken(response.body().getToken());
+                        userSession.setUserName(response.body().getUserName());
 
                         try {
                             String json = JWTUtils.decoded(response.body().getToken().split(" ")[1]);
@@ -196,7 +197,7 @@ public class LoginActivity extends AppCompatActivity {
                             userSession.setUserType(jsonObject1.getString("user_type"));
                             userSession.setUserMobile(jsonObject1.getString("mobile_no"));
                             userSession.setUserEmail(jsonObject1.getString("email_id"));
-
+                            userSession.setUserEmail(jsonObject1.getString("email_id"));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

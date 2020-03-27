@@ -236,11 +236,11 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
             orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
                 @Override
-                public void onItemClicked(SearchOrderModel searchOrderModel) {
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                 }
 
                 @Override
-                public void onItemClicked(SearchTravellerModel searchTravellerModel) {
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                             travellerDetailFragment, R.id.frame_container,
                             true);

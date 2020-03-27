@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 
 public class MyWalletFragmentOne extends Fragment {
 
+    private static final String TAG = "MyWalletFragmentOne";
     private Context context;
 
     private TextView tvUserName;
@@ -64,9 +66,6 @@ public class MyWalletFragmentOne extends Fragment {
         initView(view);
 
         onClickListener();
-
-        //TODO API Call
-        getMyTransactionList();
 
         return view;
     }
@@ -118,6 +117,7 @@ public class MyWalletFragmentOne extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<WalletTransactionResponseModel> call, @NonNull Throwable t) {
+                Log.e(TAG, "onFailure: "+t.getLocalizedMessage());
                 viewProgressDialog.hideDialog();
             }
         });
@@ -132,6 +132,9 @@ public class MyWalletFragmentOne extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
+
+        //TODO API Call
+        getMyTransactionList();
     }
 
 }

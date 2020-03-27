@@ -8,6 +8,10 @@ public class LoginResponseModel extends CommonResponse{
     @Expose
     private String userType;
 
+    @SerializedName("user_name")
+    @Expose
+    private String userName;
+
     @SerializedName("token")
     @Expose
     private String token;
@@ -18,6 +22,10 @@ public class LoginResponseModel extends CommonResponse{
 
     public String getUserType() {
         return userType;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public String getToken() {

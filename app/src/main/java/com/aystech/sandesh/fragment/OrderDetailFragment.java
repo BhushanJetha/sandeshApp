@@ -39,8 +39,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
     private Context context;
 
-    OrderListFragment orderListFragment;
-    DashboardFragment dashboardFragment;
+    private OrderListFragment orderListFragment;
+    private DashboardFragment dashboardFragment;
 
     private TextView tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
             tvDeliveryOption, tvNatureGoods, tvGoodsDesc, tvQuality, tvWeight, tvPackaging, tvGoods,
@@ -52,14 +52,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
     private ImageView imgInvoice, imgParcel;
 
-    private ConstraintLayout clAfterVerify;
-    private EditText etComment;
-    private Button btnSendRequest, btnReject, btnVerify;
+    private ConstraintLayout clAfterVerify, clAcceptRejectOrder;
+    private EditText etComment, etAcceptRejectComment;
+    private Button btnSendRequest, btnReject, btnVerify, btnRejectOrder, btnAcceptOrder;
 
-    private int parcel_id;
+    private int parcel_id, delivery_id;
     private String tag, status;
 
-    ViewProgressDialog viewProgressDialog;
+    private ViewProgressDialog viewProgressDialog;
 
     public OrderDetailFragment() {
         // Required empty public constructor
@@ -87,6 +87,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                     Objects.requireNonNull(getArguments().getString("tag")).equals("after_verify")) {
                 parcel_id = getArguments().getInt("parcel_id");
                 tag = getArguments().getString("tag");
+            } else if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("accept_reject_order")) {
+                delivery_id = getArguments().getInt("delivery_id");
+                parcel_id = getArguments().getInt("parcel_id");
+                tag = getArguments().getString("tag");
             } else {
                 parcel_id = getArguments().getInt("parcel_id");
             }
@@ -97,9 +102,15 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         if (tag != null && tag.equals("after_verify")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.VISIBLE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
+        } else if (tag != null && tag.equals("accept_reject_order")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAfterVerify.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.VISIBLE);
         } else {
             btnSendRequest.setVisibility(View.VISIBLE);
             clAfterVerify.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
         }
 
         onClickListener();
@@ -146,12 +157,18 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         etComment = view.findViewById(R.id.etComment);
         btnReject = view.findViewById(R.id.btnReject);
         btnVerify = view.findViewById(R.id.btnVerify);
+        clAcceptRejectOrder = view.findViewById(R.id.clAcceptRejectOrder);
+        etAcceptRejectComment = view.findViewById(R.id.etAcceptRejectComment);
+        btnRejectOrder = view.findViewById(R.id.btnRejectOrder);
+        btnAcceptOrder = view.findViewById(R.id.btnAcceptOrder);
     }
 
     private void onClickListener() {
         btnSendRequest.setOnClickListener(this);
         btnReject.setOnClickListener(this);
         btnVerify.setOnClickListener(this);
+        btnAcceptOrder.setOnClickListener(this);
+        btnRejectOrder.setOnClickListener(this);
     }
 
     private void getOrderDetail() {
@@ -282,8 +299,6 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             tvReceiverAddress.setText(data.getParcelData().getReceiverAddressDetail());
         else
             tvReceiverAddress.setText("-");
-
-        status = data.getParcelData().getStatus();
     }
 
     @Override
@@ -303,14 +318,33 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                     etComment.setError("Please enter your comment here");
                     etComment.requestFocus();
                 } else {
+                    status = "Reject";
                     //TODO API Call
                     sendVerificationStatus();
                 }
                 break;
 
             case R.id.btnVerify:
+                status = "Verify";
                 //TODO API Call
                 sendVerificationStatus();
+                break;
+
+            case R.id.btnRejectOrder:
+                if (TextUtils.isEmpty(etAcceptRejectComment.getText().toString().trim())) {
+                    etAcceptRejectComment.setError("Please enter your rejection reason here");
+                    etAcceptRejectComment.requestFocus();
+                } else {
+                    status = "Rejected";
+                    //TODO API Call
+                    sendOrderRequestStatus();
+                }
+                break;
+
+            case R.id.btnAcceptOrder:
+                status = "Accepted";
+                //TODO API Call
+                sendOrderRequestStatus();
                 break;
         }
     }
@@ -323,6 +357,36 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.sendVerificationStatus(
+                jsonObject
+        );
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
+                                false);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void sendOrderRequestStatus() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("delivery_id", delivery_id);
+        jsonObject.addProperty("status", status);
+        jsonObject.addProperty("rejection_reason", etAcceptRejectComment.getText().toString());
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.sendOrderRequestStatus(
                 jsonObject
         );
         call.enqueue(new Callback<CommonResponse>() {

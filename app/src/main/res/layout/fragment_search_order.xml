@@ -8,9 +8,9 @@
     tools:context=".fragment.SearchOrderFragment">
 
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nestedScrollView4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +45,9 @@
 
             </android.support.constraint.ConstraintLayout>
 
+            <!--this is for filter-->
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/constraintLayout"
+                android:id="@+id/clFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_16sdp"
@@ -228,6 +229,7 @@
 
             </android.support.constraint.ConstraintLayout>
 
+            <!--show filter data-->
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/clOrderList"
                 android:layout_width="match_parent"
@@ -235,7 +237,7 @@
                 android:fontFamily="@font/gotham_light"
                 android:visibility="gone"
                 android:padding="@dimen/_16sdp"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                app:layout_constraintTop_toBottomOf="@+id/clFilter">
 
                 <TextView
                     android:id="@+id/tvResultCount"
