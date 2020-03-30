@@ -16,6 +16,8 @@ public class UserSession {
     private String KEY_JWT_TOKEN = "jwtToken";
     private String KEY_FCM_ID = "fcm_id";
 
+    private String TRAVEL_ID = "travel_id";
+
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
@@ -76,6 +78,15 @@ public class UserSession {
     public void setJWTToken(String token) {
         editor.putString(KEY_JWT_TOKEN, token);
         editor.commit();
+    }
+
+    public void setTravelId(int travel_id) {
+        editor.putString(TRAVEL_ID, String.valueOf(travel_id));
+        editor.commit();
+    }
+
+    public String getTRAVEL_ID(){
+        return pref.getString(TRAVEL_ID, "");
     }
 
     void clearUserSession() {

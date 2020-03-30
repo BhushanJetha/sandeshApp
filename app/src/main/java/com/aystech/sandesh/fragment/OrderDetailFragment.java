@@ -25,6 +25,8 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.FragmentUtil;
+import com.aystech.sandesh.utils.GPSTracker;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
@@ -56,10 +58,13 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     private EditText etComment, etAcceptRejectComment;
     private Button btnSendRequest, btnReject, btnVerify, btnRejectOrder, btnAcceptOrder;
 
-    private int parcel_id, delivery_id;
+    private int parcel_id, delivery_id, travel_id;
+    private double latitude, longitude;
     private String tag, status;
 
     private ViewProgressDialog viewProgressDialog;
+    private UserSession userSession;
+    private GPSTracker gpsTracker;
 
     public OrderDetailFragment() {
         // Required empty public constructor
@@ -77,6 +82,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_detail, container, false);
 
+        gpsTracker = new GPSTracker(context);
+
+        latitude = gpsTracker.getLatitude();
+        longitude = gpsTracker.getLongitude();
+
         orderListFragment = (OrderListFragment) Fragment.instantiate(context,
                 OrderListFragment.class.getName());
         dashboardFragment = (DashboardFragment) Fragment.instantiate(context,
@@ -86,6 +96,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("after_verify")) {
                 parcel_id = getArguments().getInt("parcel_id");
+                travel_id = getArguments().getInt("travel_id");
                 tag = getArguments().getString("tag");
             } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("accept_reject_order")) {
@@ -123,6 +134,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
+        userSession = new UserSession(context);
 
         tvFromCityName = view.findViewById(R.id.tvFromCityName);
         tvToCityName = view.findViewById(R.id.tvToCityName);
@@ -365,8 +377,9 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
-                                false);
+
+                        //TODO API Call
+                        sendCurrentLocation();
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -377,6 +390,42 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
             }
         });
+    }
+
+    private void sendCurrentLocation() {
+        userSession.setTravelId(travel_id);
+
+        latitude = gpsTracker.getLatitude();
+        longitude = gpsTracker.getLongitude();
+
+        if (latitude != 0.0 || longitude != 0.0 || travel_id != 0) {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("travel_id", travel_id);
+            jsonObject.addProperty("lat", latitude);
+            jsonObject.addProperty("long", longitude);
+
+            ApiInterface apiInterface = RetrofitInstance.getClient();
+            Call<CommonResponse> call = apiInterface.sendCurrentLocation(
+                    jsonObject
+            );
+            call.enqueue(new Callback<CommonResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                    if (response.body() != null) {
+                        if (response.body().getStatus()) {
+                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
+                                    false);
+                        } else {
+                            Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                }
+            });
+        }
     }
 
     private void sendOrderRequestStatus() {

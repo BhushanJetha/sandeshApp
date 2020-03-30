@@ -7,13 +7,15 @@ import android.app.PendingIntent;
 import android.content.Intent;
 
 import com.aystech.sandesh.receivers.AlarmReceiver;
+import com.aystech.sandesh.utils.UserSession;
 
 import java.util.Calendar;
 
 public class OnTimeService extends IntentService {
 
-    PendingIntent pendingIntent;
-    AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
+    private AlarmManager alarmManager;
+    private UserSession userSession;
 
     public OnTimeService() {
         super("OnTimeService");
@@ -26,23 +28,29 @@ public class OnTimeService extends IntentService {
 
     @SuppressLint("ShortAlarm")
     private void onExecuteTime() {
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        userSession = new UserSession(this);
 
-        long time;
+        if (userSession.getTRAVEL_ID() != null &&
+                !userSession.getTRAVEL_ID().equals("")) {
+            alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 0);
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+            long time;
 
-        time = (calendar.getTimeInMillis() - (calendar.getTimeInMillis() % 60000));
-        if (System.currentTimeMillis() > time) {
-            if (Calendar.AM_PM == 0)
-                time = time + (1000 * 60 * 60 * 12);
-            else
-                time = time + (1000 * 60 * 60 * 24);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE, 0);
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+            time = (calendar.getTimeInMillis() - (calendar.getTimeInMillis() % 60000));
+            if (System.currentTimeMillis() > time) {
+                if (Calendar.AM_PM == 0)
+                    time = time + (1000 * 60 * 60 * 12);
+                else
+                    time = time + (1000 * 60 * 60 * 24);
+            }
+            int interval = (1 * 60 * 60);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, interval, pendingIntent);
         }
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 10000, pendingIntent);
     }
 }

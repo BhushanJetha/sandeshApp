@@ -34,9 +34,12 @@ public class StartJourneyFragment extends Fragment {
     private Context context;
 
     private OrderListFragment orderListFragment;
+    private TrackYourParcelFragment trackYourParcelFragment;
 
     private RecyclerView rvTraveller;
     private OrderAdapter orderAdapter;
+
+    private String tag;
 
     private ViewProgressDialog viewProgressDialog;
 
@@ -52,8 +55,13 @@ public class StartJourneyFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_start_journey, container, false);
 
+        if (getArguments() != null)
+            tag = getArguments().getString("tag");
+
         orderListFragment = (OrderListFragment) Fragment.instantiate(context,
                 OrderListFragment.class.getName());
+        trackYourParcelFragment = (TrackYourParcelFragment)
+                Fragment.instantiate(context, TrackYourParcelFragment.class.getName());
 
         initView(view);
 
@@ -103,13 +111,23 @@ public class StartJourneyFragment extends Fragment {
 
             @Override
             public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        orderListFragment, R.id.frame_container,
-                        true);
-                Bundle bundle = new Bundle();
-                bundle.putInt("travel_id", searchTravellerModel.getTravelId());
-                bundle.putString("tag", "order_clicked_verify");
-                orderListFragment.setArguments(bundle);
+                if (tag != null && !tag.equals("")) {
+                    if (tag.equals("track_parcel")) {
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                trackYourParcelFragment, R.id.frame_container, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                        trackYourParcelFragment.setArguments(bundle);
+                    }
+                } else {
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            orderListFragment, R.id.frame_container,
+                            true);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                    bundle.putString("tag", "order_clicked_verify");
+                    orderListFragment.setArguments(bundle);
+                }
             }
 
             @Override

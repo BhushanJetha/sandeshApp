@@ -439,7 +439,7 @@ public class OrderListFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-                Log.e(TAG, "onFailure: "+t.getLocalizedMessage());
+                Log.e(TAG, "onFailure: " + t.getLocalizedMessage());
                 viewProgressDialog.hideDialog();
             }
         });
@@ -553,8 +553,8 @@ public class OrderListFragment extends Fragment {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         if (tag.equals("order_clicked_verify_end_journey")) {
-                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), endJourneyDetailFragment, R.id.frame_container,
-                                    false);
+                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                    endJourneyDetailFragment, R.id.frame_container, false);
                             Bundle bundle = new Bundle();
                             bundle.putInt("parcel_id", parcel_id);
                             bundle.putInt("travel_id", travel_id);
@@ -565,6 +565,7 @@ public class OrderListFragment extends Fragment {
                                     orderDetailFragment, R.id.frame_container, false);
                             Bundle bundle = new Bundle();
                             bundle.putInt("parcel_id", parcel_id);
+                            bundle.putInt("travel_id", travel_id); //this for to send current location
                             bundle.putString("tag", "after_verify");
                             orderDetailFragment.setArguments(bundle);
                         }

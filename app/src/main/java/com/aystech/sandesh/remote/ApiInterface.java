@@ -173,4 +173,10 @@ public interface ApiInterface {
 
     @POST("api/sendComplaint")
     Call<CommonResponse> sendComplaint(@Body JsonObject jsonObject);
+
+    @POST("api/sendCurrentLocation")
+    Call<CommonResponse> sendCurrentLocation(@Body JsonObject jsonObject);
+
+    @POST("api/trackParcel")
+    Call<OrderDetailResponseModel> trackParcel(@Body JsonObject jsonObject);
 }

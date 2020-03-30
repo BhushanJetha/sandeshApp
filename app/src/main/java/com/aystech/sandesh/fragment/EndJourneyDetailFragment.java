@@ -27,6 +27,7 @@ import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.FragmentUtil;
+import com.aystech.sandesh.utils.UserSession;
 import com.google.gson.JsonObject;
 
 import java.io.ByteArrayOutputStream;
@@ -57,6 +58,8 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
     private String tag;
     private int parcel_id, travel_id, delivery_id;
 
+    private UserSession userSession;
+
     public EndJourneyDetailFragment() {
         // Required empty public constructor
     }
@@ -73,7 +76,7 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_end_journey_detail, container, false);
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             parcel_id = getArguments().getInt("parcel_id");
             travel_id = getArguments().getInt("travel_id");
             delivery_id = getArguments().getInt("delivery_id");
@@ -89,6 +92,8 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
     }
 
     private void initView(View view) {
+        userSession = new UserSession(context);
+
         gpNewSelfie = view.findViewById(R.id.gpNewSelfie);
         imgNewSelfie = view.findViewById(R.id.imgNewSelfie);
         imgNewSelfie.setImageResource(R.drawable.ic_parcel);
@@ -287,6 +292,11 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                        //after end journey travel_id should be removed from internal storage
+                        //caused for next order new travel_id should be managed.
+                        userSession.setTravelId(0);
+
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
                                 false);
                     } else {

@@ -29,7 +29,6 @@ public class DashboardFragment extends Fragment {
     private PlanTravelFragment planTravelFragment;
     private SearchTravelerFragment searchTravelerFragment;
     private SendParcelFragment sendParcelFragment;
-    private TrackYourParcelFragment trackYourParcelFragment;
     private StartJourneyFragment startJourneyFragment;
     private EndJourneyFragment endJourneyFragment;
     private ComplaintDisputeFragment complaintDisputeFragment;
@@ -66,8 +65,6 @@ public class DashboardFragment extends Fragment {
                 Fragment.instantiate(context, SearchTravelerFragment.class.getName());
         sendParcelFragment = (SendParcelFragment)
                 Fragment.instantiate(context, SendParcelFragment.class.getName());
-        trackYourParcelFragment = (TrackYourParcelFragment)
-                Fragment.instantiate(context, TrackYourParcelFragment.class.getName());
         startJourneyFragment = (StartJourneyFragment)
                 Fragment.instantiate(context, StartJourneyFragment.class.getName());
         endJourneyFragment = (EndJourneyFragment)
@@ -163,7 +160,10 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        trackYourParcelFragment, R.id.frame_container, true);
+                        startJourneyFragment, R.id.frame_container, true);
+                Bundle bundle = new Bundle();
+                bundle.putString("tag","track_parcel");
+                startJourneyFragment.setArguments(bundle);
             }
         });
 
