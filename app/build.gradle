@@ -41,6 +41,9 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'
 
+    //firebase
+    implementation 'com.google.firebase:firebase-messaging:17.1.0'
+
     // image
     implementation 'com.github.bumptech.glide:glide:4.9.0'
 
@@ -48,3 +51,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+apply plugin: 'com.google.gms.google-services'

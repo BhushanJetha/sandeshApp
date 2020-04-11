@@ -320,7 +320,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
-                    android:entries="@array/delivery_option"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvDeliveryOptionTitle" />
@@ -343,7 +342,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
-                    android:entries="@array/nature_of_good"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvNatureGoodsTitle" />
@@ -383,7 +381,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
-                    android:entries="@array/nature_of_good"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvQualityTitle" />
@@ -428,7 +425,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:drawSelectorOnTop="true"
-                    android:entries="@array/type_of_pkg"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@id/tvPackagingTitle" />

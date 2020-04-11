@@ -23,6 +23,7 @@ import com.aystech.sandesh.fragment.HistoryFragment;
 import com.aystech.sandesh.fragment.MobileVerificationFragment;
 import com.aystech.sandesh.fragment.NotificationFragment;
 import com.aystech.sandesh.fragment.ReferFriendFragment;
+import com.aystech.sandesh.fragment.StartJourneyFragment;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.UserSession;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolBar;
     ConstraintLayout clDashboard, clOther;
     ConstraintLayout bottomBar;
-    Group historyGroup, contactUsGroup, faqGroup, referFriendGroup;
+    Group historyGroup, contactUsGroup, faqGroup, referFriendGroup, nominatePersonGroup;
     ImageView imgHistory, imgContactUs, imgFAQ, imgReferFriend, imgNominatePerson;
     TextView tvHistory, tvContactUs, tvFAQ, tvReferFriend, tvNominatePerson;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     HistoryFragment historyFragment;
     ContactUsFragment contactUsFragment;
     ReferFriendFragment referFriendFragment;
+    StartJourneyFragment startJourneyFragment;
 
     private int counter = 0;
 
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         historyFragment = (HistoryFragment) Fragment.instantiate(this, HistoryFragment.class.getName());
         contactUsFragment = (ContactUsFragment) Fragment.instantiate(this, ContactUsFragment.class.getName());
         referFriendFragment = (ReferFriendFragment) Fragment.instantiate(this, ReferFriendFragment.class.getName());
+        startJourneyFragment = (StartJourneyFragment) Fragment.instantiate(this, StartJourneyFragment.class.getName());
 
         if (Constants.fragmentType.equals("Dashboard")) {
             FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
@@ -103,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         referFriendGroup = findViewById(R.id.referFriendGroup);
         imgReferFriend = findViewById(R.id.imgReferFriend);
         tvReferFriend = findViewById(R.id.tvReferFriend);
+        nominatePersonGroup = findViewById(R.id.nominatePersonGroup);
+        imgNominatePerson = findViewById(R.id.imgNominatePerson);
+        tvNominatePerson = findViewById(R.id.tvNominatePerson);
     }
 
     private void onClickListener() {
@@ -124,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         referFriendGroup.setOnClickListener(this);
         imgReferFriend.setOnClickListener(this);
         tvReferFriend.setOnClickListener(this);
+        nominatePersonGroup.setOnClickListener(this);
+        imgNominatePerson.setOnClickListener(this);
+        tvNominatePerson.setOnClickListener(this);
     }
 
     public void setUpToolbar(boolean isToolBar, boolean isDashboard, String toolbarTitle,
@@ -198,6 +207,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tvReferFriend:
                 FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), referFriendFragment, R.id.frame_container,
                         true);
+                break;
+
+            case R.id.nominatePersonGroup:
+            case R.id.imgNominatePerson:
+            case R.id.tvNominatePerson:
+                FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), startJourneyFragment, R.id.frame_container,
+                        true);
+                Bundle bundle = new Bundle();
+                bundle.putString("tag", "nominate_person");
+                startJourneyFragment.setArguments(bundle);
                 break;
         }
     }

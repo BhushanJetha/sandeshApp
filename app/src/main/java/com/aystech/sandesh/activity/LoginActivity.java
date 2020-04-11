@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 strPassword = etPassword.getText().toString();
 
                 if (!strUserName.isEmpty() && !strPassword.isEmpty()) {
+                    //TODO API Call
                     doLoginAPICall();
                 } else {
                     Toast.makeText(LoginActivity.this, "Please enter user name and password !!", Toast.LENGTH_SHORT).show();
@@ -172,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("mobile_no", strUserName);
         jsonObject.addProperty("password", strPassword);
-        jsonObject.addProperty("fcm_id", "");
+        jsonObject.addProperty("fcm_id", userSession.getFCMId());
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<LoginResponseModel> call = apiInterface.doLogin(

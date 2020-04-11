@@ -18,6 +18,9 @@ public class UserSession {
 
     private String TRAVEL_ID = "travel_id";
 
+    private String HOURS = "hours";
+    private String MINUTE = "minute";
+
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
@@ -85,8 +88,35 @@ public class UserSession {
         editor.commit();
     }
 
-    public String getTRAVEL_ID(){
+    public String getTRAVEL_ID() {
         return pref.getString(TRAVEL_ID, "");
+    }
+
+    public void setHours(int hours) {
+        editor.putString(HOURS, String.valueOf(hours));
+        editor.commit();
+    }
+
+    public String getHOURS() {
+        return pref.getString(HOURS, "");
+    }
+
+    public void setMinute(int minute) {
+        editor.putString(MINUTE, String.valueOf(minute));
+        editor.commit();
+    }
+
+    public String getMINUTE() {
+        return pref.getString(MINUTE, "");
+    }
+
+    public void setFCMId(String s) {
+        editor.putString(KEY_FCM_ID, s);
+        editor.commit();
+    }
+
+    public String getFCMId() {
+        return pref.getString(KEY_FCM_ID, "");
     }
 
     void clearUserSession() {

@@ -38,6 +38,7 @@ import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +52,7 @@ public class OrderListFragment extends Fragment {
     private DashboardFragment dashboardFragment;
     private OrderDetailFragment orderDetailFragment;
     private EndJourneyDetailFragment endJourneyDetailFragment;
+    private TravellerDetailFragment travellerDetailFragment;
 
     private RecyclerView rvOrder;
     private OrderAdapter orderAdapter;
@@ -84,6 +86,8 @@ public class OrderListFragment extends Fragment {
                 OrderDetailFragment.class.getName());
         endJourneyDetailFragment = (EndJourneyDetailFragment) Fragment.instantiate(context,
                 EndJourneyDetailFragment.class.getName());
+        travellerDetailFragment = (TravellerDetailFragment) Fragment.instantiate(context,
+                TravellerDetailFragment.class.getName());
 
         if (getArguments() != null) {
             if (getArguments().getInt("parcel_id") != 0) {
@@ -94,26 +98,48 @@ public class OrderListFragment extends Fragment {
                 travel_id = getArguments().getInt("travel_id");
                 tag = getArguments().getString("tag");
             }
+            if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("upcoming_orders")) {
+                tag = getArguments().getString("tag");
+            }
+            if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("upcoming_rides")) {
+                tag = getArguments().getString("tag");
+            }
         }
 
         initView(view);
 
-        if (tag.equals("traveller")) { //this is for traveller detail
-            //TODO API Call
-            getMyOrderList();
-            tvScreenTitle.setText("My Order List");
-        } else if (tag.equals("order")) { //this is for order detail
-            //TODO API Call
-            getMyTravellerList();
-            tvScreenTitle.setText("My Traveller List");
-        } else if (tag.equals("order_clicked_verify") || tag.equals("order_clicked_verify_end_journey")) { //this is for start journey
-            //TODO API Call
-            getMyAcceptedOrderList();
-            tvScreenTitle.setText("Accepted Order List");
-        } else if (tag.equals("order_clicked_accept_reject")) { //this is for order list
-            //TODO API Call
-            getMyRequestedOrders();
-            tvScreenTitle.setText("My Requested Orders List");
+        switch (tag) {
+            case "traveller":
+            case "upcoming_orders":  //this is for traveller detail
+                //TODO API Call
+                getMyOrderList();
+                if (tag.equals("traveller"))
+                    tvScreenTitle.setText("My Order List");
+                else
+                    tvScreenTitle.setText("Upcoming Orders");
+                break;
+            case "order":
+            case "upcoming_rides":  //this is for order detail
+                //TODO API Call
+                getMyTravellerList();
+                if (tag.equals("order"))
+                    tvScreenTitle.setText("My Traveller List");
+                else
+                    tvScreenTitle.setText("Upcoming Rides");
+                break;
+            case "order_clicked_verify":
+            case "order_clicked_verify_end_journey":  //this is for start journey
+                //TODO API Call
+                getMyAcceptedOrderList();
+                tvScreenTitle.setText("Accepted Order List");
+                break;
+            case "order_clicked_accept_reject":  //this is for order list
+                //TODO API Call
+                getMyRequestedOrders();
+                tvScreenTitle.setText("My Requested Orders List");
+                break;
         }
 
         return view;
@@ -158,21 +184,30 @@ public class OrderListFragment extends Fragment {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                     parcel_id = searchOrderModel.getParcelId();
-                    switch (searchOrderModel.getDeliveryOption()) {
-                        case "Door to Door Service":
-                            estimate_amt = searchOrderModel.getD_to_d();
-                            break;
-                        case "Senders place to Travelers place":
-                            estimate_amt = searchOrderModel.getD_to_c();
-                            break;
-                        case "Travelers place to Travelers place":
-                            estimate_amt = searchOrderModel.getC_to_c();
-                            break;
-                        case "Travelers place to Receivers place":
-                            estimate_amt = searchOrderModel.getC_to_d();
-                            break;
+                    if (tag.equals("upcoming_orders")) {
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                orderDetailFragment, R.id.frame_container, false);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("parcel_id", searchOrderModel.getParcelId());
+                        bundle.putString("tag", "upcoming_orders");
+                        orderDetailFragment.setArguments(bundle);
+                    } else {
+                        switch (searchOrderModel.getDeliveryOption()) {
+                            case "Door to Door Service":
+                                estimate_amt = searchOrderModel.getD_to_d();
+                                break;
+                            case "Senders place to Travelers place":
+                                estimate_amt = searchOrderModel.getD_to_c();
+                                break;
+                            case "Travelers place to Travelers place":
+                                estimate_amt = searchOrderModel.getC_to_c();
+                                break;
+                            case "Travelers place to Receivers place":
+                                estimate_amt = searchOrderModel.getC_to_d();
+                                break;
+                        }
+                        openDialog(); //bindMyOrderDataToRV ----> onOrderItemClicked
                     }
-                    openDialog(); //bindMyOrderDataToRV ----> onOrderItemClicked
                 }
 
                 @Override
@@ -239,21 +274,30 @@ public class OrderListFragment extends Fragment {
                 @Override
                 public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                     travel_id = searchTravellerModel.getTravelId();
-                    switch (searchTravellerModel.getDeliveryOption()) {
-                        case "Door to Door Service":
-                            estimate_amt = searchTravellerModel.getD_to_d();
-                            break;
-                        case "Senders place to Travelers place":
-                            estimate_amt = searchTravellerModel.getD_to_c();
-                            break;
-                        case "Travelers place to Travelers place":
-                            estimate_amt = searchTravellerModel.getC_to_c();
-                            break;
-                        case "Travelers place to Receivers place":
-                            estimate_amt = searchTravellerModel.getC_to_d();
-                            break;
+                    if (tag.equals("upcoming_rides")) {
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                travellerDetailFragment, R.id.frame_container, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("travel_id", travel_id);
+                        bundle.putString("tag", "upcoming_rides");
+                        travellerDetailFragment.setArguments(bundle);
+                    } else {
+                        switch (searchTravellerModel.getDeliveryOption()) {
+                            case "Door to Door Service":
+                                estimate_amt = searchTravellerModel.getD_to_d();
+                                break;
+                            case "Senders place to Travelers place":
+                                estimate_amt = searchTravellerModel.getD_to_c();
+                                break;
+                            case "Travelers place to Travelers place":
+                                estimate_amt = searchTravellerModel.getC_to_c();
+                                break;
+                            case "Travelers place to Receivers place":
+                                estimate_amt = searchTravellerModel.getC_to_d();
+                                break;
+                        }
+                        openDialog(); //bindMyTravellerDataToRV ----> onTravellerItemClicked
                     }
-                    openDialog(); //bindMyTravellerDataToRV ----> onTravellerItemClicked
                 }
 
                 @Override
@@ -428,8 +472,8 @@ public class OrderListFragment extends Fragment {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
-                                false);
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                dashboardFragment, R.id.frame_container, false);
                     } else if (response.body().getBalance() > 0.0) { //Insufficient wallet balance.
                         addAmountInWalletDialog(response.body().getBalance());
                     } else

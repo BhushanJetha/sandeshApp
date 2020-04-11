@@ -37,8 +37,9 @@ public class OnTimeService extends IntentService {
             long time;
 
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 23);
-            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(userSession.getHOURS()));
+            calendar.set(Calendar.MINUTE, Integer.parseInt(userSession.getMINUTE()));
+
             Intent intent = new Intent(this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 

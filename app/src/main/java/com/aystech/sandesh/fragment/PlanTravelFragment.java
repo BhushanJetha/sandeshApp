@@ -27,12 +27,11 @@ import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
-import com.aystech.sandesh.model.WeightModel;
+import com.aystech.sandesh.model.TravelDetailModel;
 import com.aystech.sandesh.model.WeightResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Uitility;
-import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
@@ -52,6 +51,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private StateResponseModel stateResponseModel;
     private CityResponseModel cityResponseModel;
 
+    private TravelDetailModel travelDetailModel;
+
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private ImageView ingStartDate, ingStartTime;
     private EditText etStartDate, etStartTime;
@@ -63,14 +64,18 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private Button btnSubmit;
     private TextView btnCancel;
 
+    private ArrayAdapter<String> adapterDeliveryOption;
+    private ArrayAdapter<String> adapterModeTravel;
+
+    private String tag, edit;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
 
-    private UserSession userSession;
     private ViewProgressDialog viewProgressDialog;
 
     private String deliveryOption, modeOfTravel, strStartTime, strEndTime, strStartDate, strEndDate, strFromPincode,
-            strToPincode, strAcceptableLength, strAcceptableBreadth, strAcceptableHeight, strVehicleNo, strOtherDetail;
+            strToPincode, strAcceptableLength, strAcceptableBreadth, strAcceptableHeight, strVehicleNo, strOtherDetail,
+            strWeight;
 
     public PlanTravelFragment() {
         // Required empty public constructor
@@ -88,15 +93,24 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_plan_travel, container, false);
 
+        if (getArguments() != null) {
+            travelDetailModel = getArguments().getParcelable("travel_detail");
+            edit = getArguments().getString("tag");
+        }
+
         initView(view);
 
         onClickListener();
+
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit"))
+                editPlanTravel();
+        }
 
         return view;
     }
 
     private void initView(View view) {
-        userSession = new UserSession(context);
         viewProgressDialog = ViewProgressDialog.getInstance();
 
         spinnerFromState = view.findViewById(R.id.spinnerFromState);
@@ -123,6 +137,66 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         etEndTime = view.findViewById(R.id.etEndTime);
         btnCancel = view.findViewById(R.id.btnCancel);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+
+        String[] delivery_option_array = getResources().getStringArray(R.array.delivery_option_array);
+        adapterDeliveryOption =
+                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, delivery_option_array);
+        adapterDeliveryOption.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerDeliveryOption.setAdapter(adapterDeliveryOption);
+
+        String[] mode_of_travel_array = getResources().getStringArray(R.array.mode_of_travel);
+        adapterModeTravel =
+                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, mode_of_travel_array);
+        adapterModeTravel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerVehicleType.setAdapter(adapterModeTravel);
+    }
+
+    private void editPlanTravel() {
+        etToPincode.setText(travelDetailModel.getTravelPlan().getToPincode());
+        etFromPincode.setText(travelDetailModel.getTravelPlan().getFromPincode());
+        etStartDate.setText(travelDetailModel.getTravelPlan().getStartDate());
+        etStartTime.setText(travelDetailModel.getTravelPlan().getStartTime());
+        etEndDate.setText(travelDetailModel.getTravelPlan().getEndDate());
+        etEndTime.setText(travelDetailModel.getTravelPlan().getEndTime());
+        etAcceptableLength.setText(travelDetailModel.getTravelPlan().getAcceptableVolumeLength());
+        etAcceptableBreadth.setText(travelDetailModel.getTravelPlan().getAcceptableVolumeBreadth());
+        etAcceptableHeight.setText(travelDetailModel.getTravelPlan().getAcceptableVolumeWidth());
+        etVehicleTrainNo.setText(travelDetailModel.getTravelPlan().getVehicleTrainNumber());
+        etOtherDetails.setText(travelDetailModel.getTravelPlan().getOtherDetail());
+        deliveryOption = travelDetailModel.getTravelPlan().getDeliveryOption();
+        strWeight = travelDetailModel.getTravelPlan().getPreferredWeight();
+        modeOfTravel = travelDetailModel.getTravelPlan().getModeOfTravel();
+        if (deliveryOption != null) {
+            int spinnerPosition = adapterDeliveryOption.getPosition(deliveryOption);
+            spinnerDeliveryOption.setSelection(spinnerPosition);
+        }
+        if (modeOfTravel != null) {
+            int spinnerPosition = adapterModeTravel.getPosition(modeOfTravel);
+            spinnerVehicleType.setSelection(spinnerPosition);
+        }
+
+        btnSubmit.setText("Update");
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                strFromPincode = etFromPincode.getText().toString();
+                strToPincode = etToPincode.getText().toString();
+                strStartDate = etStartDate.getText().toString();
+                strStartTime = etStartTime.getText().toString();
+                strEndDate = etEndDate.getText().toString();
+                strEndTime = etEndTime.getText().toString();
+                strAcceptableLength = etAcceptableLength.getText().toString();
+                strAcceptableBreadth = etAcceptableBreadth.getText().toString();
+                strAcceptableHeight = etAcceptableHeight.getText().toString();
+                strVehicleNo = etVehicleTrainNo.getText().toString();
+                strOtherDetail = etOtherDetails.getText().toString();
+
+                //TODO API Call
+                updateMyTravel(travelDetailModel.getTravelPlan().getTravelId());
+            }
+        });
     }
 
     private void onClickListener() {
@@ -187,6 +261,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 strVehicleNo = etVehicleTrainNo.getText().toString();
                 strOtherDetail = etOtherDetails.getText().toString();
 
+                //TODO API Call
                 planTravel();
                 break;
 
@@ -219,6 +294,53 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.planTravel(
+                jsonObject
+        );
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                    } else
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void updateMyTravel(Integer travelId) {
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("travel_id", travelId);
+        jsonObject.addProperty("from_city_id", fromCityId);
+        jsonObject.addProperty("from_pincode", strFromPincode);
+        jsonObject.addProperty("to_city_id", toCityId);
+        jsonObject.addProperty("to_pincode", strToPincode);
+        jsonObject.addProperty("start_date", strStartDate);
+        jsonObject.addProperty("start_time", strStartTime);
+        jsonObject.addProperty("end_date", strEndDate);
+        jsonObject.addProperty("end_time", strEndTime);
+        jsonObject.addProperty("delivery_option", deliveryOption);
+        jsonObject.addProperty("preferred_weight", weight_id);
+        jsonObject.addProperty("acceptable_volume_length", strAcceptableLength);
+        jsonObject.addProperty("acceptable_volume_breadth", strAcceptableBreadth);
+        jsonObject.addProperty("acceptable_volume_width", strAcceptableHeight);
+        jsonObject.addProperty("mode_of_travel", modeOfTravel);
+        jsonObject.addProperty("vehicle_number", strVehicleNo);
+        jsonObject.addProperty("other_detail", strOtherDetail);
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.updateMyTravel(
                 jsonObject
         );
         call.enqueue(new Callback<CommonResponse>() {
@@ -314,7 +436,12 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         weightResponseModel = response.body();
-                        bindStateDataToSpinner(response.body().getData());
+
+                        ArrayList<String> weightArrayList = new ArrayList<>();
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            weightArrayList.add(response.body().getData().get(i).getWeight());
+                            bindStateDataToSpinner(weightArrayList);
+                        }
                     } else {
                         Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -327,14 +454,22 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         });
     }
 
-    private void bindStateDataToSpinner(List<WeightModel> data) {
+    private void bindStateDataToSpinner(ArrayList<String> data) {
         //Creating the ArrayAdapter instance having the country list
-        ArrayAdapter<WeightModel> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
+        ArrayAdapter<String> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
                 data);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spinnerPreferredWeight.setAdapter(aa);
 
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit")) {
+                if (strWeight != null) {
+                    int spinnerPosition = aa.getPosition(strWeight);
+                    spinnerPreferredWeight.setSelection(spinnerPosition);
+                }
+            }
+        }
         spinnerPreferredWeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();

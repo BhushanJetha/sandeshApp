@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,7 +28,9 @@ import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.FragmentUtil;
+import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.UserSession;
+import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
 import java.io.ByteArrayOutputStream;
@@ -37,6 +40,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,20 +51,21 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
 
     private Context context;
 
-    DashboardFragment dashboardFragment;
+    private DashboardFragment dashboardFragment;
 
-    Group gpNewSelfie, gpReceivedParcel;
-    ImageView imgNewSelfie, imgReceivedParcel;
-    Button btnEndJourney;
+    private Group gpNewSelfie, gpReceivedParcel;
+    private ImageView imgNewSelfie, imgReceivedParcel;
+    private Button btnEndJourney;
 
-    Uri picUri;
-    Bitmap myBitmap;
+    private Uri picUri;
+    private Bitmap myBitmap;
 
-    private String strSelfieBase64, strParcelBase64;
+    private String strSelfieFilePath, strParcelFilePath;
     private String tag;
-    private int parcel_id, travel_id, delivery_id;
+    private int parcelId, travelId, deliveryId;
 
     private UserSession userSession;
+    private ViewProgressDialog viewProgressDialog;
 
     public EndJourneyDetailFragment() {
         // Required empty public constructor
@@ -77,10 +84,11 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
         View view = inflater.inflate(R.layout.fragment_end_journey_detail, container, false);
 
         if (getArguments() != null) {
-            parcel_id = getArguments().getInt("parcel_id");
-            travel_id = getArguments().getInt("travel_id");
-            delivery_id = getArguments().getInt("delivery_id");
+            parcelId = getArguments().getInt("parcel_id");
+            travelId = getArguments().getInt("travel_id");
+            deliveryId = getArguments().getInt("delivery_id");
         }
+
         dashboardFragment = (DashboardFragment) Fragment.instantiate(context,
                 DashboardFragment.class.getName());
 
@@ -93,6 +101,7 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
 
     private void initView(View view) {
         userSession = new UserSession(context);
+        viewProgressDialog = ViewProgressDialog.getInstance();
 
         gpNewSelfie = view.findViewById(R.id.gpNewSelfie);
         imgNewSelfie = view.findViewById(R.id.imgNewSelfie);
@@ -135,160 +144,86 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
 
     private void gotoSelectPicture(String type) {
         tag = type;
-        startActivityForResult(getPickImageChooserIntent(), 200);
-    }
-
-    private Intent getPickImageChooserIntent() {
-        // Determine Uri of camera image to save.
-        Uri outputFileUri = getCaptureImageOutputUri();
-
-        List<Intent> allIntents = new ArrayList<>();
-
-        // collect all camera intents
-        Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        List<ResolveInfo> listCam = context.getPackageManager().queryIntentActivities(captureIntent, 0);
-        for (ResolveInfo res : listCam) {
-            Intent intent = new Intent(captureIntent);
-            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
-            intent.setPackage(res.activityInfo.packageName);
-            if (outputFileUri != null) {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-            }
-            allIntents.add(intent);
-        }
-
-        // collect all gallery intents
-        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        List<ResolveInfo> listGallery = context.getPackageManager().queryIntentActivities(galleryIntent, 0);
-        for (ResolveInfo res : listGallery) {
-            Intent intent = new Intent(galleryIntent);
-            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
-            intent.setPackage(res.activityInfo.packageName);
-            allIntents.add(intent);
-        }
-
-        Intent mainIntent = allIntents.get(allIntents.size() - 1);
-        for (Intent intent : allIntents) {
-            if (Objects.requireNonNull(intent.getComponent()).getClassName().equals("com.android.documentsui.DocumentsActivity")) {
-                mainIntent = intent;
-                break;
-            }
-        }
-        allIntents.remove(mainIntent);
-
-        // Create a chooser from the main intent
-        Intent chooserIntent = Intent.createChooser(mainIntent, "Select source");
-
-        // Add all other intents
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, allIntents.toArray(new Parcelable[allIntents.size()]));
-
-        return chooserIntent;
-    }
-
-    /**
-     * Get URI to image received from capture by camera.
-     */
-    private Uri getCaptureImageOutputUri() {
-        Uri outputFileUri = null;
-        File getImage = context.getExternalCacheDir();
-        if (getImage != null) {
-            outputFileUri = Uri.fromFile(new File(getImage.getPath(), "profile.png"));
-        }
-        return outputFileUri;
+        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context), 200);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap bitmap;
         if (resultCode == Activity.RESULT_OK) {
-            if (getPickImageResultUri(data) != null) {
-                picUri = getPickImageResultUri(data);
+            if (ImageSelectionMethods.getPickImageResultUri(context, data) != null) {
+                picUri = ImageSelectionMethods.getPickImageResultUri(context, data);
+                if (tag.equals("selfie")) {
+                    strSelfieFilePath = ImageSelectionMethods.getPath(context, picUri);
+
+                    if (strSelfieFilePath.equals("Not found")) {
+                        strSelfieFilePath = picUri.getPath();
+                    }
+                } else if (tag.equals("parcel")) {
+                    strParcelFilePath = ImageSelectionMethods.getPath(context, picUri);
+
+                    if (strParcelFilePath.equals("Not found")) {
+                        strParcelFilePath = picUri.getPath();
+                    }
+                }
 
                 try {
                     myBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), picUri);
-                    myBitmap = getResizedBitmap(myBitmap, 500);
+                    myBitmap = ImageSelectionMethods.getResizedBitmap(myBitmap, 500);
 
                     if (tag.equals("selfie")) {
-                        strSelfieBase64 = getStringImage(myBitmap);
                         imgNewSelfie.setImageBitmap(myBitmap);
                     } else if (tag.equals("parcel")) {
-                        strParcelBase64 = getStringImage(myBitmap);
                         imgReceivedParcel.setImageBitmap(myBitmap);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else {
-                bitmap = (Bitmap) data.getExtras().get("data");
-                myBitmap = bitmap;
-
-                if (tag.equals("selfie")) {
-                    strSelfieBase64 = getStringImage(myBitmap);
-                    imgNewSelfie.setImageBitmap(myBitmap);
-                } else if (tag.equals("parcel")) {
-                    strParcelBase64 = getStringImage(myBitmap);
-                    imgReceivedParcel.setImageBitmap(myBitmap);
-                }
             }
         }
     }
 
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        float bitmapRatio = (float) width / (float) height;
-        if (bitmapRatio > 0) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true);
-    }
-
-    /**
-     * Get the URI of the selected image from {@link #getPickImageChooserIntent()}.<br />
-     * Will return the correct URI for camera and gallery image.
-     *
-     * @param data the returned data of the activity result
-     */
-    public Uri getPickImageResultUri(Intent data) {
-        boolean isCamera = true;
-        if (data != null) {
-            String action = data.getAction();
-            isCamera = action != null && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
-        }
-
-        return isCamera ? getCaptureImageOutputUri() : data.getData();
-    }
-
-    public String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
-        byte[] imageBytes = outputStream.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
-    }
-
     private void endJourney() {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("travel_id", travel_id);
-        jsonObject.addProperty("parcel_id", parcel_id);
-        jsonObject.addProperty("delivery_id", delivery_id);
-        jsonObject.addProperty("parcel_picture", strParcelBase64);
-        jsonObject.addProperty("selfie_picture", strSelfieBase64);
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        RequestBody travel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(travelId));
+        RequestBody parcel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(parcelId));
+        RequestBody delivery_id = RequestBody.create(MultipartBody.FORM, String.valueOf(deliveryId));
+
+        MultipartBody.Part parcel_pic_body;
+        if (strParcelFilePath != null && !strParcelFilePath.equals("")) {
+            File file = new File(strParcelFilePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", "", requestBody);
+        }
+
+        MultipartBody.Part selfie_pic_body;
+        if (strSelfieFilePath != null && !strSelfieFilePath.equals("")) {
+            File file = new File(strSelfieFilePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            selfie_pic_body = MultipartBody.Part.createFormData("selfie_pic", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            selfie_pic_body = MultipartBody.Part.createFormData("selfie_pic", "", requestBody);
+        }
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.endJourney(
-                jsonObject
+                travel_id,
+                parcel_id,
+                delivery_id,
+                parcel_pic_body,
+                selfie_pic_body
         );
         call.enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -296,6 +231,8 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
                         //after end journey travel_id should be removed from internal storage
                         //caused for next order new travel_id should be managed.
                         userSession.setTravelId(0);
+                        userSession.setHours(0);
+                        userSession.setMinute(0);
 
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
                                 false);
@@ -307,6 +244,7 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
 
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
             }
         });
     }

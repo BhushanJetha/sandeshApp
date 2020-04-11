@@ -246,6 +246,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                             true);
                     Bundle bundle = new Bundle();
                     bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                    bundle.putString("tag", "normal");
                     travellerDetailFragment.setArguments(bundle);
                 }
 

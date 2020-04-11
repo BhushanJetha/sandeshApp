@@ -119,6 +119,13 @@ public class VerifyOTPFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 viewProgressDialog.hideDialog();
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Uitility.showToast(getActivity(), response.body().getMessage());
+                    } else {
+                        Uitility.showToast(getActivity(), response.body().getMessage());
+                    }
+                }
             }
 
             @Override
@@ -146,6 +153,7 @@ public class VerifyOTPFragment extends Fragment {
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
+                        Uitility.showToast(getActivity(), response.body().getMessage());
                         Intent i = null;
                         if (Constants.userType.equals("individual")) {
                             i = new Intent(getActivity(), IndividualRegistrationActivity.class);

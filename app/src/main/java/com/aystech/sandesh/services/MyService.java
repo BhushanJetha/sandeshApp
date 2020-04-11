@@ -58,6 +58,16 @@ public class MyService extends IntentService {
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
+
+                        //after send current location we need update time by 1 in hours
+                        //here we are doing this.
+                        if (Integer.parseInt(userSession.getHOURS()) < 23)
+                            userSession.setHours((Integer.parseInt(userSession.getHOURS()) + 1));
+                        else
+                            userSession.setHours(1);
+
+                        userSession.setMinute(Integer.parseInt(userSession.getMINUTE()));
+
                         // successfully finished
                         result = Activity.RESULT_OK;
 

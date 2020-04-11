@@ -3,21 +3,17 @@ package com.aystech.sandesh.fragment;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,23 +39,26 @@ import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
-import com.aystech.sandesh.model.WeightModel;
+import com.aystech.sandesh.model.TravelDetailModel;
 import com.aystech.sandesh.model.WeightResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.AppController;
+import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
-import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,38 +67,46 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
     private Context context;
 
+    private TravelDetailModel travelDetailModel;
     private WeightResponseModel weightResponseModel;
     private StateResponseModel stateResponseModel;
     private CityResponseModel cityResponseModel;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
-    EditText etFromPincode, etToPincode, etGoodsDescription,
-            etGoodsValue, etReceiverName, etReceiverMobileNo, etReceiverAddress;
+    private EditText etFromPincode, etToPincode, etGoodsDescription,
+            etGoodsValue, etReceiverName, etReceiverMobileNo, etReceiverAddress,
+            etStartDate, etStartTime, etEndDate, etEndTime;
     private ImageView ingStartDate, ingStartTime;
-    private EditText etStartDate, etStartTime;
     private ImageView ingEndDate, ingEndTime;
     private Group gpInvoice, gpParcel;
     private ImageView imgInvoice, imgParcel;
-    private EditText etEndDate, etEndTime;
     private Spinner spinnerDeliveryOption, spinnerNatureGoods, spinnerQuality, spinnerWeight, spinnerPackaging;
     private RadioGroup rgOwnership, rgHazardous, rgProhibited, rgFraglle, rgFlamableToxicExplosive;
+    private RadioButton rbCommercial, rbNonCommercial, rbHazardousYes, rbHazardousNo, rbProhibitedYes,
+            rbProhibitedNo, rbFraglleYes, rbFraglleNo, rbFlamableToxicExplosiveYes, rbFlamableToxicExplosiveNo;
     private Button btnSubmit;
     private TextView btnCancel;
     private CheckBox cbTermsCondition;
 
-    private String deliveryOption, natureOfGoods, quality, packaging, ownership, strFromPincode, strtoPincode,
+    private ArrayAdapter<String> adapterDeliveryOption;
+    private ArrayAdapter<String> adapterNatureOfGoods;
+    private ArrayAdapter<String> adapterQuality;
+    private ArrayAdapter<String> adapterTypeOfPkg;
+
+    private String deliveryOption, natureOfGoods, strQuality, strPackaging, strOwnership, strFromPincode, strtoPincode,
             strStartDate, strStartTime, strEndDate, strEndTime, strGoodsDescription, strValueOgGood,
-            strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous, rgStrProhibited, rgStrFraglle, rgStrFlamableToxicExplosive;
+            strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous, rgStrProhibited,
+            rgStrFraglle, rgStrFlamableToxicExplosive, strWeight;
+
+    private String tag, edit;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
+    private int fromStateId, fromCityId, toStateId, toCityId, weightId;
     private boolean onceClicked = false;
 
     private Uri picUri;
     private Bitmap myBitmap;
-    private String strInvoiceBase64, strParcelBase64;
-    private String tag;
+    private String strInvoiceFilePath, strParcelFilePath;
 
-    private UserSession userSession;
     private ViewProgressDialog viewProgressDialog;
 
     public SendParcelFragment() {
@@ -118,15 +125,24 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_send_parcel, container, false);
 
+        if (getArguments() != null) {
+            travelDetailModel = getArguments().getParcelable("order_detail");
+            edit = getArguments().getString("tag");
+        }
+
         initView(view);
 
         onClickListener();
+
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit"))
+                editSendParcel();
+        }
 
         return view;
     }
 
     private void initView(View view) {
-        userSession = new UserSession(context);
         viewProgressDialog = ViewProgressDialog.getInstance();
 
         gpInvoice = view.findViewById(R.id.gpInvoice);
@@ -167,6 +183,148 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         btnSubmit = view.findViewById(R.id.btnSubmit);
         btnCancel = view.findViewById(R.id.btnCancel);
         cbTermsCondition = view.findViewById(R.id.cbTermsCondition);
+        rbCommercial = view.findViewById(R.id.rbCommercial);
+        rbNonCommercial = view.findViewById(R.id.rbNonCommercial);
+        rbHazardousYes = view.findViewById(R.id.rbHazardousYes);
+        rbHazardousNo = view.findViewById(R.id.rbHazardousNo);
+        rbProhibitedYes = view.findViewById(R.id.rbProhibitedYes);
+        rbProhibitedNo = view.findViewById(R.id.rbProhibitedNo);
+        rbFraglleYes = view.findViewById(R.id.rbFraglleYes);
+        rbFraglleNo = view.findViewById(R.id.rbFraglleNo);
+        rbFlamableToxicExplosiveYes = view.findViewById(R.id.rbFlamableToxicExplosiveYes);
+        rbFlamableToxicExplosiveNo = view.findViewById(R.id.rbFlamableToxicExplosiveNo);
+
+        String[] delivery_option_array = getResources().getStringArray(R.array.delivery_option_array);
+        adapterDeliveryOption =
+                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, delivery_option_array);
+        adapterDeliveryOption.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerDeliveryOption.setAdapter(adapterDeliveryOption);
+
+        String[] nature_of_good = getResources().getStringArray(R.array.nature_of_good);
+        adapterNatureOfGoods =
+                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, nature_of_good);
+        adapterNatureOfGoods.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerNatureGoods.setAdapter(adapterNatureOfGoods);
+
+        String[] quality = getResources().getStringArray(R.array.nature_of_good);
+        adapterQuality =
+                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, quality);
+        adapterNatureOfGoods.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerQuality.setAdapter(adapterQuality);
+
+        String[] type_of_pkg = getResources().getStringArray(R.array.type_of_pkg);
+        adapterTypeOfPkg =
+                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, type_of_pkg);
+        adapterNatureOfGoods.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerPackaging.setAdapter(adapterTypeOfPkg);
+    }
+
+    private void editSendParcel() {
+        etToPincode.setText(travelDetailModel.getParcelData().getToPincode());
+        etFromPincode.setText(travelDetailModel.getParcelData().getFromPincode());
+        etStartDate.setText(travelDetailModel.getParcelData().getStartDate());
+        etStartTime.setText(travelDetailModel.getParcelData().getStartTime());
+        etEndDate.setText(travelDetailModel.getParcelData().getEndDate());
+        etEndTime.setText(travelDetailModel.getParcelData().getEndTime());
+        etGoodsDescription.setText(travelDetailModel.getParcelData().getGoodDescription());
+        etGoodsValue.setText(travelDetailModel.getParcelData().getValueOfGoods());
+        etReceiverName.setText(travelDetailModel.getParcelData().getReceiverName());
+        etReceiverMobileNo.setText(travelDetailModel.getParcelData().getReceiverMobileNo());
+        etReceiverAddress.setText(travelDetailModel.getParcelData().getReceiverAddressDetail());
+
+        Glide.with(context)
+                .load(AppController.imageURL + travelDetailModel.getParcelData().getInvoicePic())
+                .error(R.drawable.ic_logo_sandesh)
+                .into(imgInvoice);
+
+        Glide.with(context)
+                .load(AppController.imageURL + travelDetailModel.getParcelData().getParcelPic())
+                .error(R.drawable.ic_logo_sandesh)
+                .into(imgParcel);
+
+        if (rbCommercial.getText().toString().equals(travelDetailModel.getParcelData().getOwnership())) {
+            rbCommercial.setChecked(true);
+            rbNonCommercial.setChecked(false);
+        } else if (rbNonCommercial.getText().toString().equals(travelDetailModel.getParcelData().getOwnership())) {
+            rbCommercial.setChecked(false);
+            rbNonCommercial.setChecked(true);
+        }
+        if (rbHazardousYes.getText().toString().equals(travelDetailModel.getParcelData().getIsHazardous())) {
+            rbHazardousYes.setChecked(true);
+            rbHazardousNo.setChecked(false);
+        } else if (rbHazardousNo.getText().toString().equals(travelDetailModel.getParcelData().getIsHazardous())) {
+            rbHazardousYes.setChecked(false);
+            rbHazardousNo.setChecked(true);
+        }
+        if (rbProhibitedYes.getText().toString().equals(travelDetailModel.getParcelData().getIsProhibited())) {
+            rbProhibitedYes.setChecked(true);
+            rbProhibitedNo.setChecked(false);
+        } else if (rbProhibitedNo.getText().toString().equals(travelDetailModel.getParcelData().getIsProhibited())) {
+            rbProhibitedYes.setChecked(false);
+            rbProhibitedNo.setChecked(true);
+        }
+        if (rbFraglleYes.getText().toString().equals(travelDetailModel.getParcelData().getIsFragile())) {
+            rbFraglleYes.setChecked(true);
+            rbFraglleNo.setChecked(false);
+        } else if (rbFraglleNo.getText().toString().equals(travelDetailModel.getParcelData().getIsFragile())) {
+            rbFraglleYes.setChecked(false);
+            rbFraglleNo.setChecked(true);
+        }
+        if (rbFlamableToxicExplosiveYes.getText().toString().equals(travelDetailModel.getParcelData().getIsFlamable())) {
+            rbFlamableToxicExplosiveYes.setChecked(true);
+            rbFlamableToxicExplosiveNo.setChecked(false);
+        } else if (rbFlamableToxicExplosiveNo.getText().toString().equals(travelDetailModel.getParcelData().getIsFlamable())) {
+            rbFlamableToxicExplosiveYes.setChecked(false);
+            rbFlamableToxicExplosiveNo.setChecked(true);
+        }
+        deliveryOption = travelDetailModel.getParcelData().getDeliveryOption();
+        natureOfGoods = travelDetailModel.getParcelData().getNatureOfGoods();
+        strQuality = travelDetailModel.getParcelData().getQuality();
+        strPackaging = travelDetailModel.getParcelData().getPackaging();
+        strWeight = travelDetailModel.getParcelData().getWeight();
+        if (deliveryOption != null) {
+            int spinnerPosition = adapterDeliveryOption.getPosition(deliveryOption);
+            spinnerDeliveryOption.setSelection(spinnerPosition);
+        }
+        if (natureOfGoods != null) {
+            int spinnerPosition = adapterNatureOfGoods.getPosition(natureOfGoods);
+            spinnerNatureGoods.setSelection(spinnerPosition);
+        }
+        if (strQuality != null) {
+            int spinnerPosition = adapterQuality.getPosition(strQuality);
+            spinnerQuality.setSelection(spinnerPosition);
+        }
+        if (strPackaging != null) {
+            int spinnerPosition = adapterTypeOfPkg.getPosition(strPackaging);
+            spinnerPackaging.setSelection(spinnerPosition);
+        }
+        onceClicked = true;
+        cbTermsCondition.setChecked(true);
+
+        btnSubmit.setText("Update");
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                strtoPincode = etToPincode.getText().toString();
+                strFromPincode = etFromPincode.getText().toString();
+                strStartDate = etStartDate.getText().toString();
+                strStartTime = etStartTime.getText().toString();
+                strEndDate = etEndDate.getText().toString();
+                strEndTime = etEndTime.getText().toString();
+                strGoodsDescription = etGoodsDescription.getText().toString();
+                strValueOgGood = etGoodsValue.getText().toString();
+                strReceiverName = etReceiverName.getText().toString();
+                strReceiverMobileNo = etReceiverMobileNo.getText().toString();
+                strReceiverAddress = etReceiverAddress.getText().toString();
+
+                //TODO API Call
+                updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+            }
+        });
     }
 
     private void onClickListener() {
@@ -213,7 +371,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 String selectedItem = parent.getItemAtPosition(position).toString();
 
                 if (!selectedItem.equals("")) {
-                    quality = selectedItem;
+                    strQuality = selectedItem;
                 }
             } // to close the onItemSelected
 
@@ -227,7 +385,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 String selectedItem = parent.getItemAtPosition(position).toString();
 
                 if (!selectedItem.equals("")) {
-                    packaging = selectedItem;
+                    strPackaging = selectedItem;
                 }
             } // to close the onItemSelected
 
@@ -245,7 +403,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 boolean isChecked = checkedRadioButton.isChecked();
                 // If the radiobutton that has changed in check state is now checked...
                 if (isChecked) {
-                    ownership = checkedRadioButton.getText().toString();
+                    strOwnership = checkedRadioButton.getText().toString();
                 }
             }
         });
@@ -323,7 +481,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 openTimePickerDialog("end_time");
                 break;
             case R.id.btnSubmit:
-                //TODO API Call
                 strtoPincode = etToPincode.getText().toString();
                 strFromPincode = etFromPincode.getText().toString();
                 strGoodsDescription = etGoodsDescription.getText().toString();
@@ -331,6 +488,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 strReceiverName = etReceiverName.getText().toString();
                 strReceiverMobileNo = etReceiverMobileNo.getText().toString();
                 strReceiverAddress = etReceiverAddress.getText().toString();
+
+                //TODO API Call
                 sendParcel();
                 break;
             case R.id.gpInvoice:
@@ -433,36 +592,177 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private void sendParcel() {
         ViewProgressDialog.getInstance().showProgress(context);
 
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("from_city_id", fromCityId);
-        jsonObject.addProperty("from_pincode", strFromPincode);
-        jsonObject.addProperty("to_city_id", toCityId);
-        jsonObject.addProperty("to_pincode", strtoPincode);
-        jsonObject.addProperty("start_date", strStartDate);
-        jsonObject.addProperty("start_time", strStartTime);
-        jsonObject.addProperty("end_date", strEndDate);
-        jsonObject.addProperty("end_time", strEndTime);
-        jsonObject.addProperty("delivery_option", deliveryOption);
-        jsonObject.addProperty("nature_of_goods", natureOfGoods);
-        jsonObject.addProperty("good_description", strGoodsDescription);
-        jsonObject.addProperty("quality", quality);
-        jsonObject.addProperty("weight_id", weight_id);
-        jsonObject.addProperty("packaging", packaging);
-        jsonObject.addProperty("isHazardous", rgStrHazardous);
-        jsonObject.addProperty("isProhibited", rgStrProhibited);
-        jsonObject.addProperty("isFragile", rgStrFraglle);
-        jsonObject.addProperty("isFlamable", rgStrFlamableToxicExplosive);
-        jsonObject.addProperty("value_of_goods", strValueOgGood);
-        jsonObject.addProperty("ownership", ownership);
-        jsonObject.addProperty("invoice_pic", strInvoiceBase64);
-        jsonObject.addProperty("parcel_pic", strParcelBase64);
-        jsonObject.addProperty("receiver_name", strReceiverName);
-        jsonObject.addProperty("receiver_mobile_no", strReceiverMobileNo);
-        jsonObject.addProperty("receiver_address_detail", strReceiverAddress);
+        RequestBody from_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(fromCityId));
+        RequestBody from_pincode = RequestBody.create(MultipartBody.FORM, strFromPincode);
+        RequestBody to_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(toCityId));
+        RequestBody to_pincode = RequestBody.create(MultipartBody.FORM, strtoPincode);
+        RequestBody start_date = RequestBody.create(MultipartBody.FORM, strStartDate);
+        RequestBody start_time = RequestBody.create(MultipartBody.FORM, strStartTime);
+        RequestBody end_date = RequestBody.create(MultipartBody.FORM, strEndDate);
+        RequestBody end_time = RequestBody.create(MultipartBody.FORM, strEndTime);
+        RequestBody delivery_option = RequestBody.create(MultipartBody.FORM, deliveryOption);
+        RequestBody nature_of_goods = RequestBody.create(MultipartBody.FORM, natureOfGoods);
+        RequestBody good_description = RequestBody.create(MultipartBody.FORM, strGoodsDescription);
+        RequestBody quality = RequestBody.create(MultipartBody.FORM, strQuality);
+        RequestBody weight_id = RequestBody.create(MultipartBody.FORM, String.valueOf(weightId));
+        RequestBody packaging = RequestBody.create(MultipartBody.FORM, strPackaging);
+        RequestBody isHazardous = RequestBody.create(MultipartBody.FORM, rgStrHazardous);
+        RequestBody isProhibited = RequestBody.create(MultipartBody.FORM, rgStrProhibited);
+        RequestBody isFragile = RequestBody.create(MultipartBody.FORM, rgStrFraglle);
+        RequestBody isFlamable = RequestBody.create(MultipartBody.FORM, rgStrFlamableToxicExplosive);
+        RequestBody value_of_goods = RequestBody.create(MultipartBody.FORM, strValueOgGood);
+        RequestBody ownership = RequestBody.create(MultipartBody.FORM, strOwnership);
+
+        MultipartBody.Part parcel_pic_body;
+        if (strParcelFilePath != null && !strParcelFilePath.equals("")) {
+            File file = new File(strParcelFilePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", "", requestBody);
+        }
+
+        MultipartBody.Part invoice_pic_body;
+        if (strInvoiceFilePath != null && !strInvoiceFilePath.equals("")) {
+            File file = new File(strInvoiceFilePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            invoice_pic_body = MultipartBody.Part.createFormData("invoice_pic", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            invoice_pic_body = MultipartBody.Part.createFormData("invoice_pic", "", requestBody);
+        }
+
+        RequestBody receiver_name = RequestBody.create(MultipartBody.FORM, strReceiverName);
+        RequestBody receiver_mobile_no = RequestBody.create(MultipartBody.FORM, strReceiverMobileNo);
+        RequestBody receiver_address_detail = RequestBody.create(MultipartBody.FORM, strReceiverAddress);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.sendParcel(
-                jsonObject
+                from_city_id,
+                from_pincode,
+                to_city_id,
+                to_pincode,
+                start_date,
+                start_time,
+                end_date,
+                end_time,
+                delivery_option,
+                nature_of_goods,
+                good_description,
+                quality,
+                weight_id,
+                packaging,
+                isHazardous,
+                isProhibited,
+                isFragile,
+                isFlamable,
+                value_of_goods,
+                ownership,
+                parcel_pic_body,
+                invoice_pic_body,
+                receiver_name,
+                receiver_mobile_no,
+                receiver_address_detail
+        );
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                    } else
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void updateMyParcel(Integer parcelId) {
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        RequestBody parcel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(parcelId));
+        RequestBody from_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(fromCityId));
+        RequestBody from_pincode = RequestBody.create(MultipartBody.FORM, strFromPincode);
+        RequestBody to_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(toCityId));
+        RequestBody to_pincode = RequestBody.create(MultipartBody.FORM, strtoPincode);
+        RequestBody start_date = RequestBody.create(MultipartBody.FORM, strStartDate);
+        RequestBody start_time = RequestBody.create(MultipartBody.FORM, strStartTime);
+        RequestBody end_date = RequestBody.create(MultipartBody.FORM, strEndDate);
+        RequestBody end_time = RequestBody.create(MultipartBody.FORM, strEndTime);
+        RequestBody delivery_option = RequestBody.create(MultipartBody.FORM, deliveryOption);
+        RequestBody nature_of_goods = RequestBody.create(MultipartBody.FORM, natureOfGoods);
+        RequestBody good_description = RequestBody.create(MultipartBody.FORM, strGoodsDescription);
+        RequestBody quality = RequestBody.create(MultipartBody.FORM, strQuality);
+        RequestBody weight_id = RequestBody.create(MultipartBody.FORM, String.valueOf(weightId));
+        RequestBody packaging = RequestBody.create(MultipartBody.FORM, strPackaging);
+        RequestBody isHazardous = RequestBody.create(MultipartBody.FORM, rgStrHazardous);
+        RequestBody isProhibited = RequestBody.create(MultipartBody.FORM, rgStrProhibited);
+        RequestBody isFragile = RequestBody.create(MultipartBody.FORM, rgStrFraglle);
+        RequestBody isFlamable = RequestBody.create(MultipartBody.FORM, rgStrFlamableToxicExplosive);
+        RequestBody value_of_goods = RequestBody.create(MultipartBody.FORM, strValueOgGood);
+        RequestBody ownership = RequestBody.create(MultipartBody.FORM, strOwnership);
+
+        MultipartBody.Part parcel_pic_body;
+        if (strParcelFilePath != null && !strParcelFilePath.equals("")) {
+            File file = new File(strParcelFilePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", "", requestBody);
+        }
+
+        MultipartBody.Part invoice_pic_body;
+        if (strInvoiceFilePath != null && !strInvoiceFilePath.equals("")) {
+            File file = new File(strInvoiceFilePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            invoice_pic_body = MultipartBody.Part.createFormData("invoice_pic", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            invoice_pic_body = MultipartBody.Part.createFormData("invoice_pic", "", requestBody);
+        }
+
+        RequestBody receiver_name = RequestBody.create(MultipartBody.FORM, strReceiverName);
+        RequestBody receiver_mobile_no = RequestBody.create(MultipartBody.FORM, strReceiverMobileNo);
+        RequestBody receiver_address_detail = RequestBody.create(MultipartBody.FORM, strReceiverAddress);
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.updateMyParcel(
+                parcel_id,
+                from_city_id,
+                from_pincode,
+                to_city_id,
+                to_pincode,
+                start_date,
+                start_time,
+                end_date,
+                end_time,
+                delivery_option,
+                nature_of_goods,
+                good_description,
+                quality,
+                weight_id,
+                packaging,
+                isHazardous,
+                isProhibited,
+                isFragile,
+                isFlamable,
+                value_of_goods,
+                ownership,
+                parcel_pic_body,
+                invoice_pic_body,
+                receiver_name,
+                receiver_mobile_no,
+                receiver_address_detail
         );
         call.enqueue(new Callback<CommonResponse>() {
             @Override
@@ -506,7 +806,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         weightResponseModel = response.body();
-                        bindStateDataToSpinner(response.body().getData());
+
+                        ArrayList<String> weightArrayList = new ArrayList<>();
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            weightArrayList.add(response.body().getData().get(i).getWeight());
+                            bindStateDataToSpinner(weightArrayList);
+                        }
                     } else {
                         Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -519,20 +824,28 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         });
     }
 
-    private void bindStateDataToSpinner(List<WeightModel> data) {
+    private void bindStateDataToSpinner(ArrayList<String> data) {
         //Creating the ArrayAdapter instance having the country list
-        ArrayAdapter<WeightModel> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
+        ArrayAdapter<String> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
                 data);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         spinnerWeight.setAdapter(aa);
 
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit")) {
+                if (strWeight != null) {
+                    int spinnerPosition = aa.getPosition(strWeight);
+                    spinnerWeight.setSelection(spinnerPosition);
+                }
+            }
+        }
         spinnerWeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
 
                 if (!selectedItem.equals("")) {
-                    weight_id = weightResponseModel.getWeightId(selectedItem);
+                    weightId = weightResponseModel.getWeightId(selectedItem);
                 }
             } // to close the onItemSelected
 
@@ -696,142 +1009,43 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
     private void gotoSelectPicture(String type) {
         tag = type;
-        startActivityForResult(getPickImageChooserIntent(), 200);
-    }
-
-    private Intent getPickImageChooserIntent() {
-        // Determine Uri of camera image to save.
-        Uri outputFileUri = getCaptureImageOutputUri();
-
-        List<Intent> allIntents = new ArrayList<>();
-
-        // collect all camera intents
-        Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        List<ResolveInfo> listCam = context.getPackageManager().queryIntentActivities(captureIntent, 0);
-        for (ResolveInfo res : listCam) {
-            Intent intent = new Intent(captureIntent);
-            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
-            intent.setPackage(res.activityInfo.packageName);
-            if (outputFileUri != null) {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-            }
-            allIntents.add(intent);
-        }
-
-        // collect all gallery intents
-        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        List<ResolveInfo> listGallery = context.getPackageManager().queryIntentActivities(galleryIntent, 0);
-        for (ResolveInfo res : listGallery) {
-            Intent intent = new Intent(galleryIntent);
-            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
-            intent.setPackage(res.activityInfo.packageName);
-            allIntents.add(intent);
-        }
-
-        Intent mainIntent = allIntents.get(allIntents.size() - 1);
-        for (Intent intent : allIntents) {
-            if (Objects.requireNonNull(intent.getComponent()).getClassName().equals("com.android.documentsui.DocumentsActivity")) {
-                mainIntent = intent;
-                break;
-            }
-        }
-        allIntents.remove(mainIntent);
-
-        // Create a chooser from the main intent
-        Intent chooserIntent = Intent.createChooser(mainIntent, "Select source");
-
-        // Add all other intents
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, allIntents.toArray(new Parcelable[allIntents.size()]));
-
-        return chooserIntent;
-    }
-
-    /**
-     * Get URI to image received from capture by camera.
-     */
-    private Uri getCaptureImageOutputUri() {
-        Uri outputFileUri = null;
-        File getImage = context.getExternalCacheDir();
-        if (getImage != null) {
-            outputFileUri = Uri.fromFile(new File(getImage.getPath(), "profile.png"));
-        }
-        return outputFileUri;
+        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context), 200);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap bitmap;
         if (resultCode == Activity.RESULT_OK) {
-            if (getPickImageResultUri(data) != null) {
-                picUri = getPickImageResultUri(data);
+            if (ImageSelectionMethods.getPickImageResultUri(context, data) != null) {
+                picUri = ImageSelectionMethods.getPickImageResultUri(context, data);
+                if (tag.equals("invoice")) {
+                    strInvoiceFilePath = ImageSelectionMethods.getPath(context, picUri);
+
+                    if (strInvoiceFilePath.equals("Not found")) {
+                        strInvoiceFilePath = picUri.getPath();
+                    }
+                } else if (tag.equals("parcel")) {
+                    strParcelFilePath = ImageSelectionMethods.getPath(context, picUri);
+
+                    if (strParcelFilePath.equals("Not found")) {
+                        strParcelFilePath = picUri.getPath();
+                    }
+                }
 
                 try {
                     myBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), picUri);
-                    myBitmap = getResizedBitmap(myBitmap, 500);
+                    myBitmap = ImageSelectionMethods.getResizedBitmap(myBitmap, 500);
 
                     if (tag.equals("invoice")) {
-                        strInvoiceBase64 = getStringImage(myBitmap);
                         imgInvoice.setImageBitmap(myBitmap);
                     } else if (tag.equals("parcel")) {
-                        strParcelBase64 = getStringImage(myBitmap);
                         imgParcel.setImageBitmap(myBitmap);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else {
-                bitmap = (Bitmap) data.getExtras().get("data");
-                myBitmap = bitmap;
-
-                if (tag.equals("invoice")) {
-                    strInvoiceBase64 = getStringImage(myBitmap);
-                    imgInvoice.setImageBitmap(myBitmap);
-                } else if (tag.equals("parcel")) {
-                    strParcelBase64 = getStringImage(myBitmap);
-                    imgParcel.setImageBitmap(myBitmap);
-                }
             }
         }
-    }
-
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        float bitmapRatio = (float) width / (float) height;
-        if (bitmapRatio > 0) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true);
-    }
-
-    /**
-     * Get the URI of the selected image from {@link #getPickImageChooserIntent()}.<br />
-     * Will return the correct URI for camera and gallery image.
-     *
-     * @param data the returned data of the activity result
-     */
-    public Uri getPickImageResultUri(Intent data) {
-        boolean isCamera = true;
-        if (data != null) {
-            String action = data.getAction();
-            isCamera = action != null && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
-        }
-
-        return isCamera ? getCaptureImageOutputUri() : data.getData();
-    }
-
-    public String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
-        byte[] imageBytes = outputStream.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 }

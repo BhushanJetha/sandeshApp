@@ -4,6 +4,8 @@ import com.aystech.sandesh.model.AcceptedOrdersResponseModel;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.LoginResponseModel;
+import com.aystech.sandesh.model.MyOrdersResponseModel;
+import com.aystech.sandesh.model.MyRidesResponseModel;
 import com.aystech.sandesh.model.OrderDetailResponseModel;
 import com.aystech.sandesh.model.ProfileResponseModel;
 import com.aystech.sandesh.model.SearchOrderResponseModel;
@@ -41,7 +43,6 @@ public interface ApiInterface {
             @Part("gender") RequestBody gender,
             @Part("birth_date") RequestBody birthDate,
             @Part("refferal_code") RequestBody refferalCode,
-            @Part("fcm_id") RequestBody fcmId,
             @Part MultipartBody.Part image
     );
 
@@ -53,7 +54,6 @@ public interface ApiInterface {
             @Part("auth_mobile_no") RequestBody authMobileNo,
             @Part("password") RequestBody password,
             @Part("refferal_code") RequestBody refferalCode,
-            @Part("fcm_id") RequestBody fcmId,
             @Part("company_name") RequestBody companyName,
             @Part("branch") RequestBody branch,
             @Part("auth_person_name") RequestBody authPersonName,
@@ -82,8 +82,35 @@ public interface ApiInterface {
     @POST("api/planTravel")
     Call<CommonResponse> planTravel(@Body JsonObject jsonObject);
 
+    @Multipart
     @POST("api/sendParcel")
-    Call<CommonResponse> sendParcel(@Body JsonObject jsonObject);
+    Call<CommonResponse> sendParcel(
+            @Part("from_city_id") RequestBody from_city_id,
+            @Part("from_pincode") RequestBody from_pincode,
+            @Part("to_city_id") RequestBody to_city_id,
+            @Part("to_pincode") RequestBody to_pincode,
+            @Part("start_date") RequestBody start_date,
+            @Part("start_time") RequestBody start_time,
+            @Part("end_date") RequestBody end_date,
+            @Part("end_time") RequestBody end_time,
+            @Part("delivery_option") RequestBody delivery_option,
+            @Part("nature_of_goods") RequestBody nature_of_goods,
+            @Part("good_description") RequestBody good_description,
+            @Part("quality") RequestBody quality,
+            @Part("weight_id") RequestBody weight_id,
+            @Part("packaging") RequestBody packaging,
+            @Part("isHazardous") RequestBody isHazardous,
+            @Part("isProhibited") RequestBody isProhibited,
+            @Part("isFragile") RequestBody isFragile,
+            @Part("isFlamable") RequestBody isFlamable,
+            @Part("value_of_goods") RequestBody value_of_goods,
+            @Part("ownership") RequestBody ownership,
+            @Part MultipartBody.Part invoice_pic,
+            @Part MultipartBody.Part parcel_pic,
+            @Part("receiver_name") RequestBody receiver_name,
+            @Part("receiver_mobile_no") RequestBody receiver_mobile_no,
+            @Part("receiver_address_detail") RequestBody receiver_address_detail
+    );
 
     @POST("api/searchOrder")
     Call<SearchOrderResponseModel> searchOrder(@Body JsonObject jsonObject);
@@ -156,8 +183,15 @@ public interface ApiInterface {
     @GET("api/getMyStartedJourney")
     Call<SearchTravellerResponseModel> getMyStartedJourney();
 
+    @Multipart
     @POST("api/endJourney")
-    Call<CommonResponse> endJourney(@Body JsonObject jsonObject);
+    Call<CommonResponse> endJourney(
+            @Part("travel_id") RequestBody travel_id,
+            @Part("parcel_id") RequestBody parcel_id,
+            @Part("delivery_id") RequestBody delivery_id,
+            @Part MultipartBody.Part parcel_picture,
+            @Part MultipartBody.Part selfie_picture
+    );
 
     @POST("api/addBalance")
     Call<CommonResponse> verifyPaymentDetail(@Body JsonObject jsonObject);
@@ -179,4 +213,54 @@ public interface ApiInterface {
 
     @POST("api/trackParcel")
     Call<OrderDetailResponseModel> trackParcel(@Body JsonObject jsonObject);
+
+    @POST("api/getMyPreviousOrderHistory")
+    Call<MyRidesResponseModel> getMyRidesHistory(@Body JsonObject jsonObject);
+
+    @POST("api/getMyPreviousOrderHistory")
+    Call<MyOrdersResponseModel> getMyOrdersHistory(@Body JsonObject jsonObject);
+
+    @Multipart
+    @POST("api/updateMyParcel")
+    Call<CommonResponse> updateMyParcel(
+            @Part("parcel_id") RequestBody parcel_id,
+            @Part("from_city_id") RequestBody from_city_id,
+            @Part("from_pincode") RequestBody from_pincode,
+            @Part("to_city_id") RequestBody to_city_id,
+            @Part("to_pincode") RequestBody to_pincode,
+            @Part("start_date") RequestBody start_date,
+            @Part("start_time") RequestBody start_time,
+            @Part("end_date") RequestBody end_date,
+            @Part("end_time") RequestBody end_time,
+            @Part("delivery_option") RequestBody delivery_option,
+            @Part("nature_of_goods") RequestBody nature_of_goods,
+            @Part("good_description") RequestBody good_description,
+            @Part("quality") RequestBody quality,
+            @Part("weight_id") RequestBody weight_id,
+            @Part("packaging") RequestBody packaging,
+            @Part("isHazardous") RequestBody isHazardous,
+            @Part("isProhibited") RequestBody isProhibited,
+            @Part("isFragile") RequestBody isFragile,
+            @Part("isFlamable") RequestBody isFlamable,
+            @Part("value_of_goods") RequestBody value_of_goods,
+            @Part("ownership") RequestBody ownership,
+            @Part MultipartBody.Part invoice_pic,
+            @Part MultipartBody.Part parcel_pic,
+            @Part("receiver_name") RequestBody receiver_name,
+            @Part("receiver_mobile_no") RequestBody receiver_mobile_no,
+            @Part("receiver_address_detail") RequestBody receiver_address_detail
+    );
+
+    @POST("api/updateMyTravel")
+    Call<CommonResponse> updateMyTravel(@Body JsonObject jsonObject);
+
+    @Multipart
+    @POST("api/nominateAlternatePerson")
+    Call<CommonResponse> nominateAlternatePerson(
+            @Part("travel_id") RequestBody travel_id,
+            @Part("user_name") RequestBody user_name,
+            @Part("mobile_no") RequestBody mobile_no,
+            @Part("pancard_no") RequestBody pancard_no,
+            @Part MultipartBody.Part pancard_pic
+    );
 }

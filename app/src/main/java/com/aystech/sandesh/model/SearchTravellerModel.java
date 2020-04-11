@@ -106,6 +106,9 @@ public class SearchTravellerModel {
     @SerializedName("last_name")
     @Expose
     private String lastName;
+    @SerializedName("company_name")
+    @Expose
+    private String company_name;
     @SerializedName("mobile_no")
     @Expose
     private String mobileNo;
@@ -383,6 +386,14 @@ public class SearchTravellerModel {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
     }
 
     public String getMobileNo() {

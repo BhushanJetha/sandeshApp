@@ -194,7 +194,7 @@
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:fontFamily="@font/gotham_light"
-                        android:hint="@string/date"
+                        android:hint="@string/start_date"
                         android:inputType="date"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp" />
@@ -262,22 +262,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvResultCount" />
 
-                <android.support.v4.widget.NestedScrollView
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvOrder"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    tools:listitem="@layout/row_order_list"
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvResultCount">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rvOrder"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                        tools:listitem="@layout/row_order_list" />
-
-                </android.support.v4.widget.NestedScrollView>
+                    app:layout_constraintTop_toBottomOf="@id/tvResultCount" />
 
             </android.support.constraint.ConstraintLayout>
 

@@ -74,12 +74,12 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/imgOrderEdit"
+                        app:layout_constraintEnd_toStartOf="@+id/imgTravelEdit"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/imgOrderEdit"
+                        android:id="@+id/imgTravelEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center"
@@ -581,6 +581,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_36sdp"
                     android:paddingEnd="@dimen/_36sdp"
+                    android:visibility="gone"
                     android:text="@string/send_request"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"

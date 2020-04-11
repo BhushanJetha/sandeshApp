@@ -3,7 +3,7 @@ package com.aystech.sandesh.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SearchOrderModel {
+public class    SearchOrderModel {
     @SerializedName("delivery_id")
     @Expose
     private Integer deliveryId;
@@ -34,6 +34,9 @@ public class SearchOrderModel {
     @SerializedName("last_name")
     @Expose
     private String lastName;
+    @SerializedName("company_name")
+    @Expose
+    private String company_name;
     @SerializedName("mobile_no")
     @Expose
     private String mobileNo;
@@ -218,6 +221,14 @@ public class SearchOrderModel {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
     }
 
     public String getMobileNo() {

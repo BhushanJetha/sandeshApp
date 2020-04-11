@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,6 +39,8 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
 
     private UpdateUserProfileFragment updateUserProfileFragment;
     private UpdateAddressFragment updateAddressFragment;
+    private StartJourneyFragment startJourneyFragment;
+    private OrderListFragment orderListFragment;
 
     private UserModel userModel;
     private AddressModel addressModel;
@@ -45,6 +48,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
     private ImageView imgUserProfile;
     private TextView tvFullName, tvEmailID, tvMobileNumber, tvDateOfBirth, tvGender,
             tvAddresLine1, tvAddresLine2, tvLandmark, tvState, tvCity;
+    private Button btnMyRide, btnMyOrders, btnUpcomingRides, btnUpcomingOrders;
     private LinearLayout editPersonalDetail;
     private LinearLayout editAddressDetail;
 
@@ -70,6 +74,10 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                 Fragment.instantiate(context, UpdateUserProfileFragment.class.getName());
         updateAddressFragment = (UpdateAddressFragment)
                 Fragment.instantiate(context, UpdateAddressFragment.class.getName());
+        startJourneyFragment = (StartJourneyFragment)
+                Fragment.instantiate(context, StartJourneyFragment.class.getName());
+        orderListFragment = (OrderListFragment) Fragment.instantiate(context,
+                OrderListFragment.class.getName());
 
         initView(view);
 
@@ -94,12 +102,20 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
         tvLandmark = view.findViewById(R.id.tvLandmark);
         tvState = view.findViewById(R.id.tvState);
         tvCity = view.findViewById(R.id.tvCity);
+        btnMyRide = view.findViewById(R.id.btnMyRide);
+        btnMyOrders = view.findViewById(R.id.btnMyOrders);
+        btnUpcomingOrders = view.findViewById(R.id.btnUpcomingOrders);
+        btnUpcomingRides = view.findViewById(R.id.btnUpcomingRides);
     }
 
     private void onCLickListener() {
         editPersonalDetail.setOnClickListener(this);
         editAddressDetail.setOnClickListener(this);
         imgUserProfile.setOnClickListener(this);
+        btnMyRide.setOnClickListener(this);
+        btnMyOrders.setOnClickListener(this);
+        btnUpcomingOrders.setOnClickListener(this);
+        btnUpcomingRides.setOnClickListener(this);
     }
 
     @Override
@@ -199,6 +215,29 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                 bundle.putParcelable("addressModel", addressModel);
                 updateAddressFragment.setArguments(bundle);
                 break;
+
+            case R.id.btnMyRide:
+                commonRedirect("my_rides", bundle, startJourneyFragment);
+                break;
+
+            case R.id.btnMyOrders:
+                commonRedirect("my_orders", bundle, startJourneyFragment);
+                break;
+
+            case R.id.btnUpcomingOrders:
+                commonRedirect("upcoming_orders", bundle, orderListFragment);
+                break;
+
+            case R.id.btnUpcomingRides:
+                commonRedirect("upcoming_rides", bundle, orderListFragment);
+                break;
         }
+    }
+
+    private void commonRedirect(String tag, Bundle bundle, Fragment fragment) {
+        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                fragment, R.id.frame_container, true);
+        bundle.putString("tag", tag);
+        fragment.setArguments(bundle);
     }
 }

@@ -116,7 +116,7 @@
         <item>Cycle</item>
     </string-array>
 
-    <string-array name="delivery_option">
+    <string-array name="delivery_option_array">
         <item>Door to Door Service</item>
         <item>Senders place to Travelers place</item>
         <item>Travelers place to Travelers place</item>

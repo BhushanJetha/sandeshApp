@@ -1,21 +1,20 @@
 package com.aystech.sandesh.fragment;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
-import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.TravelDetailModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
@@ -32,17 +31,21 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
     private Context context;
 
-    OrderListFragment orderListFragment;
+    private TravelDetailModel travelDetailModel;
+
+    private OrderListFragment orderListFragment;
+    private PlanTravelFragment planTravelFragment;
 
     private TextView tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
             tvDeliveryOption, tvWeight, tvLength, tvBreadth, tvHeight, tvVehicleType, tvVehicleTrainNo,
             tvOtherDetail;
-
+    private ImageView imgTravelEdit;
     private Button btnSendRequest;
 
-    private int travel_id, parcel_id;
+    private int travel_id;
+    private String tag;
 
-    ViewProgressDialog viewProgressDialog;
+    private ViewProgressDialog viewProgressDialog;
 
     public TravellerDetailFragment() {
         // Required empty public constructor
@@ -62,9 +65,13 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
         orderListFragment = (OrderListFragment) Fragment.instantiate(context,
                 OrderListFragment.class.getName());
+        planTravelFragment = (PlanTravelFragment)
+                Fragment.instantiate(context, PlanTravelFragment.class.getName());
 
-        if (getArguments() != null)
+        if (getArguments() != null) {
             travel_id = getArguments().getInt("travel_id");
+            tag = getArguments().getString("tag");
+        }
 
         initView(view);
 
@@ -79,6 +86,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
 
+        imgTravelEdit = view.findViewById(R.id.imgTravelEdit);
         tvFromCityName = view.findViewById(R.id.tvFromCityName);
         tvToCityName = view.findViewById(R.id.tvToCityName);
         tvStartDate = view.findViewById(R.id.tvStartDate);
@@ -94,10 +102,15 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         tvVehicleTrainNo = view.findViewById(R.id.tvVehicleTrainNo);
         tvOtherDetail = view.findViewById(R.id.tvOtherDetail);
         btnSendRequest = view.findViewById(R.id.btnSendRequest);
+        if (tag.equals("normal"))
+            btnSendRequest.setVisibility(View.VISIBLE);
+        if (tag.equals("upcoming_rides"))
+            imgTravelEdit.setVisibility(View.VISIBLE);
     }
 
     private void onClickListener() {
         btnSendRequest.setOnClickListener(this);
+        imgTravelEdit.setOnClickListener(this);
     }
 
     private void getTravellerDetail() {
@@ -116,9 +129,10 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if (response.body().getStatus())
+                    if (response.body().getStatus()) {
+                        travelDetailModel = response.body().getData();
                         bindDataToUI(response.body().getData());
-                    else
+                    } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -170,14 +184,22 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.btnSendRequest:
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderListFragment, R.id.frame_container,
                         false);
-                Bundle bundle = new Bundle();
                 bundle.putInt("travel_id", travel_id);
                 bundle.putString("tag", "traveller");
                 orderListFragment.setArguments(bundle);
+                break;
+
+            case R.id.imgTravelEdit:
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        planTravelFragment, R.id.frame_container, true);
+                bundle.putParcelable("travel_detail", travelDetailModel);
+                bundle.putString("tag", "edit");
+                planTravelFragment.setArguments(bundle);
                 break;
         }
     }

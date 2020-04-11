@@ -1,5 +1,6 @@
 package com.aystech.sandesh.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +32,8 @@ import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -41,8 +44,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
     private Context context;
 
+    private TravelDetailModel travelDetailModel;
+
     private OrderListFragment orderListFragment;
     private DashboardFragment dashboardFragment;
+    private SendParcelFragment sendParcelFragment;
 
     private TextView tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
             tvDeliveryOption, tvNatureGoods, tvGoodsDesc, tvQuality, tvWeight, tvPackaging, tvGoods,
@@ -52,7 +58,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             rbProhibitedYes, rbProhibitedNo, rbFraglleYes, rbFraglleNo, rbFlamableToxicExplosiveYes,
             rbFlamableToxicExplosiveNo;
 
-    private ImageView imgInvoice, imgParcel;
+    private ImageView imgOrderEdit, imgInvoice, imgParcel;
 
     private ConstraintLayout clAfterVerify, clAcceptRejectOrder;
     private EditText etComment, etAcceptRejectComment;
@@ -91,6 +97,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 OrderListFragment.class.getName());
         dashboardFragment = (DashboardFragment) Fragment.instantiate(context,
                 DashboardFragment.class.getName());
+        sendParcelFragment = (SendParcelFragment)
+                Fragment.instantiate(context, SendParcelFragment.class.getName());
 
         if (getArguments() != null) {
             if (getArguments().getString("tag") != null &&
@@ -101,6 +109,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("accept_reject_order")) {
                 delivery_id = getArguments().getInt("delivery_id");
+                parcel_id = getArguments().getInt("parcel_id");
+                tag = getArguments().getString("tag");
+            } else if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("just_show_order_detail")) {
+                parcel_id = getArguments().getInt("parcel_id");
+                tag = getArguments().getString("tag");
+            } else if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("upcoming_orders")) {
                 parcel_id = getArguments().getInt("parcel_id");
                 tag = getArguments().getString("tag");
             } else {
@@ -118,6 +134,15 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.VISIBLE);
+        } else if (tag != null && tag.equals("just_show_order_detail")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAfterVerify.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
+        } else if (tag != null && tag.equals("upcoming_orders")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAfterVerify.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
+            imgOrderEdit.setVisibility(View.VISIBLE);
         } else {
             btnSendRequest.setVisibility(View.VISIBLE);
             clAfterVerify.setVisibility(View.GONE);
@@ -136,6 +161,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         viewProgressDialog = ViewProgressDialog.getInstance();
         userSession = new UserSession(context);
 
+        imgOrderEdit = view.findViewById(R.id.imgOrderEdit);
         tvFromCityName = view.findViewById(R.id.tvFromCityName);
         tvToCityName = view.findViewById(R.id.tvToCityName);
         tvStartDate = view.findViewById(R.id.tvStartDate);
@@ -181,6 +207,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         btnVerify.setOnClickListener(this);
         btnAcceptOrder.setOnClickListener(this);
         btnRejectOrder.setOnClickListener(this);
+        imgOrderEdit.setOnClickListener(this);
     }
 
     private void getOrderDetail() {
@@ -199,9 +226,10 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if (response.body().getStatus())
+                    if (response.body().getStatus()) {
+                        travelDetailModel = response.body().getData();
                         bindDataToUI(response.body().getData());
-                    else
+                    } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -315,11 +343,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.btnSendRequest:
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderListFragment, R.id.frame_container,
                         false);
-                Bundle bundle = new Bundle();
                 bundle.putInt("parcel_id", parcel_id);
                 bundle.putString("tag", "order");
                 orderListFragment.setArguments(bundle);
@@ -357,6 +385,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 status = "Accepted";
                 //TODO API Call
                 sendOrderRequestStatus();
+                break;
+
+            case R.id.imgOrderEdit:
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        sendParcelFragment, R.id.frame_container, true);
+                bundle.putParcelable("order_detail", travelDetailModel);
+                bundle.putString("tag", "edit");
+                sendParcelFragment.setArguments(bundle);
                 break;
         }
     }
@@ -413,6 +449,18 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                     if (response.body() != null) {
                         if (response.body().getStatus()) {
+
+                            //we have to repeat our send current location logic after 1 hour
+                            //so that's why we store after 1 hour time in preference.
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                            String currentTime = sdf.format(new Date());
+                            if (Integer.parseInt(currentTime.split(":")[0]) < 23)
+                                userSession.setHours((Integer.parseInt(currentTime.split(":")[0]) + 1));
+                            else
+                                userSession.setHours(1);
+
+                            userSession.setMinute(Integer.parseInt(currentTime.split(":")[1]));
+
                             FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
                                     false);
                         } else {

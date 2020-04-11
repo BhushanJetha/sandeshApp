@@ -65,6 +65,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             if (searchTravellerModels.get(i).getFirstName() != null &&
                     !searchTravellerModels.get(i).getFirstName().equals(""))
                 myViewHolder.tvName.setText("" + searchTravellerModels.get(i).getFirstName());
+            else if (searchTravellerModels.get(i).getCompany_name() != null &&
+                    !searchTravellerModels.get(i).getCompany_name().equals(""))
+                myViewHolder.tvName.setText("" + searchTravellerModels.get(i).getCompany_name());
             else
                 myViewHolder.tvName.setText("-");
 
@@ -109,6 +112,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             if (searchOrderModels.get(i).getFirstName() != null &&
                     !searchOrderModels.get(i).getFirstName().equals(""))
                 myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
+            else if (searchOrderModels.get(i).getCompany_name() != null &&
+                    !searchOrderModels.get(i).getCompany_name().equals(""))
+                myViewHolder.tvName.setText("" + searchOrderModels.get(i).getCompany_name());
             else
                 myViewHolder.tvName.setText("-");
 
@@ -149,6 +155,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             if (acceptedOrdersModels.get(i).getFirstName() != null &&
                     !acceptedOrdersModels.get(i).getFirstName().equals(""))
                 myViewHolder.tvName.setText("" + acceptedOrdersModels.get(i).getFirstName());
+            else if (acceptedOrdersModels.get(i).getCompany_name() != null &&
+                    !acceptedOrdersModels.get(i).getCompany_name().equals(""))
+                myViewHolder.tvName.setText("" + acceptedOrdersModels.get(i).getCompany_name());
             else
                 myViewHolder.tvName.setText("-");
 
@@ -189,6 +198,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             if (searchOrderModels.get(i).getFirstName() != null &&
                     !searchOrderModels.get(i).getFirstName().equals(""))
                 myViewHolder.tvName.setText("" + searchOrderModels.get(i).getFirstName());
+            else if (searchOrderModels.get(i).getCompany_name() != null &&
+                    !searchOrderModels.get(i).getCompany_name().equals(""))
+                myViewHolder.tvName.setText("" + searchOrderModels.get(i).getCompany_name());
             else
                 myViewHolder.tvName.setText("-");
 

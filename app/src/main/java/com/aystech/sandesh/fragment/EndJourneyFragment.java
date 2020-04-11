@@ -33,7 +33,7 @@ public class EndJourneyFragment extends Fragment {
 
     private Context context;
 
-    OrderListFragment orderListFragment;
+    private OrderListFragment orderListFragment;
 
     private RecyclerView rvOrder;
     private OrderAdapter orderAdapter;
