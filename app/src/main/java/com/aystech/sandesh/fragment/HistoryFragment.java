@@ -18,10 +18,15 @@ import android.widget.Toast;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.OrderAdapter;
+import com.aystech.sandesh.interfaces.OnItemClickListener;
+import com.aystech.sandesh.model.AcceptedOrdersModel;
+import com.aystech.sandesh.model.SearchOrderModel;
+import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.ShowHistoryInnerModel;
 import com.aystech.sandesh.model.ShowHistoryResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 
 import retrofit2.Call;
@@ -31,17 +36,20 @@ import retrofit2.Response;
 public class HistoryFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "HistoryFragment";
-    Context context;
+    private Context context;
 
-    ShowHistoryInnerModel showHistoryInnerModel;
+    private ShowHistoryInnerModel showHistoryInnerModel;
 
-    TextView tvTraveller, tvParcel;
-    RecyclerView rvHistory;
-    OrderAdapter orderAdapter;
+    private OrderDetailFragment orderDetailFragment;
+    private TravellerDetailFragment travellerDetailFragment;
 
-    String tag;
+    private TextView tvTraveller, tvParcel;
+    private RecyclerView rvHistory;
+    private OrderAdapter orderAdapter;
 
-    ViewProgressDialog viewProgressDialog;
+    private String tag;
+
+    private ViewProgressDialog viewProgressDialog;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -58,6 +66,11 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
+
+        orderDetailFragment = (OrderDetailFragment) Fragment.instantiate(context,
+                OrderDetailFragment.class.getName());
+        travellerDetailFragment = (TravellerDetailFragment) Fragment.instantiate(context,
+                TravellerDetailFragment.class.getName());
 
         initView(view);
 
@@ -132,7 +145,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Throwable t) {
-                Log.e(TAG, "onFailure: "+ t.getLocalizedMessage());
+                Log.e(TAG, "onFailure: " + t.getLocalizedMessage());
                 viewProgressDialog.hideDialog();
             }
         });
@@ -141,9 +154,47 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
     private void bindDataToRV(String tag) {
         if (showHistoryInnerModel != null) {
             if (tag.equals("travel")) {
-                orderAdapter = new OrderAdapter(context, showHistoryInnerModel.getTravel(), "traveller");
+                orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
+                    @Override
+                    public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                    }
+
+                    @Override
+                    public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                travellerDetailFragment, R.id.frame_container, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                        bundle.putString("tag", "history");
+                        travellerDetailFragment.setArguments(bundle);
+                    }
+
+                    @Override
+                    public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                    }
+                });
+                orderAdapter.addTravellerList(showHistoryInnerModel.getTravel());
             } else if (tag.equals("parcel")) {
-                orderAdapter = new OrderAdapter(context, showHistoryInnerModel.getParcel());
+                orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
+                    @Override
+                    public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                orderDetailFragment, R.id.frame_container, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("parcel_id", searchOrderModel.getParcelId());
+                        bundle.putString("tag", "history");
+                        orderDetailFragment.setArguments(bundle);
+                    }
+
+                    @Override
+                    public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                    }
+
+                    @Override
+                    public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                    }
+                });
+                orderAdapter.addOrderList(showHistoryInnerModel.getParcel());
             }
             rvHistory.setAdapter(orderAdapter);
         }

@@ -71,6 +71,8 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     private int fromStateId, fromCityId, toStateId, toCityId;
     private String strToPinCode, strFromPincode, strDate = "";
 
+    final Calendar myCalendar = Calendar.getInstance();
+
     private ViewProgressDialog viewProgressDialog;
 
     public SearchOrderFragment() {
@@ -172,25 +174,29 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     }
 
     private void openDatePickerDialog() {
-        // Get Current Date
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
-        final DatePickerDialog datePickerDialog = new DatePickerDialog(context,
-                new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        strDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
-                        etDate.setText(strDate);
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
+        DatePickerDialog mDate = new DatePickerDialog(context, date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+        mDate.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        mDate.show();
     }
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            view.setMinDate(System.currentTimeMillis() - 1000);
+
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            strDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
+            etDate.setText(strDate);
+        }
+
+    };
 
     private void searchOrderByData() {
         ViewProgressDialog.getInstance().showProgress(context);

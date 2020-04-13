@@ -99,13 +99,15 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             rgStrFraglle, rgStrFlamableToxicExplosive, strWeight;
 
     private String tag, edit;
-    private int mYear, mMonth, mDay, mHour, mMinute;
+    private int mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weightId;
     private boolean onceClicked = false;
 
     private Uri picUri;
     private Bitmap myBitmap;
     private String strInvoiceFilePath, strParcelFilePath;
+
+    final Calendar myCalendar = Calendar.getInstance();
 
     private ViewProgressDialog viewProgressDialog;
 
@@ -469,13 +471,15 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ingStartDate:
-                openDatePickerDialog("start_date");
+                tag = "start_date";
+                openDatePickerDialog();
                 break;
             case R.id.ingStartTime:
                 openTimePickerDialog("start_time");
                 break;
             case R.id.ingEndDate:
-                openDatePickerDialog("end_date");
+                tag = "end_date";
+                openDatePickerDialog();
                 break;
             case R.id.ingEndTime:
                 openTimePickerDialog("end_time");
@@ -538,31 +542,35 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         });
     }
 
-    private void openDatePickerDialog(final String tag) {
-        // Get Current Date
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
-        final DatePickerDialog datePickerDialog = new DatePickerDialog(context,
-                new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        if (tag.equals("start_date")) {
-                            strStartDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
-                            etStartDate.setText(strStartDate);
-                        } else if (tag.equals("end_date")) {
-                            strEndDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
-                            etEndDate.setText(strEndDate);
-                        }
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
+    private void openDatePickerDialog() {
+        DatePickerDialog mDate = new DatePickerDialog(context, date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+        mDate.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        mDate.show();
     }
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            view.setMinDate(System.currentTimeMillis() - 1000);
+
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            if (tag.equals("start_date")) {
+                strStartDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
+                etStartDate.setText(strStartDate);
+            } else if (tag.equals("end_date")) {
+                strEndDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
+                etEndDate.setText(strEndDate);
+            }
+        }
+
+    };
 
     private void openTimePickerDialog(final String tag) {
         // Get Current Time

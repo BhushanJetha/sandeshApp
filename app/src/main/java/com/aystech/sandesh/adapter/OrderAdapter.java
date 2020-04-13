@@ -31,24 +31,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private String tag;
     private OnItemClickListener onItemClickListener;
 
-    //this form SearchOrderFragment & SearchTravellerFragment for order/traveller section
+    //this form SearchOrderFragment, SearchTravellerFragment, & HistoryFragment for order/traveller section
     public OrderAdapter(Context context, String tag, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.tag = tag;
         this.onItemClickListener = onItemClickListener;
-    }
-
-    //this form HistoryFragment for traveller section
-    public OrderAdapter(Context context, List<SearchTravellerModel> data, String tag) {
-        this.context = context;
-        this.searchTravellerModels = data;
-        this.tag = tag;
-    }
-
-    //this form HistoryFragment for parcel section
-    public OrderAdapter(Context context, List<SearchOrderModel> parcel) {
-        this.context = context;
-        this.searchOrderModels = parcel;
     }
 
     @NonNull

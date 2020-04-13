@@ -2,7 +2,6 @@ package com.aystech.sandesh.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -102,10 +101,12 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         tvVehicleTrainNo = view.findViewById(R.id.tvVehicleTrainNo);
         tvOtherDetail = view.findViewById(R.id.tvOtherDetail);
         btnSendRequest = view.findViewById(R.id.btnSendRequest);
-        if (tag.equals("normal"))
-            btnSendRequest.setVisibility(View.VISIBLE);
-        if (tag.equals("upcoming_rides"))
-            imgTravelEdit.setVisibility(View.VISIBLE);
+        if (tag != null && !tag.equals("")) {
+            if (tag.equals("normal"))
+                btnSendRequest.setVisibility(View.VISIBLE);
+            if (tag.equals("upcoming_rides"))
+                imgTravelEdit.setVisibility(View.VISIBLE);
+        }
     }
 
     private void onClickListener() {
