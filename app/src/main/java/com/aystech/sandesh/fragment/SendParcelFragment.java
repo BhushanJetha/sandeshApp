@@ -93,10 +93,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private ArrayAdapter<String> adapterQuality;
     private ArrayAdapter<String> adapterTypeOfPkg;
 
-    private String deliveryOption, natureOfGoods, strQuality, strPackaging, strOwnership, strFromPincode, strtoPincode,
-            strStartDate, strStartTime, strEndDate, strEndTime, strGoodsDescription, strValueOgGood,
-            strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous, rgStrProhibited,
-            rgStrFraglle, rgStrFlamableToxicExplosive, strWeight;
+    private String deliveryOption, natureOfGoods, strQuality, strPackaging, strOwnership = "", strFromPincode, strtoPincode,
+            strStartDate = "", strStartTime = "", strEndDate = "", strEndTime = "", strGoodsDescription, strValueOgGood,
+            strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous = "", rgStrProhibited = "",
+            rgStrFraglle = "", rgStrFlamableToxicExplosive = "", strWeight;
 
     private String tag, edit;
     private int mHour, mMinute;
@@ -203,7 +203,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
         spinnerDeliveryOption.setAdapter(adapterDeliveryOption);
 
-        String[] nature_of_good = getResources().getStringArray(R.array.nature_of_good);
+        String[] nature_of_good = getResources().getStringArray(R.array.type_of_article);
         adapterNatureOfGoods =
                 new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, nature_of_good);
         adapterNatureOfGoods.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -323,8 +323,52 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 strReceiverMobileNo = etReceiverMobileNo.getText().toString();
                 strReceiverAddress = etReceiverAddress.getText().toString();
 
-                //TODO API Call
-                updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+                if(!strtoPincode.isEmpty()){
+                    if(!strFromPincode.isEmpty()){
+                        if(!strStartDate.isEmpty()){
+                            if(!strEndDate.isEmpty()){
+                                if(!strStartTime.isEmpty()){
+                                    if(!strEndTime.isEmpty()){
+                                        if(!strGoodsDescription.isEmpty()){
+                                            if(!strValueOgGood.isEmpty()){
+                                                if(!strReceiverName.isEmpty()){
+                                                    if(!strReceiverMobileNo.isEmpty()){
+                                                        if(!strReceiverAddress.isEmpty()){
+                                                            //TODO API Call
+                                                            updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+                                                        }else {
+                                                            Uitility.showToast(context,"Please enter receiver address!");
+                                                        }
+                                                    }else {
+                                                        Uitility.showToast(context,"Please enter receiver mobile number!");
+                                                    }
+                                                }else {
+                                                    Uitility.showToast(context,"Please enter receiver name!");
+                                                }
+                                            }else {
+                                                Uitility.showToast(context,"Please enter goods values!");
+                                            }
+                                        }else {
+                                            Uitility.showToast(context,"Please enter goods description!");
+                                        }
+                                    }else {
+                                        Uitility.showToast(context,"Please select end time!");
+                                    }
+                                }else {
+                                    Uitility.showToast(context,"Please select start time!");
+                                }
+                            }else {
+                                Uitility.showToast(context,"Please select end date!");
+                            }
+                        }else {
+                            Uitility.showToast(context,"Please select start date!");
+                        }
+                    }else {
+                        Uitility.showToast(context,"Please enter From city pincode!");
+                    }
+                }else {
+                    Uitility.showToast(context,"Please enter TO city pincode!");
+                }
             }
         });
     }
@@ -493,8 +537,77 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 strReceiverMobileNo = etReceiverMobileNo.getText().toString();
                 strReceiverAddress = etReceiverAddress.getText().toString();
 
-                //TODO API Call
-                sendParcel();
+                if(!strtoPincode.isEmpty()){
+                    if(!strFromPincode.isEmpty()){
+                        if(!strStartDate.isEmpty() && strStartDate != null){
+                            if(!strEndDate.isEmpty() && strEndDate != null){
+                                if(!strStartTime.isEmpty()){
+                                    if(!strEndTime.isEmpty()){
+                                        if(!strGoodsDescription.isEmpty()){
+                                            if(!strValueOgGood.isEmpty()){
+                                                if(!strOwnership.isEmpty()){
+                                                    if(!rgStrHazardous.isEmpty()){
+                                                        if(!rgStrProhibited.isEmpty()){
+                                                            if(!rgStrFraglle.isEmpty()){
+                                                                if(!rgStrFlamableToxicExplosive.isEmpty()){
+                                                                    if(!strReceiverName.isEmpty()){
+                                                                        if(!strReceiverMobileNo.isEmpty()){
+                                                                            if(!strReceiverAddress.isEmpty()){
+                                                                                if(cbTermsCondition.isChecked()){
+                                                                                    //TODO API Call
+                                                                                    sendParcel();
+                                                                                }else {
+                                                                                    Uitility.showToast(context,"Please accept terms and condition!");
+                                                                                }
+                                                                            }else {
+                                                                                Uitility.showToast(context,"Please enter receiver address!");
+                                                                            }
+                                                                        }else {
+                                                                            Uitility.showToast(context,"Please enter receiver mobile number!");
+                                                                        }
+                                                                    }else {
+                                                                        Uitility.showToast(context,"Please enter receiver name!");
+                                                                    }
+                                                                }else {
+                                                                    Uitility.showToast(context,"Please select Flammable Toxic Explosive type!");
+                                                                }
+                                                            }else {
+                                                                Uitility.showToast(context,"Please select Fragile type!");
+                                                            }
+                                                        }else {
+                                                            Uitility.showToast(context,"Please select Prohibited type!");
+                                                        }
+                                                    }else {
+                                                        Uitility.showToast(context,"Please select Hazardous type!");
+                                                    }
+                                                }else {
+                                                    Uitility.showToast(context,"Please select ownership type!");
+                                                }
+                                            }else {
+                                                Uitility.showToast(context,"Please enter goods values!");
+                                            }
+                                        }else {
+                                            Uitility.showToast(context,"Please enter goods description!");
+                                        }
+                                    }else {
+                                        Uitility.showToast(context,"Please select end time!");
+                                    }
+                                }else {
+                                    Uitility.showToast(context,"Please select start time!");
+                                }
+                            }else {
+                                Uitility.showToast(context,"Please select end date!");
+                            }
+                        }else {
+                            Uitility.showToast(context,"Please select start date!");
+                        }
+                    }else {
+                        Uitility.showToast(context,"Please enter From city pincode!");
+                    }
+                }else {
+                    Uitility.showToast(context,"Please enter TO city pincode!");
+                }
+
                 break;
             case R.id.gpInvoice:
                 gotoSelectPicture("invoice");

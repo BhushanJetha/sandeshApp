@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:fontFamily="@font/gotham_light"
-                    android:text="Select From City"
+                    android:text="Select To City"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"

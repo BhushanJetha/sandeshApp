@@ -76,6 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
+                    android:inputType="text"
                     android:hint="Company Name" />
 
             </android.support.design.widget.TextInputLayout>
@@ -104,6 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
+                    android:inputType="text"
                     android:hint="Authorised Person Name" />
 
             </android.support.design.widget.TextInputLayout>
@@ -118,6 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
+                    android:inputType="text"
                     android:hint="Designation" />
 
             </android.support.design.widget.TextInputLayout>
@@ -148,6 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
+                    android:inputType="textEmailAddress"
                     android:hint="Email Id" />
 
             </android.support.design.widget.TextInputLayout>

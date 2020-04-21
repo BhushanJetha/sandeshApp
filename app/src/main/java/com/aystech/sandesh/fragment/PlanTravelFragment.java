@@ -183,6 +183,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 strFromPincode = etFromPincode.getText().toString();
                 strToPincode = etToPincode.getText().toString();
                 strStartDate = etStartDate.getText().toString();
@@ -195,8 +196,48 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 strVehicleNo = etVehicleTrainNo.getText().toString();
                 strOtherDetail = etOtherDetails.getText().toString();
 
-                //TODO API Call
-                updateMyTravel(travelDetailModel.getTravelPlan().getTravelId());
+                if(!strFromPincode.isEmpty()){
+                    if(!strToPincode.isEmpty()){
+                        if(!strStartDate.isEmpty()){
+                            if(!strEndDate.isEmpty()){
+                                if(!strStartTime.isEmpty()){
+                                    if(!strEndTime.isEmpty()){
+                                        if(!strAcceptableLength.isEmpty()){
+                                            if(!strAcceptableBreadth.isEmpty()){
+                                                if(!strAcceptableHeight.isEmpty()){
+                                                    if(!strVehicleNo.isEmpty()){
+                                                        //TODO API Call
+                                                        updateMyTravel(travelDetailModel.getTravelPlan().getTravelId());
+                                                    }else {
+                                                        Uitility.showToast(context,"Please enter vehicle number!");
+                                                    }
+                                                }else {
+                                                    Uitility.showToast(context,"Please enter height of parcel!");
+                                                }
+                                            }else {
+                                                Uitility.showToast(context,"Please enter breadth of parcel!");
+                                            }
+                                        }else {
+                                            Uitility.showToast(context,"Please enter length of parcel!");
+                                        }
+                                    }else {
+                                        Uitility.showToast(context,"Please select end time!");
+                                    }
+                                }else {
+                                    Uitility.showToast(context,"Please select start time!");
+                                }
+                            }else {
+                                Uitility.showToast(context,"Please select end date!");
+                            }
+                        }else {
+                            Uitility.showToast(context,"Please select start date!");
+                        }
+                    }else {
+                        Uitility.showToast(context,"Please enter TO city pincode!");
+                    }
+                }else {
+                    Uitility.showToast(context,"Please enter From city pincode!");
+                }
             }
         });
     }
@@ -265,8 +306,50 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 strVehicleNo = etVehicleTrainNo.getText().toString();
                 strOtherDetail = etOtherDetails.getText().toString();
 
-                //TODO API Call
-                planTravel();
+                if(!strFromPincode.isEmpty()){
+                    if(!strToPincode.isEmpty()){
+                        if(!strStartDate.isEmpty()){
+                            if(!strEndDate.isEmpty()){
+                                if(!strStartTime.isEmpty()){
+                                    if(!strEndTime.isEmpty()){
+                                        if(!strAcceptableLength.isEmpty()){
+                                            if(!strAcceptableBreadth.isEmpty()){
+                                                if(!strAcceptableHeight.isEmpty()){
+                                                    if(!strVehicleNo.isEmpty()){
+                                                        //TODO API Call
+                                                        planTravel();
+                                                    }else {
+                                                        Uitility.showToast(context,"Please enter vehicle number!");
+                                                    }
+                                                }else {
+                                                    Uitility.showToast(context,"Please enter height of parcel!");
+                                                }
+                                            }else {
+                                                Uitility.showToast(context,"Please enter breadth of parcel!");
+                                            }
+                                        }else {
+                                            Uitility.showToast(context,"Please enter length of parcel!");
+                                        }
+                                    }else {
+                                        Uitility.showToast(context,"Please select end time!");
+                                    }
+                                }else {
+                                    Uitility.showToast(context,"Please select start time!");
+                                }
+                            }else {
+                                Uitility.showToast(context,"Please select end date!");
+                            }
+                        }else {
+                            Uitility.showToast(context,"Please select start date!");
+                        }
+                    }else {
+                        Uitility.showToast(context,"Please enter TO city pincode!");
+                    }
+                }else {
+                    Uitility.showToast(context,"Please enter From city pincode!");
+                }
+
+
                 break;
 
             case R.id.btnCancel:
