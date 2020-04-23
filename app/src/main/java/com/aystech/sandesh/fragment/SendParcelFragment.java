@@ -10,7 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.constraint.Group;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -78,8 +78,9 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             etStartDate, etStartTime, etEndDate, etEndTime;
     private ImageView ingStartDate, ingStartTime;
     private ImageView ingEndDate, ingEndTime;
-    private Group gpInvoice, gpParcel;
-    private ImageView imgInvoice, imgParcel;
+    private ConstraintLayout gpInvoice, gpParcel;
+    private ImageView imgInvoice, imgInvoiceCamera, imgParcel, imgParcelCamera;
+    private TextView tvParcel, tvInvoice;
     private Spinner spinnerDeliveryOption, spinnerNatureGoods, spinnerQuality, spinnerWeight, spinnerPackaging;
     private RadioGroup rgOwnership, rgHazardous, rgProhibited, rgFraglle, rgFlamableToxicExplosive;
     private RadioButton rbCommercial, rbNonCommercial, rbHazardousYes, rbHazardousNo, rbProhibitedYes,
@@ -141,6 +142,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 editSendParcel();
         }
 
+        //TODO API Call
+        getWeights();
+
+        //TODO API Call
+        getState();
+
         return view;
     }
 
@@ -153,6 +160,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         imgInvoice.setImageResource(R.drawable.ic_invoice);
         imgParcel = view.findViewById(R.id.imgParcel);
         imgParcel.setImageResource(R.drawable.ic_parcel);
+        imgInvoiceCamera = view.findViewById(R.id.imgInvoiceCamera);
+        imgParcelCamera = view.findViewById(R.id.imgParcelCamera);
+        tvParcel = view.findViewById(R.id.tvParcel);
+        tvInvoice = view.findViewById(R.id.tvInvoice);
         spinnerFromState = view.findViewById(R.id.spinnerFromState);
         spinnerFromCity = view.findViewById(R.id.spinnerFromCity);
         etFromPincode = view.findViewById(R.id.etFromPincode);
@@ -323,51 +334,51 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 strReceiverMobileNo = etReceiverMobileNo.getText().toString();
                 strReceiverAddress = etReceiverAddress.getText().toString();
 
-                if(!strtoPincode.isEmpty()){
-                    if(!strFromPincode.isEmpty()){
-                        if(!strStartDate.isEmpty()){
-                            if(!strEndDate.isEmpty()){
-                                if(!strStartTime.isEmpty()){
-                                    if(!strEndTime.isEmpty()){
-                                        if(!strGoodsDescription.isEmpty()){
-                                            if(!strValueOgGood.isEmpty()){
-                                                if(!strReceiverName.isEmpty()){
-                                                    if(!strReceiverMobileNo.isEmpty()){
-                                                        if(!strReceiverAddress.isEmpty()){
+                if (!strtoPincode.isEmpty()) {
+                    if (!strFromPincode.isEmpty()) {
+                        if (!strStartDate.isEmpty()) {
+                            if (!strEndDate.isEmpty()) {
+                                if (!strStartTime.isEmpty()) {
+                                    if (!strEndTime.isEmpty()) {
+                                        if (!strGoodsDescription.isEmpty()) {
+                                            if (!strValueOgGood.isEmpty()) {
+                                                if (!strReceiverName.isEmpty()) {
+                                                    if (!strReceiverMobileNo.isEmpty()) {
+                                                        if (!strReceiverAddress.isEmpty()) {
                                                             //TODO API Call
                                                             updateMyParcel(travelDetailModel.getParcelData().getParcelId());
-                                                        }else {
-                                                            Uitility.showToast(context,"Please enter receiver address!");
+                                                        } else {
+                                                            Uitility.showToast(context, "Please enter receiver address!");
                                                         }
-                                                    }else {
-                                                        Uitility.showToast(context,"Please enter receiver mobile number!");
+                                                    } else {
+                                                        Uitility.showToast(context, "Please enter receiver mobile number!");
                                                     }
-                                                }else {
-                                                    Uitility.showToast(context,"Please enter receiver name!");
+                                                } else {
+                                                    Uitility.showToast(context, "Please enter receiver name!");
                                                 }
-                                            }else {
-                                                Uitility.showToast(context,"Please enter goods values!");
+                                            } else {
+                                                Uitility.showToast(context, "Please enter goods values!");
                                             }
-                                        }else {
-                                            Uitility.showToast(context,"Please enter goods description!");
+                                        } else {
+                                            Uitility.showToast(context, "Please enter goods description!");
                                         }
-                                    }else {
-                                        Uitility.showToast(context,"Please select end time!");
+                                    } else {
+                                        Uitility.showToast(context, "Please select end time!");
                                     }
-                                }else {
-                                    Uitility.showToast(context,"Please select start time!");
+                                } else {
+                                    Uitility.showToast(context, "Please select start time!");
                                 }
-                            }else {
-                                Uitility.showToast(context,"Please select end date!");
+                            } else {
+                                Uitility.showToast(context, "Please select end date!");
                             }
-                        }else {
-                            Uitility.showToast(context,"Please select start date!");
+                        } else {
+                            Uitility.showToast(context, "Please select start date!");
                         }
-                    }else {
-                        Uitility.showToast(context,"Please enter From city pincode!");
+                    } else {
+                        Uitility.showToast(context, "Please enter From city pincode!");
                     }
-                }else {
-                    Uitility.showToast(context,"Please enter TO city pincode!");
+                } else {
+                    Uitility.showToast(context, "Please enter TO city pincode!");
                 }
             }
         });
@@ -376,6 +387,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private void onClickListener() {
         gpInvoice.setOnClickListener(this);
         gpParcel.setOnClickListener(this);
+        imgParcel.setOnClickListener(this);
+        imgParcelCamera.setOnClickListener(this);
+        imgInvoice.setOnClickListener(this);
+        tvParcel.setOnClickListener(this);
+        tvInvoice.setOnClickListener(this);
+        imgInvoiceCamera.setOnClickListener(this);
         ingStartDate.setOnClickListener(this);
         ingStartTime.setOnClickListener(this);
         ingEndDate.setOnClickListener(this);
@@ -537,82 +554,88 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 strReceiverMobileNo = etReceiverMobileNo.getText().toString();
                 strReceiverAddress = etReceiverAddress.getText().toString();
 
-                if(!strtoPincode.isEmpty()){
-                    if(!strFromPincode.isEmpty()){
-                        if(!strStartDate.isEmpty() && strStartDate != null){
-                            if(!strEndDate.isEmpty() && strEndDate != null){
-                                if(!strStartTime.isEmpty()){
-                                    if(!strEndTime.isEmpty()){
-                                        if(!strGoodsDescription.isEmpty()){
-                                            if(!strValueOgGood.isEmpty()){
-                                                if(!strOwnership.isEmpty()){
-                                                    if(!rgStrHazardous.isEmpty()){
-                                                        if(!rgStrProhibited.isEmpty()){
-                                                            if(!rgStrFraglle.isEmpty()){
-                                                                if(!rgStrFlamableToxicExplosive.isEmpty()){
-                                                                    if(!strReceiverName.isEmpty()){
-                                                                        if(!strReceiverMobileNo.isEmpty()){
-                                                                            if(!strReceiverAddress.isEmpty()){
-                                                                                if(cbTermsCondition.isChecked()){
+                if (!strtoPincode.isEmpty()) {
+                    if (!strFromPincode.isEmpty()) {
+                        if (!strStartDate.isEmpty() && strStartDate != null) {
+                            if (!strEndDate.isEmpty() && strEndDate != null) {
+                                if (!strStartTime.isEmpty()) {
+                                    if (!strEndTime.isEmpty()) {
+                                        if (!strGoodsDescription.isEmpty()) {
+                                            if (!strValueOgGood.isEmpty()) {
+                                                if (!strOwnership.isEmpty()) {
+                                                    if (!rgStrHazardous.isEmpty()) {
+                                                        if (!rgStrProhibited.isEmpty()) {
+                                                            if (!rgStrFraglle.isEmpty()) {
+                                                                if (!rgStrFlamableToxicExplosive.isEmpty()) {
+                                                                    if (!strReceiverName.isEmpty()) {
+                                                                        if (!strReceiverMobileNo.isEmpty()) {
+                                                                            if (!strReceiverAddress.isEmpty()) {
+                                                                                if (cbTermsCondition.isChecked()) {
                                                                                     //TODO API Call
                                                                                     sendParcel();
-                                                                                }else {
-                                                                                    Uitility.showToast(context,"Please accept terms and condition!");
+                                                                                } else {
+                                                                                    Uitility.showToast(context, "Please accept terms and condition!");
                                                                                 }
-                                                                            }else {
-                                                                                Uitility.showToast(context,"Please enter receiver address!");
+                                                                            } else {
+                                                                                Uitility.showToast(context, "Please enter receiver address!");
                                                                             }
-                                                                        }else {
-                                                                            Uitility.showToast(context,"Please enter receiver mobile number!");
+                                                                        } else {
+                                                                            Uitility.showToast(context, "Please enter receiver mobile number!");
                                                                         }
-                                                                    }else {
-                                                                        Uitility.showToast(context,"Please enter receiver name!");
+                                                                    } else {
+                                                                        Uitility.showToast(context, "Please enter receiver name!");
                                                                     }
-                                                                }else {
-                                                                    Uitility.showToast(context,"Please select Flammable Toxic Explosive type!");
+                                                                } else {
+                                                                    Uitility.showToast(context, "Please select Flammable Toxic Explosive type!");
                                                                 }
-                                                            }else {
-                                                                Uitility.showToast(context,"Please select Fragile type!");
+                                                            } else {
+                                                                Uitility.showToast(context, "Please select Fragile type!");
                                                             }
-                                                        }else {
-                                                            Uitility.showToast(context,"Please select Prohibited type!");
+                                                        } else {
+                                                            Uitility.showToast(context, "Please select Prohibited type!");
                                                         }
-                                                    }else {
-                                                        Uitility.showToast(context,"Please select Hazardous type!");
+                                                    } else {
+                                                        Uitility.showToast(context, "Please select Hazardous type!");
                                                     }
-                                                }else {
-                                                    Uitility.showToast(context,"Please select ownership type!");
+                                                } else {
+                                                    Uitility.showToast(context, "Please select ownership type!");
                                                 }
-                                            }else {
-                                                Uitility.showToast(context,"Please enter goods values!");
+                                            } else {
+                                                Uitility.showToast(context, "Please enter goods values!");
                                             }
-                                        }else {
-                                            Uitility.showToast(context,"Please enter goods description!");
+                                        } else {
+                                            Uitility.showToast(context, "Please enter goods description!");
                                         }
-                                    }else {
-                                        Uitility.showToast(context,"Please select end time!");
+                                    } else {
+                                        Uitility.showToast(context, "Please select end time!");
                                     }
-                                }else {
-                                    Uitility.showToast(context,"Please select start time!");
+                                } else {
+                                    Uitility.showToast(context, "Please select start time!");
                                 }
-                            }else {
-                                Uitility.showToast(context,"Please select end date!");
+                            } else {
+                                Uitility.showToast(context, "Please select end date!");
                             }
-                        }else {
-                            Uitility.showToast(context,"Please select start date!");
+                        } else {
+                            Uitility.showToast(context, "Please select start date!");
                         }
-                    }else {
-                        Uitility.showToast(context,"Please enter From city pincode!");
+                    } else {
+                        Uitility.showToast(context, "Please enter From city pincode!");
                     }
-                }else {
-                    Uitility.showToast(context,"Please enter TO city pincode!");
+                } else {
+                    Uitility.showToast(context, "Please enter TO city pincode!");
                 }
 
                 break;
             case R.id.gpInvoice:
+            case R.id.imgInvoice:
+            case R.id.tvInvoice:
+            case R.id.imgInvoiceCamera:
                 gotoSelectPicture("invoice");
                 break;
             case R.id.gpParcel:
+            case R.id.imgParcel:
+            case R.id.tvParcel:
+            case R.id.imgParcelCamera:
                 gotoSelectPicture("parcel");
                 break;
             case R.id.btnCancel:
@@ -910,12 +933,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
-
-        //TODO API Call
-        getWeights();
-
-        //TODO API Call
-        getState();
     }
 
     private void getWeights() {

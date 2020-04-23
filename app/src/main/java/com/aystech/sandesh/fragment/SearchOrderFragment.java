@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.adapter.NoDataAdapter;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.AcceptedOrdersModel;
@@ -67,7 +68,6 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     private EditText etFromPincode, etToPincode, etDate;
     private RecyclerView rvOrder;
     private OrderAdapter orderAdapter;
-    private int mYear, mMonth, mDay;
     private int fromStateId, fromCityId, toStateId, toCityId;
     private String strToPinCode, strFromPincode, strDate = "";
 
@@ -97,6 +97,9 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
         initView(view);
 
         onClickListener();
+
+        //TODO API Call
+        getState();
 
         return view;
     }
@@ -264,6 +267,8 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             rvOrder.setAdapter(orderAdapter);
         } else {
             clOrderList.setVisibility(View.GONE);
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Order Found!");
+            rvOrder.setAdapter(noDataAdapter);
         }
     }
 
@@ -271,9 +276,6 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
-
-        //TODO API Call
-        getState();
     }
 
     private void getState() {

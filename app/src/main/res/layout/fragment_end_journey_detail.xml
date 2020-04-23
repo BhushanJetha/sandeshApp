@@ -48,7 +48,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clTopView">
 
-                <android.support.constraint.Group
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/gpReceivedParcel"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_96sdp"
@@ -83,7 +83,7 @@
                     app:layout_constraintLeft_toRightOf="@id/imgReceivedParcel"
                     app:layout_constraintTop_toTopOf="@id/imgReceivedParcel" />
 
-                <android.support.constraint.Group
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/gpNewSelfie"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_96sdp"

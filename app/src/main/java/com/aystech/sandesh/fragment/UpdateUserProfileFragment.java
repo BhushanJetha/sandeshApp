@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
 
     private UserModel userModel;
 
+    private ConstraintLayout clProfileImage;
     private ImageView imgUserProfile, imgUserProfileCamera;
     private RadioGroup rgGender;
     private RadioButton rbGender;
@@ -101,6 +103,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
 
+        clProfileImage = view.findViewById(R.id.clProfileImage);
         imgUserProfile = view.findViewById(R.id.imgUserProfile);
         imgUserProfileCamera = view.findViewById(R.id.imgUserProfileCamera);
         etFirstName = view.findViewById(R.id.etFirstName);
@@ -178,6 +181,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
 
         btnUpdate.setOnClickListener(this);
         llDateOfBirth.setOnClickListener(this);
+        clProfileImage.setOnClickListener(this);
         imgUserProfile.setOnClickListener(this);
         imgUserProfileCamera.setOnClickListener(this);
     }
@@ -273,6 +277,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
                 openDatePickerDialog();
                 break;
 
+            case R.id.clProfileImage:
             case R.id.imgUserProfile:
             case R.id.imgUserProfileCamera:
                 gotoSelectPicture();

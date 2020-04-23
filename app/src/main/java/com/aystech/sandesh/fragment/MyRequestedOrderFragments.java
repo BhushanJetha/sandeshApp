@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.adapter.NoDataAdapter;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.AcceptedOrdersModel;
@@ -103,28 +104,33 @@ public class MyRequestedOrderFragments extends Fragment {
     }
 
     private void bindDataToRV(List<SearchTravellerModel> data) {
-        orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
-            @Override
-            public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-            }
+        if (data.size() > 0) {
+            orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
+                @Override
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                }
 
-            @Override
-            public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        orderListFragment, R.id.frame_container,
-                        true);
-                Bundle bundle = new Bundle();
-                bundle.putInt("travel_id", searchTravellerModel.getTravelId());
-                bundle.putString("tag", "order_clicked_accept_reject");
-                orderListFragment.setArguments(bundle);
-            }
+                @Override
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            orderListFragment, R.id.frame_container,
+                            true);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                    bundle.putString("tag", "order_clicked_accept_reject");
+                    orderListFragment.setArguments(bundle);
+                }
 
-            @Override
-            public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
-            }
-        });
-        orderAdapter.addTravellerList(data);
-        rvMyRequestedOrders.setAdapter(orderAdapter);
+                @Override
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                }
+            });
+            orderAdapter.addTravellerList(data);
+            rvMyRequestedOrders.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+            rvMyRequestedOrders.setAdapter(noDataAdapter);
+        }
     }
 
     @Override

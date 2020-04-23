@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.activity.PaymentActivity;
+import com.aystech.sandesh.adapter.NoDataAdapter;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.AcceptedOrdersModel;
@@ -235,6 +236,9 @@ public class OrderListFragment extends Fragment {
             });
             orderAdapter.addOrderList(data);
             rvOrder.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Orders Found!");
+            rvOrder.setAdapter(noDataAdapter);
         }
     }
 
@@ -306,6 +310,9 @@ public class OrderListFragment extends Fragment {
             });
             orderAdapter.addTravellerList(data);
             rvOrder.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+            rvOrder.setAdapter(noDataAdapter);
         }
     }
 
@@ -362,6 +369,9 @@ public class OrderListFragment extends Fragment {
             });
             orderAdapter.addAcceptedOrders(data);
             rvOrder.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Orders Found!");
+            rvOrder.setAdapter(noDataAdapter);
         }
     }
 
@@ -422,6 +432,9 @@ public class OrderListFragment extends Fragment {
             });
             orderAdapter.addOrderList(data);
             rvOrder.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Orders Found!");
+            rvOrder.setAdapter(noDataAdapter);
         }
     }
 

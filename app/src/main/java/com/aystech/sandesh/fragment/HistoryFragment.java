@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.adapter.NoDataAdapter;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.AcceptedOrdersModel;
@@ -197,6 +198,9 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
                 orderAdapter.addOrderList(showHistoryInnerModel.getParcel());
             }
             rvHistory.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Data Found!");
+            rvHistory.setAdapter(noDataAdapter);
         }
     }
 

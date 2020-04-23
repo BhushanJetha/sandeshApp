@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.adapter.NoDataAdapter;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.AcceptedOrdersModel;
@@ -97,6 +98,9 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         initView(view);
 
         onClickListener();
+
+        //TODO API Call
+        getState();
 
         return view;
     }
@@ -266,6 +270,8 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
             rvOrder.setAdapter(orderAdapter);
         }else{
             clTravellerList.setVisibility(View.GONE);
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+            rvOrder.setAdapter(noDataAdapter);
         }
     }
 
@@ -274,9 +280,6 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
-
-        //TODO API Call
-        getState();
     }
 
     private void getState() {

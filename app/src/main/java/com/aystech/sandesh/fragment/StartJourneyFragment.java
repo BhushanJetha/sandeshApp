@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.adapter.NoDataAdapter;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.AcceptedOrdersModel;
@@ -202,82 +203,92 @@ public class StartJourneyFragment extends Fragment {
     }
 
     private void bindTravellerDataToRV(List<SearchTravellerModel> data) {
-        orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
-            @Override
-            public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-            }
-
-            @Override
-            public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
-                if (tag != null && !tag.equals("")) {
-                    switch (tag) {
-                        case "track_parcel": {
-                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                    trackYourParcelFragment, R.id.frame_container, true);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("travel_id", searchTravellerModel.getTravelId());
-                            trackYourParcelFragment.setArguments(bundle);
-                            break;
-                        }
-                        case "my_rides": {
-                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                    travellerDetailFragment, R.id.frame_container, true);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("travel_id", searchTravellerModel.getTravelId());
-                            bundle.putString("tag", "my_rides");
-                            travellerDetailFragment.setArguments(bundle);
-                            break;
-                        }
-                        case "nominate_person": {
-                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                    nominateAlternatePersonFragment, R.id.frame_container, true);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("travel_id", searchTravellerModel.getTravelId());
-                            travellerDetailFragment.setArguments(bundle);
-                            break;
-                        }
-                    }
-                } else {
-                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                            orderListFragment, R.id.frame_container,
-                            true);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("travel_id", searchTravellerModel.getTravelId());
-                    bundle.putString("tag", "order_clicked_verify");
-                    orderListFragment.setArguments(bundle);
+        if (data.size() > 0) {
+            orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
+                @Override
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                 }
-            }
 
-            @Override
-            public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
-            }
-        });
-        orderAdapter.addTravellerList(data);
-        rvTraveller.setAdapter(orderAdapter);
+                @Override
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                    if (tag != null && !tag.equals("")) {
+                        switch (tag) {
+                            case "track_parcel": {
+                                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                        trackYourParcelFragment, R.id.frame_container, true);
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                                trackYourParcelFragment.setArguments(bundle);
+                                break;
+                            }
+                            case "my_rides": {
+                                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                        travellerDetailFragment, R.id.frame_container, true);
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                                bundle.putString("tag", "my_rides");
+                                travellerDetailFragment.setArguments(bundle);
+                                break;
+                            }
+                            case "nominate_person": {
+                                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                        nominateAlternatePersonFragment, R.id.frame_container, true);
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                                travellerDetailFragment.setArguments(bundle);
+                                break;
+                            }
+                        }
+                    } else {
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                orderListFragment, R.id.frame_container,
+                                true);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                        bundle.putString("tag", "order_clicked_verify");
+                        orderListFragment.setArguments(bundle);
+                    }
+                }
+
+                @Override
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                }
+            });
+            orderAdapter.addTravellerList(data);
+            rvTraveller.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+            rvTraveller.setAdapter(noDataAdapter);
+        }
     }
 
     private void bindOrdersDataToRV(List<SearchOrderModel> data) {
-        orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
-            @Override
-            public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        orderDetailFragment, R.id.frame_container, false);
-                Bundle bundle = new Bundle();
-                bundle.putInt("parcel_id", searchOrderModel.getParcelId());
-                bundle.putString("tag", "just_show_order_detail");
-                orderDetailFragment.setArguments(bundle);
-            }
+        if (data.size()>0) {
+            orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
+                @Override
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            orderDetailFragment, R.id.frame_container, false);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("parcel_id", searchOrderModel.getParcelId());
+                    bundle.putString("tag", "just_show_order_detail");
+                    orderDetailFragment.setArguments(bundle);
+                }
 
-            @Override
-            public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
-            }
+                @Override
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                }
 
-            @Override
-            public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
-            }
-        });
-        orderAdapter.addOrderList(data);
-        rvTraveller.setAdapter(orderAdapter);
+                @Override
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                }
+            });
+            orderAdapter.addOrderList(data);
+            rvTraveller.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Order Found!");
+            rvTraveller.setAdapter(noDataAdapter);
+        }
     }
 
     @Override

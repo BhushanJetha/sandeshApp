@@ -510,6 +510,23 @@
 
                 </android.support.design.widget.TextInputLayout>
 
+                <CheckBox
+                    android:id="@+id/cbTermsCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@+id/tILOtherDetails" />
+
+                <TextView
+                    android:id="@+id/tvTermsCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accept terms &amp; conditions"
+                    app:layout_constraintBottom_toBottomOf="@+id/cbTermsCondition"
+                    app:layout_constraintStart_toEndOf="@+id/cbTermsCondition"
+                    app:layout_constraintTop_toTopOf="@+id/cbTermsCondition" />
+
                 <Button
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
@@ -523,7 +540,7 @@
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
-                    app:layout_constraintTop_toBottomOf="@+id/tILOtherDetails" />
+                    app:layout_constraintTop_toBottomOf="@+id/cbTermsCondition" />
 
                 <TextView
                     android:id="@+id/btnCancel"

@@ -50,6 +50,9 @@ public class AddressDetailActivity extends AppCompatActivity {
 
         init();
         onClick();
+
+        //TODO API Call
+        getState();
     }
 
     private void init() {
@@ -238,8 +241,5 @@ public class AddressDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        //TODO API Call
-        getState();
     }
 }

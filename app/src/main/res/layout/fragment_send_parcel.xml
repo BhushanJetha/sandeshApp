@@ -478,7 +478,7 @@
 
                 </RadioGroup>
 
-                <android.support.constraint.Group
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/gpInvoice"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_96sdp"
@@ -514,7 +514,7 @@
                     app:layout_constraintLeft_toRightOf="@id/imgInvoice"
                     app:layout_constraintTop_toTopOf="@id/imgInvoice" />
 
-                <android.support.constraint.Group
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/gpParcel"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_96sdp"

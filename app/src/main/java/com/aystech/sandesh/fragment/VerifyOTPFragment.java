@@ -121,7 +121,7 @@ public class VerifyOTPFragment extends Fragment {
                 viewProgressDialog.hideDialog();
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        Uitility.showToast(getActivity(), response.body().getMessage());
+                        Uitility.showToast(getActivity(), "OTP has been resent!");
                     } else {
                         Uitility.showToast(getActivity(), response.body().getMessage());
                     }

@@ -1,28 +1,26 @@
 package com.aystech.sandesh.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
-import com.aystech.sandesh.activity.PaymentActivity;
+import com.aystech.sandesh.adapter.NoDataAdapter;
 import com.aystech.sandesh.adapter.WalletAdapter;
 import com.aystech.sandesh.model.WalletTransactionModel;
 import com.aystech.sandesh.model.WalletTransactionResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 
@@ -39,10 +37,10 @@ public class MyWalletFragmentOne extends Fragment {
 
     private TextView tvUserName;
     private TextView tvWalletAmt;
-    private EditText etAddAmt;
     private Button btnAddBal;
     RecyclerView rvPaymentHistory;
-    WalletAdapter walletAdapter;
+
+    private MyWalletFragmentTwo myWalletFragmentTwo;
 
     private UserSession userSession;
     private ViewProgressDialog viewProgressDialog;
@@ -63,6 +61,10 @@ public class MyWalletFragmentOne extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_wallet_fragment_one, container, false);
 
+
+        myWalletFragmentTwo = (MyWalletFragmentTwo) Fragment.instantiate(context,
+                MyWalletFragmentTwo.class.getName());
+
         initView(view);
 
         onClickListener();
@@ -78,7 +80,6 @@ public class MyWalletFragmentOne extends Fragment {
         tvUserName = view.findViewById(R.id.tvUserName);
         tvUserName.setText(userSession.getUSER_NAME());
         tvWalletAmt = view.findViewById(R.id.tvWalletAmt);
-        etAddAmt = view.findViewById(R.id.etAddAmt);
         btnAddBal = view.findViewById(R.id.btnAddBal);
     }
 
@@ -86,14 +87,8 @@ public class MyWalletFragmentOne extends Fragment {
         btnAddBal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(etAddAmt.getText().toString().trim())) {
-                    etAddAmt.setError("Please add input");
-                    etAddAmt.requestFocus();
-                } else {
-                    Intent intent = new Intent(context, PaymentActivity.class);
-                    intent.putExtra("add_amt", etAddAmt.getText().toString().trim());
-                    startActivity(intent);
-                }
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        myWalletFragmentTwo, R.id.frame_container, true);
             }
         });
     }
@@ -117,15 +112,20 @@ public class MyWalletFragmentOne extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<WalletTransactionResponseModel> call, @NonNull Throwable t) {
-                Log.e(TAG, "onFailure: "+t.getLocalizedMessage());
+                Log.e(TAG, "onFailure: " + t.getLocalizedMessage());
                 viewProgressDialog.hideDialog();
             }
         });
     }
 
     private void bindDataToUI(List<WalletTransactionModel> data) {
-        WalletAdapter walletAdapter = new WalletAdapter(context, data);
-        rvPaymentHistory.setAdapter(walletAdapter);
+        if (data.size() > 0) {
+            WalletAdapter walletAdapter = new WalletAdapter(context, data);
+            rvPaymentHistory.setAdapter(walletAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No record found!");
+            rvPaymentHistory.setAdapter(noDataAdapter);
+        }
     }
 
     @Override

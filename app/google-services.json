@@ -1,64 +1,42 @@
 {
   "project_info": {
-    "project_number": "808419048870",
-    "firebase_url": "https://grease-monkey-db1e5.firebaseio.com",
-    "project_id": "grease-monkey-db1e5",
-    "storage_bucket": "grease-monkey-db1e5.appspot.com"
+    "project_number": "674855106334",
+    "firebase_url": "https://sandesh-98480.firebaseio.com",
+    "project_id": "sandesh-98480",
+    "storage_bucket": "sandesh-98480.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:808419048870:android:f80b2b7cad9a6742d3a367",
+        "mobilesdk_app_id": "1:674855106334:android:be2e0c724fe54098583b0f",
         "android_client_info": {
           "package_name": "com.aystech.sandesh"
         }
       },
       "oauth_client": [
         {
-          "client_id": "808419048870-okhr67pa3fgujl6950p17gapfm70in46.apps.googleusercontent.com",
+          "client_id": "674855106334-voc6rgn2k8qatn8mdom75d5d7n758f68.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDGTb_P1xM9iuXR1XOoSmTkPg9YK71gLuM"
+          "current_key": "AIzaSyCQvwXoH5M32R9ypWFCrIhIExfVDjqjaJo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "808419048870-okhr67pa3fgujl6950p17gapfm70in46.apps.googleusercontent.com",
+              "client_id": "674855106334-voc6rgn2k8qatn8mdom75d5d7n758f68.apps.googleusercontent.com",
               "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:808419048870:android:ff753dd96cb8f37dd3a367",
-        "android_client_info": {
-          "package_name": "com.aystech.sandesh"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "808419048870-okhr67pa3fgujl6950p17gapfm70in46.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDGTb_P1xM9iuXR1XOoSmTkPg9YK71gLuM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
+            },
             {
-              "client_id": "808419048870-okhr67pa3fgujl6950p17gapfm70in46.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "674855106334-eabearq0dhjbuagbm11m0es9dfnr966f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aystech.sandesh"
+              }
             }
           ]
         }

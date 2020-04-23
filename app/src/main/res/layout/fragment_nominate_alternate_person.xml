@@ -115,7 +115,7 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.constraint.Group
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/gpPanNo"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_96sdp"

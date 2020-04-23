@@ -6,12 +6,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -63,6 +67,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private Spinner spinnerDeliveryOption, spinnerPreferredWeight, spinnerVehicleType;
     private Button btnSubmit;
     private TextView btnCancel;
+    private CheckBox cbTermsCondition;
 
     private ArrayAdapter<String> adapterDeliveryOption;
     private ArrayAdapter<String> adapterModeTravel;
@@ -70,6 +75,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private String tag, edit;
     private int mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
+    private boolean onceClicked = false;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -109,6 +115,12 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 editPlanTravel();
         }
 
+        //TODO API Call
+        getWeights();
+
+        //TODO API Call
+        getState();
+
         return view;
     }
 
@@ -139,6 +151,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         etEndTime = view.findViewById(R.id.etEndTime);
         btnCancel = view.findViewById(R.id.btnCancel);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        cbTermsCondition = view.findViewById(R.id.cbTermsCondition);
 
         String[] delivery_option_array = getResources().getStringArray(R.array.delivery_option_array);
         adapterDeliveryOption =
@@ -178,6 +191,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
             int spinnerPosition = adapterModeTravel.getPosition(modeOfTravel);
             spinnerVehicleType.setSelection(spinnerPosition);
         }
+        onceClicked = true;
+        cbTermsCondition.setChecked(true);
 
         btnSubmit.setText("Update");
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -249,6 +264,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         ingEndTime.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+        cbTermsCondition.setOnClickListener(this);
 
         spinnerDeliveryOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -316,8 +332,12 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                                             if(!strAcceptableBreadth.isEmpty()){
                                                 if(!strAcceptableHeight.isEmpty()){
                                                     if(!strVehicleNo.isEmpty()){
-                                                        //TODO API Call
-                                                        planTravel();
+                                                        if (cbTermsCondition.isChecked()) {
+                                                            //TODO API Call
+                                                            planTravel();
+                                                        } else {
+                                                            Uitility.showToast(context, "Please accept terms and condition!");
+                                                        }
                                                     }else {
                                                         Uitility.showToast(context,"Please enter vehicle number!");
                                                     }
@@ -355,7 +375,42 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
             case R.id.btnCancel:
                 ((MainActivity) context).getSupportFragmentManager().popBackStack();
                 break;
+
+            case R.id.cbTermsCondition:
+                if (!onceClicked) {
+                    cbTermsCondition.setClickable(false);
+                    showTermsConditions();
+                }
+                break;
         }
+    }
+
+    private void showTermsConditions() {
+        LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
+        final View alertLayout = inflater.inflate(R.layout.dialog_terms_condition, null);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(true);
+
+        final AlertDialog dialog = alert.create();
+        dialog.show();
+
+        WebView wvTermsConditions = alertLayout.findViewById(R.id.wvTermsCondition);
+        // displaying content in WebView from html file that stored in assets folder
+        wvTermsConditions.getSettings().setJavaScriptEnabled(true);
+        wvTermsConditions.loadUrl("file:///android_res/raw/" + "terms_and_condition.html");
+
+        TextView tvOk = alertLayout.findViewById(R.id.tvOk);
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onceClicked = true;
+                dialog.dismiss();
+            }
+        });
     }
 
     private void planTravel() {
@@ -510,12 +565,6 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
-
-        //TODO API Call
-        getWeights();
-
-        //TODO API Call
-        getState();
     }
 
     private void getWeights() {

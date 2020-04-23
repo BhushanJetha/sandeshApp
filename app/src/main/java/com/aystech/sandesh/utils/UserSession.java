@@ -21,6 +21,8 @@ public class UserSession {
     private String HOURS = "hours";
     private String MINUTE = "minute";
 
+    private String LOGIN_COUNT = "login_count";
+
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
@@ -117,6 +119,15 @@ public class UserSession {
 
     public String getFCMId() {
         return pref.getString(KEY_FCM_ID, "");
+    }
+
+    public void setLoginCount(int login_count) {
+        editor.putString(LOGIN_COUNT, String.valueOf(login_count));
+        editor.commit();
+    }
+
+    public String getLoginCount() {
+        return pref.getString(LOGIN_COUNT, "");
     }
 
     void clearUserSession() {

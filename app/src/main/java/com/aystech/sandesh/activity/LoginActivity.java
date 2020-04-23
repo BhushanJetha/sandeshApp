@@ -203,7 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        if(response.body().getIsAddressAvailable()){
+                        if (response.body().getIsAddressAvailable()) {
                             Constants.fragmentType = "Dashboard";
                             Intent i = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(i);
@@ -214,6 +214,13 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         }
                     } else {
+                        int login_count = 0;
+                        login_count = Integer.parseInt(userSession.getLoginCount());
+                        if (login_count <= 5)
+                            userSession.setLoginCount(login_count++);
+                        else
+                            Toast.makeText(LoginActivity.this, "Please reset your password!", Toast.LENGTH_SHORT).show();
+
                         Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }

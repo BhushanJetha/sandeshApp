@@ -1,25 +1,21 @@
 package com.aystech.sandesh.fragment;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.constraint.Group;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
@@ -31,14 +27,9 @@ import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
-import com.google.gson.JsonObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -53,8 +44,9 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
 
     private DashboardFragment dashboardFragment;
 
-    private Group gpNewSelfie, gpReceivedParcel;
-    private ImageView imgNewSelfie, imgReceivedParcel;
+    private ConstraintLayout gpNewSelfie, gpReceivedParcel;
+    private ImageView imgNewSelfie, imgNewSelfieCamera, imgReceivedParcelCamera, imgReceivedParcel;
+    private TextView tvNewSelfie, tvReceivedParcel;
     private Button btnEndJourney;
 
     private Uri picUri;
@@ -109,12 +101,22 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
         gpReceivedParcel = view.findViewById(R.id.gpReceivedParcel);
         imgReceivedParcel = view.findViewById(R.id.imgReceivedParcel);
         imgReceivedParcel.setImageResource(R.drawable.ic_parcel);
+        imgNewSelfieCamera = view.findViewById(R.id.imgNewSelfieCamera);
+        imgReceivedParcelCamera = view.findViewById(R.id.imgReceivedParcelCamera);
+        tvNewSelfie = view.findViewById(R.id.tvNewSelfie);
+        tvReceivedParcel = view.findViewById(R.id.tvReceivedParcel);
         btnEndJourney = view.findViewById(R.id.btnEndJourney);
     }
 
     private void onClickListener() {
         gpNewSelfie.setOnClickListener(this);
         gpReceivedParcel.setOnClickListener(this);
+        imgNewSelfie.setOnClickListener(this);
+        tvNewSelfie.setOnClickListener(this);
+        imgNewSelfieCamera.setOnClickListener(this);
+        imgReceivedParcelCamera.setOnClickListener(this);
+        tvReceivedParcel.setOnClickListener(this);
+        imgReceivedParcel.setOnClickListener(this);
         btnEndJourney.setOnClickListener(this);
     }
 
@@ -128,10 +130,16 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.gpNewSelfie:
+            case R.id.imgNewSelfie:
+            case R.id.imgNewSelfieCamera:
+            case R.id.tvNewSelfie:
                 gotoSelectPicture("selfie");
                 break;
 
             case R.id.gpReceivedParcel:
+            case R.id.imgReceivedParcel:
+            case R.id.imgReceivedParcelCamera:
+            case R.id.tvReceivedParcel:
                 gotoSelectPicture("parcel");
                 break;
 

@@ -25,7 +25,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/clTopView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
+                android:layout_height="@dimen/_150sdp"
                 android:background="@drawable/ic_bg_circle"
                 android:elevation="@dimen/_1sdp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,41 +54,6 @@
                     app:layout_constraintEnd_toEndOf="@+id/imgUserProfile"
                     app:layout_constraintStart_toStartOf="@+id/imgUserProfile"
                     app:layout_constraintTop_toBottomOf="@+id/imgUserProfile" />
-
-                <ImageView
-                    android:id="@+id/imgStatus"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_8sdp"
-                    android:background="@drawable/status_circle"
-                    android:backgroundTint="@color/backgroundCircle"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
-                    app:layout_constraintEnd_toStartOf="@+id/tvStatus"
-                    app:layout_constraintTop_toTopOf="@+id/tvStatus" />
-
-                <TextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:text="Active"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tvFullName"
-                    app:layout_constraintStart_toStartOf="@+id/tvFullName"
-                    app:layout_constraintTop_toBottomOf="@+id/tvFullName" />
-
-                <ImageView
-                    android:id="@+id/imgDropDown"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/imgStatus"
-                    app:layout_constraintStart_toEndOf="@+id/tvStatus"
-                    app:layout_constraintTop_toTopOf="@+id/imgStatus" />
 
             </android.support.constraint.ConstraintLayout>
 

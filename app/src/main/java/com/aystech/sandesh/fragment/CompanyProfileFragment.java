@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +36,8 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
 
     private UpdateCompanyProfileFragment updateCompanyProfileFragment;
     private UpdateAddressFragment updateAddressFragment;
+    private StartJourneyFragment startJourneyFragment;
+    private OrderListFragment orderListFragment;
 
     private UserModel userModel;
     private CorporateModel corporateModel;
@@ -43,6 +46,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
     private ImageView imgCompanyProfile;
     private TextView tvCompanyName, tvCompany, tvBranch, tvAuthorisedName, tvDesignation, tvMobileNumber, tvEmailId,
             tvAddresLine1, tvAddresLine2, tvLandmark, tvState, tvCity;
+    private Button btnMyRide, btnMyOrders, btnUpcomingRides, btnUpcomingOrders;
     private LinearLayout editCompanyDetail, editAddressDetail;
 
     private ViewProgressDialog viewProgressDialog;
@@ -67,6 +71,10 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
                 Fragment.instantiate(context, UpdateCompanyProfileFragment.class.getName());
         updateAddressFragment = (UpdateAddressFragment)
                 Fragment.instantiate(context, UpdateAddressFragment.class.getName());
+        startJourneyFragment = (StartJourneyFragment)
+                Fragment.instantiate(context, StartJourneyFragment.class.getName());
+        orderListFragment = (OrderListFragment) Fragment.instantiate(context,
+                OrderListFragment.class.getName());
 
         initView(view);
 
@@ -91,7 +99,10 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
         tvLandmark = view.findViewById(R.id.tvLandmark);
         tvState = view.findViewById(R.id.tvState);
         tvCity = view.findViewById(R.id.tvCity);
-
+        btnMyRide = view.findViewById(R.id.btnMyRide);
+        btnMyOrders = view.findViewById(R.id.btnMyOrders);
+        btnUpcomingOrders = view.findViewById(R.id.btnUpcomingOrders);
+        btnUpcomingRides = view.findViewById(R.id.btnUpcomingRides);
         editCompanyDetail = view.findViewById(R.id.editCompanyDetail);
         editAddressDetail = view.findViewById(R.id.editAddressDetail);
     }
@@ -99,6 +110,10 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
     private void onClickListener() {
         editCompanyDetail.setOnClickListener(this);
         editAddressDetail.setOnClickListener(this);
+        btnMyRide.setOnClickListener(this);
+        btnMyOrders.setOnClickListener(this);
+        btnUpcomingOrders.setOnClickListener(this);
+        btnUpcomingRides.setOnClickListener(this);
     }
 
     @Override
@@ -118,6 +133,22 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
                         updateAddressFragment, R.id.frame_container, true);
                 bundle.putParcelable("addressModel", addressModel);
                 updateAddressFragment.setArguments(bundle);
+                break;
+
+            case R.id.btnMyRide:
+                commonRedirect("my_rides", bundle, startJourneyFragment);
+                break;
+
+            case R.id.btnMyOrders:
+                commonRedirect("my_orders", bundle, startJourneyFragment);
+                break;
+
+            case R.id.btnUpcomingOrders:
+                commonRedirect("upcoming_orders", bundle, orderListFragment);
+                break;
+
+            case R.id.btnUpcomingRides:
+                commonRedirect("upcoming_rides", bundle, orderListFragment);
                 break;
         }
     }
@@ -185,5 +216,12 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
                 viewProgressDialog.hideDialog();
             }
         });
+    }
+
+    private void commonRedirect(String tag, Bundle bundle, Fragment fragment) {
+        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                fragment, R.id.frame_container, true);
+        bundle.putString("tag", tag);
+        fragment.setArguments(bundle);
     }
 }

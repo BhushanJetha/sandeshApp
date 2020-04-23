@@ -26,7 +26,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     NotificationManager notificationManager;
     String ADMIN_CHANNEL_ID = "Default";
     String defaultChannelName = "General";
-    String getDefaultChannelDesc = "General Grease Monkey Notification";
+    String getDefaultChannelDesc = "General Sandesh Notification";
     UserSession userSession;
 
     @Override

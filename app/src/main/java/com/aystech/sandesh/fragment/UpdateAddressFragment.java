@@ -76,6 +76,9 @@ public class UpdateAddressFragment extends Fragment {
 
         onClick();
 
+        //TODO API Call
+        getState();
+
         return view;
     }
 
@@ -121,9 +124,6 @@ public class UpdateAddressFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
-
-        //TODO API Call
-        getState();
     }
 
     private void getState() {

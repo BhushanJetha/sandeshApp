@@ -78,15 +78,15 @@ public class MobileVerificationFragment extends Fragment {
 
                 strMobileNumber = etMobileNumber.getText().toString();
 
-                if(!Constants.userType.isEmpty()){
-                    if(!strMobileNumber.isEmpty() && strMobileNumber.length() == 10){
+                if (!Constants.userType.isEmpty()) {
+                    if (!strMobileNumber.isEmpty() && strMobileNumber.length() == 10) {
                         doVerifyOTPAPICall();
                     } else {
-                        Toast.makeText(getActivity(),"Please enter valid mobile number !!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please enter valid mobile number !!", Toast.LENGTH_SHORT).show();
                     }
 
-                }else {
-                    Toast.makeText(getActivity(),"Please select your registration type !!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Please select your registration type !!", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -112,8 +112,8 @@ public class MobileVerificationFragment extends Fragment {
         ViewProgressDialog.getInstance().showProgress(this.getActivity());
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("mobile_no",strMobileNumber);
-        jsonObject.addProperty("user_type",Constants.userType);
+        jsonObject.addProperty("mobile_no", strMobileNumber);
+        jsonObject.addProperty("user_type", Constants.userType);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.getOTP(
@@ -125,13 +125,15 @@ public class MobileVerificationFragment extends Fragment {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if(response.body().getStatus()){
+                    if (response.body().getStatus()) {
+                        Uitility.showToast(getActivity(), "OTP has sent on your mobile no!");
+
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                 verifyOTPFragment, R.id.frame_container, true);
                         Bundle bundle = new Bundle();
                         bundle.putString("mobileNumber", strMobileNumber);
                         verifyOTPFragment.setArguments(bundle);
-                    }else {
+                    } else {
                         Uitility.showToast(getActivity(), response.body().getMessage());
                     }
                 }
@@ -147,6 +149,6 @@ public class MobileVerificationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) context).setUpToolbar(false, false,"", false);
+        ((MainActivity) context).setUpToolbar(false, false, "", false);
     }
 }

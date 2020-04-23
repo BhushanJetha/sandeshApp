@@ -7,13 +7,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
@@ -49,6 +53,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     Uri picUri;
     Bitmap myBitmap;
     private String filepath;
+    private boolean onceClicked = false;
 
     private ViewProgressDialog viewProgressDialog;
 
@@ -87,6 +92,17 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+
+        cbAccetTermsAndConditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!onceClicked) {
+                    cbAccetTermsAndConditions.setClickable(false);
+                    showTermsConditions();
+                }
+            }
+        });
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,6 +161,34 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 gotoSelectPicture();
+            }
+        });
+    }
+
+    private void showTermsConditions() {
+        LayoutInflater inflater = getLayoutInflater();
+        final View alertLayout = inflater.inflate(R.layout.dialog_terms_condition, null);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(true);
+
+        final AlertDialog dialog = alert.create();
+        dialog.show();
+
+        WebView wvTermsConditions = alertLayout.findViewById(R.id.wvTermsCondition);
+        // displaying content in WebView from html file that stored in assets folder
+        wvTermsConditions.getSettings().setJavaScriptEnabled(true);
+        wvTermsConditions.loadUrl("file:///android_res/raw/" + "terms_and_condition.html");
+
+        TextView tvOk = alertLayout.findViewById(R.id.tvOk);
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onceClicked = true;
+                dialog.dismiss();
             }
         });
     }

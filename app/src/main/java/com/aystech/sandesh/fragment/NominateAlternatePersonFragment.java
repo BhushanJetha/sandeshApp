@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.constraint.Group;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +41,7 @@ public class NominateAlternatePersonFragment extends Fragment implements View.On
 
     private Context context;
 
-    private Group gpPanNo;
+    private ConstraintLayout gpPanNo;
     private ImageView imgPan, imgPanCamera;
     private TextView tvPanCard;
     private EditText etUserName, etMobileNo, etPanNo;

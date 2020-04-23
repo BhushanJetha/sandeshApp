@@ -31,24 +31,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/imgUserProfile"
-                    android:layout_width="@dimen/_96sdp"
-                    android:layout_height="@dimen/_96sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/clProfileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.10" />
+                    app:layout_constraintVertical_bias="0.10"
+                    android:layout_marginTop="@dimen/_10sdp">
 
-                <ImageView
-                    android:id="@+id/imgUserProfileCamera"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:background="@drawable/ic_camera"
-                    app:layout_constraintEnd_toEndOf="@+id/imgUserProfile"
-                    app:layout_constraintTop_toTopOf="@+id/imgUserProfile" />
+                    <ImageView
+                        android:id="@+id/imgUserProfile"
+                        android:layout_width="@dimen/_96sdp"
+                        android:layout_height="@dimen/_96sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imgUserProfileCamera"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:background="@drawable/ic_camera"
+                        app:layout_constraintEnd_toEndOf="@+id/imgUserProfile"
+                        app:layout_constraintTop_toTopOf="@+id/imgUserProfile" />
+
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.constraint.ConstraintLayout>
 
