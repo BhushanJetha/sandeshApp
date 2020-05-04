@@ -25,6 +25,7 @@ import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 
 import java.io.File;
@@ -113,8 +114,22 @@ public class NominateAlternatePersonFragment extends Fragment implements View.On
                 mobileNo = etMobileNo.getText().toString().trim();
                 panNo = etPanNo.getText().toString().trim();
 
-                //TODO API Call
-                nominateAlternatePerson();
+
+                if(!userName.isEmpty()) {
+                    if(!mobileNo.isEmpty()) {
+                        if(!panNo.isEmpty()) {
+                            //TODO API Call
+                            nominateAlternatePerson();
+                        } else {
+                            Uitility.showToast(context,"Please enter pan card number!");
+                        }
+                    } else {
+                        Uitility.showToast(context,"Please enter mobile number!");
+                    }
+                } else {
+                    Uitility.showToast(context,"Please enter user name!");
+                }
+
                 break;
 
             case R.id.gpPanNo:
