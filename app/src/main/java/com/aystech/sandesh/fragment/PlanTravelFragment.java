@@ -81,9 +81,9 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
 
     private ViewProgressDialog viewProgressDialog;
 
-    private String deliveryOption, modeOfTravel, strStartTime, strEndTime, strStartDate, strEndDate, strFromPincode,
-            strToPincode, strAcceptableLength, strAcceptableBreadth, strAcceptableHeight, strVehicleNo, strOtherDetail,
-            strWeight;
+    private String deliveryOption, modeOfTravel, strStartTime = "", strEndTime = "", strStartDate = "", strEndDate = "",
+            strFromPincode, strToPincode, strAcceptableLength, strAcceptableBreadth, strAcceptableHeight, strVehicleNo,
+            strOtherDetail, strWeight;
 
     public PlanTravelFragment() {
         // Required empty public constructor
