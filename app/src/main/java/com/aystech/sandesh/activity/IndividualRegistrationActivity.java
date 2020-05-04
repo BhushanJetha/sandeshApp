@@ -49,7 +49,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
     private EditText etFirstName, etMiddleName, etLastName, etEmailId, etPassword, etReEnteredPassword, etRefferalCode;
     private String strFirstName, strMiddleName, strLastName, strEmailId, strPassword, strReEnteredPassword,
-            strRefferalCode, strMobileNumber, strGender, strBirthDate;
+            strRefferalCode, strMobileNumber, strGender, strBirthDate = "";
     private RadioButton rbMale, rbFemale, rbOther;
     private CheckBox cbAccetTermsAndConditions;
     private TextView tvBirthDate, tvAcceptTermsAndCondition;
