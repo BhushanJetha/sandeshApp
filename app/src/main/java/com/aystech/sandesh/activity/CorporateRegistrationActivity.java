@@ -125,8 +125,12 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                                         if (!strPassword.isEmpty()) {
                                             if (!strReEnteredPassword.isEmpty()) {
                                                 if (strPassword.equals(strReEnteredPassword)) {
-                                                    //TODO API Call
-                                                    doRigistrationAPICall();
+                                                    if (cbAccetTermsAndConditions.isChecked()) {
+                                                        //TODO API Call
+                                                        doRigistrationAPICall();
+                                                    } else {
+                                                        Uitility.showToast(CorporateRegistrationActivity.this, "Please accept terms and condition!");
+                                                    }
                                                 } else {
                                                     Uitility.showToast(CorporateRegistrationActivity.this, "Password and re-Entered Password not matched !!");
                                                 }

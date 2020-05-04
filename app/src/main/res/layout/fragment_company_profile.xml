@@ -24,7 +24,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/clTopView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
+                android:layout_height="@dimen/_150sdp"
                 android:background="@drawable/bottom_rectangle_background"
                 android:elevation="@dimen/_1sdp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -41,14 +41,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.10" />
 
-                <ImageView
-                    android:id="@+id/imgParcelCamera"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:background="@drawable/ic_camera"
-                    app:layout_constraintEnd_toEndOf="@+id/imgCompanyProfile"
-                    app:layout_constraintTop_toTopOf="@+id/imgCompanyProfile" />
-
                 <TextView
                     android:id="@+id/tvCompanyName"
                     android:layout_width="wrap_content"
@@ -61,41 +53,6 @@
                     app:layout_constraintEnd_toEndOf="@+id/imgCompanyProfile"
                     app:layout_constraintStart_toStartOf="@+id/imgCompanyProfile"
                     app:layout_constraintTop_toBottomOf="@+id/imgCompanyProfile" />
-
-                <ImageView
-                    android:id="@+id/imgStatus"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_8sdp"
-                    android:background="@drawable/status_circle"
-                    android:backgroundTint="@color/backgroundCircle"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
-                    app:layout_constraintEnd_toStartOf="@+id/tvStatus"
-                    app:layout_constraintTop_toTopOf="@+id/tvStatus" />
-
-                <TextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:text="Active"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/_13sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/tvCompanyName"
-                    app:layout_constraintStart_toStartOf="@+id/tvCompanyName"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCompanyName" />
-
-                <ImageView
-                    android:id="@+id/imgDropDown"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:background="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/imgStatus"
-                    app:layout_constraintStart_toEndOf="@+id/tvStatus"
-                    app:layout_constraintTop_toTopOf="@+id/imgStatus" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -526,6 +483,29 @@
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="Pincode"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:id="@+id/tvPincode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="411017"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>

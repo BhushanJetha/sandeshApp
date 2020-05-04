@@ -274,6 +274,63 @@
                         app:layout_constraintTop_toTopOf="@+id/tvEndDate" />
 
                     <TextView
+                        android:id="@+id/tvToPincodeTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="To Pincode"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/tvEndTimeTitle"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@id/tvEndDate" />
+
+                    <TextView
+                        android:id="@+id/tvToPincode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="411017"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/tvEndTime"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/tvToPincodeTitle"
+                        app:layout_constraintTop_toBottomOf="@id/tvToPincodeTitle" />
+
+                    <TextView
+                        android:id="@+id/tvFromPincodeTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="From Pincode"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvToPincodeTitle"
+                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvToPincodeTitle"
+                        app:layout_constraintTop_toTopOf="@+id/tvToPincodeTitle" />
+
+                    <TextView
+                        android:id="@+id/tvFromPincode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="10:00 AM"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvToPincode"
+                        app:layout_constraintEnd_toEndOf="@+id/tvFromPincodeTitle"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvToPincode"
+                        app:layout_constraintTop_toTopOf="@+id/tvToPincode" />
+
+                    <TextView
                         android:id="@+id/tvDeliveryOptionTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -285,7 +342,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/tvNatureGoodsTitle"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvEndDate" />
+                        app:layout_constraintTop_toBottomOf="@id/tvToPincode" />
 
                     <TextView
                         android:id="@+id/tvDeliveryOption"

@@ -51,8 +51,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     private SendParcelFragment sendParcelFragment;
 
     private TextView tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
-            tvDeliveryOption, tvNatureGoods, tvGoodsDesc, tvQuality, tvWeight, tvPackaging, tvGoods,
-            tvReceiverName, tvReceiverMobileNo, tvReceiverAddress;
+            tvToPincode, tvFromPincode, tvDeliveryOption, tvNatureGoods, tvGoodsDesc, tvQuality,
+            tvWeight, tvPackaging, tvGoods, tvReceiverName, tvReceiverMobileNo, tvReceiverAddress;
 
     private RadioButton rbCommercial, rbNonCommercial, rbHazardousYes, rbHazardousNo,
             rbProhibitedYes, rbProhibitedNo, rbFraglleYes, rbFraglleNo, rbFlamableToxicExplosiveYes,
@@ -176,6 +176,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         tvStartTime = view.findViewById(R.id.tvStartTime);
         tvEndDate = view.findViewById(R.id.tvEndDate);
         tvEndTime = view.findViewById(R.id.tvEndTime);
+        tvToPincode = view.findViewById(R.id.tvToPincode);
+        tvFromPincode = view.findViewById(R.id.tvFromPincode);
         tvDeliveryOption = view.findViewById(R.id.tvDeliveryOption);
         tvNatureGoods = view.findViewById(R.id.tvNatureGoods);
         tvGoodsDesc = view.findViewById(R.id.tvGoodsDesc);
@@ -256,6 +258,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         tvStartTime.setText(data.getParcelData().getStartTime());
         tvEndDate.setText(data.getParcelData().getEndDate()); //need to set data
         tvEndTime.setText(data.getParcelData().getEndTime()); //need to set data
+        tvToPincode.setText(data.getParcelData().getToPincode()); //need to set data
+        tvFromPincode.setText(data.getParcelData().getFromPincode()); //need to set data
         tvDeliveryOption.setText(data.getParcelData().getDeliveryOption());
         tvNatureGoods.setText(data.getParcelData().getNatureOfGoods());
 

@@ -141,8 +141,12 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                                     if (!strPassword.isEmpty()) {
                                         if (!strReEnteredPassword.isEmpty()) {
                                             if (strPassword.equals(strReEnteredPassword)) {
-                                                //TODO API Call
-                                                doRegistrationAPICall();
+                                                if (cbAccetTermsAndConditions.isChecked()) {
+                                                    //TODO API Call
+                                                    doRegistrationAPICall();
+                                                } else {
+                                                    Uitility.showToast(IndividualRegistrationActivity.this, "Please accept terms and condition!");
+                                                }
                                             } else {
                                                 Uitility.showToast(IndividualRegistrationActivity.this, "Password and re-Entered Password not matched !!");
                                             }

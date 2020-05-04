@@ -36,8 +36,8 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     private PlanTravelFragment planTravelFragment;
 
     private TextView tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
-            tvDeliveryOption, tvWeight, tvLength, tvBreadth, tvHeight, tvVehicleType, tvVehicleTrainNo,
-            tvOtherDetail;
+            tvToPincode, tvFromPincode, tvDeliveryOption, tvWeight, tvLength, tvBreadth, tvHeight,
+            tvVehicleType, tvVehicleTrainNo, tvOtherDetail;
     private ImageView imgTravelEdit;
     private Button btnSendRequest;
 
@@ -92,6 +92,8 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         tvStartTime = view.findViewById(R.id.tvStartTime);
         tvEndDate = view.findViewById(R.id.tvEndDate);
         tvEndTime = view.findViewById(R.id.tvEndTime);
+        tvToPincode = view.findViewById(R.id.tvToPincode);
+        tvFromPincode = view.findViewById(R.id.tvFromPincode);
         tvDeliveryOption = view.findViewById(R.id.tvDeliveryOption);
         tvWeight = view.findViewById(R.id.tvWeight);
         tvLength = view.findViewById(R.id.tvLength);
@@ -152,6 +154,8 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         tvStartTime.setText(data.getTravelPlan().getStartTime());
         tvEndDate.setText(data.getTravelPlan().getEndDate()); //need to set data
         tvEndTime.setText(data.getTravelPlan().getEndTime()); //need to set data
+        tvToPincode.setText(data.getTravelPlan().getToPincode()); //need to set data
+        tvFromPincode.setText(data.getTravelPlan().getFromPincode()); //need to set data
         tvDeliveryOption.setText(data.getTravelPlan().getDeliveryOption());
         tvWeight.setText(data.getTravelPlan().getPreferredWeight());
 

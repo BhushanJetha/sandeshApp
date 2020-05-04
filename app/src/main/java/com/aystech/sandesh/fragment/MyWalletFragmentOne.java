@@ -40,6 +40,8 @@ public class MyWalletFragmentOne extends Fragment {
     private Button btnAddBal;
     RecyclerView rvPaymentHistory;
 
+    private Double walletBal;
+
     private MyWalletFragmentTwo myWalletFragmentTwo;
 
     private UserSession userSession;
@@ -89,6 +91,9 @@ public class MyWalletFragmentOne extends Fragment {
             public void onClick(View v) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                         myWalletFragmentTwo, R.id.frame_container, true);
+                Bundle bundle = new Bundle();
+                bundle.putDouble("walletBal", walletBal);
+                myWalletFragmentTwo.setArguments(bundle);
             }
         });
     }
@@ -105,7 +110,13 @@ public class MyWalletFragmentOne extends Fragment {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    tvWalletAmt.setText("Rs. " + response.body().getBalance());
+                    if (response.body().getBalance() != null) {
+                        walletBal = response.body().getBalance();
+                        tvWalletAmt.setText("Rs. " + walletBal);
+                    } else {
+                        walletBal = 0.0;
+                        tvWalletAmt.setText("Rs. " + walletBal);
+                    }
                     bindDataToUI(response.body().getData());
                 }
             }

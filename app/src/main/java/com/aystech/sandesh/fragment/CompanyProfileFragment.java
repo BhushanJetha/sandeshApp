@@ -45,7 +45,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
 
     private ImageView imgCompanyProfile;
     private TextView tvCompanyName, tvCompany, tvBranch, tvAuthorisedName, tvDesignation, tvMobileNumber, tvEmailId,
-            tvAddresLine1, tvAddresLine2, tvLandmark, tvState, tvCity;
+            tvAddresLine1, tvAddresLine2, tvLandmark, tvState, tvCity,tvPincode;
     private Button btnMyRide, btnMyOrders, btnUpcomingRides, btnUpcomingOrders;
     private LinearLayout editCompanyDetail, editAddressDetail;
 
@@ -99,6 +99,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
         tvLandmark = view.findViewById(R.id.tvLandmark);
         tvState = view.findViewById(R.id.tvState);
         tvCity = view.findViewById(R.id.tvCity);
+        tvPincode = view.findViewById(R.id.tvPincode);
         btnMyRide = view.findViewById(R.id.btnMyRide);
         btnMyOrders = view.findViewById(R.id.btnMyOrders);
         btnUpcomingOrders = view.findViewById(R.id.btnUpcomingOrders);
@@ -205,6 +206,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
                         tvLandmark.setText(response.body().getData().getAddress().getLandmark());
                         tvState.setText(response.body().getData().getAddress().getState());
                         tvCity.setText(response.body().getData().getAddress().getCity());
+                        tvPincode.setText(""+response.body().getData().getAddress().getPincode());
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }

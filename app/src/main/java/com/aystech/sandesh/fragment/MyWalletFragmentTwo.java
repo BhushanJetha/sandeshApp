@@ -20,6 +20,7 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.activity.PaymentActivity;
 import com.aystech.sandesh.adapter.MyWalletTabLayoutAdapter;
+import com.aystech.sandesh.utils.UserSession;
 
 public class MyWalletFragmentTwo extends Fragment implements View.OnClickListener {
 
@@ -28,7 +29,13 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
     TabLayout walletTabLayout;
     ViewPager viewPager;
 
+    private TextView tvUserName;
+    private TextView tvWalletAmt;
     Button btnAddMoney;
+
+    private Double walletBal;
+
+    private UserSession userSession;
 
     public MyWalletFragmentTwo() {
         // Required empty public constructor
@@ -46,6 +53,10 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_wallet_fragment_two, container, false);
 
+        if (getArguments() != null) {
+            walletBal = getArguments().getDouble("walletBal");
+        }
+
         initView(view);
 
         onClickListener();
@@ -54,8 +65,18 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
     }
 
     private void initView(View view) {
+        userSession = new UserSession(context);
+
         walletTabLayout = view.findViewById(R.id.walletTabLayout);
         viewPager = view.findViewById(R.id.viewPager);
+
+        tvUserName = view.findViewById(R.id.tvUserName);
+        tvUserName.setText(userSession.getUSER_NAME());
+        tvWalletAmt = view.findViewById(R.id.tvWalletAmt);
+        if (walletBal != 0.0)
+            tvWalletAmt.setText("Rs. " + walletBal);
+        else
+            tvWalletAmt.setText("Rs. " + 0.0);
 
         btnAddMoney = view.findViewById(R.id.btnAddMoney);
 
