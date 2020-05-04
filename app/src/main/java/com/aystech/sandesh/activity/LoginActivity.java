@@ -22,6 +22,7 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.JWTUtils;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
@@ -214,13 +215,17 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         }
                     } else {
-                        int login_count = 0;
-                        login_count = Integer.parseInt(userSession.getLoginCount());
-                        if (login_count <= 5)
-                            userSession.setLoginCount(login_count++);
-                        else
-                            Toast.makeText(LoginActivity.this, "Please reset your password!", Toast.LENGTH_SHORT).show();
-
+                        int login_count = 1;
+                        if (userSession.getLoginCount() != null && !userSession.getLoginCount().equals("")) {
+                            login_count = Integer.parseInt(userSession.getLoginCount());
+                            if (login_count <= 5) {
+                                login_count++;
+                                userSession.setLoginCount(login_count);
+                            } else
+                                Uitility.showToast(LoginActivity.this, "Please reset your password!");
+                        } else {
+                            userSession.setLoginCount(login_count);
+                        }
                         Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
