@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
@@ -56,6 +57,8 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     private ImageView imgProfileResult;
     private Button btnSubmit;
     private LinearLayout llDateOfBirth, llProfilePiture;
+
+    private int age = 0;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -142,8 +145,16 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                                         if (!strReEnteredPassword.isEmpty()) {
                                             if (strPassword.equals(strReEnteredPassword)) {
                                                 if (cbAccetTermsAndConditions.isChecked()) {
-                                                    //TODO API Call
-                                                    doRegistrationAPICall();
+                                                    if(!strBirthDate.isEmpty()){
+                                                        if(age >= 18){
+                                                            //TODO API Call
+                                                            doRegistrationAPICall();
+                                                        }else {
+                                                            Uitility.showToast(IndividualRegistrationActivity.this, "Sorry you are not able to register, your age in below 18 !");
+                                                        }
+                                                    }else {
+                                                        Uitility.showToast(IndividualRegistrationActivity.this, "Please select your date of birth !");
+                                                    }
                                                 } else {
                                                     Uitility.showToast(IndividualRegistrationActivity.this, "Please accept terms and condition!");
                                                 }
@@ -255,10 +266,10 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         if (filepath != null && !filepath.equals("")) {
             File file = new File(filepath);
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+            body = MultipartBody.Part.createFormData("profile_pic", file.getName(), requestBody);
         } else {
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
-            body = MultipartBody.Part.createFormData("file", "", requestBody);
+            body = MultipartBody.Part.createFormData("profile_pic", "", requestBody);
         }
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
@@ -318,6 +329,8 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             strBirthDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //IndividualRegistrationActivity
+            age = Integer.parseInt(Uitility.getAge(year, monthOfYear, dayOfMonth));
+            Log.d("age-->", String.valueOf(age));
             tvBirthDate.setText(strBirthDate);
         }
 

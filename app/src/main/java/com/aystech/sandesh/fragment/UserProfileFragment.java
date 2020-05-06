@@ -176,17 +176,56 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                         tvGender.setText(response.body().getData().getUserData().getGender());
 
                         //this is for address
-                        tvAddresLine1.setText(response.body().getData().getAddress().getAddressLine1());
-                        if (response.body().getData().getAddress().getAddressLine2() != null &&
-                                !response.body().getData().getAddress().getAddressLine2().equals("")) {
-                            tvAddresLine2.setText(response.body().getData().getAddress().getAddressLine2());
+                        String strAddressLine1, strAddressLine2, strLandmark, strState, strCity, strPincode;
+
+                        strAddressLine1 = response.body().getData().getAddress().getAddressLine1();
+                        strAddressLine2 = response.body().getData().getAddress().getAddressLine2();
+                        strLandmark = response.body().getData().getAddress().getLandmark();
+                        strState = response.body().getData().getAddress().getState();
+                        strCity = response.body().getData().getAddress().getCity();
+                        strPincode = String.valueOf(response.body().getData().getAddress().getPincode());
+
+
+                        if(strAddressLine1 != null && !strAddressLine1.equals("")){
+                            tvAddresLine1.setText(strAddressLine1);
+                        }else {
+                            tvAddresLine1.setText("-");
+                        }
+
+                        if (strAddressLine2 != null && !strAddressLine2.equals("")) {
+                            tvAddresLine2.setText(strAddressLine2);
                         } else {
                             tvAddresLine2.setText("-");
                         }
-                        tvLandmark.setText(response.body().getData().getAddress().getLandmark());
-                        tvState.setText(response.body().getData().getAddress().getState());
-                        tvCity.setText(response.body().getData().getAddress().getCity());
-                        tvPincode.setText(""+response.body().getData().getAddress().getPincode());
+
+                        if (strLandmark != null && !strLandmark.equals("")) {
+                            tvLandmark.setText(strLandmark);
+                        } else {
+                            tvLandmark.setText("-");
+                        }
+
+                        if (strState != null && !strState.equals("")) {
+                            tvState.setText(strState);
+                        } else {
+                            tvState.setText("-");
+                        }
+
+                        if (strCity != null && !strCity.equals("")) {
+                            tvCity.setText(strCity);
+                        } else {
+                            tvCity.setText("-");
+                        }
+
+                        if (strPincode != null && !strPincode.equals("")) {
+                            if(strPincode.equals("null")){
+                                tvPincode.setText("-");
+                            }else {
+                                tvPincode.setText(strPincode);
+                            }
+                        } else {
+                            tvPincode.setText("-");
+                        }
+
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }

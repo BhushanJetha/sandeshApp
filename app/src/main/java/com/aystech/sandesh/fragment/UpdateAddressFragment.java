@@ -102,7 +102,11 @@ public class UpdateAddressFragment extends Fragment {
             etAddressLine2.setText(addressModel.getAddressLine2());
         }
         etLandmark.setText(addressModel.getLandmark());
-        etPincode.setText("" + addressModel.getPincode());
+
+        String strPincode= String.valueOf(addressModel.getPincode());
+        if(!strPincode.equals("null")){
+            etPincode.setText("" + addressModel.getPincode());
+        }
     }
 
     private void onClick() {

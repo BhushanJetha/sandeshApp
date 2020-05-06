@@ -126,6 +126,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
     private void onClickListener() {
         imgCompanyProfile.setOnClickListener(this);
         imgCompanyProfileCamera.setOnClickListener(this);
+        btnUpdate.setOnClickListener(this);
     }
 
     @Override
@@ -143,7 +144,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
                 break;
 
             case R.id.imgUserProfile:
-            case R.id.imgUserProfileCamera:
+            case R.id.imgCompanyProfileCamera:
                 gotoSelectPicture();
                 break;
         }
@@ -162,10 +163,10 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
         if (filepath != null && !filepath.equals("")) {
             File file = new File(filepath);
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+            body = MultipartBody.Part.createFormData("profile_pic", file.getName(), requestBody);
         } else {
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
-            body = MultipartBody.Part.createFormData("file", "", requestBody);
+            body = MultipartBody.Part.createFormData("profile_pic", "", requestBody);
         }
 
         ApiInterface apiInterface = RetrofitInstance.getClient();

@@ -12,10 +12,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.IndividualRegistrationActivity;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
@@ -29,7 +31,7 @@ public class ComplaintDisputeFragment extends Fragment implements View.OnClickLi
 
     private EditText etName, etEmail, etMessage;
     private Button btnSubmit;
-
+    private String strName, strEmailId, strMessage;
     private ViewProgressDialog viewProgressDialog;
 
     public ComplaintDisputeFragment() {
@@ -78,8 +80,30 @@ public class ComplaintDisputeFragment extends Fragment implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSubmit:
-                //TODO API Call
-                sendComplaint();
+
+                strName = etName.getText().toString().trim();
+                strEmailId = etEmail.getText().toString().trim();
+                strMessage = etMessage.getText().toString().trim();
+
+                if(!strName.isEmpty()){
+                    if(!strEmailId.isEmpty()){
+                        if(Uitility.isValidEmailId(strEmailId)){
+                            if(!strMessage.isEmpty()){
+                                //TODO API Call
+                                sendComplaint();
+                            }else {
+                                Uitility.showToast(getActivity(), "Please enter your message !!");
+                            }
+                        }else {
+                            Uitility.showToast(getActivity(), "Please enter valid email id !!");
+                        }
+                    }else {
+                        Uitility.showToast(getActivity(), "Please enter email Id !!");
+                    }
+                }else {
+                    Uitility.showToast(getActivity(), "Please enter your name !!");
+                }
+
                 break;
         }
     }
@@ -88,9 +112,9 @@ public class ComplaintDisputeFragment extends Fragment implements View.OnClickLi
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("name", etName.getText().toString().trim());
-        jsonObject.addProperty("email_id", etEmail.getText().toString().trim());
-        jsonObject.addProperty("message", etMessage.getText().toString().trim());
+        jsonObject.addProperty("name", strName);
+        jsonObject.addProperty("email_id", strEmailId);
+        jsonObject.addProperty("message", strMessage);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.sendComplaint(

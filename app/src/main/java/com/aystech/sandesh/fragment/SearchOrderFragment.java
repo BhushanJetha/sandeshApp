@@ -158,7 +158,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 strToPinCode = etToPincode.getText().toString();
                 strFromPincode = etFromPincode.getText().toString();
 
-                if (!strToPinCode.isEmpty()) {
+               /* if (!strToPinCode.isEmpty()) {
                     if (!strFromPincode.isEmpty()) {
                         if (!strDate.isEmpty()) {
                             //TODO API Call
@@ -171,8 +171,14 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                     }
                 } else {
                     Uitility.showToast(getActivity(), "Please enter Pincode !!");
-                }
+                }*/
 
+                if (!strDate.isEmpty()) {
+                    //TODO API Call
+                    searchOrderByData();
+                } else {
+                    Uitility.showToast(getActivity(), "Please select Date !!");
+                }
                 break;
         }
     }

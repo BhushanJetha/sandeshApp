@@ -175,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
         jsonObject.addProperty("mobile_no", strUserName);
         jsonObject.addProperty("password", strPassword);
         jsonObject.addProperty("fcm_id", userSession.getFCMId());
+        jsonObject.addProperty("device_type", "Android");
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<LoginResponseModel> call = apiInterface.doLogin(
