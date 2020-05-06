@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:text="Mr John Deo"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold"
@@ -123,7 +123,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="9766616910"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
@@ -146,7 +146,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="bhushanjetha.bj@gmail.com"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
@@ -169,7 +169,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="Male"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
@@ -193,7 +193,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="20 Mar 1993"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
@@ -339,7 +339,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="C- 1106, Eletra C wing"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
@@ -362,7 +362,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="Casa bella gold"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
@@ -385,7 +385,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="Xeperia Mall, Lodha Palava"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
@@ -408,7 +408,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="Maharashtra"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
@@ -431,7 +431,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="Thane"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
@@ -455,7 +455,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
-                    android:text="411017"
+                    android:text=""
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />

@@ -223,7 +223,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/gotham_light"
                             android:layout_gravity="center"
-                            android:text="06 Nov 2019"
+                            android:text=""
                             android:textSize="@dimen/_15sdp" />
                     </LinearLayout>
 
