@@ -698,10 +698,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             if (tag.equals("start_date")) {
-                strStartDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
+                strStartDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SendParcelFragment
                 etStartDate.setText(strStartDate);
             } else if (tag.equals("end_date")) {
-                strEndDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
+                strEndDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SendParcelFragment
                 etEndDate.setText(strEndDate);
             }
         }

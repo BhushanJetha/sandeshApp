@@ -146,6 +146,8 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
                     Intent intent = new Intent(context, PaymentActivity.class);
                     intent.putExtra("add_amt", etAddBal.getText().toString().trim());
                     startActivity(intent);
+
+                    ((MainActivity) context).getSupportFragmentManager().popBackStack();
                 }
             }
         });

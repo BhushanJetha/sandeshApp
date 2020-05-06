@@ -61,7 +61,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
 
     private NestedScrollView nestedScrollView;
     private ConstraintLayout clOrderList;
-    private TextView tvResultCount;
+    private TextView tvResultCount, tvSortBy;
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private Button btnSearch;
     private ImageView ingDate;
@@ -110,6 +110,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
         nestedScrollView = view.findViewById(R.id.nestedScrollView);
         clOrderList = view.findViewById(R.id.clOrderList);
         tvResultCount = view.findViewById(R.id.tvResultCount);
+        tvSortBy = view.findViewById(R.id.tvSortBy);
 
         spinnerFromState = view.findViewById(R.id.spinnerFromState);
         spinnerFromCity = view.findViewById(R.id.spinnerFromCity);
@@ -195,7 +196,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            strDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
+            strDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SearchOrderFragment
             etDate.setText(strDate);
         }
 
@@ -266,7 +267,10 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             orderAdapter.addOrderList(data);
             rvOrder.setAdapter(orderAdapter);
         } else {
-            clOrderList.setVisibility(View.GONE);
+            Uitility.showToast(context,"No Data Found!");
+            clOrderList.setVisibility(View.VISIBLE);
+            tvResultCount.setVisibility(View.GONE);
+            tvSortBy.setVisibility(View.GONE);
             NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Order Found!");
             rvOrder.setAdapter(noDataAdapter);
         }

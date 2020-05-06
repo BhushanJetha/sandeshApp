@@ -7,29 +7,33 @@ import java.util.regex.Pattern;
 
 public class Uitility {
 
-    public static void showToast(Context context, String message){
-        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+    public static void showToast(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
-    public static String dateFormat(int year, int month, int day){
+    public static String dateFormat(int year, int month, int day) {
         String formatedMonth = "", formatedDay = "";
 
-        if(String.valueOf(month).length() == 1){
-            formatedMonth = "0"+ month;
-        }else {
-            formatedMonth = String.valueOf(month+1);
+        if (String.valueOf(month).length() == 1) {
+            int finalMonth = (month + 1);
+            if (finalMonth >= 10)
+                formatedMonth = "" + (month + 1);
+            else
+                formatedMonth = "0" + (month + 1);
+        } else {
+            formatedMonth = String.valueOf(month + 1);
         }
 
-        if(String.valueOf(day).length() ==1){
+        if (String.valueOf(day).length() == 1) {
             formatedDay = "0" + day;
-        }else {
+        } else {
             formatedDay = String.valueOf(day);
         }
 
-        return  year + "-" + formatedMonth + "-" + formatedDay;
+        return year + "-" + formatedMonth + "-" + formatedDay;
     }
 
-    public static boolean isValidEmailId(String email){
+    public static boolean isValidEmailId(String email) {
 
         return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
                 + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"

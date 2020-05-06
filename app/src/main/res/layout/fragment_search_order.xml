@@ -235,8 +235,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gotham_light"
-                android:visibility="gone"
                 android:padding="@dimen/_16sdp"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/clFilter">
 
                 <TextView
@@ -247,6 +247,7 @@
                     android:text="2 results found"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/_11sdp"
+                    android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -256,6 +257,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
                     android:text="Sort by"
+                    android:visibility="visible"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/tvResultCount"

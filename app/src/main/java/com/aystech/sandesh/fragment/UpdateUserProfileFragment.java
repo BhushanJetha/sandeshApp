@@ -65,7 +65,8 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     private Button btnUpdate;
 
     private String strFirstName, strMiddleName, strLastName, strEmailId, strGender, strDateOfBirth;
-    private int mYear, mMonth, mDay;
+
+    final Calendar myCalendar = Calendar.getInstance();
 
     Uri picUri;
     Bitmap myBitmap;
@@ -187,26 +188,28 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     }
 
     private void openDatePickerDialog() {
-        // Get Current Date
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
-        final DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-
-                        strDateOfBirth = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
-                        tvBirthDate.setText(strDateOfBirth);
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
+        DatePickerDialog mDate = new DatePickerDialog(context, date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+        mDate.getDatePicker().setMaxDate(System.currentTimeMillis());
+        mDate.show();
     }
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            strDateOfBirth = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //UpdateUserProfileFragment
+            tvBirthDate.setText(strDateOfBirth);
+        }
+
+    };
 
     private void updateProfile() {
         ViewProgressDialog.getInstance().showProgress(context);

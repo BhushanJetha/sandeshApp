@@ -56,7 +56,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     CityResponseModel cityResponseModel;
 
     ConstraintLayout clTravellerList;
-    TextView tvResultCount;
+    TextView tvResultCount, tvSortBy;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     Button btnSearch;
@@ -71,7 +71,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     final Calendar myCalendar = Calendar.getInstance();
 
     private int fromStateId, fromCityId, toStateId, toCityId;
-    private String strToPinCode, strFromPincode, strStartDate ="", strEndDate = "";
+    private String strToPinCode, strFromPincode, strStartDate = "", strEndDate = "";
     private String tag;
 
     ViewProgressDialog viewProgressDialog;
@@ -110,6 +110,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
         clTravellerList = view.findViewById(R.id.clTravellerList);
         tvResultCount = view.findViewById(R.id.tvResultCount);
+        tvSortBy = view.findViewById(R.id.tvSortBy);
 
         spinnerFromState = view.findViewById(R.id.spinnerFromState);
         spinnerFromCity = view.findViewById(R.id.spinnerFromCity);
@@ -150,23 +151,23 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                 strToPinCode = etToPincode.getText().toString();
                 strFromPincode = etFromPincode.getText().toString();
 
-                if(!strToPinCode.isEmpty()){
-                    if(!strFromPincode.isEmpty()){
-                        if(!strStartDate.isEmpty()){
-                            if(!strEndDate.isEmpty()){
+                if (!strToPinCode.isEmpty()) {
+                    if (!strFromPincode.isEmpty()) {
+                        if (!strStartDate.isEmpty()) {
+                            if (!strEndDate.isEmpty()) {
                                 //TODO API Call
                                 searchTravelerData();
-                            }else {
-                                Uitility.showToast(getActivity(),"Please select end Date !!");
+                            } else {
+                                Uitility.showToast(getActivity(), "Please select end Date !!");
                             }
-                        }else {
-                            Uitility.showToast(getActivity(),"Please select start Date !!");
+                        } else {
+                            Uitility.showToast(getActivity(), "Please select start Date !!");
                         }
-                    }else {
-                        Uitility.showToast(getActivity(),"Please enter Pincode !!");
+                    } else {
+                        Uitility.showToast(getActivity(), "Please enter Pincode !!");
                     }
-                }else {
-                    Uitility.showToast(getActivity(),"Please enter Pincode !!");
+                } else {
+                    Uitility.showToast(getActivity(), "Please enter Pincode !!");
                 }
                 break;
         }
@@ -192,10 +193,10 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             if (tag.equals("start_date")) {
-                strStartDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
+                strStartDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SearchTravelerFragment
                 etStartDate.setText(strStartDate);
             } else if (tag.equals("end_date")) {
-                strEndDate = Uitility.dateFormat(year, monthOfYear + 1, dayOfMonth);
+                strEndDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SearchTravelerFragment
                 etEndDate.setText(strEndDate);
             }
         }
@@ -239,7 +240,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     }
 
     private void bindDataToRV(List<SearchTravellerModel> data) {
-        if (data.size()>0) {
+        if (data.size() > 0) {
             clTravellerList.setVisibility(View.VISIBLE);
             if (data.size() == 1)
                 tvResultCount.setText(data.size() + " result found");
@@ -268,8 +269,11 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
             });
             orderAdapter.addTravellerList(data);
             rvOrder.setAdapter(orderAdapter);
-        }else{
-            clTravellerList.setVisibility(View.GONE);
+        } else {
+            Uitility.showToast(context,"No Data Found!");
+            clTravellerList.setVisibility(View.VISIBLE);
+            tvResultCount.setVisibility(View.GONE);
+            tvSortBy.setVisibility(View.GONE);
             NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
             rvOrder.setAdapter(noDataAdapter);
         }
