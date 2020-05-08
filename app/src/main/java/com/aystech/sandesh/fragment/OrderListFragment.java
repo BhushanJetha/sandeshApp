@@ -126,7 +126,7 @@ public class OrderListFragment extends Fragment {
                 //TODO API Call
                 getMyTravellerList();
                 if (tag.equals("order"))
-                    tvScreenTitle.setText("My Traveller List");
+                    tvScreenTitle.setText("My Journey");
                 else
                     tvScreenTitle.setText("Upcoming Rides");
                 break;

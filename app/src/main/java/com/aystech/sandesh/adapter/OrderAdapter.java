@@ -69,7 +69,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
             myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
-            myViewHolder.tvOrderTypeContent.setText("" + searchTravellerModels.get(i).getModeOfTravel());
+            myViewHolder.tvOrderTypeContent.setText("Mode of Travel: " + searchTravellerModels.get(i).getModeOfTravel());
             switch (searchTravellerModels.get(i).getDeliveryOption()) {
                 case "Door to Door Service":
                     myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getD_to_d());

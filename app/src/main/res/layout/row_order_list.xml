@@ -102,7 +102,7 @@
                 android:padding="@dimen/_4sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_6sdp"
-                app:layout_constraintEnd_toEndOf="@+id/tvOrderType"
+                app:layout_constraintEnd_toEndOf="@+id/tvOrderDistance"
                 app:layout_constraintStart_toStartOf="@+id/tvOrderType"
                 app:layout_constraintTop_toBottomOf="@+id/tvOrderType">
 
@@ -110,7 +110,7 @@
                     android:id="@+id/tvOrderTypeContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Documents"
+                    android:text="Mode of Travel: Documents"
                     android:textSize="@dimen/_9sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

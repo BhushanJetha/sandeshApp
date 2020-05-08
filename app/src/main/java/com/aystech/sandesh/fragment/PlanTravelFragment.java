@@ -211,8 +211,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 strVehicleNo = etVehicleTrainNo.getText().toString();
                 strOtherDetail = etOtherDetails.getText().toString();
 
-                if(!strFromPincode.isEmpty()){
-                    if(!strToPincode.isEmpty()){
+                if(!strFromPincode.isEmpty() && (strFromPincode.length() == 6)){
+                    if(!strToPincode.isEmpty() && (strToPincode.length() ==6)){
                         if(!strStartDate.isEmpty()){
                             if(!strEndDate.isEmpty()){
                                 if(!strStartTime.isEmpty()){

@@ -106,7 +106,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
     private Uri picUri;
     private Bitmap myBitmap;
-    private String strInvoiceFilePath, strParcelFilePath;
+    private String strInvoiceFilePath, strParcelFilePath = "";
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -563,7 +563,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                         if (!strGoodsDescription.isEmpty()) {
                                             if (!strValueOgGood.isEmpty()) {
                                                 if (!strOwnership.isEmpty()) {
-                                                    if (!rgStrHazardous.isEmpty()) {
+                                                    if (!rgStrHazardous.isEmpty()  && rgStrHazardous.equals("Yes")) {
                                                         if (!rgStrProhibited.isEmpty()) {
                                                             if (!rgStrFraglle.isEmpty()) {
                                                                 if (!rgStrFlamableToxicExplosive.isEmpty()) {
@@ -571,8 +571,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                         if (!strReceiverMobileNo.isEmpty()) {
                                                                             if (!strReceiverAddress.isEmpty()) {
                                                                                 if (cbTermsCondition.isChecked()) {
-                                                                                    //TODO API Call
-                                                                                    sendParcel();
+                                                                                    if(!strParcelFilePath.isEmpty()){
+                                                                                        //TODO API Call
+                                                                                        sendParcel();
+                                                                                    }else {
+                                                                                        Uitility.showToast(context, "Please select parcel image!");
+                                                                                    }
                                                                                 } else {
                                                                                     Uitility.showToast(context, "Please accept terms and condition!");
                                                                                 }
@@ -639,7 +643,18 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 gotoSelectPicture("parcel");
                 break;
             case R.id.btnCancel:
-                ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                //((MainActivity) context).getSupportFragmentManager().popBackStack();
+                etFromPincode.setText("");
+                etToPincode.setText("");
+                etStartTime.setText("");
+                etEndTime.setText("");
+                etStartDate.setText("");
+                etEndDate.setText("");
+                etGoodsDescription.setText("");
+                etGoodsValue.setText("");
+                etReceiverName.setText("");
+                etReceiverMobileNo.setText("");
+                etReceiverAddress.setText("");
                 break;
             case R.id.cbTermsCondition:
                 if (!onceClicked) {
