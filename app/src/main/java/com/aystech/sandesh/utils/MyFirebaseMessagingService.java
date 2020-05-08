@@ -23,6 +23,7 @@ import static android.os.Build.VERSION.SDK_INT;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    private static final String TAG = "MyFirebaseMessagingServ";
     NotificationManager notificationManager;
     String ADMIN_CHANNEL_ID = "Default";
     String defaultChannelName = "General";

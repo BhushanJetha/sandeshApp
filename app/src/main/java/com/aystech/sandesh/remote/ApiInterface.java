@@ -3,16 +3,21 @@ package com.aystech.sandesh.remote;
 import com.aystech.sandesh.model.AcceptedOrdersResponseModel;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
+import com.aystech.sandesh.model.DeliveryOptionResponseModel;
 import com.aystech.sandesh.model.LoginResponseModel;
 import com.aystech.sandesh.model.MyOrdersResponseModel;
 import com.aystech.sandesh.model.MyRidesResponseModel;
+import com.aystech.sandesh.model.NatureOfGoodsResponseModel;
 import com.aystech.sandesh.model.OrderDetailResponseModel;
+import com.aystech.sandesh.model.PackagingResponseModel;
 import com.aystech.sandesh.model.ProfileResponseModel;
+import com.aystech.sandesh.model.QualityResponseModel;
 import com.aystech.sandesh.model.SearchOrderResponseModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.model.ShowHistoryResponseModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
+import com.aystech.sandesh.model.VehicleResponseModel;
 import com.aystech.sandesh.model.WalletTransactionResponseModel;
 import com.aystech.sandesh.model.WeightResponseModel;
 import com.google.gson.JsonObject;
@@ -155,6 +160,21 @@ public interface ApiInterface {
 
     @GET("api/getWeight")
     Call<WeightResponseModel> getWeights();
+
+    @GET("api/getDeliveryOption")
+    Call<DeliveryOptionResponseModel> getDeliveryOption();
+
+    @GET("api/getNatureOfGoods")
+    Call<NatureOfGoodsResponseModel> getNatureOfGoods();
+
+    @GET("api/getPackaging")
+    Call<PackagingResponseModel> getPackaging();
+
+    @GET("api/getQuality")
+    Call<QualityResponseModel> getQuality();
+
+    @GET("api/getVehicleType")
+    Call<VehicleResponseModel> getVehicleType();
 
     @POST("api/getTraveDetail")
     Call<TravelDetailResponseModel> travelDetail(@Body JsonObject jsonObject);

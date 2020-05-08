@@ -211,16 +211,16 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 strVehicleNo = etVehicleTrainNo.getText().toString();
                 strOtherDetail = etOtherDetails.getText().toString();
 
-                if(!strFromPincode.isEmpty() && (strFromPincode.length() == 6)){
-                    if(!strToPincode.isEmpty() && (strToPincode.length() ==6)){
-                        if(!strStartDate.isEmpty()){
-                            if(!strEndDate.isEmpty()){
-                                if(!strStartTime.isEmpty()){
-                                    if(!strEndTime.isEmpty()){
-                                        if(!strAcceptableLength.isEmpty()){
-                                            if(!strAcceptableBreadth.isEmpty()){
-                                                if(!strAcceptableHeight.isEmpty()){
-                                                    if(!strVehicleNo.isEmpty()){
+                if (!strFromPincode.isEmpty()) {
+                    if (!strToPincode.isEmpty()) {
+                        if (!strStartDate.isEmpty()) {
+                            if (!strEndDate.isEmpty()) {
+                                if (!strStartTime.isEmpty()) {
+                                    if (!strEndTime.isEmpty()) {
+                                        if (!strAcceptableLength.isEmpty()) {
+                                            if (!strAcceptableBreadth.isEmpty()) {
+                                                if (!strAcceptableHeight.isEmpty()) {
+                                                    if (!strVehicleNo.isEmpty()) {
                                                         //TODO API Call
                                                         updateMyTravel(travelDetailModel.getTravelPlan().getTravelId());
                                                     }else {
