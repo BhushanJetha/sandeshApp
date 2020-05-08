@@ -44,7 +44,6 @@ public class AppController extends MultiDexApplication {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         AppController.getmInstance().startActivity(intent);
-
     }
 
     public String getJwtToken() {

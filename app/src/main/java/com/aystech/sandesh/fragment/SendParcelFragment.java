@@ -37,6 +37,10 @@ import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CityModel;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
+import com.aystech.sandesh.model.DeliveryOptionResponseModel;
+import com.aystech.sandesh.model.NatureOfGoodsResponseModel;
+import com.aystech.sandesh.model.PackagingResponseModel;
+import com.aystech.sandesh.model.QualityResponseModel;
 import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.model.TravelDetailModel;
@@ -46,8 +50,10 @@ import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.File;
@@ -67,10 +73,14 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
     private Context context;
 
+    private DeliveryOptionResponseModel deliveryOptionResponseModel;
     private TravelDetailModel travelDetailModel;
     private WeightResponseModel weightResponseModel;
     private StateResponseModel stateResponseModel;
     private CityResponseModel cityResponseModel;
+    private NatureOfGoodsResponseModel natureOfGoodsResponseModel;
+    private PackagingResponseModel packagingResponseModel;
+    private QualityResponseModel qualityResponseModel;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private EditText etFromPincode, etToPincode, etGoodsDescription,
@@ -89,11 +99,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private TextView btnCancel;
     private CheckBox cbTermsCondition;
 
-    private ArrayAdapter<String> adapterDeliveryOption;
-    private ArrayAdapter<String> adapterNatureOfGoods;
-    private ArrayAdapter<String> adapterQuality;
-    private ArrayAdapter<String> adapterTypeOfPkg;
-
     private String deliveryOption, natureOfGoods, strQuality, strPackaging, strOwnership = "", strFromPincode, strtoPincode,
             strStartDate = "", strStartTime = "", strEndDate = "", strEndTime = "", strGoodsDescription, strValueOgGood,
             strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous = "", rgStrProhibited = "",
@@ -111,6 +116,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     final Calendar myCalendar = Calendar.getInstance();
 
     private ViewProgressDialog viewProgressDialog;
+    private UserSession userSession;
 
     public SendParcelFragment() {
         // Required empty public constructor
@@ -142,17 +148,97 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 editSendParcel();
         }
 
-        //TODO API Call
-        getWeights();
+        String weight = userSession.getWeight();
+        if (weight.length() > 0) {
+            Gson gson = new Gson();
+            weightResponseModel = gson.fromJson(weight, WeightResponseModel.class);
+            ArrayList<String> weightArrayList = new ArrayList<>();
+            weightArrayList.add(0, "Select Weight");
+            for (int i = 0; i < weightResponseModel.getData().size(); i++) {
+                weightArrayList.add(weightResponseModel.getData().get(i).getWeight());
+                bindWeightDataToSpinner(weightArrayList);
+            }
+        } else {
+            //TODO API Call
+            getWeights();
+        }
 
-        //TODO API Call
-        getState();
+        String fromState = userSession.getFromState();
+        if (fromState.length() > 0) {
+            Gson gson = new Gson();
+            stateResponseModel = gson.fromJson(fromState, StateResponseModel.class);
+            bindStateDataToUI(stateResponseModel.getData());
+        } else {
+            //TODO API Call
+            getState();
+        }
+
+        String deliveryOption = userSession.getDeliveryOption();
+        if (deliveryOption.length() > 0) {
+            Gson gson = new Gson();
+            deliveryOptionResponseModel = gson.fromJson(deliveryOption, DeliveryOptionResponseModel.class);
+            ArrayList<String> deliveryOptionArrayList = new ArrayList<>();
+            deliveryOptionArrayList.add(0, "Select Delivery Option");
+            for (int i = 0; i < deliveryOptionResponseModel.getData().size(); i++) {
+                deliveryOptionArrayList.add(deliveryOptionResponseModel.getData().get(i).getDeliveryOption());
+                bindDeliveryOptionDataToSpinner(deliveryOptionArrayList);
+            }
+        } else {
+            //TODO API Call
+            getDeliveryOption();
+        }
+
+        String natureOfGoods = userSession.getNatureOfGoods();
+        if (natureOfGoods.length() > 0) {
+            Gson gson = new Gson();
+            natureOfGoodsResponseModel = gson.fromJson(natureOfGoods, NatureOfGoodsResponseModel.class);
+            ArrayList<String> natureOfGoodsArrayList = new ArrayList<>();
+            natureOfGoodsArrayList.add(0, "Select Nature Of Goods");
+            for (int i = 0; i < natureOfGoodsResponseModel.getData().size(); i++) {
+                natureOfGoodsArrayList.add(natureOfGoodsResponseModel.getData().get(i).getNatureOfGoods());
+                bindNatureOfGoodsDataToSpinner(natureOfGoodsArrayList);
+            }
+        } else {
+            //TODO API Call
+            getNatureOfGoods();
+        }
+
+        String quality = userSession.getQuality();
+        if (quality.length() > 0) {
+            Gson gson = new Gson();
+            qualityResponseModel = gson.fromJson(quality, QualityResponseModel.class);
+            ArrayList<String> qualityArrayList = new ArrayList<>();
+            qualityArrayList.add(0, "Select Quality");
+            for (int i = 0; i < qualityResponseModel.getData().size(); i++) {
+                qualityArrayList.add(qualityResponseModel.getData().get(i).getQuality());
+                bindQualityDataToSpinner(qualityArrayList);
+            }
+        } else {
+            //TODO API Call
+            getQuality();
+        }
+
+        String packaging = userSession.getPackaging();
+        if (packaging.length() > 0) {
+            Gson gson = new Gson();
+            packagingResponseModel = gson.fromJson(packaging, PackagingResponseModel.class);
+            ArrayList<String> packagingArrayList = new ArrayList<>();
+            packagingArrayList.add(0, "Select Packaging");
+            for (int i = 0; i < packagingResponseModel.getData().size(); i++) {
+                packagingArrayList.add(packagingResponseModel.getData().get(i).getPackaging());
+                bindPackagingDataToSpinner(packagingArrayList);
+            }
+        } else {
+            //TODO API Call
+            getPackaging();
+        }
 
         return view;
     }
 
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
+        userSession = new UserSession(context);
 
         gpInvoice = view.findViewById(R.id.gpInvoice);
         gpParcel = view.findViewById(R.id.gpParcel);
@@ -206,34 +292,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         rbFraglleNo = view.findViewById(R.id.rbFraglleNo);
         rbFlamableToxicExplosiveYes = view.findViewById(R.id.rbFlamableToxicExplosiveYes);
         rbFlamableToxicExplosiveNo = view.findViewById(R.id.rbFlamableToxicExplosiveNo);
-
-        String[] delivery_option_array = getResources().getStringArray(R.array.delivery_option_array);
-        adapterDeliveryOption =
-                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, delivery_option_array);
-        adapterDeliveryOption.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerDeliveryOption.setAdapter(adapterDeliveryOption);
-
-        String[] nature_of_good = getResources().getStringArray(R.array.type_of_article);
-        adapterNatureOfGoods =
-                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, nature_of_good);
-        adapterNatureOfGoods.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerNatureGoods.setAdapter(adapterNatureOfGoods);
-
-        String[] quality = getResources().getStringArray(R.array.nature_of_good);
-        adapterQuality =
-                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, quality);
-        adapterNatureOfGoods.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerQuality.setAdapter(adapterQuality);
-
-        String[] type_of_pkg = getResources().getStringArray(R.array.type_of_pkg);
-        adapterTypeOfPkg =
-                new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, type_of_pkg);
-        adapterNatureOfGoods.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinnerPackaging.setAdapter(adapterTypeOfPkg);
     }
 
     private void editSendParcel() {
@@ -299,22 +357,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         strQuality = travelDetailModel.getParcelData().getQuality();
         strPackaging = travelDetailModel.getParcelData().getPackaging();
         strWeight = travelDetailModel.getParcelData().getWeight();
-        if (deliveryOption != null) {
-            int spinnerPosition = adapterDeliveryOption.getPosition(deliveryOption);
-            spinnerDeliveryOption.setSelection(spinnerPosition);
-        }
-        if (natureOfGoods != null) {
-            int spinnerPosition = adapterNatureOfGoods.getPosition(natureOfGoods);
-            spinnerNatureGoods.setSelection(spinnerPosition);
-        }
-        if (strQuality != null) {
-            int spinnerPosition = adapterQuality.getPosition(strQuality);
-            spinnerQuality.setSelection(spinnerPosition);
-        }
-        if (strPackaging != null) {
-            int spinnerPosition = adapterTypeOfPkg.getPosition(strPackaging);
-            spinnerPackaging.setSelection(spinnerPosition);
-        }
+
         onceClicked = true;
         cbTermsCondition.setChecked(true);
 
@@ -400,62 +443,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         btnSubmit.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         cbTermsCondition.setOnClickListener(this);
-
-        spinnerDeliveryOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-
-                if (!selectedItem.equals("")) {
-                    deliveryOption = selectedItem;
-                }
-            } // to close the onItemSelected
-
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spinnerNatureGoods.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-
-                if (!selectedItem.equals("")) {
-                    natureOfGoods = selectedItem;
-                }
-            } // to close the onItemSelected
-
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spinnerQuality.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-
-                if (!selectedItem.equals("")) {
-                    strQuality = selectedItem;
-                }
-            } // to close the onItemSelected
-
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spinnerPackaging.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-
-                if (!selectedItem.equals("")) {
-                    strPackaging = selectedItem;
-                }
-            } // to close the onItemSelected
-
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         // This overrides the radiogroup onCheckListener
         rgOwnership.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -945,10 +932,14 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                     if (response.body().getStatus()) {
                         weightResponseModel = response.body();
 
+                        Gson gson = new Gson();
+                        String json = gson.toJson(response.body());
+                        userSession.setWeight(json);
+
                         ArrayList<String> weightArrayList = new ArrayList<>();
                         for (int i = 0; i < response.body().getData().size(); i++) {
                             weightArrayList.add(response.body().getData().get(i).getWeight());
-                            bindStateDataToSpinner(weightArrayList);
+                            bindWeightDataToSpinner(weightArrayList);
                         }
                     } else {
                         Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -962,7 +953,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         });
     }
 
-    private void bindStateDataToSpinner(ArrayList<String> data) {
+    private void bindWeightDataToSpinner(ArrayList<String> data) {
         //Creating the ArrayAdapter instance having the country list
         ArrayAdapter<String> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
                 data);
@@ -993,15 +984,260 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         });
     }
 
+    private void getDeliveryOption() {
+        RetrofitInstance.getClient().getDeliveryOption().enqueue(new Callback<DeliveryOptionResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<DeliveryOptionResponseModel> call, @NonNull Response<DeliveryOptionResponseModel> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        deliveryOptionResponseModel = response.body();
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(response.body());
+                        userSession.setDeliveryOption(json);
+
+                        ArrayList<String> deliveryOptionArrayList = new ArrayList<>();
+                        deliveryOptionArrayList.add(0, "Select Delivery Option");
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            deliveryOptionArrayList.add(response.body().getData().get(i).getDeliveryOption());
+                            bindDeliveryOptionDataToSpinner(deliveryOptionArrayList);
+                        }
+                    } else {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DeliveryOptionResponseModel> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void bindDeliveryOptionDataToSpinner(ArrayList<String> data) {
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter<String> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
+                data);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinnerDeliveryOption.setAdapter(aa);
+
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit")) {
+                if (deliveryOption != null) {
+                    int spinnerPosition = aa.getPosition(deliveryOption);
+                    spinnerDeliveryOption.setSelection(spinnerPosition);
+                }
+            }
+        }
+        spinnerDeliveryOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    deliveryOption = selectedItem;
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void getNatureOfGoods() {
+        RetrofitInstance.getClient().getNatureOfGoods().enqueue(new Callback<NatureOfGoodsResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<NatureOfGoodsResponseModel> call, @NonNull Response<NatureOfGoodsResponseModel> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        natureOfGoodsResponseModel = response.body();
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(response.body());
+                        userSession.setNatureOfGoods(json);
+
+                        ArrayList<String> natureOfGoodsArrayList = new ArrayList<>();
+                        natureOfGoodsArrayList.add(0, "Select Nature Of Goods");
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            natureOfGoodsArrayList.add(response.body().getData().get(i).getNatureOfGoods());
+                            bindNatureOfGoodsDataToSpinner(natureOfGoodsArrayList);
+                        }
+                    } else {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<NatureOfGoodsResponseModel> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void bindNatureOfGoodsDataToSpinner(ArrayList<String> data) {
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter<String> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
+                data);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinnerNatureGoods.setAdapter(aa);
+
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit")) {
+                if (natureOfGoods != null) {
+                    int spinnerPosition = aa.getPosition(natureOfGoods);
+                    spinnerNatureGoods.setSelection(spinnerPosition);
+                }
+            }
+        }
+        spinnerNatureGoods.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    natureOfGoods = selectedItem;
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void getQuality() {
+        RetrofitInstance.getClient().getQuality().enqueue(new Callback<QualityResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<QualityResponseModel> call, @NonNull Response<QualityResponseModel> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        qualityResponseModel = response.body();
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(response.body());
+                        userSession.setQuality(json);
+
+                        ArrayList<String> qualityArrayList = new ArrayList<>();
+                        qualityArrayList.add(0, "Select Quality");
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            qualityArrayList.add(response.body().getData().get(i).getQuality());
+                            bindQualityDataToSpinner(qualityArrayList);
+                        }
+                    } else {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<QualityResponseModel> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void bindQualityDataToSpinner(ArrayList<String> data) {
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter<String> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
+                data);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinnerQuality.setAdapter(aa);
+
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit")) {
+                if (strQuality != null) {
+                    int spinnerPosition = aa.getPosition(strQuality);
+                    spinnerQuality.setSelection(spinnerPosition);
+                }
+            }
+        }
+        spinnerQuality.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    strQuality = selectedItem;
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void getPackaging() {
+        RetrofitInstance.getClient().getPackaging().enqueue(new Callback<PackagingResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<PackagingResponseModel> call, @NonNull Response<PackagingResponseModel> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        packagingResponseModel = response.body();
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(response.body());
+                        userSession.setPackaging(json);
+
+                        ArrayList<String> packagingArrayList = new ArrayList<>();
+                        packagingArrayList.add(0, "Select Packaging");
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            packagingArrayList.add(response.body().getData().get(i).getPackaging());
+                            bindPackagingDataToSpinner(packagingArrayList);
+                        }
+                    } else {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PackagingResponseModel> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void bindPackagingDataToSpinner(ArrayList<String> data) {
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter<String> aa = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item,
+                data);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinnerPackaging.setAdapter(aa);
+
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit")) {
+                if (strPackaging != null) {
+                    int spinnerPosition = aa.getPosition(strPackaging);
+                    spinnerPackaging.setSelection(spinnerPosition);
+                }
+            }
+        }
+        spinnerPackaging.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                if (!selectedItem.equals("")) {
+                    strPackaging = selectedItem;
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
     private void getState() {
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<StateResponseModel> call = apiInterface.getState();
-        call.enqueue(new Callback<StateResponseModel>() {
+        RetrofitInstance.getClient().getState().enqueue(new Callback<StateResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<StateResponseModel> call, @NonNull Response<StateResponseModel> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         stateResponseModel = response.body();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(response.body());
+                        userSession.setFromState(json);
                         bindStateDataToUI(response.body().getData());
                     } else {
                         Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -1018,6 +1254,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private void bindStateDataToUI(List<StateModel> data) {
         ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+        manufactureArrayList.add(0, "Select State");
         for (int i = 0; i < data.size(); i++) {
             manufactureArrayList.add(data.get(i).getStateName());
         }
@@ -1094,6 +1331,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         if (tag.equals("from")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+            manufactureArrayList.add(0, "Select City");
             for (int i = 0; i < data.size(); i++) {
                 manufactureArrayList.add(data.get(i).getCityName());
             }
@@ -1106,6 +1344,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         if (tag.equals("to")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+            manufactureArrayList.add(0, "Select City");
             for (int i = 0; i < data.size(); i++) {
                 manufactureArrayList.add(data.get(i).getCityName());
             }

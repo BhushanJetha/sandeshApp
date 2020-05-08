@@ -22,7 +22,9 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.Uitility;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class AddressDetailActivity extends AppCompatActivity {
     private String strAddressLine1, strAddressLine2, strLandmark, strPincode;
     private int strStateId, strCityId;
     private ViewProgressDialog viewProgressDialog;
+    private UserSession userSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +54,20 @@ public class AddressDetailActivity extends AppCompatActivity {
         init();
         onClick();
 
-        //TODO API Call
-        getState();
+        String fromState = userSession.getFromState();
+        if (fromState.length() > 0) {
+            Gson gson = new Gson();
+            stateResponseModel = gson.fromJson(fromState, StateResponseModel.class);
+            bindStateDataToUI(stateResponseModel.getData());
+        } else {
+            //TODO API Call
+            getState();
+        }
     }
 
     private void init() {
         viewProgressDialog = ViewProgressDialog.getInstance();
+        userSession = new UserSession(this);
 
         spState = findViewById(R.id.spState);
         spCity = findViewById(R.id.spCity);
@@ -76,18 +87,18 @@ public class AddressDetailActivity extends AppCompatActivity {
                 strLandmark = etLandmark.getText().toString();
                 strPincode = etPincode.getText().toString();
 
-                if(!strAddressLine1.isEmpty()){
-                    if(!strLandmark.isEmpty()){
-                        if(!strPincode.isEmpty()){
+                if (!strAddressLine1.isEmpty()) {
+                    if (!strLandmark.isEmpty()) {
+                        if (!strPincode.isEmpty()) {
                             doRigistrationAPICall();
-                        }else {
-                            Uitility.showToast(AddressDetailActivity.this,"Please enter pin code !");
+                        } else {
+                            Uitility.showToast(AddressDetailActivity.this, "Please enter pin code !");
                         }
-                    }else {
-                        Uitility.showToast(AddressDetailActivity.this,"Please enter landmark !");
+                    } else {
+                        Uitility.showToast(AddressDetailActivity.this, "Please enter landmark !");
                     }
-                }else {
-                    Uitility.showToast(AddressDetailActivity.this,"Please enter address line 1 !");
+                } else {
+                    Uitility.showToast(AddressDetailActivity.this, "Please enter address line 1 !");
                 }
             }
         });
@@ -133,14 +144,15 @@ public class AddressDetailActivity extends AppCompatActivity {
     }
 
     private void getState() {
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<StateResponseModel> call = apiInterface.getState();
-        call.enqueue(new Callback<StateResponseModel>() {
+        RetrofitInstance.getClient().getState().enqueue(new Callback<StateResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<StateResponseModel> call, @NonNull Response<StateResponseModel> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         stateResponseModel = response.body();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(response.body());
+                        userSession.setFromState(json);
                         bindStateDataToUI(response.body().getData());
                     } else {
                         Toast.makeText(AddressDetailActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -152,12 +164,12 @@ public class AddressDetailActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<StateResponseModel> call, @NonNull Throwable t) {
             }
         });
-
     }
 
     private void bindStateDataToUI(List<StateModel> data) {
         ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+        manufactureArrayList.add(0,"Select State");
         for (int i = 0; i < data.size(); i++) {
             manufactureArrayList.add(data.get(i).getStateName());
         }
@@ -214,6 +226,7 @@ public class AddressDetailActivity extends AppCompatActivity {
     private void bindCityDataToUI(List<CityModel> data) {
         ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+        manufactureArrayList.add(0,"Select City");
         for (int i = 0; i < data.size(); i++) {
             manufactureArrayList.add(data.get(i).getCityName());
         }

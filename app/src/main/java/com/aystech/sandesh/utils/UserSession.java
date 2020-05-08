@@ -23,6 +23,14 @@ public class UserSession {
 
     private String LOGIN_COUNT = "login_count";
 
+    private String FROM_STATE = "from_state";
+    private String WEIGHT = "weight";
+    private String DELIVERY_OPTION = "delivery_option";
+    private String VEHICLE_TYPE = "vehicle_type";
+    private String NATURE_OF_GOODS = "nature_of_goods";
+    private String QUALITY = "quality";
+    private String PACKAGING = "packaging";
+
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
@@ -128,6 +136,69 @@ public class UserSession {
 
     public String getLoginCount() {
         return pref.getString(LOGIN_COUNT, "");
+    }
+
+    public void setFromState(String state_list) {
+        editor.putString(FROM_STATE, state_list);
+        editor.commit();
+    }
+
+    public String getFromState() {
+        return pref.getString(FROM_STATE, "");
+    }
+
+    public void setWeight(String weight_list) {
+        editor.putString(WEIGHT, weight_list);
+        editor.commit();
+    }
+
+    public String getWeight() {
+        return pref.getString(WEIGHT, "");
+    }
+
+    public void setDeliveryOption(String delivery_option) {
+        editor.putString(DELIVERY_OPTION, delivery_option);
+        editor.commit();
+    }
+
+    public String getDeliveryOption() {
+        return pref.getString(DELIVERY_OPTION, "");
+    }
+
+    public void setVehicleType(String vehicle_type) {
+        editor.putString(VEHICLE_TYPE, vehicle_type);
+        editor.commit();
+    }
+
+    public String getVehicleType() {
+        return pref.getString(VEHICLE_TYPE, "");
+    }
+
+    public void setNatureOfGoods(String nature_of_goods) {
+        editor.putString(NATURE_OF_GOODS, nature_of_goods);
+        editor.commit();
+    }
+
+    public String getNatureOfGoods() {
+        return pref.getString(NATURE_OF_GOODS, "");
+    }
+
+    public void setQuality(String quality) {
+        editor.putString(QUALITY, quality);
+        editor.commit();
+    }
+
+    public String getQuality(){
+        return pref.getString(QUALITY, "");
+    }
+
+    public void setPackaging(String quality) {
+        editor.putString(PACKAGING, quality);
+        editor.commit();
+    }
+
+    public String getPackaging(){
+        return pref.getString(PACKAGING, "");
     }
 
     void clearUserSession() {

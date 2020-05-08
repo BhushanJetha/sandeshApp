@@ -37,7 +37,9 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -74,7 +76,8 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     private String strToPinCode, strFromPincode, strStartDate = "", strEndDate = "";
     private String tag;
 
-    ViewProgressDialog viewProgressDialog;
+    private ViewProgressDialog viewProgressDialog;
+    private UserSession userSession;
 
     public SearchTravelerFragment() {
         // Required empty public constructor
@@ -99,14 +102,22 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
         onClickListener();
 
-        //TODO API Call
-        getState();
+        String fromState = userSession.getFromState();
+        if (fromState.length() > 0) {
+            Gson gson = new Gson();
+            stateResponseModel = gson.fromJson(fromState, StateResponseModel.class);
+            bindStateDataToUI(stateResponseModel.getData());
+        } else {
+            //TODO API Call
+            getState();
+        }
 
         return view;
     }
 
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
+        userSession = new UserSession(context);
 
         clTravellerList = view.findViewById(R.id.clTravellerList);
         tvResultCount = view.findViewById(R.id.tvResultCount);
@@ -281,7 +292,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
             orderAdapter.addTravellerList(data);
             rvOrder.setAdapter(orderAdapter);
         } else {
-            Uitility.showToast(context,"No Data Found!");
+            Uitility.showToast(context, "No Data Found!");
             clTravellerList.setVisibility(View.VISIBLE);
             tvResultCount.setVisibility(View.GONE);
             tvSortBy.setVisibility(View.GONE);
@@ -298,14 +309,15 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     }
 
     private void getState() {
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<StateResponseModel> call = apiInterface.getState();
-        call.enqueue(new Callback<StateResponseModel>() {
+        RetrofitInstance.getClient().getState().enqueue(new Callback<StateResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<StateResponseModel> call, @NonNull Response<StateResponseModel> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         stateResponseModel = response.body();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(response.body());
+                        userSession.setFromState(json);
                         bindStateDataToUI(response.body().getData());
                     } else {
                         Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -317,12 +329,12 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
             public void onFailure(@NonNull Call<StateResponseModel> call, @NonNull Throwable t) {
             }
         });
-
     }
 
     private void bindStateDataToUI(List<StateModel> data) {
         ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+        manufactureArrayList.add(0,"Select State");
         for (int i = 0; i < data.size(); i++) {
             manufactureArrayList.add(data.get(i).getStateName());
         }
@@ -399,6 +411,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         if (tag.equals("from")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+            manufactureArrayList.add(0,"Select City");
             for (int i = 0; i < data.size(); i++) {
                 manufactureArrayList.add(data.get(i).getCityName());
             }
@@ -411,6 +424,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         if (tag.equals("to")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+            manufactureArrayList.add(0,"Select City");
             for (int i = 0; i < data.size(); i++) {
                 manufactureArrayList.add(data.get(i).getCityName());
             }

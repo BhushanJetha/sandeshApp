@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,9 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -74,6 +77,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     final Calendar myCalendar = Calendar.getInstance();
 
     private ViewProgressDialog viewProgressDialog;
+    private UserSession userSession;
 
     public SearchOrderFragment() {
         // Required empty public constructor
@@ -98,14 +102,22 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
 
         onClickListener();
 
-        //TODO API Call
-        getState();
+        String fromState = userSession.getFromState();
+        if (fromState.length() > 0) {
+            Gson gson = new Gson();
+            stateResponseModel = gson.fromJson(fromState, StateResponseModel.class);
+            bindStateDataToUI(stateResponseModel.getData());
+        } else {
+            //TODO API Call
+            getState();
+        }
 
         return view;
     }
 
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
+        userSession = new UserSession(context);
 
         nestedScrollView = view.findViewById(R.id.nestedScrollView);
         clOrderList = view.findViewById(R.id.clOrderList);
@@ -255,7 +267,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
-                                    true);
+                            true);
                     Bundle bundle = new Bundle();
                     bundle.putInt("parcel_id", searchOrderModel.getParcelId());
                     bundle.putString("tag", "");
@@ -273,7 +285,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             orderAdapter.addOrderList(data);
             rvOrder.setAdapter(orderAdapter);
         } else {
-            Uitility.showToast(context,"No Data Found!");
+            Uitility.showToast(context, "No Data Found!");
             clOrderList.setVisibility(View.VISIBLE);
             tvResultCount.setVisibility(View.GONE);
             tvSortBy.setVisibility(View.GONE);
@@ -289,14 +301,15 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     }
 
     private void getState() {
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<StateResponseModel> call = apiInterface.getState();
-        call.enqueue(new Callback<StateResponseModel>() {
+        RetrofitInstance.getClient().getState().enqueue(new Callback<StateResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<StateResponseModel> call, @NonNull Response<StateResponseModel> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         stateResponseModel = response.body();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(response.body());
+                        userSession.setFromState(json);
                         bindStateDataToUI(response.body().getData());
                     } else {
                         Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -313,6 +326,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     private void bindStateDataToUI(List<StateModel> data) {
         ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+        manufactureArrayList.add(0,"Select State");
         for (int i = 0; i < data.size(); i++) {
             manufactureArrayList.add(data.get(i).getStateName());
         }
@@ -334,7 +348,6 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             } // to close the onItemSelected
 
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -349,7 +362,6 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             } // to close the onItemSelected
 
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
@@ -361,9 +373,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", strStateId);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CityResponseModel> call = apiInterface.getCity(jsonObject);
-        call.enqueue(new Callback<CityResponseModel>() {
+        RetrofitInstance.getClient().getCity(jsonObject).enqueue(new Callback<CityResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<CityResponseModel> call, @NonNull Response<CityResponseModel> response) {
                 if (tag.equals("to"))
@@ -389,6 +399,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
         if (tag.equals("from")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+            manufactureArrayList.add(0,"Select City");
             for (int i = 0; i < data.size(); i++) {
                 manufactureArrayList.add(data.get(i).getCityName());
             }
@@ -401,6 +412,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
         if (tag.equals("to")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
 
+            manufactureArrayList.add(0,"Select City");
             for (int i = 0; i < data.size(); i++) {
                 manufactureArrayList.add(data.get(i).getCityName());
             }
