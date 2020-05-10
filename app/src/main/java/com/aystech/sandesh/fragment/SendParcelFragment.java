@@ -48,6 +48,7 @@ import com.aystech.sandesh.model.WeightResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
+import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
@@ -82,6 +83,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private PackagingResponseModel packagingResponseModel;
     private QualityResponseModel qualityResponseModel;
 
+    private OrderListFragment orderListFragment;
+
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private EditText etFromPincode, etToPincode, etGoodsDescription,
             etGoodsValue, etReceiverName, etReceiverMobileNo, etReceiverAddress,
@@ -104,7 +107,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous = "", rgStrProhibited = "",
             rgStrFraglle = "", rgStrFlamableToxicExplosive = "", strWeight = "";
 
-    private String tag, edit;
+    private String tag, edit, fromState, fromCity, toState, toCity;
     private int mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weightId;
     private boolean onceClicked = false;
@@ -133,6 +136,9 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_send_parcel, container, false);
+
+        orderListFragment = (OrderListFragment) Fragment.instantiate(context,
+                OrderListFragment.class.getName());
 
         if (getArguments() != null) {
             travelDetailModel = getArguments().getParcelable("order_detail");
@@ -295,6 +301,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     }
 
     private void editSendParcel() {
+        fromState = travelDetailModel.getParcelData().getFrom_state();
+        fromCity = travelDetailModel.getParcelData().getFromCity();
+        toState = travelDetailModel.getParcelData().getTo_state();
+        toCity = travelDetailModel.getParcelData().getToCity();
         etToPincode.setText(travelDetailModel.getParcelData().getToPincode());
         etFromPincode.setText(travelDetailModel.getParcelData().getFromPincode());
         etStartDate.setText(travelDetailModel.getParcelData().getStartDate());
@@ -378,12 +388,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 strReceiverAddress = etReceiverAddress.getText().toString();
 
 
-                if(fromCityId != 0){
-                    if(!strFromPincode.isEmpty()){
-                        if(strFromPincode.length() == 6){
-                            if(toCityId != 0){
-                                if(!strtoPincode.isEmpty()){
-                                    if(strtoPincode.length() == 6){
+                if (fromCityId != 0) {
+                    if (!strFromPincode.isEmpty()) {
+                        if (strFromPincode.length() == 6) {
+                            if (toCityId != 0) {
+                                if (!strtoPincode.isEmpty()) {
+                                    if (strtoPincode.length() == 6) {
                                         if (!strStartDate.isEmpty()) {
                                             if (!strEndDate.isEmpty()) {
                                                 if (!strStartTime.isEmpty()) {
@@ -408,10 +418,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                             if (!strReceiverMobileNo.isEmpty()) {
                                                                                                                                 if (!strReceiverAddress.isEmpty()) {
                                                                                                                                     if (cbTermsCondition.isChecked()) {
-                                                                                                                                        if(!strParcelFilePath.isEmpty()){
+                                                                                                                                        if (!strParcelFilePath.isEmpty()) {
                                                                                                                                             //TODO API Call
                                                                                                                                             updateMyParcel(travelDetailModel.getParcelData().getParcelId());
-                                                                                                                                        }else {
+                                                                                                                                        } else {
                                                                                                                                             Uitility.showToast(context, "Please select parcel image!");
                                                                                                                                         }
                                                                                                                                     } else {
@@ -486,22 +496,22 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                         } else {
                                             Uitility.showToast(context, "Please select start date!");
                                         }
-                                    }else {
+                                    } else {
                                         Uitility.showToast(context, "Please enter 6 digit pin code!");
                                     }
-                                }else {
+                                } else {
                                     Uitility.showToast(context, "Please enter to city pin code!");
                                 }
-                            }else {
+                            } else {
                                 Uitility.showToast(context, "Please select to city!");
                             }
-                        }else {
+                        } else {
                             Uitility.showToast(context, "Please enter 6 digit pin code!");
                         }
-                    }else {
+                    } else {
                         Uitility.showToast(context, "Please enter from city pin code!");
                     }
-                }else {
+                } else {
                     Uitility.showToast(context, "Please select from city!");
                 }
             }
@@ -587,7 +597,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 // This will get the radiobutton that has changed in its check state
                 RadioButton checkedRadioButton = group.findViewById(checkedId);
                 // This puts the value (true/false) into the variable
-                   boolean isChecked = checkedRadioButton.isChecked();
+                boolean isChecked = checkedRadioButton.isChecked();
                 // If the radiobutton that has changed in check state is now checked...
                 if (isChecked) {
                     rgStrFlamableToxicExplosive = checkedRadioButton.getText().toString();
@@ -622,12 +632,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 strReceiverMobileNo = etReceiverMobileNo.getText().toString();
                 strReceiverAddress = etReceiverAddress.getText().toString();
 
-                if(fromCityId != 0){
-                    if(!strFromPincode.isEmpty()){
-                        if(strFromPincode.length() == 6){
-                            if(toCityId != 0){
-                                if(!strtoPincode.isEmpty()){
-                                    if(strtoPincode.length() == 6){
+                if (fromCityId != 0) {
+                    if (!strFromPincode.isEmpty()) {
+                        if (strFromPincode.length() == 6) {
+                            if (toCityId != 0) {
+                                if (!strtoPincode.isEmpty()) {
+                                    if (strtoPincode.length() == 6) {
                                         if (!strStartDate.isEmpty()) {
                                             if (!strEndDate.isEmpty()) {
                                                 if (!strStartTime.isEmpty()) {
@@ -652,10 +662,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                             if (!strReceiverMobileNo.isEmpty()) {
                                                                                                                                 if (!strReceiverAddress.isEmpty()) {
                                                                                                                                     if (cbTermsCondition.isChecked()) {
-                                                                                                                                        if(!strParcelFilePath.isEmpty()){
+                                                                                                                                        if (!strParcelFilePath.isEmpty()) {
                                                                                                                                             //TODO API Call
                                                                                                                                             sendParcel();
-                                                                                                                                        }else {
+                                                                                                                                        } else {
                                                                                                                                             Uitility.showToast(context, "Please select parcel image!");
                                                                                                                                         }
                                                                                                                                     } else {
@@ -730,22 +740,22 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                         } else {
                                             Uitility.showToast(context, "Please select start date!");
                                         }
-                                    }else {
+                                    } else {
                                         Uitility.showToast(context, "Please enter 6 digit pin code!");
                                     }
-                                }else {
+                                } else {
                                     Uitility.showToast(context, "Please enter to city pin code!");
                                 }
-                            }else {
+                            } else {
                                 Uitility.showToast(context, "Please select to city!");
                             }
-                        }else {
+                        } else {
                             Uitility.showToast(context, "Please enter 6 digit pin code!");
                         }
-                    }else {
+                    } else {
                         Uitility.showToast(context, "Please enter from city pin code!");
                     }
-                }else {
+                } else {
                     Uitility.showToast(context, "Please select from city!");
                 }
 
@@ -978,7 +988,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+
+                        commonRedirect();
                     } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -1077,7 +1088,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+
+                        commonRedirect();
                     } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -1088,6 +1100,14 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 viewProgressDialog.hideDialog();
             }
         });
+    }
+
+    private void commonRedirect() {
+        Bundle bundle = new Bundle();
+        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                orderListFragment, R.id.frame_container, true);
+        bundle.putString("tag", "success_parcel");
+        orderListFragment.setArguments(bundle);
     }
 
     @Override
@@ -1439,6 +1459,18 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         spinnerFromState.setAdapter(adapter);
         spinnerToState.setAdapter(adapter);
 
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit")) {
+                if (fromState != null) {
+                    int spinnerPosition = adapter.getPosition(fromState);
+                    spinnerFromState.setSelection(spinnerPosition);
+                }
+                if (toState != null) {
+                    int spinnerPosition = adapter.getPosition(toState);
+                    spinnerToState.setSelection(spinnerPosition);
+                }
+            }
+        }
         spinnerFromState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
@@ -1514,6 +1546,14 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spinnerFromCity.setAdapter(adapter);
+            if (edit != null && !edit.equals("")) {
+                if (edit.equals("edit")) {
+                    if (fromCity != null) {
+                        int spinnerPosition = adapter.getPosition(fromCity);
+                        spinnerFromCity.setSelection(spinnerPosition);
+                    }
+                }
+            }
         }
         if (tag.equals("to")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
@@ -1527,6 +1567,14 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spinnerToCity.setAdapter(adapter);
+            if (edit != null && !edit.equals("")) {
+                if (edit.equals("edit")) {
+                    if (toCity != null) {
+                        int spinnerPosition = adapter.getPosition(toCity);
+                        spinnerToCity.setSelection(spinnerPosition);
+                    }
+                }
+            }
         }
 
         spinnerFromCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

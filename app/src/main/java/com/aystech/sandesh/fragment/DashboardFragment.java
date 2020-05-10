@@ -56,7 +56,7 @@ public class DashboardFragment extends Fragment {
             imgMyRequestedOrders;
 
     private SearchOrderFragment searchOrderFragment;
-    private MyWalletFragmentOne myWalletFragment;
+    private MyWalletFragmentTwo myWalletFragment;
     private PlanTravelFragment planTravelFragment;
     private SearchTravelerFragment searchTravelerFragment;
     private SendParcelFragment sendParcelFragment;
@@ -90,8 +90,8 @@ public class DashboardFragment extends Fragment {
 
         searchOrderFragment = (SearchOrderFragment)
                 Fragment.instantiate(context, SearchOrderFragment.class.getName());
-        myWalletFragment = (MyWalletFragmentOne)
-                Fragment.instantiate(context, MyWalletFragmentOne.class.getName());
+        myWalletFragment = (MyWalletFragmentTwo)
+                Fragment.instantiate(context, MyWalletFragmentTwo.class.getName());
         planTravelFragment = (PlanTravelFragment)
                 Fragment.instantiate(context, PlanTravelFragment.class.getName());
         searchTravelerFragment = (SearchTravelerFragment)

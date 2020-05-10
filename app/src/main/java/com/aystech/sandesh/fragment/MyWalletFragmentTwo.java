@@ -3,6 +3,7 @@ package com.aystech.sandesh.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -20,7 +21,14 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.activity.PaymentActivity;
 import com.aystech.sandesh.adapter.MyWalletTabLayoutAdapter;
+import com.aystech.sandesh.model.WalletTransactionResponseModel;
+import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.UserSession;
+import com.aystech.sandesh.utils.ViewProgressDialog;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyWalletFragmentTwo extends Fragment implements View.OnClickListener {
 
@@ -36,6 +44,7 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
     private Double walletBal;
 
     private UserSession userSession;
+    private ViewProgressDialog viewProgressDialog;
 
     public MyWalletFragmentTwo() {
         // Required empty public constructor
@@ -53,10 +62,6 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_wallet_fragment_two, container, false);
 
-        if (getArguments() != null) {
-            walletBal = getArguments().getDouble("walletBal");
-        }
-
         initView(view);
 
         onClickListener();
@@ -65,6 +70,7 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
     }
 
     private void initView(View view) {
+        viewProgressDialog = ViewProgressDialog.getInstance();
         userSession = new UserSession(context);
 
         walletTabLayout = view.findViewById(R.id.walletTabLayout);
@@ -73,11 +79,6 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
         tvUserName = view.findViewById(R.id.tvUserName);
         tvUserName.setText(userSession.getUSER_NAME());
         tvWalletAmt = view.findViewById(R.id.tvWalletAmt);
-        if (walletBal != 0.0)
-            tvWalletAmt.setText("Rs. " + walletBal);
-        else
-            tvWalletAmt.setText("Rs. " + 0.0);
-
         btnAddMoney = view.findViewById(R.id.btnAddMoney);
 
         walletTabLayout.addTab(walletTabLayout.newTab().setText("Statement"));
@@ -146,8 +147,6 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
                     Intent intent = new Intent(context, PaymentActivity.class);
                     intent.putExtra("add_amt", etAddBal.getText().toString().trim());
                     startActivity(intent);
-
-                    ((MainActivity) context).getSupportFragmentManager().popBackStack();
                 }
             }
         });
@@ -157,6 +156,9 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
+
+        //TODO API Call
+        getMyTransactionList();
     }
 
     @Override
@@ -166,5 +168,32 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
                 addAmountInWalletDialog();
                 break;
         }
+    }
+
+    private void getMyTransactionList() {
+        viewProgressDialog.showProgress(context);
+
+        RetrofitInstance.getClient().getMyTransactionList().enqueue(new Callback<WalletTransactionResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<WalletTransactionResponseModel> call, @NonNull Response<WalletTransactionResponseModel> response) {
+
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getBalance() != null) {
+                        walletBal = response.body().getBalance();
+                        tvWalletAmt.setText("Rs. " + walletBal);
+                    } else {
+                        walletBal = 0.0;
+                        tvWalletAmt.setText("Rs. " + walletBal);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<WalletTransactionResponseModel> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
     }
 }

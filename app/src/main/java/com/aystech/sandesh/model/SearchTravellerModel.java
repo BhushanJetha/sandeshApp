@@ -100,6 +100,12 @@ public class SearchTravellerModel {
     @SerializedName("to_city")
     @Expose
     private String toCity;
+    @SerializedName("from_state")
+    @Expose
+    private String from_state;
+    @SerializedName("to_state")
+    @Expose
+    private String to_state;
     @SerializedName("first_name")
     @Expose
     private String firstName;
@@ -406,5 +412,21 @@ public class SearchTravellerModel {
 
     public String getEmailId() {
         return emailId;
+    }
+
+    public String getFrom_state() {
+        return from_state;
+    }
+
+    public void setFrom_state(String from_state) {
+        this.from_state = from_state;
+    }
+
+    public String getTo_state() {
+        return to_state;
+    }
+
+    public void setTo_state(String to_state) {
+        this.to_state = to_state;
     }
 }

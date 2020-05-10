@@ -43,6 +43,9 @@ public class    SearchOrderModel {
     @SerializedName("email_id")
     @Expose
     private String emailId;
+    @SerializedName("from_state")
+    @Expose
+    private String from_state;
     @SerializedName("from_city")
     @Expose
     private String fromCity;
@@ -52,6 +55,9 @@ public class    SearchOrderModel {
     @SerializedName("from_address_detail")
     @Expose
     private String fromAddressDetail;
+    @SerializedName("to_state")
+    @Expose
+    private String to_state;
     @SerializedName("to_city")
     @Expose
     private String toCity;
@@ -509,5 +515,21 @@ public class    SearchOrderModel {
 
     public void setPaymnetStatus(String paymnetStatus) {
         this.paymnetStatus = paymnetStatus;
+    }
+
+    public String getFrom_state() {
+        return from_state;
+    }
+
+    public void setFrom_state(String from_state) {
+        this.from_state = from_state;
+    }
+
+    public String getTo_state() {
+        return to_state;
+    }
+
+    public void setTo_state(String to_state) {
+        this.to_state = to_state;
     }
 }

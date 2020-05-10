@@ -106,7 +106,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         if (tag != null && !tag.equals("")) {
             if (tag.equals("normal"))
                 btnSendRequest.setVisibility(View.VISIBLE);
-            if (tag.equals("upcoming_rides"))
+            if (tag.equals("upcoming_rides") || tag.equals("success_travel"))
                 imgTravelEdit.setVisibility(View.VISIBLE);
         }
     }
