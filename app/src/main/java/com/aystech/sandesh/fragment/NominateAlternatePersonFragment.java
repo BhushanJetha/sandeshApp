@@ -118,8 +118,12 @@ public class NominateAlternatePersonFragment extends Fragment implements View.On
                 if(!userName.isEmpty()) {
                     if(!mobileNo.isEmpty()) {
                         if(!panNo.isEmpty()) {
-                            //TODO API Call
-                            nominateAlternatePerson();
+                            if(!filepath.isEmpty()){
+                                //TODO API Call
+                                nominateAlternatePerson();
+                            }else {
+                                Uitility.showToast(context,"Please select ID proof image!");
+                            }
                         } else {
                             Uitility.showToast(context,"Please enter pan card number!");
                         }
