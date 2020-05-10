@@ -117,8 +117,6 @@ public class DashboardFragment extends Fragment {
 
         onClickListener();
 
-        openResetPasswordDialog();
-
         return view;
     }
 
