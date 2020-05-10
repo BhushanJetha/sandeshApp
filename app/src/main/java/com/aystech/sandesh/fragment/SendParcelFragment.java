@@ -99,10 +99,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private TextView btnCancel;
     private CheckBox cbTermsCondition;
 
-    private String deliveryOption, natureOfGoods, strQuality, strPackaging, strOwnership = "", strFromPincode, strtoPincode,
+    private String deliveryOption = "", natureOfGoods = "", strQuality = "", strPackaging = "", strOwnership = "", strFromPincode, strtoPincode,
             strStartDate = "", strStartTime = "", strEndDate = "", strEndTime = "", strGoodsDescription, strValueOgGood,
             strReceiverName, strReceiverMobileNo, strReceiverAddress, rgStrHazardous = "", rgStrProhibited = "",
-            rgStrFraglle = "", rgStrFlamableToxicExplosive = "", strWeight;
+            rgStrFraglle = "", rgStrFlamableToxicExplosive = "", strWeight = "";
 
     private String tag, edit;
     private int mHour, mMinute;
@@ -392,8 +392,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                             if (!natureOfGoods.equals("Select Nature Of Goods")) {
                                                                 if (!strGoodsDescription.isEmpty()) {
                                                                     if (!strQuality.equals("Select Quality")) {
-                                                                        if (!strWeight.equals("Select Weight")) {
-                                                                            if (!strWeight.equals("Select Packaging")) {
+                                                                        if (weightId != 0) {
+                                                                            if (!strPackaging.equals("Select Packaging")) {
                                                                                 if (!strValueOgGood.isEmpty()) {
                                                                                     if (!strOwnership.isEmpty()) {
                                                                                         if (!rgStrHazardous.isEmpty()) {
@@ -636,8 +636,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                             if (!natureOfGoods.equals("Select Nature Of Goods")) {
                                                                 if (!strGoodsDescription.isEmpty()) {
                                                                     if (!strQuality.equals("Select Quality")) {
-                                                                        if (!strWeight.equals("Select Weight")) {
-                                                                            if (!strWeight.equals("Select Packaging")) {
+                                                                        if (weightId != 0) {
+                                                                            if (!strPackaging.equals("Select Packaging")) {
                                                                                 if (!strValueOgGood.isEmpty()) {
                                                                                     if (!strOwnership.isEmpty()) {
                                                                                         if (!rgStrHazardous.isEmpty()) {

@@ -73,6 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
+                    android:singleLine="true"
                     android:hint="Address Line 1" />
 
             </android.support.design.widget.TextInputLayout>
@@ -87,6 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
+                    android:singleLine="true"
                     android:hint="Address Line 2" />
 
             </android.support.design.widget.TextInputLayout>
@@ -101,6 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
+                    android:singleLine="true"
                     android:hint="Landmark" />
 
             </android.support.design.widget.TextInputLayout>
@@ -117,6 +120,7 @@
                     android:fontFamily="@font/gotham_light"
                     android:hint="Pincode"
                     android:inputType="number"
+                    android:singleLine="true"
                     android:maxLength="6" />
 
             </android.support.design.widget.TextInputLayout>

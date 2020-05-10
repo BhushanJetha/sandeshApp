@@ -88,6 +88,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvVolumeInfo.setText("Vol: " + searchTravellerModels.get(i).getAcceptableVolumeLength() + " * " +
                     searchTravellerModels.get(i).getAcceptableVolumeBreadth() + " * " + searchTravellerModels.get(i).getAcceptableVolumeWidth());
 
+            myViewHolder.rbOrder.setVisibility(View.VISIBLE);
+            myViewHolder.rbOrder.setRating(Float.parseFloat("2.0"));
+
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

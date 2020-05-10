@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Uitility {
@@ -60,5 +61,21 @@ public class Uitility {
         String ageS = ageInt.toString();
 
         return ageS;
+    }
+
+    public static long calculateDateDifference(Date startDate, Date endDate) {
+        //milliseconds
+        long different = endDate.getTime() - startDate.getTime();
+
+        System.out.println("startDate : " + startDate);
+        System.out.println("endDate : "+ endDate);
+        System.out.println("different : " + different);
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        return different / daysInMilli;
     }
 }

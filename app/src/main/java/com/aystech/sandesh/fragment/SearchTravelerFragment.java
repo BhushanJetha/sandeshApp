@@ -162,35 +162,25 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                 strToPinCode = etToPincode.getText().toString();
                 strFromPincode = etFromPincode.getText().toString();
 
-                /*if (!strToPinCode.isEmpty()) {
-                    if (!strFromPincode.isEmpty()) {
+                if(fromCityId != 0){
+                    if(toCityId != 0){
                         if (!strStartDate.isEmpty()) {
                             if (!strEndDate.isEmpty()) {
                                 //TODO API Call
                                 searchTravelerData();
                             } else {
-                                Uitility.showToast(getActivity(), "Please select end Date !!");
+                                Uitility.showToast(getActivity(), "Please select end date !!");
                             }
                         } else {
-                            Uitility.showToast(getActivity(), "Please select start Date !!");
+                            Uitility.showToast(getActivity(), "Please select start date !!");
                         }
-                    } else {
-                        Uitility.showToast(getActivity(), "Please enter Pincode !!");
+                    }else {
+                        Uitility.showToast(getActivity(), "Please select to city !!");
                     }
-                } else {
-                    Uitility.showToast(getActivity(), "Please enter Pincode !!");
-                }*/
-
-                if (!strStartDate.isEmpty()) {
-                    if (!strEndDate.isEmpty()) {
-                        //TODO API Call
-                        searchTravelerData();
-                    } else {
-                        Uitility.showToast(getActivity(), "Please select end Date !!");
-                    }
-                } else {
-                    Uitility.showToast(getActivity(), "Please select start Date !!");
+                }else {
+                    Uitility.showToast(getActivity(), "Please select from city !!");
                 }
+
                 break;
         }
     }

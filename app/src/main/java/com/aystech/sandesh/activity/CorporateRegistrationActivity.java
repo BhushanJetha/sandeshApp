@@ -27,6 +27,7 @@ import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 
 import java.io.File;
@@ -49,6 +50,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     private LinearLayout llProfilePiture;
     private CheckBox cbAccetTermsAndConditions;
     private Button btnSubmit;
+    private UserSession userSession;
 
     Uri picUri;
     Bitmap myBitmap;
@@ -72,6 +74,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
     private void init() {
         viewProgressDialog = ViewProgressDialog.getInstance();
+        userSession = new UserSession(this);
 
         etCompanyName = findViewById(R.id.etCompanyName);
         etBranch = findViewById(R.id.etBranch);
@@ -242,6 +245,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                     if (response.body().getStatus()) {
                         Toast.makeText(CorporateRegistrationActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Constants.fragmentType = "Dashboard";
+                        userSession.setFirstTimeUserStatus("Yes");
                         Intent i = new Intent(CorporateRegistrationActivity.this, LoginActivity.class);
                         startActivity(i);
                         finish();

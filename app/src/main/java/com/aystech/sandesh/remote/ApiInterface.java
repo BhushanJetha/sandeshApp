@@ -283,4 +283,7 @@ public interface ApiInterface {
             @Part("pancard_no") RequestBody pancard_no,
             @Part MultipartBody.Part pancard_pic
     );
+
+    @POST("api/resetPassword")
+    Call<CommonResponse> resetPassword(@Body JsonObject jsonObject);
 }

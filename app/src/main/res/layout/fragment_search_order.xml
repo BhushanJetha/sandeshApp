@@ -210,6 +210,40 @@
                     app:layout_constraintEnd_toEndOf="@+id/tILDate"
                     app:layout_constraintTop_toTopOf="@+id/tILDate" />
 
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILEndDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:fontFamily="@font/gotham_light"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/ingDate">
+
+                    <EditText
+                        android:id="@+id/etEndDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/end_date"
+                        android:fontFamily="@font/gotham_light"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false"
+                        android:inputType="date"
+                        android:paddingRight="@dimen/_16sdp"
+                        android:paddingEnd="@dimen/_16sdp" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ingEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_calendar"
+                    app:layout_constraintBottom_toBottomOf="@+id/tILEndDate"
+                    app:layout_constraintEnd_toEndOf="@+id/tILEndDate"
+                    app:layout_constraintTop_toTopOf="@+id/tILEndDate" />
+
+
                 <Button
                     android:id="@+id/btnSearch"
                     android:layout_width="match_parent"
@@ -225,7 +259,7 @@
                     android:textSize="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
-                    app:layout_constraintTop_toBottomOf="@+id/tILDate" />
+                    app:layout_constraintTop_toBottomOf="@+id/tILEndDate" />
 
             </android.support.constraint.ConstraintLayout>
 

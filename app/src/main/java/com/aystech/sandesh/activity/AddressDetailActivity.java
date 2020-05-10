@@ -87,18 +87,26 @@ public class AddressDetailActivity extends AppCompatActivity {
                 strLandmark = etLandmark.getText().toString();
                 strPincode = etPincode.getText().toString();
 
-                if (!strAddressLine1.isEmpty()) {
-                    if (!strLandmark.isEmpty()) {
-                        if (!strPincode.isEmpty()) {
-                            doRigistrationAPICall();
+                if(strCityId != 0){
+                    if (!strAddressLine1.isEmpty()) {
+                        if (!strLandmark.isEmpty()) {
+                            if (!strPincode.isEmpty()) {
+                                if(strPincode.length() < 6){
+                                    doRigistrationAPICall();
+                                } else {
+                                    Uitility.showToast(AddressDetailActivity.this, "Please enter 6 digit pin code !");
+                                }
+                            } else {
+                                Uitility.showToast(AddressDetailActivity.this, "Please enter pin code !");
+                            }
                         } else {
-                            Uitility.showToast(AddressDetailActivity.this, "Please enter pin code !");
+                            Uitility.showToast(AddressDetailActivity.this, "Please enter landmark !");
                         }
                     } else {
-                        Uitility.showToast(AddressDetailActivity.this, "Please enter landmark !");
+                        Uitility.showToast(AddressDetailActivity.this, "Please enter address line 1 !");
                     }
-                } else {
-                    Uitility.showToast(AddressDetailActivity.this, "Please enter address line 1 !");
+                }else {
+                    Uitility.showToast(AddressDetailActivity.this, "Please select your city !");
                 }
             }
         });

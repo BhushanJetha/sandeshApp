@@ -33,6 +33,7 @@ import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
+import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 
 import java.io.File;
@@ -57,6 +58,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     private ImageView imgProfileResult;
     private Button btnSubmit;
     private LinearLayout llDateOfBirth, llProfilePiture;
+    private UserSession userSession;
 
     private int age = 0;
 
@@ -84,6 +86,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
     private void init() {
         viewProgressDialog = ViewProgressDialog.getInstance();
+        userSession = new UserSession(this);
 
         etFirstName = findViewById(R.id.etFirstName);
         etMiddleName = findViewById(R.id.etMiddleName);
@@ -294,6 +297,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                     if (response.body().getStatus()) {
                         Toast.makeText(IndividualRegistrationActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Constants.fragmentType = "Dashboard";
+                        userSession.setFirstTimeUserStatus("Yes");
                         Intent i = new Intent(IndividualRegistrationActivity.this, LoginActivity.class);
                         startActivity(i);
                         finish();

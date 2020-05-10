@@ -67,12 +67,13 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     private TextView tvResultCount, tvSortBy;
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private Button btnSearch;
-    private ImageView ingDate;
-    private EditText etFromPincode, etToPincode, etDate;
+    private ImageView ingDate, ingEndDate;
+    private EditText etFromPincode, etToPincode, etStartDate, etEndDate;
     private RecyclerView rvOrder;
     private OrderAdapter orderAdapter;
     private int fromStateId, fromCityId, toStateId, toCityId;
-    private String strToPinCode, strFromPincode, strDate = "";
+    private String strToPinCode, strFromPincode, strStartDate = "", strEndDate = "";
+    private String tag;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -130,8 +131,10 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
         spinnerToState = view.findViewById(R.id.spinnerToState);
         spinnerToCity = view.findViewById(R.id.spinnerToCity);
         etToPincode = view.findViewById(R.id.etToPincode);
-        etDate = view.findViewById(R.id.etDate);
+        etStartDate = view.findViewById(R.id.etDate);
         ingDate = view.findViewById(R.id.ingDate);
+        ingEndDate = view.findViewById(R.id.ingEndDate);
+        etEndDate = view.findViewById(R.id.etEndDate);
         rvOrder = view.findViewById(R.id.rvOrder);
         btnSearch = view.findViewById(R.id.btnSearch);
 
@@ -156,6 +159,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
 
     private void onClickListener() {
         ingDate.setOnClickListener(this);
+        ingEndDate.setOnClickListener(this);
         btnSearch.setOnClickListener(this);
     }
 
@@ -163,6 +167,12 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ingDate:
+                tag = "start_date";
+                openDatePickerDialog();
+                break;
+
+            case R.id.ingEndDate:
+                tag = "end_date";
                 openDatePickerDialog();
                 break;
 
@@ -170,27 +180,25 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 strToPinCode = etToPincode.getText().toString();
                 strFromPincode = etFromPincode.getText().toString();
 
-               /* if (!strToPinCode.isEmpty()) {
-                    if (!strFromPincode.isEmpty()) {
-                        if (!strDate.isEmpty()) {
-                            //TODO API Call
-                            searchOrderByData();
+                if(fromCityId != 0){
+                    if(toCityId != 0){
+                        if (!strStartDate.isEmpty()) {
+                            if (!strEndDate.isEmpty()) {
+                                //TODO API Call
+                                searchOrderByData();
+                            } else {
+                                Uitility.showToast(getActivity(), "Please select end date !!");
+                            }
                         } else {
-                            Uitility.showToast(getActivity(), "Please select Date !!");
+                            Uitility.showToast(getActivity(), "Please select start date !!");
                         }
-                    } else {
-                        Uitility.showToast(getActivity(), "Please enter Pincode !!");
+                    }else {
+                        Uitility.showToast(getActivity(), "Please select to city !!");
                     }
-                } else {
-                    Uitility.showToast(getActivity(), "Please enter Pincode !!");
-                }*/
-
-                if (!strDate.isEmpty()) {
-                    //TODO API Call
-                    searchOrderByData();
-                } else {
-                    Uitility.showToast(getActivity(), "Please select Date !!");
+                }else {
+                    Uitility.showToast(getActivity(), "Please select from city !!");
                 }
+
                 break;
         }
     }
@@ -214,8 +222,13 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            strDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SearchOrderFragment
-            etDate.setText(strDate);
+            if (tag.equals("start_date")) {
+                strStartDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SearchTravelerFragment
+                etStartDate.setText(strStartDate);
+            } else if (tag.equals("end_date")) {
+                strEndDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SearchTravelerFragment
+                etEndDate.setText(strEndDate);
+            }
         }
 
     };
@@ -228,7 +241,8 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
         jsonObject.addProperty("from_pincode", strFromPincode);
         jsonObject.addProperty("to_city_id", toCityId);
         jsonObject.addProperty("to_pincode", strToPinCode);
-        jsonObject.addProperty("date", strDate);
+        jsonObject.addProperty("start_date", strStartDate);
+        jsonObject.addProperty("end_date", strEndDate);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<SearchOrderResponseModel> call = apiInterface.searchOrder(

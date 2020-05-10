@@ -1,5 +1,6 @@
 package com.aystech.sandesh.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvRegisterHere, tvForgotPassword;
     private EditText etUserName, etPassword;
     private String strUserName, strPassword;
+    private int login_count = 0;
 
     UserSession userSession;
     ViewProgressDialog viewProgressDialog;
@@ -72,6 +74,12 @@ public class LoginActivity extends AppCompatActivity {
 
         etUserName = findViewById(R.id.etUserName);
         etPassword = findViewById(R.id.etPassword);
+
+        if (userSession.getLoginCount() != null && !userSession.getLoginCount().equals("")) {
+            login_count = Integer.parseInt(userSession.getLoginCount());
+        }
+
+        Log.d("Login count-->", String.valueOf(login_count));
     }
 
     private void onClick() {
@@ -92,12 +100,17 @@ public class LoginActivity extends AppCompatActivity {
                 strUserName = etUserName.getText().toString();
                 strPassword = etPassword.getText().toString();
 
-                if (!strUserName.isEmpty() && !strPassword.isEmpty()) {
-                    //TODO API Call
-                    doLoginAPICall();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Please enter user name and password !!", Toast.LENGTH_SHORT).show();
+                if(login_count < 5) {
+                    if (!strUserName.isEmpty() && !strPassword.isEmpty()) {
+                        //TODO API Call
+                        doLoginAPICall();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Please enter user name and password !!", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    showPasswordLockDialog();
                 }
+
             }
         });
 
@@ -130,8 +143,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String pass = etEmail.getText().toString();
 
-                //TODO API Call
-                forgetPassword(pass);
+                if(!pass.isEmpty()){
+                    if(pass.length()==10){
+                        //TODO API Call
+                        forgetPassword(pass);
+                    }else {
+                        Uitility.showToast(LoginActivity.this, "Please enter 10 digit mobile number !");
+                    }
+                }else {
+                    Uitility.showToast(LoginActivity.this, "Please enter your mobile number !");
+                }
+
 
                 dialog.dismiss();
             }
@@ -191,6 +213,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         userSession.setJWTToken(response.body().getToken());
                         userSession.setUserName(response.body().getUserName());
+                        userSession.setLoginCount(0);
 
                         try {
                             String json = JWTUtils.decoded(response.body().getToken().split(" ")[1]);
@@ -219,11 +242,12 @@ public class LoginActivity extends AppCompatActivity {
                         int login_count = 1;
                         if (userSession.getLoginCount() != null && !userSession.getLoginCount().equals("")) {
                             login_count = Integer.parseInt(userSession.getLoginCount());
-                            if (login_count <= 5) {
+                            if (login_count < 5) {
                                 login_count++;
                                 userSession.setLoginCount(login_count);
-                            } else
-                                Uitility.showToast(LoginActivity.this, "Please reset your password!");
+                            } else {
+                                showPasswordLockDialog();
+                            }
                         } else {
                             userSession.setLoginCount(login_count);
                         }
@@ -237,5 +261,21 @@ public class LoginActivity extends AppCompatActivity {
                 viewProgressDialog.hideDialog();
             }
         });
+    }
+
+    private void showPasswordLockDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Sandesh")
+                .setMessage("Your account is locked, Because of 5 wrong attempt. Please reset your password !")
+                .setCancelable(true)
+                .setPositiveButton("close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                    }
+                })
+
+                .show();
     }
 }

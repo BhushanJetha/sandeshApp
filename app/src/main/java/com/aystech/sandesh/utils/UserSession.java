@@ -15,6 +15,8 @@ public class UserSession {
     private String USER_TYPE = "user_type";
     private String KEY_JWT_TOKEN = "jwtToken";
     private String KEY_FCM_ID = "fcm_id";
+    private String IS_FIRST_USER = "first_time_user";
+    private String USER_PREVIOUS_ONLINE_DATE_TIME = "user_previous_login_date_time";
 
     private String TRAVEL_ID = "travel_id";
 
@@ -211,5 +213,23 @@ public class UserSession {
 
     public void logout() {
         editor.clear().commit();
+    }
+
+    public String getFirstTimeUserStatus() {
+        return pref.getString(IS_FIRST_USER, "");
+    }
+
+    public void setFirstTimeUserStatus(String loginStatus) {
+        editor.putString(IS_FIRST_USER, loginStatus);
+        editor.commit();
+    }
+
+    public String getPreviousOnlineDateTime() {
+        return pref.getString(USER_PREVIOUS_ONLINE_DATE_TIME, "");
+    }
+
+    public void setPreviousOnlineDateTime(String dateTime) {
+        editor.putString(USER_PREVIOUS_ONLINE_DATE_TIME, dateTime);
+        editor.commit();
     }
 }
