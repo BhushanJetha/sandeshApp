@@ -72,16 +72,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderTypeContent.setText("Mode of Travel: " + searchTravellerModels.get(i).getModeOfTravel());
             switch (searchTravellerModels.get(i).getDeliveryOption()) {
                 case "Door to Door Service":
-                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getD_to_d());
+                    myViewHolder.tvExpectedIncome.setText("Expected cost: Rs. " + searchTravellerModels.get(i).getD_to_d());
                     break;
                 case "Senders place to Travelers place":
-                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getD_to_c());
+                    myViewHolder.tvExpectedIncome.setText("Expected cost: Rs. " + searchTravellerModels.get(i).getD_to_c());
                     break;
                 case "Travelers place to Travelers place":
-                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getC_to_c());
+                    myViewHolder.tvExpectedIncome.setText("Expected cost: Rs. " + searchTravellerModels.get(i).getC_to_c());
                     break;
                 case "Travelers place to Receivers place":
-                    myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchTravellerModels.get(i).getC_to_d());
+                    myViewHolder.tvExpectedIncome.setText("Expected cost: Rs. " + searchTravellerModels.get(i).getC_to_d());
                     break;
             }
             myViewHolder.tvVolumeInfo.setVisibility(View.VISIBLE);

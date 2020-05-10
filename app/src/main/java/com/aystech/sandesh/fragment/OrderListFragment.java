@@ -107,6 +107,14 @@ public class OrderListFragment extends Fragment {
                     Objects.requireNonNull(getArguments().getString("tag")).equals("upcoming_rides")) {
                 tag = getArguments().getString("tag");
             }
+            if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("success_travel")) {
+                tag = getArguments().getString("tag");
+            }
+            if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("success_parcel")) {
+                tag = getArguments().getString("tag");
+            }
         }
 
         initView(view);
@@ -114,6 +122,7 @@ public class OrderListFragment extends Fragment {
         switch (tag) {
             case "traveller":
             case "upcoming_orders":  //this is for traveller detail
+            case "success_parcel":  //this is for parcel list
                 //TODO API Call
                 getMyOrderList();
                 if (tag.equals("traveller"))
@@ -123,6 +132,7 @@ public class OrderListFragment extends Fragment {
                 break;
             case "order":
             case "upcoming_rides":  //this is for order detail
+            case "success_travel":  //this is for travel list
                 //TODO API Call
                 getMyTravellerList();
                 if (tag.equals("order"))
@@ -185,12 +195,12 @@ public class OrderListFragment extends Fragment {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                     parcel_id = searchOrderModel.getParcelId();
-                    if (tag.equals("upcoming_orders")) {
+                    if (tag.equals("upcoming_orders") || tag.equals("success_parcel")) {
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                 orderDetailFragment, R.id.frame_container, false);
                         Bundle bundle = new Bundle();
                         bundle.putInt("parcel_id", searchOrderModel.getParcelId());
-                        bundle.putString("tag", "upcoming_orders");
+                        bundle.putString("tag", tag);
                         orderDetailFragment.setArguments(bundle);
                     } else {
                         switch (searchOrderModel.getDeliveryOption()) {
@@ -278,12 +288,12 @@ public class OrderListFragment extends Fragment {
                 @Override
                 public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                     travel_id = searchTravellerModel.getTravelId();
-                    if (tag.equals("upcoming_rides")) {
+                    if (tag.equals("upcoming_rides") || tag.equals("success_travel")) {
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                 travellerDetailFragment, R.id.frame_container, true);
                         Bundle bundle = new Bundle();
                         bundle.putInt("travel_id", travel_id);
-                        bundle.putString("tag", "upcoming_rides");
+                        bundle.putString("tag", tag);
                         travellerDetailFragment.setArguments(bundle);
                     } else {
                         switch (searchTravellerModel.getDeliveryOption()) {

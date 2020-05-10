@@ -120,6 +120,10 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 parcel_id = getArguments().getInt("parcel_id");
                 tag = getArguments().getString("tag");
             } else if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("success_parcel")) {
+                parcel_id = getArguments().getInt("parcel_id");
+                tag = getArguments().getString("tag");
+            } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("history")) {
                 parcel_id = getArguments().getInt("parcel_id");
                 tag = getArguments().getString("tag");
@@ -143,6 +147,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.GONE);
         } else if (tag != null && tag.equals("upcoming_orders")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAfterVerify.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
+            imgOrderEdit.setVisibility(View.VISIBLE);
+        } else if (tag != null && tag.equals("success_parcel")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.GONE);

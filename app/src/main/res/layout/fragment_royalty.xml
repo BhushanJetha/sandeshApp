@@ -20,7 +20,9 @@
             android:layout_height="wrap_content"
             android:hint="From"
             android:maxLines="1"
-            android:inputType="text"
+            android:inputType="date"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:paddingEnd="@dimen/_18sdp"
             android:paddingRight="@dimen/_18sdp" />
 
@@ -50,7 +52,9 @@
             android:layout_height="wrap_content"
             android:hint="To"
             android:maxLines="1"
-            android:inputType="text"
+            android:inputType="date"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:paddingEnd="@dimen/_18sdp"
             android:paddingRight="@dimen/_18sdp"/>
 

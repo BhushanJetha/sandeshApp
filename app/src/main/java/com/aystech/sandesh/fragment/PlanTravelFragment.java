@@ -37,6 +37,7 @@ import com.aystech.sandesh.model.VehicleResponseModel;
 import com.aystech.sandesh.model.WeightResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
@@ -60,8 +61,9 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private WeightResponseModel weightResponseModel;
     private StateResponseModel stateResponseModel;
     private CityResponseModel cityResponseModel;
-
     private TravelDetailModel travelDetailModel;
+
+    private OrderListFragment orderListFragment;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private ImageView ingStartDate, ingStartTime;
@@ -75,7 +77,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private TextView btnCancel;
     private CheckBox cbTermsCondition;
 
-    private String tag, edit;
+    private String tag, edit, fromState, fromCity, toState, toCity;
     private int mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
     private boolean onceClicked = false;
@@ -105,6 +107,9 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_plan_travel, container, false);
 
+        orderListFragment = (OrderListFragment) Fragment.instantiate(context,
+                OrderListFragment.class.getName());
+
         if (getArguments() != null) {
             travelDetailModel = getArguments().getParcelable("travel_detail");
             edit = getArguments().getString("tag");
@@ -124,7 +129,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
             Gson gson = new Gson();
             weightResponseModel = gson.fromJson(weight, WeightResponseModel.class);
             ArrayList<String> weightArrayList = new ArrayList<>();
-            weightArrayList.add(0,"Select Weight");
+            weightArrayList.add(0, "Select Weight");
             for (int i = 0; i < weightResponseModel.getData().size(); i++) {
                 weightArrayList.add(weightResponseModel.getData().get(i).getWeight());
                 bindWeightDataToSpinner(weightArrayList);
@@ -149,7 +154,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
             Gson gson = new Gson();
             deliveryOptionResponseModel = gson.fromJson(deliveryOption, DeliveryOptionResponseModel.class);
             ArrayList<String> deliveryOptionArrayList = new ArrayList<>();
-            deliveryOptionArrayList.add(0,"Select Delivery Option");
+            deliveryOptionArrayList.add(0, "Select Delivery Option");
             for (int i = 0; i < deliveryOptionResponseModel.getData().size(); i++) {
                 deliveryOptionArrayList.add(deliveryOptionResponseModel.getData().get(i).getDeliveryOption());
                 bindDeliveryOptionDataToSpinner(deliveryOptionArrayList);
@@ -164,7 +169,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
             Gson gson = new Gson();
             vehicleResponseModel = gson.fromJson(vehicleType, VehicleResponseModel.class);
             ArrayList<String> vehicleTypeArrayList = new ArrayList<>();
-            vehicleTypeArrayList.add(0,"Select Vehicle Type");
+            vehicleTypeArrayList.add(0, "Select Vehicle Type");
             for (int i = 0; i < vehicleResponseModel.getData().size(); i++) {
                 vehicleTypeArrayList.add(vehicleResponseModel.getData().get(i).getVehicleType());
                 bindVehicleTypeDataToSpinner(vehicleTypeArrayList);
@@ -209,6 +214,10 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     }
 
     private void editPlanTravel() {
+        fromState = travelDetailModel.getTravelPlan().getFrom_state();
+        fromCity = travelDetailModel.getTravelPlan().getFromCity();
+        toState = travelDetailModel.getTravelPlan().getTo_state();
+        toCity = travelDetailModel.getTravelPlan().getToCity();
         etToPincode.setText(travelDetailModel.getTravelPlan().getToPincode());
         etFromPincode.setText(travelDetailModel.getTravelPlan().getFromPincode());
         etStartDate.setText(travelDetailModel.getTravelPlan().getStartDate());
@@ -244,12 +253,12 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 strVehicleNo = etVehicleTrainNo.getText().toString();
                 strOtherDetail = etOtherDetails.getText().toString();
 
-                if(fromCityId != 0){
-                    if(!strFromPincode.isEmpty()){
-                        if(strFromPincode.length() == 6){
-                            if(toCityId != 0){
-                                if(!strToPincode.isEmpty()){
-                                    if(strToPincode.length() == 6){
+                if (fromCityId != 0) {
+                    if (!strFromPincode.isEmpty()) {
+                        if (strFromPincode.length() == 6) {
+                            if (toCityId != 0) {
+                                if (!strToPincode.isEmpty()) {
+                                    if (strToPincode.length() == 6) {
                                         if (!strStartDate.isEmpty()) {
                                             if (!strEndDate.isEmpty()) {
                                                 if (!strStartTime.isEmpty()) {
@@ -259,7 +268,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                                                                 if (!strAcceptableLength.isEmpty()) {
                                                                     if (!strAcceptableBreadth.isEmpty()) {
                                                                         if (!strAcceptableHeight.isEmpty()) {
-                                                                            if(!modeOfTravel.equals("Select Vehicle Type")){
+                                                                            if (!modeOfTravel.equals("Select Vehicle Type")) {
                                                                                 if (!strVehicleNo.isEmpty()) {
                                                                                     if (cbTermsCondition.isChecked()) {
                                                                                         //TODO API Call
@@ -270,7 +279,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                                                                                 } else {
                                                                                     Uitility.showToast(context, "Please enter vehicle number!");
                                                                                 }
-                                                                            }else {
+                                                                            } else {
                                                                                 Uitility.showToast(context, "Please select vehicle type!");
                                                                             }
                                                                         } else {
@@ -301,22 +310,22 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                                         } else {
                                             Uitility.showToast(context, "Please select start date!");
                                         }
-                                    }else {
+                                    } else {
                                         Uitility.showToast(context, "Please enter 6 digit pin code!");
                                     }
-                                }else {
+                                } else {
                                     Uitility.showToast(context, "Please enter to city pin code!");
                                 }
-                            }else {
+                            } else {
                                 Uitility.showToast(context, "Please select to city!");
                             }
-                        }else {
+                        } else {
                             Uitility.showToast(context, "Please enter 6 digit pin code!");
                         }
-                    }else {
+                    } else {
                         Uitility.showToast(context, "Please enter from city pin code!");
                     }
-                }else {
+                } else {
                     Uitility.showToast(context, "Please select from city!");
                 }
             }
@@ -360,12 +369,12 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 strVehicleNo = etVehicleTrainNo.getText().toString();
                 strOtherDetail = etOtherDetails.getText().toString();
 
-                if(fromCityId != 0){
-                    if(!strFromPincode.isEmpty()){
-                        if(strFromPincode.length() == 6){
-                            if(toCityId != 0){
-                                if(!strToPincode.isEmpty()){
-                                    if(strToPincode.length() == 6){
+                if (fromCityId != 0) {
+                    if (!strFromPincode.isEmpty()) {
+                        if (strFromPincode.length() == 6) {
+                            if (toCityId != 0) {
+                                if (!strToPincode.isEmpty()) {
+                                    if (strToPincode.length() == 6) {
                                         if (!strStartDate.isEmpty()) {
                                             if (!strEndDate.isEmpty()) {
                                                 if (!strStartTime.isEmpty()) {
@@ -375,7 +384,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                                                                 if (!strAcceptableLength.isEmpty()) {
                                                                     if (!strAcceptableBreadth.isEmpty()) {
                                                                         if (!strAcceptableHeight.isEmpty()) {
-                                                                            if(!modeOfTravel.equals("Select Vehicle Type")){
+                                                                            if (!modeOfTravel.equals("Select Vehicle Type")) {
                                                                                 if (!strVehicleNo.isEmpty()) {
                                                                                     if (cbTermsCondition.isChecked()) {
                                                                                         //TODO API Call
@@ -386,7 +395,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                                                                                 } else {
                                                                                     Uitility.showToast(context, "Please enter vehicle number!");
                                                                                 }
-                                                                            }else {
+                                                                            } else {
                                                                                 Uitility.showToast(context, "Please select vehicle type!");
                                                                             }
                                                                         } else {
@@ -417,22 +426,22 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                                         } else {
                                             Uitility.showToast(context, "Please select start date!");
                                         }
-                                    }else {
+                                    } else {
                                         Uitility.showToast(context, "Please enter 6 digit pin code!");
                                     }
-                                }else {
+                                } else {
                                     Uitility.showToast(context, "Please enter to city pin code!");
                                 }
-                            }else {
+                            } else {
                                 Uitility.showToast(context, "Please select to city!");
                             }
-                        }else {
+                        } else {
                             Uitility.showToast(context, "Please enter 6 digit pin code!");
                         }
-                    }else {
+                    } else {
                         Uitility.showToast(context, "Please enter from city pin code!");
                     }
-                }else {
+                } else {
                     Uitility.showToast(context, "Please select from city!");
                 }
 
@@ -519,11 +528,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         jsonObject.addProperty("vehicle_number", strVehicleNo);
         jsonObject.addProperty("other_detail", strOtherDetail);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.planTravel(
-                jsonObject
-        );
-        call.enqueue(new Callback<CommonResponse>() {
+        RetrofitInstance.getClient().planTravel(jsonObject).enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 viewProgressDialog.hideDialog();
@@ -531,7 +536,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+
+                        commonRedirect();
                     } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -578,7 +584,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        ((MainActivity) context).getSupportFragmentManager().popBackStack();
+
+                        commonRedirect();
                     } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -589,6 +596,14 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 viewProgressDialog.hideDialog();
             }
         });
+    }
+
+    private void commonRedirect() {
+        Bundle bundle = new Bundle();
+        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                orderListFragment, R.id.frame_container, true);
+        bundle.putString("tag", "success_travel");
+        orderListFragment.setArguments(bundle);
     }
 
     private void openDatePickerDialog() {
@@ -665,7 +680,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                         userSession.setWeight(json);
 
                         ArrayList<String> weightArrayList = new ArrayList<>();
-                        weightArrayList.add(0,"Select Weight");
+                        weightArrayList.add(0, "Select Weight");
                         for (int i = 0; i < response.body().getData().size(); i++) {
                             weightArrayList.add(response.body().getData().get(i).getWeight());
                             bindWeightDataToSpinner(weightArrayList);
@@ -726,7 +741,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                         userSession.setDeliveryOption(json);
 
                         ArrayList<String> deliveryOptionArrayList = new ArrayList<>();
-                        deliveryOptionArrayList.add(0,"Select Delivery Option");
+                        deliveryOptionArrayList.add(0, "Select Delivery Option");
                         for (int i = 0; i < response.body().getData().size(); i++) {
                             deliveryOptionArrayList.add(response.body().getData().get(i).getDeliveryOption());
                             bindDeliveryOptionDataToSpinner(deliveryOptionArrayList);
@@ -811,6 +826,19 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         spinnerFromState.setAdapter(adapter);
         spinnerToState.setAdapter(adapter);
 
+        if (edit != null && !edit.equals("")) {
+            if (edit.equals("edit")) {
+                if (fromState != null) {
+                    int spinnerPosition = adapter.getPosition(fromState);
+                    spinnerFromState.setSelection(spinnerPosition);
+                }
+                if (toState != null) {
+                    int spinnerPosition = adapter.getPosition(toState);
+                    spinnerToState.setSelection(spinnerPosition);
+                }
+            }
+        }
+
         spinnerFromState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
@@ -855,7 +883,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                         userSession.setVehicleType(json);
 
                         ArrayList<String> vehicleTypeArrayList = new ArrayList<>();
-                        vehicleTypeArrayList.add(0,"Select Vehicle Type");
+                        vehicleTypeArrayList.add(0, "Select Vehicle Type");
                         for (int i = 0; i < vehicleResponseModel.getData().size(); i++) {
                             vehicleTypeArrayList.add(vehicleResponseModel.getData().get(i).getVehicleType());
                             bindVehicleTypeDataToSpinner(vehicleTypeArrayList);
@@ -947,6 +975,14 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spinnerFromCity.setAdapter(adapter);
+            if (edit != null && !edit.equals("")) {
+                if (edit.equals("edit")) {
+                    if (fromCity != null) {
+                        int spinnerPosition = adapter.getPosition(fromCity);
+                        spinnerFromCity.setSelection(spinnerPosition);
+                    }
+                }
+            }
         }
         if (tag.equals("to")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
@@ -960,6 +996,14 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             spinnerToCity.setAdapter(adapter);
+            if (edit != null && !edit.equals("")) {
+                if (edit.equals("edit")) {
+                    if (toCity != null) {
+                        int spinnerPosition = adapter.getPosition(toCity);
+                        spinnerToCity.setSelection(spinnerPosition);
+                    }
+                }
+            }
         }
 
         spinnerFromCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
