@@ -110,7 +110,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
-                        android:hint="Pan Card No"
+                        android:hint="Any ID Proof"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -146,7 +146,7 @@
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginLeft="@dimen/_6sdp"
                     android:fontFamily="@font/gotham_light"
-                    android:text="Photo of pan card"
+                    android:text="Photo of Any ID Proof"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/imgPan"
                     app:layout_constraintLeft_toRightOf="@id/imgPan"

@@ -244,47 +244,80 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 strVehicleNo = etVehicleTrainNo.getText().toString();
                 strOtherDetail = etOtherDetails.getText().toString();
 
-                if (!strFromPincode.isEmpty()) {
-                    if (!strToPincode.isEmpty()) {
-                        if (!strStartDate.isEmpty()) {
-                            if (!strEndDate.isEmpty()) {
-                                if (!strStartTime.isEmpty()) {
-                                    if (!strEndTime.isEmpty()) {
-                                        if (!strAcceptableLength.isEmpty()) {
-                                            if (!strAcceptableBreadth.isEmpty()) {
-                                                if (!strAcceptableHeight.isEmpty()) {
-                                                    if (!strVehicleNo.isEmpty()) {
-                                                        //TODO API Call
-                                                        updateMyTravel(travelDetailModel.getTravelPlan().getTravelId());
+                if(fromCityId != 0){
+                    if(!strFromPincode.isEmpty()){
+                        if(strFromPincode.length() == 6){
+                            if(toCityId != 0){
+                                if(!strToPincode.isEmpty()){
+                                    if(strToPincode.length() == 6){
+                                        if (!strStartDate.isEmpty()) {
+                                            if (!strEndDate.isEmpty()) {
+                                                if (!strStartTime.isEmpty()) {
+                                                    if (!strEndTime.isEmpty()) {
+                                                        if (!deliveryOption.equals("Select Delivery Option")) {
+                                                            if (weight_id != 0) {
+                                                                if (!strAcceptableLength.isEmpty()) {
+                                                                    if (!strAcceptableBreadth.isEmpty()) {
+                                                                        if (!strAcceptableHeight.isEmpty()) {
+                                                                            if(!modeOfTravel.equals("Select Vehicle Type")){
+                                                                                if (!strVehicleNo.isEmpty()) {
+                                                                                    if (cbTermsCondition.isChecked()) {
+                                                                                        //TODO API Call
+                                                                                        updateMyTravel(travelDetailModel.getTravelPlan().getTravelId());
+                                                                                    } else {
+                                                                                        Uitility.showToast(context, "Please accept terms and condition!");
+                                                                                    }
+                                                                                } else {
+                                                                                    Uitility.showToast(context, "Please enter vehicle number!");
+                                                                                }
+                                                                            }else {
+                                                                                Uitility.showToast(context, "Please select vehicle type!");
+                                                                            }
+                                                                        } else {
+                                                                            Uitility.showToast(context, "Please enter height of parcel!");
+                                                                        }
+                                                                    } else {
+                                                                        Uitility.showToast(context, "Please enter breadth of parcel!");
+                                                                    }
+                                                                } else {
+                                                                    Uitility.showToast(context, "Please enter length of parcel!");
+                                                                }
+                                                            } else {
+                                                                Uitility.showToast(context, "Please select Preferred weight option!");
+                                                            }
+
+                                                        } else {
+                                                            Uitility.showToast(context, "Please select delivery option!");
+                                                        }
                                                     } else {
-                                                        Uitility.showToast(context, "Please enter vehicle number!");
+                                                        Uitility.showToast(context, "Please select end time!");
                                                     }
                                                 } else {
-                                                    Uitility.showToast(context, "Please enter height of parcel!");
+                                                    Uitility.showToast(context, "Please select start time!");
                                                 }
                                             } else {
-                                                Uitility.showToast(context, "Please enter breadth of parcel!");
+                                                Uitility.showToast(context, "Please select end date!");
                                             }
                                         } else {
-                                            Uitility.showToast(context, "Please enter length of parcel!");
+                                            Uitility.showToast(context, "Please select start date!");
                                         }
-                                    } else {
-                                        Uitility.showToast(context, "Please select end time!");
+                                    }else {
+                                        Uitility.showToast(context, "Please enter 6 digit pin code!");
                                     }
-                                } else {
-                                    Uitility.showToast(context, "Please select start time!");
+                                }else {
+                                    Uitility.showToast(context, "Please enter to city pin code!");
                                 }
-                            } else {
-                                Uitility.showToast(context, "Please select end date!");
+                            }else {
+                                Uitility.showToast(context, "Please select to city!");
                             }
-                        } else {
-                            Uitility.showToast(context, "Please select start date!");
+                        }else {
+                            Uitility.showToast(context, "Please enter 6 digit pin code!");
                         }
-                    } else {
-                        Uitility.showToast(context, "Please enter TO city pincode!");
+                    }else {
+                        Uitility.showToast(context, "Please enter from city pin code!");
                     }
-                } else {
-                    Uitility.showToast(context, "Please enter From city pincode!");
+                }else {
+                    Uitility.showToast(context, "Please select from city!");
                 }
             }
         });
@@ -327,58 +360,105 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 strVehicleNo = etVehicleTrainNo.getText().toString();
                 strOtherDetail = etOtherDetails.getText().toString();
 
-                if (!strFromPincode.isEmpty()) {
-                    if (!strToPincode.isEmpty()) {
-                        if (!strStartDate.isEmpty()) {
-                            if (!strEndDate.isEmpty()) {
-                                if (!strStartTime.isEmpty()) {
-                                    if (!strEndTime.isEmpty()) {
-                                        if (!strAcceptableLength.isEmpty()) {
-                                            if (!strAcceptableBreadth.isEmpty()) {
-                                                if (!strAcceptableHeight.isEmpty()) {
-                                                    if (!strVehicleNo.isEmpty()) {
-                                                        if (cbTermsCondition.isChecked()) {
-                                                            //TODO API Call
-                                                            planTravel();
+                if(fromCityId != 0){
+                    if(!strFromPincode.isEmpty()){
+                        if(strFromPincode.length() == 6){
+                            if(toCityId != 0){
+                                if(!strToPincode.isEmpty()){
+                                    if(strToPincode.length() == 6){
+                                        if (!strStartDate.isEmpty()) {
+                                            if (!strEndDate.isEmpty()) {
+                                                if (!strStartTime.isEmpty()) {
+                                                    if (!strEndTime.isEmpty()) {
+                                                        if (!deliveryOption.equals("Select Delivery Option")) {
+                                                            if (weight_id != 0) {
+                                                                if (!strAcceptableLength.isEmpty()) {
+                                                                    if (!strAcceptableBreadth.isEmpty()) {
+                                                                        if (!strAcceptableHeight.isEmpty()) {
+                                                                            if(!modeOfTravel.equals("Select Vehicle Type")){
+                                                                                if (!strVehicleNo.isEmpty()) {
+                                                                                    if (cbTermsCondition.isChecked()) {
+                                                                                        //TODO API Call
+                                                                                        planTravel();
+                                                                                    } else {
+                                                                                        Uitility.showToast(context, "Please accept terms and condition!");
+                                                                                    }
+                                                                                } else {
+                                                                                    Uitility.showToast(context, "Please enter vehicle number!");
+                                                                                }
+                                                                            }else {
+                                                                                Uitility.showToast(context, "Please select vehicle type!");
+                                                                            }
+                                                                        } else {
+                                                                            Uitility.showToast(context, "Please enter height of parcel!");
+                                                                        }
+                                                                    } else {
+                                                                        Uitility.showToast(context, "Please enter breadth of parcel!");
+                                                                    }
+                                                                } else {
+                                                                    Uitility.showToast(context, "Please enter length of parcel!");
+                                                                }
+                                                            } else {
+                                                                Uitility.showToast(context, "Please select Preferred weight option!");
+                                                            }
+
                                                         } else {
-                                                            Uitility.showToast(context, "Please accept terms and condition!");
+                                                            Uitility.showToast(context, "Please select delivery option!");
                                                         }
                                                     } else {
-                                                        Uitility.showToast(context, "Please enter vehicle number!");
+                                                        Uitility.showToast(context, "Please select end time!");
                                                     }
                                                 } else {
-                                                    Uitility.showToast(context, "Please enter height of parcel!");
+                                                    Uitility.showToast(context, "Please select start time!");
                                                 }
                                             } else {
-                                                Uitility.showToast(context, "Please enter breadth of parcel!");
+                                                Uitility.showToast(context, "Please select end date!");
                                             }
                                         } else {
-                                            Uitility.showToast(context, "Please enter length of parcel!");
+                                            Uitility.showToast(context, "Please select start date!");
                                         }
-                                    } else {
-                                        Uitility.showToast(context, "Please select end time!");
+                                    }else {
+                                        Uitility.showToast(context, "Please enter 6 digit pin code!");
                                     }
-                                } else {
-                                    Uitility.showToast(context, "Please select start time!");
+                                }else {
+                                    Uitility.showToast(context, "Please enter to city pin code!");
                                 }
-                            } else {
-                                Uitility.showToast(context, "Please select end date!");
+                            }else {
+                                Uitility.showToast(context, "Please select to city!");
                             }
-                        } else {
-                            Uitility.showToast(context, "Please select start date!");
+                        }else {
+                            Uitility.showToast(context, "Please enter 6 digit pin code!");
                         }
-                    } else {
-                        Uitility.showToast(context, "Please enter TO city pincode!");
+                    }else {
+                        Uitility.showToast(context, "Please enter from city pin code!");
                     }
-                } else {
-                    Uitility.showToast(context, "Please enter From city pincode!");
+                }else {
+                    Uitility.showToast(context, "Please select from city!");
                 }
-
 
                 break;
 
             case R.id.btnCancel:
-                ((MainActivity) context).getSupportFragmentManager().popBackStack();
+                //((MainActivity) context).getSupportFragmentManager().popBackStack();
+                etToPincode.setText("");
+                etFromPincode.setText("");
+                etStartDate.setText("");
+                etEndDate.setText("");
+                etStartTime.setText("");
+                etEndTime.setText("");
+                etAcceptableLength.setText("");
+                etAcceptableHeight.setText("");
+                etAcceptableBreadth.setText("");
+                etVehicleTrainNo.setText("");
+                etOtherDetails.setText("");
+                spinnerFromState.setSelection(0);
+                spinnerFromCity.setSelection(0);
+                spinnerToState.setSelection(0);
+                spinnerToCity.setSelection(0);
+                spinnerDeliveryOption.setSelection(0);
+                spinnerPreferredWeight.setSelection(0);
+                spinnerVehicleType.setSelection(0);
+                cbTermsCondition.setChecked(false);
                 break;
 
             case R.id.cbTermsCondition:

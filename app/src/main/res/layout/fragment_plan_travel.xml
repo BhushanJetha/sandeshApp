@@ -546,7 +546,7 @@
                     android:layout_marginTop="@dimen/_16sdp"
                     android:fontFamily="@font/gotham_medium"
                     android:gravity="center"
-                    android:text="Cancel"
+                    android:text="Clear"
                     android:textAllCaps="false"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_10sdp"
