@@ -103,16 +103,6 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
 
         onClickListener();
 
-        String fromState = userSession.getFromState();
-        if (fromState.length() > 0) {
-            Gson gson = new Gson();
-            stateResponseModel = gson.fromJson(fromState, StateResponseModel.class);
-            bindStateDataToUI(stateResponseModel.getData());
-        } else {
-            //TODO API Call
-            getState();
-        }
-
         return view;
     }
 
@@ -280,8 +270,8 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
             orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderDetailFragment, R.id.frame_container,
-                            true);
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            orderDetailFragment, R.id.frame_container, true);
                     Bundle bundle = new Bundle();
                     bundle.putInt("parcel_id", searchOrderModel.getParcelId());
                     bundle.putString("tag", "");
@@ -312,6 +302,16 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
+
+        String fromState = userSession.getFromState();
+        if (fromState.length() > 0) {
+            Gson gson = new Gson();
+            stateResponseModel = gson.fromJson(fromState, StateResponseModel.class);
+            bindStateDataToUI(stateResponseModel.getData());
+        } else {
+            //TODO API Call
+            getState();
+        }
     }
 
     private void getState() {

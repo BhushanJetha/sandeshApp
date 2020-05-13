@@ -495,6 +495,7 @@ public class OrderListFragment extends Fragment {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                 dashboardFragment, R.id.frame_container, false);
                     } else if (response.body().getBalance() > 0.0) { //Insufficient wallet balance.

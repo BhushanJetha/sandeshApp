@@ -35,9 +35,10 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     private OrderListFragment orderListFragment;
     private PlanTravelFragment planTravelFragment;
 
-    private TextView tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
-            tvToPincode, tvFromPincode, tvDeliveryOption, tvWeight, tvLength, tvBreadth, tvHeight,
-            tvVehicleType, tvVehicleTrainNo, tvOtherDetail;
+    private TextView tvName, tvMobileNo, tvAddress, tvFromStateName, tvToStateName,
+            tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
+            tvToPincode, tvFromPincode, tvDeliveryOption, tvWeight, tvLength, tvBreadth,
+            tvHeight, tvVehicleType, tvVehicleTrainNo, tvOtherDetail;
     private ImageView imgTravelEdit;
     private Button btnSendRequest;
 
@@ -85,7 +86,12 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     private void initView(View view) {
         viewProgressDialog = ViewProgressDialog.getInstance();
 
+        tvName = view.findViewById(R.id.tvName);
+        tvMobileNo = view.findViewById(R.id.tvMobileNo);
+        tvAddress = view.findViewById(R.id.tvAddress);
         imgTravelEdit = view.findViewById(R.id.imgTravelEdit);
+        tvFromStateName = view.findViewById(R.id.tvFromStateName);
+        tvToStateName = view.findViewById(R.id.tvToStateName);
         tvFromCityName = view.findViewById(R.id.tvFromCityName);
         tvToCityName = view.findViewById(R.id.tvToCityName);
         tvStartDate = view.findViewById(R.id.tvStartDate);
@@ -148,14 +154,40 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     }
 
     private void bindDataToUI(TravelDetailModel data) {
-        tvFromCityName.setText(data.getTravelPlan().getFromCity()); //need to set data
-        tvToCityName.setText(data.getTravelPlan().getToCity()); //need to set data
+        if (data.getTravelPlan().getFirstName() != null &&
+                !data.getTravelPlan().getFirstName().equals(""))
+            tvName.setText("" + data.getTravelPlan().getFirstName());
+        else if (data.getTravelPlan().getCompany_name() != null &&
+                !data.getTravelPlan().getCompany_name().equals(""))
+            tvName.setText("" + data.getTravelPlan().getCompany_name());
+        else
+            tvName.setText("-");
+
+        if (data.getTravelPlan().getMobileNo() != null &&
+                !data.getTravelPlan().getMobileNo().equals(""))
+            tvMobileNo.setText("" + data.getTravelPlan().getMobileNo());
+        else
+            tvMobileNo.setText("-");
+
+        if (data.getTravelPlan().getAddress() != null &&
+                !data.getTravelPlan().getAddress().equals(""))
+            tvAddress.setText(data.getTravelPlan().getAddress());
+        else if (data.getTravelPlan().getCompany_address() != null &&
+                !data.getTravelPlan().getCompany_address().equals(""))
+            tvAddress.setText(data.getTravelPlan().getCompany_address());
+        else
+            tvAddress.setText("-");
+
+        tvFromStateName.setText(data.getTravelPlan().getFrom_state());
+        tvToStateName.setText(data.getTravelPlan().getTo_state());
+        tvFromCityName.setText(data.getTravelPlan().getFromCity());
+        tvToCityName.setText(data.getTravelPlan().getToCity());
         tvStartDate.setText(data.getTravelPlan().getStartDate());
         tvStartTime.setText(data.getTravelPlan().getStartTime());
-        tvEndDate.setText(data.getTravelPlan().getEndDate()); //need to set data
-        tvEndTime.setText(data.getTravelPlan().getEndTime()); //need to set data
-        tvToPincode.setText(data.getTravelPlan().getToPincode()); //need to set data
-        tvFromPincode.setText(data.getTravelPlan().getFromPincode()); //need to set data
+        tvEndDate.setText(data.getTravelPlan().getEndDate());
+        tvEndTime.setText(data.getTravelPlan().getEndTime());
+        tvToPincode.setText(data.getTravelPlan().getToPincode());
+        tvFromPincode.setText(data.getTravelPlan().getFromPincode());
         tvDeliveryOption.setText(data.getTravelPlan().getDeliveryOption());
         tvWeight.setText(data.getTravelPlan().getPreferredWeight());
 
@@ -192,8 +224,8 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.btnSendRequest:
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderListFragment, R.id.frame_container,
-                        false);
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        orderListFragment, R.id.frame_container, true);
                 bundle.putInt("travel_id", travel_id);
                 bundle.putString("tag", "traveller");
                 orderListFragment.setArguments(bundle);

@@ -49,11 +49,9 @@ public class DashboardFragment extends Fragment {
 
     Context context;
 
-    Button btnNext;
-
     private ImageView imgKYC, imgMyProfile, imgSearchOrders, imgSearchTravelers, imgMyWallet, imgPlanTravel,
             imgSendParcel, imgTrackYourParcel, imgStartJourney, imgEndJourney, imgComplaintDispute, imgTermsAndCondition,
-            imgMyRequestedOrders;
+            imgOrderInbox;
 
     private SearchOrderFragment searchOrderFragment;
     private MyWalletFragmentTwo myWalletFragment;
@@ -124,8 +122,6 @@ public class DashboardFragment extends Fragment {
         userSession = new UserSession(context);
         viewProgressDialog = ViewProgressDialog.getInstance();
 
-        btnNext = view.findViewById(R.id.btnNext);
-
         imgKYC = view.findViewById(R.id.imgKYC);
         imgMyProfile = view.findViewById(R.id.imgProfile);
         imgSearchOrders = view.findViewById(R.id.imgSendersOrders);
@@ -138,7 +134,7 @@ public class DashboardFragment extends Fragment {
         imgEndJourney = view.findViewById(R.id.imgEndJourney);
         imgComplaintDispute = view.findViewById(R.id.imgComplaintDispute);
         imgTermsAndCondition = view.findViewById(R.id.imgTC);
-        imgMyRequestedOrders = view.findViewById(R.id.imgMyRequestedOrders);
+        imgOrderInbox = view.findViewById(R.id.imgOrderInbox);
 
         String isFirstTimeUser = userSession.getFirstTimeUserStatus();
         if(isFirstTimeUser.equals("Yes")){
@@ -151,13 +147,6 @@ public class DashboardFragment extends Fragment {
     }
 
     private void onClickListener() {
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                        searchOrderFragment, R.id.frame_container, true);
-            }
-        });
 
         imgSearchOrders.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,7 +244,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        imgMyRequestedOrders.setOnClickListener(new View.OnClickListener() {
+        imgOrderInbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
@@ -349,7 +338,6 @@ public class DashboardFragment extends Fragment {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("oldPassword", oldPassword);
         jsonObject.addProperty("newPassword", newPassword);
-
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.resetPassword(

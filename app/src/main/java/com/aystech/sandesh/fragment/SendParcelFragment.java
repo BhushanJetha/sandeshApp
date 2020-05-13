@@ -12,8 +12,10 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +74,7 @@ import retrofit2.Response;
 
 public class SendParcelFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "SendParcelFragment";
     private Context context;
 
     private DeliveryOptionResponseModel deliveryOptionResponseModel;
@@ -1105,7 +1108,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private void commonRedirect() {
         Bundle bundle = new Bundle();
         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                orderListFragment, R.id.frame_container, true);
+                orderListFragment, R.id.frame_container, false);
         bundle.putString("tag", "success_parcel");
         orderListFragment.setArguments(bundle);
     }
@@ -1114,6 +1117,13 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
+
+        FragmentManager fm = getFragmentManager();
+
+        assert fm != null;
+        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
+            Log.e(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getId());
+        }
     }
 
     private void getWeights() {

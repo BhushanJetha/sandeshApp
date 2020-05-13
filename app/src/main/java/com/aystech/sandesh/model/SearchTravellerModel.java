@@ -121,6 +121,12 @@ public class SearchTravellerModel {
     @SerializedName("email_id")
     @Expose
     private String emailId;
+    @SerializedName("address")
+    @Expose
+    private String address;
+    @SerializedName("company_address")
+    @Expose
+    private String company_address;
 
     public Integer getDeliveryId() {
         return deliveryId;
@@ -428,5 +434,21 @@ public class SearchTravellerModel {
 
     public void setTo_state(String to_state) {
         this.to_state = to_state;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCompany_address() {
+        return company_address;
+    }
+
+    public void setCompany_address(String company_address) {
+        this.company_address = company_address;
     }
 }

@@ -21,81 +21,79 @@
             android:padding="@dimen/_8sdp">
 
             <ImageView
-                android:id="@+id/imgKYC"
+                android:id="@+id/imgPlanTravel"
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintEnd_toStartOf="@+id/imgProfile"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintEnd_toStartOf="@+id/imgSendParcel"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_kyc" />
+                app:srcCompat="@drawable/ic_plan_a_travel" />
 
             <TextView
-                android:id="@+id/tvKYC"
+                android:id="@+id/tvPlanTravel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:fontFamily="@font/gotham_medium"
-                android:text="KYC"
+                android:text="Plan a Travel"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgKYC"
-                app:layout_constraintStart_toStartOf="@+id/imgKYC"
-                app:layout_constraintTop_toBottomOf="@id/imgKYC" />
+                app:layout_constraintEnd_toEndOf="@+id/imgPlanTravel"
+                app:layout_constraintStart_toStartOf="@+id/imgPlanTravel"
+                app:layout_constraintTop_toBottomOf="@id/imgPlanTravel" />
 
             <ImageView
-                android:id="@+id/imgProfile"
+                android:id="@+id/imgSendParcel"
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgKYC"
-                app:layout_constraintEnd_toStartOf="@+id/imgWallet"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintEnd_toStartOf="@+id/imgOrderInbox"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imgKYC"
-                app:layout_constraintTop_toTopOf="@+id/imgKYC"
-                app:srcCompat="@drawable/ic_profile" />
+                app:layout_constraintStart_toEndOf="@+id/imgPlanTravel"
+                app:layout_constraintTop_toTopOf="@+id/imgPlanTravel"
+                app:srcCompat="@drawable/ic_send_parcel" />
 
             <TextView
-                android:id="@+id/tvProfile"
+                android:id="@+id/tvSendParcel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:fontFamily="@font/gotham_medium"
-                android:text="My Profile"
+                android:text="Send Parcel"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgProfile"
-                app:layout_constraintStart_toStartOf="@+id/imgProfile"
-                app:layout_constraintTop_toBottomOf="@id/imgProfile" />
+                app:layout_constraintEnd_toEndOf="@+id/imgSendParcel"
+                app:layout_constraintStart_toStartOf="@+id/imgSendParcel"
+                app:layout_constraintTop_toBottomOf="@id/imgSendParcel" />
 
             <ImageView
-                android:id="@+id/imgWallet"
+                android:id="@+id/imgOrderInbox"
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
+                android:padding="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imgProfile"
-                app:layout_constraintTop_toTopOf="@+id/imgProfile"
-                app:srcCompat="@drawable/ic_my_wallet" />
+                app:layout_constraintStart_toEndOf="@+id/imgSendParcel"
+                app:layout_constraintTop_toTopOf="@+id/imgPlanTravel"
+                app:srcCompat="@drawable/ic_terms_and_conditions" />
 
             <TextView
-                android:id="@+id/tvWallet"
+                android:id="@+id/tvOrderInbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:fontFamily="@font/gotham_medium"
-                android:text="My Wallet"
+                android:text="Order Inbox"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgWallet"
-                app:layout_constraintStart_toStartOf="@+id/imgWallet"
-                app:layout_constraintTop_toBottomOf="@id/imgWallet" />
+                app:layout_constraintEnd_toEndOf="@+id/imgOrderInbox"
+                app:layout_constraintStart_toStartOf="@+id/imgOrderInbox"
+                app:layout_constraintTop_toBottomOf="@id/imgOrderInbox" />
 
             <ImageView
                 android:id="@+id/imgSendersOrders"
@@ -103,11 +101,11 @@
                 android:layout_height="@dimen/_48sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
+                android:padding="@dimen/_10sdp"
                 app:layout_constraintEnd_toStartOf="@+id/imgSearchTravellers"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvKYC"
+                app:layout_constraintTop_toBottomOf="@+id/tvPlanTravel"
                 app:srcCompat="@drawable/ic_search_order" />
 
             <TextView
@@ -128,9 +126,8 @@
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgSendersOrders"
-                app:layout_constraintEnd_toStartOf="@+id/imgPlanTravel"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintEnd_toStartOf="@+id/imgTC"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imgSendersOrders"
                 app:layout_constraintTop_toTopOf="@+id/imgSendersOrders"
@@ -150,172 +147,15 @@
                 app:layout_constraintTop_toBottomOf="@id/imgSearchTravellers" />
 
             <ImageView
-                android:id="@+id/imgPlanTravel"
-                android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
-                android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgSearchTravellers"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imgSearchTravellers"
-                app:layout_constraintTop_toTopOf="@+id/imgSearchTravellers"
-                app:srcCompat="@drawable/ic_plan_a_travel" />
-
-            <TextView
-                android:id="@+id/tvPlanTravel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:fontFamily="@font/gotham_medium"
-                android:text="Plan a Travel"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgPlanTravel"
-                app:layout_constraintStart_toStartOf="@+id/imgPlanTravel"
-                app:layout_constraintTop_toBottomOf="@id/imgPlanTravel" />
-
-            <ImageView
-                android:id="@+id/imgSendParcel"
-                android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintEnd_toStartOf="@+id/imgTrackParcel"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSendersOrders"
-                app:srcCompat="@drawable/ic_send_parcel" />
-
-            <TextView
-                android:id="@+id/tvSendParcel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:fontFamily="@font/gotham_medium"
-                android:text="Send Parcel"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgSendParcel"
-                app:layout_constraintStart_toStartOf="@+id/imgSendParcel"
-                app:layout_constraintTop_toBottomOf="@id/imgSendParcel" />
-
-            <ImageView
-                android:id="@+id/imgTrackParcel"
-                android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
-                android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgSendParcel"
-                app:layout_constraintEnd_toStartOf="@+id/imgStartJourney"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imgSendParcel"
-                app:layout_constraintTop_toTopOf="@+id/imgSendParcel"
-                app:srcCompat="@drawable/ic_track_your_parcel" />
-
-            <TextView
-                android:id="@+id/tvTrackParcel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:fontFamily="@font/gotham_medium"
-                android:text="Track Your Parcel"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgTrackParcel"
-                app:layout_constraintStart_toStartOf="@+id/imgTrackParcel"
-                app:layout_constraintTop_toBottomOf="@id/imgTrackParcel" />
-
-            <ImageView
-                android:id="@+id/imgStartJourney"
-                android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
-                android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgTrackParcel"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imgTrackParcel"
-                app:layout_constraintTop_toTopOf="@+id/imgTrackParcel"
-                app:srcCompat="@drawable/ic_start_journey" />
-
-            <TextView
-                android:id="@+id/tvStartJourney"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:fontFamily="@font/gotham_medium"
-                android:text="Start Journey"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgStartJourney"
-                app:layout_constraintStart_toStartOf="@+id/imgStartJourney"
-                app:layout_constraintTop_toBottomOf="@id/imgStartJourney" />
-
-            <ImageView
-                android:id="@+id/imgEndJourney"
-                android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintEnd_toStartOf="@+id/imgComplaintDispute"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSendParcel"
-                app:srcCompat="@drawable/ic_end_journey" />
-
-            <TextView
-                android:id="@+id/tvEndJourney"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:fontFamily="@font/gotham_medium"
-                android:text="End Journey"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgEndJourney"
-                app:layout_constraintStart_toStartOf="@+id/imgEndJourney"
-                app:layout_constraintTop_toBottomOf="@id/imgEndJourney" />
-
-            <ImageView
-                android:id="@+id/imgComplaintDispute"
-                android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
-                android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgEndJourney"
-                app:layout_constraintEnd_toStartOf="@+id/imgTC"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imgEndJourney"
-                app:layout_constraintTop_toTopOf="@+id/imgEndJourney"
-                app:srcCompat="@drawable/ic_complaint_dispute" />
-
-            <TextView
-                android:id="@+id/tvComplaintDispute"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:fontFamily="@font/gotham_medium"
-                android:text="Complaint/Dispute"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgComplaintDispute"
-                app:layout_constraintStart_toStartOf="@+id/imgComplaintDispute"
-                app:layout_constraintTop_toBottomOf="@id/imgComplaintDispute" />
-
-            <ImageView
                 android:id="@+id/imgTC"
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgComplaintDispute"
+                android:padding="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imgComplaintDispute"
-                app:layout_constraintTop_toTopOf="@+id/imgComplaintDispute"
+                app:layout_constraintStart_toEndOf="@+id/imgSearchTravellers"
+                app:layout_constraintTop_toTopOf="@+id/imgSendersOrders"
                 app:srcCompat="@drawable/ic_terms_and_conditions" />
 
             <TextView
@@ -332,45 +172,181 @@
                 app:layout_constraintTop_toBottomOf="@id/imgTC" />
 
             <ImageView
-                android:id="@+id/imgMyRequestedOrders"
+                android:id="@+id/imgStartJourney"
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/dashboard_icon_background"
-                android:padding="12dp"
-                app:layout_constraintEnd_toStartOf="@+id/imgProfile"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintEnd_toStartOf="@+id/imgTrackParcel"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvEndJourney"
-                app:srcCompat="@drawable/ic_terms_and_conditions" />
+                app:layout_constraintTop_toBottomOf="@id/tvSendersOrders"
+                app:srcCompat="@drawable/ic_start_journey" />
 
             <TextView
-                android:id="@+id/tvMyRequestedOrders"
+                android:id="@+id/tvStartJourney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:fontFamily="@font/gotham_medium"
-                android:text="My Requested Orders"
+                android:text="Start Journey"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="@+id/imgMyRequestedOrders"
-                app:layout_constraintStart_toStartOf="@+id/imgMyRequestedOrders"
-                app:layout_constraintTop_toBottomOf="@id/imgMyRequestedOrders" />
+                app:layout_constraintEnd_toEndOf="@+id/imgStartJourney"
+                app:layout_constraintStart_toStartOf="@+id/imgStartJourney"
+                app:layout_constraintTop_toBottomOf="@id/imgStartJourney" />
 
-            <Button
-                android:id="@+id/btnNext"
+            <ImageView
+                android:id="@+id/imgTrackParcel"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintEnd_toStartOf="@+id/imgEndJourney"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgStartJourney"
+                app:layout_constraintTop_toTopOf="@+id/imgStartJourney"
+                app:srcCompat="@drawable/ic_track_your_parcel" />
+
+            <TextView
+                android:id="@+id/tvTrackParcel"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
-                android:background="@drawable/rounded_button_background"
-                android:padding="@dimen/_8sdp"
-                android:text="Next (for a time being)"
-                android:textColor="@color/colorWhite"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/gotham_medium"
+                android:text="Track Your Parcel"
+                android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_10sdp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imgTrackParcel"
+                app:layout_constraintStart_toStartOf="@+id/imgTrackParcel"
+                app:layout_constraintTop_toBottomOf="@id/imgTrackParcel" />
+
+            <ImageView
+                android:id="@+id/imgEndJourney"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgTrackParcel"
+                app:layout_constraintTop_toTopOf="@+id/imgStartJourney"
+                app:srcCompat="@drawable/ic_end_journey" />
+
+            <TextView
+                android:id="@+id/tvEndJourney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/gotham_medium"
+                android:text="End Journey"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgEndJourney"
+                app:layout_constraintStart_toStartOf="@+id/imgEndJourney"
+                app:layout_constraintTop_toBottomOf="@id/imgEndJourney" />
+
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintEnd_toStartOf="@+id/imgWallet"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvEndJourney" />
+                app:layout_constraintTop_toBottomOf="@id/tvStartJourney"
+                app:srcCompat="@drawable/ic_profile" />
+
+            <TextView
+                android:id="@+id/tvProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/gotham_medium"
+                android:text="My Profile"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgProfile"
+                app:layout_constraintStart_toStartOf="@+id/imgProfile"
+                app:layout_constraintTop_toBottomOf="@id/imgProfile" />
+
+            <ImageView
+                android:id="@+id/imgWallet"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintEnd_toStartOf="@+id/imgKYC"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgProfile"
+                app:layout_constraintTop_toTopOf="@+id/imgProfile"
+                app:srcCompat="@drawable/ic_my_wallet" />
+
+            <TextView
+                android:id="@+id/tvWallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/gotham_medium"
+                android:text="My Wallet"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgWallet"
+                app:layout_constraintStart_toStartOf="@+id/imgWallet"
+                app:layout_constraintTop_toBottomOf="@id/imgWallet" />
+
+            <ImageView
+                android:id="@+id/imgKYC"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imgWallet"
+                app:layout_constraintTop_toTopOf="@+id/imgProfile"
+                app:srcCompat="@drawable/ic_kyc" />
+
+            <TextView
+                android:id="@+id/tvKYC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/gotham_medium"
+                android:text="KYC"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgKYC"
+                app:layout_constraintStart_toStartOf="@+id/imgKYC"
+                app:layout_constraintTop_toBottomOf="@id/imgKYC" />
+
+            <ImageView
+                android:id="@+id/imgComplaintDispute"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dashboard_icon_background"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgProfile"
+                app:layout_constraintStart_toStartOf="@+id/imgProfile"
+                app:layout_constraintTop_toBottomOf="@id/tvProfile"
+                app:srcCompat="@drawable/ic_complaint_dispute" />
+
+            <TextView
+                android:id="@+id/tvComplaintDispute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/gotham_medium"
+                android:text="Complaint/Dispute"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/imgComplaintDispute"
+                app:layout_constraintStart_toStartOf="@+id/imgComplaintDispute"
+                app:layout_constraintTop_toBottomOf="@id/imgComplaintDispute" />
 
         </android.support.constraint.ConstraintLayout>
 

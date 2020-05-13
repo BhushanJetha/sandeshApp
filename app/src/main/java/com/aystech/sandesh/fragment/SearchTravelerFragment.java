@@ -52,25 +52,25 @@ import retrofit2.Response;
 
 public class SearchTravelerFragment extends Fragment implements View.OnClickListener {
 
-    Context context;
+    private Context context;
 
-    StateResponseModel stateResponseModel;
-    CityResponseModel cityResponseModel;
+    private StateResponseModel stateResponseModel;
+    private CityResponseModel cityResponseModel;
 
-    ConstraintLayout clTravellerList;
-    TextView tvResultCount, tvSortBy;
+    private ConstraintLayout clTravellerList;
+    private TextView tvResultCount, tvSortBy;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
-    Button btnSearch;
-    ImageView ingStartDate, ingEndDate;
-    EditText etFromPincode, etToPincode, etStartDate, etEndDate;
+    private Button btnSearch;
+    private ImageView ingStartDate, ingEndDate;
+    private EditText etFromPincode, etToPincode, etStartDate, etEndDate;
 
-    RecyclerView rvOrder;
-    OrderAdapter orderAdapter;
+    private RecyclerView rvOrder;
+    private OrderAdapter orderAdapter;
 
-    TravellerDetailFragment travellerDetailFragment;
+    private TravellerDetailFragment travellerDetailFragment;
 
-    final Calendar myCalendar = Calendar.getInstance();
+    private final Calendar myCalendar = Calendar.getInstance();
 
     private int fromStateId, fromCityId, toStateId, toCityId;
     private String strToPinCode, strFromPincode, strStartDate = "", strEndDate = "";
@@ -101,16 +101,6 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         initView(view);
 
         onClickListener();
-
-        String fromState = userSession.getFromState();
-        if (fromState.length() > 0) {
-            Gson gson = new Gson();
-            stateResponseModel = gson.fromJson(fromState, StateResponseModel.class);
-            bindStateDataToUI(stateResponseModel.getData());
-        } else {
-            //TODO API Call
-            getState();
-        }
 
         return view;
     }
@@ -267,8 +257,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                 @Override
                 public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                            travellerDetailFragment, R.id.frame_container,
-                            true);
+                            travellerDetailFragment, R.id.frame_container, true);
                     Bundle bundle = new Bundle();
                     bundle.putInt("travel_id", searchTravellerModel.getTravelId());
                     bundle.putString("tag", "normal");
@@ -291,11 +280,20 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         }
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
+
+        String fromState = userSession.getFromState();
+        if (fromState.length() > 0) {
+            Gson gson = new Gson();
+            stateResponseModel = gson.fromJson(fromState, StateResponseModel.class);
+            bindStateDataToUI(stateResponseModel.getData());
+        } else {
+            //TODO API Call
+            getState();
+        }
     }
 
     private void getState() {

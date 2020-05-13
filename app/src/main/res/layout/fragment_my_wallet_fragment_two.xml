@@ -48,38 +48,41 @@
             android:id="@+id/tvMyWalletTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
             android:gravity="center"
             android:text="My Wallet"
             android:textSize="@dimen/_16sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvWalletAmt"
-            app:layout_constraintEnd_toStartOf="@+id/tvBalTitle"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvBalTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/tvWelcomeTitle" />
 
         <TextView
             android:id="@+id/tvBalTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="center"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="end"
             android:text="Balance"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvMyWalletTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvWelcomeTitle" />
+            android:textStyle="bold"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintEnd_toStartOf="@+id/tvWalletAmt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMyWalletTitle" />
 
         <TextView
             android:id="@+id/tvWalletAmt"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="Rs. 100"
+            android:layout_marginLeft="@dimen/_8sdp"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tvBalTitle"
-            app:layout_constraintStart_toStartOf="@+id/tvBalTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvBalTitle" />
+            app:layout_constraintBottom_toBottomOf="@+id/tvBalTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvBalTitle"
+            app:layout_constraintTop_toTopOf="@+id/tvBalTitle" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -93,17 +96,17 @@
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/_10sdp"
-        app:layout_constraintEnd_toStartOf="@+id/btnPayMoney"
+        app:layout_constraintEnd_toStartOf="@+id/btnTransferMoney"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clTopView" />
 
     <Button
-        android:id="@+id/btnPayMoney"
+        android:id="@+id/btnTransferMoney"
         android:layout_width="@dimen/_120sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@drawable/rounded_button_background"
-        android:text="Pay money"
+        android:text="Withdraw"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/_10sdp"
@@ -113,36 +116,6 @@
         app:layout_constraintStart_toEndOf="@+id/btnAddMoney"
         app:layout_constraintTop_toTopOf="@+id/btnAddMoney" />
 
-    <Button
-        android:id="@+id/btnAcceptMoney"
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/rounded_button_background"
-        android:text="Accept money"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintEnd_toStartOf="@+id/btnTransferMoney"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddMoney" />
-
-    <Button
-        android:id="@+id/btnTransferMoney"
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:background="@drawable/rounded_button_background"
-        android:text="Transfer to A/C"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnAcceptMoney"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnAcceptMoney"
-        app:layout_constraintTop_toTopOf="@+id/btnAcceptMoney" />
-
     <android.support.design.widget.TabLayout
         android:id="@+id/walletTabLayout"
         style="@style/MyCustomTabLayout"
@@ -151,7 +124,7 @@
         android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAcceptMoney" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAddMoney" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

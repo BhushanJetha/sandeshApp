@@ -50,9 +50,10 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     private DashboardFragment dashboardFragment;
     private SendParcelFragment sendParcelFragment;
 
-    private TextView tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
-            tvToPincode, tvFromPincode, tvDeliveryOption, tvNatureGoods, tvGoodsDesc, tvQuality,
-            tvWeight, tvPackaging, tvGoods, tvReceiverName, tvReceiverMobileNo, tvReceiverAddress;
+    private TextView tvName, tvMobileNo, tvAddress, tvFromStateName, tvToStateName, tvFromCityName,
+            tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime, tvToPincode,
+            tvFromPincode, tvDeliveryOption, tvNatureGoods, tvGoodsDesc, tvQuality, tvWeight,
+            tvPackaging, tvGoods, tvReceiverName, tvReceiverMobileNo, tvReceiverAddress;
 
     private RadioButton rbCommercial, rbNonCommercial, rbHazardousYes, rbHazardousNo,
             rbProhibitedYes, rbProhibitedNo, rbFraglleYes, rbFraglleNo, rbFlamableToxicExplosiveYes,
@@ -178,7 +179,12 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         viewProgressDialog = ViewProgressDialog.getInstance();
         userSession = new UserSession(context);
 
+        tvName = view.findViewById(R.id.tvName);
+        tvMobileNo = view.findViewById(R.id.tvMobileNo);
+        tvAddress = view.findViewById(R.id.tvAddress);
         imgOrderEdit = view.findViewById(R.id.imgOrderEdit);
+        tvFromStateName = view.findViewById(R.id.tvFromStateName);
+        tvToStateName = view.findViewById(R.id.tvToStateName);
         tvFromCityName = view.findViewById(R.id.tvFromCityName);
         tvToCityName = view.findViewById(R.id.tvToCityName);
         tvStartDate = view.findViewById(R.id.tvStartDate);
@@ -230,16 +236,12 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void getOrderDetail() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("parcel_id", parcel_id);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<OrderDetailResponseModel> call = apiInterface.orderDetail(
-                jsonObject
-        );
-        call.enqueue(new Callback<OrderDetailResponseModel>() {
+        RetrofitInstance.getClient().orderDetail(jsonObject).enqueue(new Callback<OrderDetailResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<OrderDetailResponseModel> call, @NonNull Response<OrderDetailResponseModel> response) {
                 viewProgressDialog.hideDialog();
@@ -261,14 +263,40 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void bindDataToUI(TravelDetailModel data) {
-        tvFromCityName.setText(data.getParcelData().getFromCity()); //need to set data
-        tvToCityName.setText(data.getParcelData().getToCity()); //need to set data
+        if (data.getParcelData().getFirstName() != null &&
+                !data.getParcelData().getFirstName().equals(""))
+            tvName.setText("" + data.getParcelData().getFirstName());
+        else if (data.getParcelData().getCompany_name() != null &&
+                !data.getParcelData().getCompany_name().equals(""))
+            tvName.setText("" + data.getParcelData().getCompany_name());
+        else
+            tvName.setText("-");
+
+        if (data.getParcelData().getMobileNo() != null &&
+                !data.getParcelData().getMobileNo().equals(""))
+            tvMobileNo.setText("" + data.getParcelData().getMobileNo());
+        else
+            tvMobileNo.setText("-");
+
+        if (data.getParcelData().getAddress() != null &&
+                !data.getParcelData().getAddress().equals(""))
+            tvAddress.setText(""+data.getParcelData().getAddress());
+        else if (data.getParcelData().getCompany_address() != null &&
+                !data.getParcelData().getCompany_address().equals(""))
+            tvAddress.setText(""+data.getParcelData().getCompany_address());
+        else
+            tvAddress.setText("-");
+
+        tvFromStateName.setText(data.getParcelData().getFrom_state());
+        tvToStateName.setText(data.getParcelData().getTo_state());
+        tvFromCityName.setText(data.getParcelData().getFromCity());
+        tvToCityName.setText(data.getParcelData().getToCity());
         tvStartDate.setText(data.getParcelData().getStartDate());
         tvStartTime.setText(data.getParcelData().getStartTime());
-        tvEndDate.setText(data.getParcelData().getEndDate()); //need to set data
-        tvEndTime.setText(data.getParcelData().getEndTime()); //need to set data
-        tvToPincode.setText(data.getParcelData().getToPincode()); //need to set data
-        tvFromPincode.setText(data.getParcelData().getFromPincode()); //need to set data
+        tvEndDate.setText(data.getParcelData().getEndDate());
+        tvEndTime.setText(data.getParcelData().getEndTime());
+        tvToPincode.setText(data.getParcelData().getToPincode());
+        tvFromPincode.setText(data.getParcelData().getFromPincode());
         tvDeliveryOption.setText(data.getParcelData().getDeliveryOption());
         tvNatureGoods.setText(data.getParcelData().getNatureOfGoods());
 
@@ -367,8 +395,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.btnSendRequest:
-                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), orderListFragment, R.id.frame_container,
-                        false);
+                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                        orderListFragment, R.id.frame_container, true);
                 bundle.putInt("parcel_id", parcel_id);
                 bundle.putString("tag", "order");
                 orderListFragment.setArguments(bundle);

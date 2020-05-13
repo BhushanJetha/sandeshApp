@@ -64,17 +64,17 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/tvParcelInformation"
+                        android:id="@+id/tvPersonalInformation"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/gotham_medium"
                         android:padding="@dimen/_4sdp"
-                        android:text="Parcel Information"
+                        android:text="Personal Information"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/imgOrderEdit"
+                        app:layout_constraintEnd_toStartOf="@+id/imgTravelEdit"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,9 +87,119 @@
                         android:background="@drawable/ic_edit_black_24dp"
                         android:padding="@dimen/_6sdp"
                         android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvParcelInformation"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvPersonalInformation"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvParcelInformation" />
+                        app:layout_constraintTop_toTopOf="@+id/tvPersonalInformation" />
+
+                    <View
+                        android:id="@+id/personalBreakUpLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:background="@color/colorAccent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvPersonalInformation" />
+
+                    <TextView
+                        android:id="@+id/tvNameTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Name"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/tvName"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@+id/personalBreakUpLine" />
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text=""
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvNameTitle"
+                        app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvNameTitle"
+                        app:layout_constraintTop_toTopOf="@+id/tvNameTitle" />
+
+                    <TextView
+                        android:id="@+id/tvMobileNoTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Mobile No"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/tvMobileNo"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@+id/tvNameTitle" />
+
+                    <TextView
+                        android:id="@+id/tvMobileNo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text=""
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvMobileNoTitle"
+                        app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvMobileNoTitle"
+                        app:layout_constraintTop_toTopOf="@+id/tvMobileNoTitle" />
+
+                    <TextView
+                        android:id="@+id/tvAddressTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Address"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@+id/tvMobileNoTitle" />
+
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text=""
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
+                        app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAddressTitle" />
+
+                    <TextView
+                        android:id="@+id/tvParcelInformation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/gotham_medium"
+                        android:padding="@dimen/_4sdp"
+                        android:text="Parcel Information"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_11sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvAddress" />
 
                     <View
                         android:id="@+id/parcelBreakUpLine"
@@ -103,10 +213,67 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvParcelInformation" />
 
                     <TextView
-                        android:id="@+id/tvParcelFromCity"
+                        android:id="@+id/tvParcelFromState"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="From State"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/tvParcelToState"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@+id/parcelBreakUpLine" />
+
+                    <TextView
+                        android:id="@+id/tvFromStateName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text=""
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/tvToStateName"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/tvParcelFromState"
+                        app:layout_constraintTop_toBottomOf="@id/tvParcelFromState" />
+
+                    <TextView
+                        android:id="@+id/tvParcelToState"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="To State"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvParcelFromState"
+                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvParcelFromState"
+                        app:layout_constraintTop_toTopOf="@+id/tvParcelFromState" />
+
+                    <TextView
+                        android:id="@+id/tvToStateName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text=""
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvFromStateName"
+                        app:layout_constraintEnd_toEndOf="@+id/tvParcelToState"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvFromStateName"
+                        app:layout_constraintTop_toBottomOf="@id/tvParcelToState" />
+
+                    <TextView
+                        android:id="@+id/tvParcelFromCity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/gotham_light"
                         android:text="From City"
                         android:textColor="@color/colorBlack"
@@ -114,7 +281,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/tvParcelToCity"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/parcelBreakUpLine" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvFromStateName" />
 
                     <TextView
                         android:id="@+id/tvFromCityName"
@@ -160,6 +327,63 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvParcelToCity" />
 
                     <TextView
+                        android:id="@+id/tvFromPincodeTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="From Pincode"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/tvToPincodeTitle"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@id/tvFromCityName" />
+
+                    <TextView
+                        android:id="@+id/tvFromPincode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text=""
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/tvToPincode"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/tvFromPincodeTitle"
+                        app:layout_constraintTop_toBottomOf="@id/tvFromPincodeTitle" />
+
+                    <TextView
+                        android:id="@+id/tvToPincodeTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="To Pincode"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvFromPincodeTitle"
+                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvFromPincodeTitle"
+                        app:layout_constraintTop_toTopOf="@+id/tvFromPincodeTitle" />
+
+                    <TextView
+                        android:id="@+id/tvToPincode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text=""
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvFromPincode"
+                        app:layout_constraintEnd_toEndOf="@+id/tvToPincodeTitle"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvFromPincode"
+                        app:layout_constraintTop_toBottomOf="@id/tvToPincodeTitle" />
+
+                    <TextView
                         android:id="@+id/tvStartDateTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -171,7 +395,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/tvStartTimeTitle"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvFromCityName" />
+                        app:layout_constraintTop_toBottomOf="@id/tvFromPincode" />
 
                     <TextView
                         android:id="@+id/tvStartDate"
@@ -274,63 +498,6 @@
                         app:layout_constraintTop_toTopOf="@+id/tvEndDate" />
 
                     <TextView
-                        android:id="@+id/tvToPincodeTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="To Pincode"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvEndTimeTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvEndDate" />
-
-                    <TextView
-                        android:id="@+id/tvToPincode"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tvEndTime"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tvToPincodeTitle"
-                        app:layout_constraintTop_toBottomOf="@id/tvToPincodeTitle" />
-
-                    <TextView
-                        android:id="@+id/tvFromPincodeTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="From Pincode"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvToPincodeTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvToPincodeTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvToPincodeTitle" />
-
-                    <TextView
-                        android:id="@+id/tvFromPincode"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvToPincode"
-                        app:layout_constraintEnd_toEndOf="@+id/tvFromPincodeTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvToPincode"
-                        app:layout_constraintTop_toTopOf="@+id/tvToPincode" />
-
-                    <TextView
                         android:id="@+id/tvDeliveryOptionTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -342,7 +509,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/tvNatureGoodsTitle"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvToPincode" />
+                        app:layout_constraintTop_toBottomOf="@id/tvEndDate" />
 
                     <TextView
                         android:id="@+id/tvDeliveryOption"
@@ -911,7 +1078,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
-                        android:text="Abhijit"
+                        android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_9sdp"
                         android:textStyle="bold"
@@ -940,7 +1107,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
-                        android:text="XXXXXXXXXX"
+                        android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_9sdp"
                         android:textStyle="bold"
@@ -959,8 +1126,6 @@
                         android:text="Address"
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvReceiverAddress"
-                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
                         app:layout_constraintTop_toBottomOf="@+id/tvReceiverMobileNoTitle" />
 
@@ -968,18 +1133,14 @@
                         android:id="@+id/tvReceiverAddress"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
                         android:fontFamily="@font/gotham_light"
-                        android:maxLines="2"
-                        android:text="fglkjlflkflfdkgjfdlgkfjglfkgjfdlkgfdjlgfkgjflkgfjdlgkfdjglfkgjflkgfdjglfdkjflkgfjlgkfdjgfldkgfjlgkfjglfkgjfdlkgfjlgkfjlgfkgjf"
+                        android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/_9sdp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvReceiverAddressTitle"
                         app:layout_constraintEnd_toEndOf="@+id/receiverBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvReceiverAddressTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvReceiverAddressTitle" />
+                        app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@+id/tvReceiverAddressTitle" />
 
                 </android.support.constraint.ConstraintLayout>
 

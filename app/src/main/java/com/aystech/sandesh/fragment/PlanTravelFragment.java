@@ -601,7 +601,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private void commonRedirect() {
         Bundle bundle = new Bundle();
         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                orderListFragment, R.id.frame_container, true);
+                orderListFragment, R.id.frame_container, false);
         bundle.putString("tag", "success_travel");
         orderListFragment.setArguments(bundle);
     }
