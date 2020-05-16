@@ -26,6 +26,7 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
 
@@ -139,8 +140,34 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
                 strDesignation = etDesignation.getText().toString();
                 strEmailId = etEmailId.getText().toString();
 
-                //TODO API Call
-                updateProfile();
+
+                if(!strCompanyName.isEmpty()){
+                    if(!strBranch.isEmpty()){
+                        if(!strAuthorisedName.isEmpty()){
+                            if(!strDesignation.isEmpty()){
+                                if(!strEmailId.isEmpty()){
+                                    if (Uitility.isValidEmailId(strEmailId)){
+                                        //TODO API Call
+                                        updateProfile();
+                                    }else {
+                                        Uitility.showToast(getActivity(), "Please enter valid email id !");
+                                    }
+                                }else {
+                                    Uitility.showToast(getActivity(), "Please enter your company email id !");
+                                }
+                            }else {
+                                Uitility.showToast(getActivity(), "Please enter authorised person designation !");
+                            }
+                        }else {
+                            Uitility.showToast(getActivity(), "Please enter authorized person name !");
+                        }
+                    }else {
+                        Uitility.showToast(getActivity(), "Please enter your company branch !");
+                    }
+                }else {
+                    Uitility.showToast(getActivity(), "Please enter your company name !");
+                }
+
                 break;
 
             case R.id.imgUserProfile:

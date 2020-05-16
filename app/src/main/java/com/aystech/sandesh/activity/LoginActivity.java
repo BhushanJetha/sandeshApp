@@ -147,15 +147,14 @@ public class LoginActivity extends AppCompatActivity {
                     if(pass.length()==10){
                         //TODO API Call
                         forgetPassword(pass);
+
+                        dialog.dismiss();
                     }else {
                         Uitility.showToast(LoginActivity.this, "Please enter 10 digit mobile number !");
                     }
                 }else {
                     Uitility.showToast(LoginActivity.this, "Please enter your mobile number !");
                 }
-
-
-                dialog.dismiss();
             }
         });
     }
@@ -177,6 +176,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
+                        login_count = 0;
+                        userSession.setResetPasswordStatus("reset");
                         Toast.makeText(LoginActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     } else
                         Toast.makeText(LoginActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();

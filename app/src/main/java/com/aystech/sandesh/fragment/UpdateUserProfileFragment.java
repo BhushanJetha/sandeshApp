@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.IndividualRegistrationActivity;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.UserModel;
@@ -67,6 +69,8 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     private String strFirstName, strMiddleName, strLastName, strEmailId, strGender, strDateOfBirth;
 
     final Calendar myCalendar = Calendar.getInstance();
+
+    private int age = 0;
 
     Uri picUri;
     Bitmap myBitmap;
@@ -206,6 +210,8 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             strDateOfBirth = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //UpdateUserProfileFragment
+            age = Integer.parseInt(Uitility.getAge(year, monthOfYear, dayOfMonth));
+            Log.d("age-->", String.valueOf(age));
             tvBirthDate.setText(strDateOfBirth);
         }
 
@@ -272,8 +278,33 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
                 strLastName = etLastName.getText().toString();
                 strEmailId = etEmialId.getText().toString();
 
-                //TODO API Call
-                updateProfile();
+                if(!strFirstName.isEmpty()){
+                    if(!strLastName.isEmpty()){
+                        if(!strEmailId.isEmpty()){
+                            if (Uitility.isValidEmailId(strEmailId)){
+                                if(!strDateOfBirth.isEmpty()){
+                                    if(age >= 18){
+                                        //TODO API Call
+                                        updateProfile();
+                                    }else {
+                                        Uitility.showToast(getActivity(), "Sorry you are not able to register, your age in below 18 !");
+                                    }
+                                }else {
+                                    Uitility.showToast(getActivity(), "Please select your date of birth !");
+                                }
+                            }else {
+                                Uitility.showToast(getActivity(), "Please enter valid email id  !");
+                            }
+                        }else {
+                            Uitility.showToast(getActivity(), "Please enter your email Id !");
+                        }
+                    }else {
+                        Uitility.showToast(getActivity(), "Please enter your last name !");
+                    }
+                }else {
+                    Uitility.showToast(getActivity(), "Please enter your first name !");
+                }
+
                 break;
 
             case R.id.llDateOfBirth:

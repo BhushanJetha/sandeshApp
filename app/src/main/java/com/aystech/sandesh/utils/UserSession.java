@@ -17,6 +17,7 @@ public class UserSession {
     private String KEY_FCM_ID = "fcm_id";
     private String IS_FIRST_USER = "first_time_user";
     private String USER_PREVIOUS_ONLINE_DATE_TIME = "user_previous_login_date_time";
+    private String RESET_PASSWORD = "reset_password";
 
     private String TRAVEL_ID = "travel_id";
 
@@ -230,6 +231,15 @@ public class UserSession {
 
     public void setPreviousOnlineDateTime(String dateTime) {
         editor.putString(USER_PREVIOUS_ONLINE_DATE_TIME, dateTime);
+        editor.commit();
+    }
+
+    public String getResetPasswordStatus() {
+        return pref.getString(RESET_PASSWORD, "");
+    }
+
+    public void setResetPasswordStatus(String resetPasswordStatus) {
+        editor.putString(RESET_PASSWORD, resetPasswordStatus);
         editor.commit();
     }
 }

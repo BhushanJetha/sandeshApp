@@ -24,6 +24,7 @@ import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.Gson;
@@ -130,8 +131,24 @@ public class UpdateAddressFragment extends Fragment {
                 strLandmark = etLandmark.getText().toString();
                 strPincode = etPincode.getText().toString();
 
-                //TODO API Call
-                updateAddress();
+                if(!strAddressLine1.isEmpty()){
+                    if(!strLandmark.isEmpty()){
+                        if(!strPincode.isEmpty()){
+                            if(strPincode.length() == 6){
+                                //TODO API Call
+                                updateAddress();
+                            }else {
+                                Uitility.showToast(getActivity(), "Please enter 6 digit pin code !");
+                            }
+                        }else {
+                            Uitility.showToast(getActivity(), "Please enter pin code !");
+                        }
+                    }else {
+                        Uitility.showToast(getActivity(), "Please enter address landmark !");
+                    }
+                }else {
+                    Uitility.showToast(getActivity(), "Please enter address line 1 !");
+                }
             }
         });
     }
