@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import retrofit2.Response;
 
 public class StartJourneyFragment extends Fragment {
 
+    private static final String TAG = "StartJourneyFragment";
     private Context context;
 
     private OrderListFragment orderListFragment;
@@ -263,12 +265,13 @@ public class StartJourneyFragment extends Fragment {
     }
 
     private void bindOrdersDataToRV(List<SearchOrderModel> data) {
-        if (data.size()>0) {
+        if (data.size() > 0) {
             orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                    Log.e(TAG, "onOrderItemClicked: " + searchOrderModel.getTravelId());
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                            orderDetailFragment, R.id.frame_container, false);
+                            orderDetailFragment, R.id.frame_container, true);
                     Bundle bundle = new Bundle();
                     bundle.putInt("parcel_id", searchOrderModel.getParcelId());
                     bundle.putString("tag", "just_show_order_detail");

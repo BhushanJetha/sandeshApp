@@ -67,7 +67,6 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     Uri picUri;
     Bitmap myBitmap;
     private String filepath;
-    private boolean onceClicked = false;
 
     private ViewProgressDialog viewProgressDialog;
 
@@ -121,10 +120,8 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         cbAccetTermsAndConditions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!onceClicked) {
-                    cbAccetTermsAndConditions.setClickable(false);
-                    showTermsConditions();
-                }
+                cbAccetTermsAndConditions.setChecked(true);
+                showTermsConditions();
             }
         });
 
@@ -246,7 +243,6 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onceClicked = true;
                 dialog.dismiss();
             }
         });

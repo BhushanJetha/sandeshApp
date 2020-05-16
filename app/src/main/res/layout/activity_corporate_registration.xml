@@ -101,6 +101,20 @@
                 android:fontFamily="@font/gotham_light">
 
                 <EditText
+                    android:id="@+id/etGSTNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:hint="GST No" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gotham_light">
+
+                <EditText
                     android:id="@+id/etAuthorisedPersonName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

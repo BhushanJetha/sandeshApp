@@ -42,9 +42,9 @@ import retrofit2.Response;
 
 public class CorporateRegistrationActivity extends AppCompatActivity {
 
-    private EditText etCompanyName, etBranch, etAuthorisedPersonName, etDesignation, etAuthorisedPersonMobileNumber, etEmailId,
+    private EditText etCompanyName, etBranch, etGSTNo, etAuthorisedPersonName, etDesignation, etAuthorisedPersonMobileNumber, etEmailId,
             etPassword, etReEnteredPassword, etRefferalCode;
-    private String strCompanyName, strBranch, strAuthPersonName, strDesignation, strMobileNumber, strAuthMobileNo, strEmailId,
+    private String strCompanyName, strBranch, strGSTNo, strAuthPersonName, strDesignation, strMobileNumber, strAuthMobileNo, strEmailId,
             strPassword, strReEnteredPassword, strRefferalCode;
     private ImageView imgProfileResult;
     private LinearLayout llProfilePiture;
@@ -55,7 +55,6 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     Uri picUri;
     Bitmap myBitmap;
     private String filepath;
-    private boolean onceClicked = false;
 
     private ViewProgressDialog viewProgressDialog;
 
@@ -78,6 +77,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
         etCompanyName = findViewById(R.id.etCompanyName);
         etBranch = findViewById(R.id.etBranch);
+        etGSTNo = findViewById(R.id.etGSTNo);
         etAuthorisedPersonName = findViewById(R.id.etAuthorisedPersonName);
         etDesignation = findViewById(R.id.etDesignation);
         etAuthorisedPersonMobileNumber = findViewById(R.id.etAuthorisedPersonMobileNumber);
@@ -99,10 +99,8 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         cbAccetTermsAndConditions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!onceClicked) {
-                    cbAccetTermsAndConditions.setClickable(false);
-                    showTermsConditions();
-                }
+                cbAccetTermsAndConditions.setChecked(true);
+                showTermsConditions();
             }
         });
 
@@ -116,44 +114,49 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                 strRefferalCode = etRefferalCode.getText().toString();
                 strCompanyName = etCompanyName.getText().toString();
                 strBranch = etBranch.getText().toString();
+                strGSTNo = etGSTNo.getText().toString();
                 strAuthPersonName = etAuthorisedPersonName.getText().toString();
                 strDesignation = etDesignation.getText().toString();
 
                 if (!strCompanyName.isEmpty()) {
                     if (!strBranch.isEmpty()) {
-                        if (!strAuthPersonName.isEmpty()) {
-                            if (!strDesignation.isEmpty()) {
-                                if (!strEmailId.isEmpty()) {
-                                    if (Uitility.isValidEmailId(strEmailId)) {
-                                        if (!strPassword.isEmpty()) {
-                                            if (!strReEnteredPassword.isEmpty()) {
-                                                if (strPassword.equals(strReEnteredPassword)) {
-                                                    if (cbAccetTermsAndConditions.isChecked()) {
-                                                        //TODO API Call
-                                                        doRigistrationAPICall();
+                        if (!strGSTNo.isEmpty()) {
+                            if (!strAuthPersonName.isEmpty()) {
+                                if (!strDesignation.isEmpty()) {
+                                    if (!strEmailId.isEmpty()) {
+                                        if (Uitility.isValidEmailId(strEmailId)) {
+                                            if (!strPassword.isEmpty()) {
+                                                if (!strReEnteredPassword.isEmpty()) {
+                                                    if (strPassword.equals(strReEnteredPassword)) {
+                                                        if (cbAccetTermsAndConditions.isChecked()) {
+                                                            //TODO API Call
+                                                            doRigistrationAPICall();
+                                                        } else {
+                                                            Uitility.showToast(CorporateRegistrationActivity.this, "Please accept terms and condition!");
+                                                        }
                                                     } else {
-                                                        Uitility.showToast(CorporateRegistrationActivity.this, "Please accept terms and condition!");
+                                                        Uitility.showToast(CorporateRegistrationActivity.this, "Password and re-Entered Password not matched !!");
                                                     }
                                                 } else {
-                                                    Uitility.showToast(CorporateRegistrationActivity.this, "Password and re-Entered Password not matched !!");
+                                                    Uitility.showToast(CorporateRegistrationActivity.this, "Please re-enter your password !!");
                                                 }
                                             } else {
-                                                Uitility.showToast(CorporateRegistrationActivity.this, "Please re-enter your password !!");
+                                                Uitility.showToast(CorporateRegistrationActivity.this, "Password enter you password !!");
                                             }
                                         } else {
-                                            Uitility.showToast(CorporateRegistrationActivity.this, "Password enter you password !!");
+                                            Uitility.showToast(CorporateRegistrationActivity.this, "Please enter valid email id !!");
                                         }
                                     } else {
-                                        Uitility.showToast(CorporateRegistrationActivity.this, "Please enter valid email id !!");
+                                        Uitility.showToast(CorporateRegistrationActivity.this, "Please enter your email id !!");
                                     }
                                 } else {
-                                    Uitility.showToast(CorporateRegistrationActivity.this, "Please enter your email id !!");
+                                    Uitility.showToast(CorporateRegistrationActivity.this, "Please enter designation !!");
                                 }
                             } else {
-                                Uitility.showToast(CorporateRegistrationActivity.this, "Please enter designation !!");
+                                Uitility.showToast(CorporateRegistrationActivity.this, "Please enter authorised person name !!");
                             }
                         } else {
-                            Uitility.showToast(CorporateRegistrationActivity.this, "Please enter authorised person name !!");
+                            Uitility.showToast(CorporateRegistrationActivity.this, "Please enter GST No !!");
                         }
                     } else {
                         Uitility.showToast(CorporateRegistrationActivity.this, "Please enter branch name !!");
@@ -194,7 +197,6 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onceClicked = true;
                 dialog.dismiss();
             }
         });
@@ -210,6 +212,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         RequestBody refferalCodePart = RequestBody.create(MultipartBody.FORM, strRefferalCode);
         RequestBody companyNamePart = RequestBody.create(MultipartBody.FORM, strCompanyName);
         RequestBody branchPart = RequestBody.create(MultipartBody.FORM, strBranch);
+        RequestBody gstNoPart = RequestBody.create(MultipartBody.FORM, strGSTNo);
         RequestBody authPersonNamePart = RequestBody.create(MultipartBody.FORM, strAuthPersonName);
         RequestBody designationPart = RequestBody.create(MultipartBody.FORM, strDesignation);
 
@@ -232,6 +235,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                 refferalCodePart,
                 companyNamePart,
                 branchPart,
+                gstNoPart,
                 authPersonNamePart,
                 designationPart,
                 body

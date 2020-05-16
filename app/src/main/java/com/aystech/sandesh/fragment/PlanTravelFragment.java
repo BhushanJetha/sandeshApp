@@ -80,7 +80,6 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private String tag, edit, fromState, fromCity, toState, toCity;
     private int mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
-    private boolean onceClicked = false;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -233,7 +232,6 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         strWeight = travelDetailModel.getTravelPlan().getPreferredWeight();
         modeOfTravel = travelDetailModel.getTravelPlan().getModeOfTravel();
 
-        onceClicked = true;
         cbTermsCondition.setChecked(true);
 
         btnSubmit.setText("Update");
@@ -471,10 +469,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 break;
 
             case R.id.cbTermsCondition:
-                if (!onceClicked) {
-                    cbTermsCondition.setClickable(false);
-                    showTermsConditions();
-                }
+                cbTermsCondition.setChecked(true);
+                showTermsConditions();
                 break;
         }
     }
@@ -501,7 +497,6 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onceClicked = true;
                 dialog.dismiss();
             }
         });

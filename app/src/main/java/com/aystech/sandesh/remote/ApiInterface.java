@@ -61,6 +61,7 @@ public interface ApiInterface {
             @Part("refferal_code") RequestBody refferalCode,
             @Part("company_name") RequestBody companyName,
             @Part("branch") RequestBody branch,
+            @Part("gst_no") RequestBody gstNo,
             @Part("auth_person_name") RequestBody authPersonName,
             @Part("designation") RequestBody designation,
             @Part MultipartBody.Part image

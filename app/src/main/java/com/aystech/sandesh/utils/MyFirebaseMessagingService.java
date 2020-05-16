@@ -34,6 +34,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
 
+        Log.e(TAG, "onNewToken: " + s);
         userSession = new UserSession(this);
         userSession.setFCMId(s);
     }

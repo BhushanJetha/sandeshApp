@@ -113,7 +113,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private String tag, edit, fromState, fromCity, toState, toCity;
     private int mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weightId;
-    private boolean onceClicked = false;
 
     private Uri picUri;
     private Bitmap myBitmap;
@@ -371,7 +370,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         strPackaging = travelDetailModel.getParcelData().getPackaging();
         strWeight = travelDetailModel.getParcelData().getWeight();
 
-        onceClicked = true;
         cbTermsCondition.setChecked(true);
 
         btnSubmit.setText("Update");
@@ -816,10 +814,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
                 break;
             case R.id.cbTermsCondition:
-                if (!onceClicked) {
-                    cbTermsCondition.setClickable(false);
-                    showTermsConditions();
-                }
+                cbTermsCondition.setChecked(true);
+                showTermsConditions();
                 break;
         }
     }
@@ -846,7 +842,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onceClicked = true;
                 dialog.dismiss();
             }
         });
@@ -1117,13 +1112,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
-
-        FragmentManager fm = getFragmentManager();
-
-        assert fm != null;
-        for (int entry = 0; entry < fm.getBackStackEntryCount(); entry++) {
-            Log.e(TAG, "Found fragment: " + fm.getBackStackEntryAt(entry).getId());
-        }
     }
 
     private void getWeights() {
