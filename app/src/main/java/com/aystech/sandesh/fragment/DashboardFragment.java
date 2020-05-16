@@ -141,6 +141,10 @@ public class DashboardFragment extends Fragment {
             openWelcomeUserDialog();
         }
 
+        if(userSession.getResetPasswordStatus().equals("reset")){
+            openResetPasswordDialog();
+        }
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         String currentDate = sdf.format(new Date());
         userSession.setPreviousOnlineDateTime(currentDate);
@@ -350,9 +354,15 @@ public class DashboardFragment extends Fragment {
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        //Toast.makeText(LoginActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    } //else
-                        //Toast.makeText(LoginActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        if(response.body().getMessage().equals("Password change successfully")){
+                            userSession.setResetPasswordStatus("DoNotReset");
+                        }
+                        if(response.body().getMessage().equals("Invalid old password")){
+
+                        }
+                    } else
+                        Toast.makeText(getActivity(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
