@@ -155,6 +155,29 @@
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:text="GST No"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/tvGSTNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/gotham_light"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="Authorised person name"
                     android:textColor="@color/colorBlack"
                     android:fontFamily="@font/gotham_light"

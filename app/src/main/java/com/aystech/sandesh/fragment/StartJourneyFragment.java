@@ -4,11 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +23,7 @@ import com.aystech.sandesh.adapter.NoDataAdapter;
 import com.aystech.sandesh.adapter.OrderAdapter;
 import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.AcceptedOrdersModel;
+import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.MyOrdersResponseModel;
 import com.aystech.sandesh.model.MyRidesResponseModel;
 import com.aystech.sandesh.model.SearchOrderModel;
@@ -50,7 +56,7 @@ public class StartJourneyFragment extends Fragment {
     private RecyclerView rvTraveller;
     private OrderAdapter orderAdapter;
 
-    private String tag;
+    private String tag, rating;
 
     private ViewProgressDialog viewProgressDialog;
 
@@ -270,12 +276,8 @@ public class StartJourneyFragment extends Fragment {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                     Log.e(TAG, "onOrderItemClicked: " + searchOrderModel.getTravelId());
-                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                            orderDetailFragment, R.id.frame_container, true);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("parcel_id", searchOrderModel.getParcelId());
-                    bundle.putString("tag", "just_show_order_detail");
-                    orderDetailFragment.setArguments(bundle);
+
+                    showRatingDialog(searchOrderModel);
                 }
 
                 @Override
@@ -292,6 +294,83 @@ public class StartJourneyFragment extends Fragment {
             NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Order Found!");
             rvTraveller.setAdapter(noDataAdapter);
         }
+    }
+
+    private void showRatingDialog(final SearchOrderModel searchOrderModel) {
+        LayoutInflater inflater = getLayoutInflater();
+        final View alertLayout = inflater.inflate(R.layout.dialog_rating, null);
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(true);
+
+        final RatingBar ratingBar = alertLayout.findViewById(R.id.ratingBar);
+        final EditText etFeedback = alertLayout.findViewById(R.id.etFeedback);
+        Button btnSubmitRating = alertLayout.findViewById(R.id.btnSubmitRating);
+
+        final AlertDialog dialog = alert.create();
+        dialog.show();
+
+        btnSubmitRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rating = String.valueOf(ratingBar.getRating());
+                if (TextUtils.isEmpty(rating)) {
+                    Toast.makeText(context, "Please select rating...", Toast.LENGTH_SHORT).show();
+                } /*else if (TextUtils.isEmpty(etFeedback.getText().toString().trim())) {
+                    etFeedback.setError("Please give us your valuable feedback");
+                    etFeedback.requestFocus();
+                } */else {
+                    etFeedback.setError(null);
+
+                    dialog.dismiss();
+
+                    //TODO API Call
+                    giveRating(searchOrderModel);
+                }
+            }
+        });
+    }
+
+    private void giveRating(final SearchOrderModel searchOrderModel) {
+
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("travel_id", searchOrderModel.getTravelId());
+        jsonObject.addProperty("rating", rating);
+        jsonObject.addProperty("feedback_msg", "");
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.rating(
+                jsonObject
+        );
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                orderDetailFragment, R.id.frame_container, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("parcel_id", searchOrderModel.getParcelId());
+                        bundle.putString("tag", "just_show_order_detail");
+                        orderDetailFragment.setArguments(bundle);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
     }
 
     @Override

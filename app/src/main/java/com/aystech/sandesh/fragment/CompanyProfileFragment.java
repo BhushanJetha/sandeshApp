@@ -44,7 +44,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
     private AddressModel addressModel;
 
     private ImageView imgCompanyProfile;
-    private TextView tvCompanyName, tvCompany, tvBranch, tvAuthorisedName, tvDesignation, tvMobileNumber, tvEmailId,
+    private TextView tvCompanyName, tvCompany, tvBranch, tvGSTNo, tvAuthorisedName, tvDesignation, tvMobileNumber, tvEmailId,
             tvAddresLine1, tvAddresLine2, tvLandmark, tvState, tvCity,tvPincode;
     private Button btnMyRide, btnMyOrders, btnUpcomingRides, btnUpcomingOrders;
     private LinearLayout editCompanyDetail, editAddressDetail;
@@ -90,6 +90,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
         tvCompanyName = view.findViewById(R.id.tvCompanyName);
         tvCompany = view.findViewById(R.id.tvCompany);
         tvBranch = view.findViewById(R.id.tvBranch);
+        tvGSTNo = view.findViewById(R.id.tvGSTNo);
         tvAuthorisedName = view.findViewById(R.id.tvAuthorisedName);
         tvDesignation = view.findViewById(R.id.tvDesignation);
         tvMobileNumber = view.findViewById(R.id.tvMobileNumber);
@@ -192,6 +193,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
                         tvCompany.setText(response.body().getData().getCorporateData().getCompanyName());
                         tvCompanyName.setText(response.body().getData().getCorporateData().getCompanyName());
                         tvBranch.setText(response.body().getData().getCorporateData().getBranch());
+                        tvGSTNo.setText(response.body().getData().getCorporateData().getGstNo());
                         tvAuthorisedName.setText(response.body().getData().getCorporateData().getAuthPersonName());
                         tvDesignation.setText(response.body().getData().getCorporateData().getDesignation());
 

@@ -278,12 +278,12 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         else
             tvMobileNo.setText("-");
 
-        if (data.getParcelData().getAddress() != null &&
-                !data.getParcelData().getAddress().equals(""))
-            tvAddress.setText(""+data.getParcelData().getAddress());
-        else if (data.getParcelData().getCompany_address() != null &&
-                !data.getParcelData().getCompany_address().equals(""))
-            tvAddress.setText(""+data.getParcelData().getCompany_address());
+        if (data.getAddress() != null &&
+                !data.getAddress().equals(""))
+            tvAddress.setText(data.getAddress().getAddressLine1() + " " +
+                    data.getAddress().getAddressLine2() + "" + data.getAddress().getLandmark()
+                    + "" + data.getAddress().getState() + "" + data.getAddress().getCity()
+                    + "" + data.getAddress().getPincode());
         else
             tvAddress.setText("-");
 
@@ -426,14 +426,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 } else {
                     status = "Rejected";
                     //TODO API Call
-                    sendOrderRequestStatus();
+                    sendOrderRequestStatus(); //btnRejectOrder
                 }
                 break;
 
             case R.id.btnAcceptOrder:
                 status = "Accepted";
                 //TODO API Call
-                sendOrderRequestStatus();
+                sendOrderRequestStatus(); //btnAcceptOrder
                 break;
 
             case R.id.imgOrderEdit:

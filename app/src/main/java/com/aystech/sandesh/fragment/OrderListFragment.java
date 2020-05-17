@@ -197,7 +197,7 @@ public class OrderListFragment extends Fragment {
                     parcel_id = searchOrderModel.getParcelId();
                     if (tag.equals("upcoming_orders") || tag.equals("success_parcel")) {
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                orderDetailFragment, R.id.frame_container, false);
+                                orderDetailFragment, R.id.frame_container, true);
                         Bundle bundle = new Bundle();
                         bundle.putInt("parcel_id", searchOrderModel.getParcelId());
                         bundle.putString("tag", tag);

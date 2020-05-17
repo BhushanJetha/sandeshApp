@@ -99,13 +99,32 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/tILAuthorisedName"
+                    android:id="@+id/tILGSTNo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
                     app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
                     app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
                     app:layout_constraintTop_toBottomOf="@id/tILBranch">
+
+                    <EditText
+                        android:id="@+id/etGSTNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="GST No"
+                        android:inputType="text"
+                        android:maxLines="1" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILAuthorisedName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tILCompanyName"
+                    app:layout_constraintStart_toStartOf="@+id/tILCompanyName"
+                    app:layout_constraintTop_toBottomOf="@id/tILGSTNo">
 
                     <EditText
                         android:id="@+id/etAuthorisedName"

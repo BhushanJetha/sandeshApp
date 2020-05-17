@@ -169,12 +169,12 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         else
             tvMobileNo.setText("-");
 
-        if (data.getTravelPlan().getAddress() != null &&
-                !data.getTravelPlan().getAddress().equals(""))
-            tvAddress.setText(data.getTravelPlan().getAddress());
-        else if (data.getTravelPlan().getCompany_address() != null &&
-                !data.getTravelPlan().getCompany_address().equals(""))
-            tvAddress.setText(data.getTravelPlan().getCompany_address());
+        if (data.getAddress() != null &&
+                !data.getAddress().equals(""))
+            tvAddress.setText(data.getAddress().getAddressLine1() + " " +
+                    data.getAddress().getAddressLine2() + "" + data.getAddress().getLandmark()
+                    + "" + data.getAddress().getState() + "" + data.getAddress().getCity()
+                    + "" + data.getAddress().getPincode());
         else
             tvAddress.setText("-");
 

@@ -13,6 +13,9 @@ public class CorporateModel implements Parcelable {
     @SerializedName("branch")
     @Expose
     private String branch;
+    @SerializedName("gstNumber")
+    @Expose
+    private String gstNo;
     @SerializedName("auth_person_name")
     @Expose
     private String authPersonName;
@@ -23,6 +26,7 @@ public class CorporateModel implements Parcelable {
     protected CorporateModel(Parcel in) {
         companyName = in.readString();
         branch = in.readString();
+        gstNo = in.readString();
         authPersonName = in.readString();
         designation = in.readString();
     }
@@ -71,6 +75,14 @@ public class CorporateModel implements Parcelable {
         this.designation = designation;
     }
 
+    public String getGstNo() {
+        return gstNo;
+    }
+
+    public void setGstNo(String gstNo) {
+        this.gstNo = gstNo;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -80,6 +92,7 @@ public class CorporateModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(companyName);
         dest.writeString(branch);
+        dest.writeString(gstNo);
         dest.writeString(authPersonName);
         dest.writeString(designation);
     }

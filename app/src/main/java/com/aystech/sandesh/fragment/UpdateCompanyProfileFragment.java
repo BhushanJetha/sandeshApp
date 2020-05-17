@@ -48,10 +48,10 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
     private CorporateModel corporateModel;
 
     private ImageView imgCompanyProfile, imgCompanyProfileCamera;
-    private EditText etCompanyName, etBranch, etAuthorisedName, etDesignation, etEmailId;
+    private EditText etCompanyName, etBranch, etGSTNo, etAuthorisedName, etDesignation, etEmailId;
     Button btnUpdate;
 
-    String strCompanyName, strBranch, strAuthorisedName, strDesignation, strEmailId;
+    String strCompanyName, strBranch, strGSTNo, strAuthorisedName, strDesignation, strEmailId;
 
     Uri picUri;
     Bitmap myBitmap;
@@ -96,6 +96,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
         imgCompanyProfileCamera = view.findViewById(R.id.imgCompanyProfileCamera);
         etCompanyName = view.findViewById(R.id.etCompanyName);
         etBranch = view.findViewById(R.id.etBranch);
+        etGSTNo = view.findViewById(R.id.etGSTNo);
         etAuthorisedName = view.findViewById(R.id.etAuthorisedName);
         etDesignation = view.findViewById(R.id.etDesignation);
         etEmailId = view.findViewById(R.id.etEmailId);
@@ -113,6 +114,9 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
 
         etBranch.setText(corporateModel.getBranch());
         strBranch = corporateModel.getBranch();
+
+        etGSTNo.setText(corporateModel.getGstNo());
+        strGSTNo = corporateModel.getGstNo();
 
         etAuthorisedName.setText(corporateModel.getAuthPersonName());
         strAuthorisedName = corporateModel.getAuthPersonName();
@@ -136,6 +140,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
             case R.id.btnUpdate:
                 strCompanyName = etCompanyName.getText().toString();
                 strBranch = etBranch.getText().toString();
+                strGSTNo = etGSTNo.getText().toString();
                 strAuthorisedName = etAuthorisedName.getText().toString();
                 strDesignation = etDesignation.getText().toString();
                 strEmailId = etEmailId.getText().toString();
@@ -143,23 +148,27 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
 
                 if(!strCompanyName.isEmpty()){
                     if(!strBranch.isEmpty()){
-                        if(!strAuthorisedName.isEmpty()){
-                            if(!strDesignation.isEmpty()){
-                                if(!strEmailId.isEmpty()){
-                                    if (Uitility.isValidEmailId(strEmailId)){
-                                        //TODO API Call
-                                        updateProfile();
-                                    }else {
-                                        Uitility.showToast(getActivity(), "Please enter valid email id !");
+                        if (!strGSTNo.isEmpty()) {
+                            if (!strAuthorisedName.isEmpty()) {
+                                if (!strDesignation.isEmpty()) {
+                                    if (!strEmailId.isEmpty()) {
+                                        if (Uitility.isValidEmailId(strEmailId)) {
+                                            //TODO API Call
+                                            updateProfile();
+                                        } else {
+                                            Uitility.showToast(getActivity(), "Please enter valid email id !");
+                                        }
+                                    } else {
+                                        Uitility.showToast(getActivity(), "Please enter your company email id !");
                                     }
-                                }else {
-                                    Uitility.showToast(getActivity(), "Please enter your company email id !");
+                                } else {
+                                    Uitility.showToast(getActivity(), "Please enter authorised person designation !");
                                 }
-                            }else {
-                                Uitility.showToast(getActivity(), "Please enter authorised person designation !");
+                            } else {
+                                Uitility.showToast(getActivity(), "Please enter authorized person name !");
                             }
                         }else {
-                            Uitility.showToast(getActivity(), "Please enter authorized person name !");
+                            Uitility.showToast(getActivity(), "Please enter your GST No !");
                         }
                     }else {
                         Uitility.showToast(getActivity(), "Please enter your company branch !");
@@ -183,6 +192,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
         RequestBody emailIdPart = RequestBody.create(MultipartBody.FORM, strEmailId);
         RequestBody companyNamePart = RequestBody.create(MultipartBody.FORM, strCompanyName);
         RequestBody branchPart = RequestBody.create(MultipartBody.FORM, strBranch);
+        RequestBody gstNoPart = RequestBody.create(MultipartBody.FORM, strGSTNo);
         RequestBody authPersonNamePart = RequestBody.create(MultipartBody.FORM, strAuthorisedName);
         RequestBody designationPart = RequestBody.create(MultipartBody.FORM, strDesignation);
 
@@ -201,6 +211,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
                 emailIdPart,
                 companyNamePart,
                 branchPart,
+                gstNoPart,
                 authPersonNamePart,
                 designationPart,
                 body

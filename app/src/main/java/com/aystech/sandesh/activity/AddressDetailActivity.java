@@ -91,7 +91,7 @@ public class AddressDetailActivity extends AppCompatActivity {
                     if (!strAddressLine1.isEmpty()) {
                         if (!strLandmark.isEmpty()) {
                             if (!strPincode.isEmpty()) {
-                                if(strPincode.length() < 6){
+                                if(strPincode.length() <= 6){
                                     doRigistrationAPICall();
                                 } else {
                                     Uitility.showToast(AddressDetailActivity.this, "Please enter 6 digit pin code !");

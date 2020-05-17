@@ -12,10 +12,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,7 +101,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             rbProhibitedNo, rbFraglleYes, rbFraglleNo, rbFlamableToxicExplosiveYes, rbFlamableToxicExplosiveNo;
     private Button btnSubmit;
     private TextView btnCancel;
-    private CheckBox cbTermsCondition;
+    private CheckBox cbTermsCondition, cbPricingPolicy;
 
     private String deliveryOption = "", natureOfGoods = "", strQuality = "", strPackaging = "", strOwnership = "", strFromPincode, strtoPincode,
             strStartDate = "", strStartTime = "", strEndDate = "", strEndTime = "", strGoodsDescription, strValueOgGood,
@@ -289,6 +287,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         etReceiverAddress = view.findViewById(R.id.etReceiverAddress);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         btnCancel = view.findViewById(R.id.btnCancel);
+        cbPricingPolicy = view.findViewById(R.id.cbPricingPolicy);
         cbTermsCondition = view.findViewById(R.id.cbTermsCondition);
         rbCommercial = view.findViewById(R.id.rbCommercial);
         rbNonCommercial = view.findViewById(R.id.rbNonCommercial);
@@ -370,6 +369,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         strPackaging = travelDetailModel.getParcelData().getPackaging();
         strWeight = travelDetailModel.getParcelData().getWeight();
 
+        cbPricingPolicy.setChecked(true);
         cbTermsCondition.setChecked(true);
 
         btnSubmit.setText("Update");
@@ -418,15 +418,19 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                         if (!strReceiverName.isEmpty()) {
                                                                                                                             if (!strReceiverMobileNo.isEmpty()) {
                                                                                                                                 if (!strReceiverAddress.isEmpty()) {
-                                                                                                                                    if (cbTermsCondition.isChecked()) {
-                                                                                                                                        if (!strParcelFilePath.isEmpty()) {
-                                                                                                                                            //TODO API Call
-                                                                                                                                            updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+                                                                                                                                    if (cbPricingPolicy.isChecked()) {
+                                                                                                                                        if (cbTermsCondition.isChecked()) {
+                                                                                                                                            if (!strParcelFilePath.isEmpty()) {
+                                                                                                                                                //TODO API Call
+                                                                                                                                                updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+                                                                                                                                            } else {
+                                                                                                                                                Uitility.showToast(context, "Please select parcel image!");
+                                                                                                                                            }
                                                                                                                                         } else {
-                                                                                                                                            Uitility.showToast(context, "Please select parcel image!");
+                                                                                                                                            Uitility.showToast(context, "Please accept terms and condition!");
                                                                                                                                         }
                                                                                                                                     } else {
-                                                                                                                                        Uitility.showToast(context, "Please accept terms and condition!");
+                                                                                                                                        Uitility.showToast(context, "Please accept pricing policy!");
                                                                                                                                     }
                                                                                                                                 } else {
                                                                                                                                     Uitility.showToast(context, "Please enter receiver address!");
@@ -534,6 +538,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         ingEndTime.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+        cbPricingPolicy.setOnClickListener(this);
         cbTermsCondition.setOnClickListener(this);
 
         // This overrides the radiogroup onCheckListener
@@ -662,15 +667,19 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                         if (!strReceiverName.isEmpty()) {
                                                                                                                             if (!strReceiverMobileNo.isEmpty()) {
                                                                                                                                 if (!strReceiverAddress.isEmpty()) {
-                                                                                                                                    if (cbTermsCondition.isChecked()) {
-                                                                                                                                        if (!strParcelFilePath.isEmpty()) {
-                                                                                                                                            //TODO API Call
-                                                                                                                                            sendParcel();
+                                                                                                                                    if (cbPricingPolicy.isChecked()) {
+                                                                                                                                        if (cbTermsCondition.isChecked()) {
+                                                                                                                                            if (!strParcelFilePath.isEmpty()) {
+                                                                                                                                                //TODO API Call
+                                                                                                                                                sendParcel();
+                                                                                                                                            } else {
+                                                                                                                                                Uitility.showToast(context, "Please select parcel image!");
+                                                                                                                                            }
                                                                                                                                         } else {
-                                                                                                                                            Uitility.showToast(context, "Please select parcel image!");
+                                                                                                                                            Uitility.showToast(context, "Please accept terms and condition!");
                                                                                                                                         }
                                                                                                                                     } else {
-                                                                                                                                        Uitility.showToast(context, "Please accept terms and condition!");
+                                                                                                                                        Uitility.showToast(context, "Please accept pricing policy!");
                                                                                                                                     }
                                                                                                                                 } else {
                                                                                                                                     Uitility.showToast(context, "Please enter receiver address!");
@@ -800,6 +809,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 rgProhibited.setSelected(false);
                 rgFraglle.setSelected(false);
                 rgFlamableToxicExplosive.setSelected(false);
+                cbPricingPolicy.setChecked(false);
                 cbTermsCondition.setChecked(false);
                 rbCommercial.setChecked(false);
                 rbNonCommercial.setChecked(false);
@@ -812,6 +822,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 rbFlamableToxicExplosiveNo.setChecked(false);
                 rbFlamableToxicExplosiveYes.setChecked(false);
 
+                break;
+            case R.id.cbPricingPolicy:
+                cbPricingPolicy.setChecked(true);
+                showPricingPolicy();
                 break;
             case R.id.cbTermsCondition:
                 cbTermsCondition.setChecked(true);
@@ -837,6 +851,28 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         // displaying content in WebView from html file that stored in assets folder
         wvTermsConditions.getSettings().setJavaScriptEnabled(true);
         wvTermsConditions.loadUrl("file:///android_res/raw/" + "terms_and_condition.html");
+
+        TextView tvOk = alertLayout.findViewById(R.id.tvOk);
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void showPricingPolicy() {
+        LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
+        final View alertLayout = inflater.inflate(R.layout.dialog_pricig_policy, null);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(true);
+
+        final AlertDialog dialog = alert.create();
+        dialog.show();
 
         TextView tvOk = alertLayout.findViewById(R.id.tvOk);
         tvOk.setOnClickListener(new View.OnClickListener() {
