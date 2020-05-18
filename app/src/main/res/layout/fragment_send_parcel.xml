@@ -442,6 +442,8 @@
                         android:id="@+id/etGoodsValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="5"
                         android:hint="Value of goods" />
 
                 </android.support.design.widget.TextInputLayout>

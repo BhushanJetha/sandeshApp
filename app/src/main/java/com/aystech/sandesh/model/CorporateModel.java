@@ -13,7 +13,7 @@ public class CorporateModel implements Parcelable {
     @SerializedName("branch")
     @Expose
     private String branch;
-    @SerializedName("gstNumber")
+    @SerializedName("gst_no")
     @Expose
     private String gstNo;
     @SerializedName("auth_person_name")
