@@ -333,9 +333,16 @@ public class OrderListFragment extends Fragment {
         jsonObject.addProperty("travel_id", travel_id);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<AcceptedOrdersResponseModel> call = apiInterface.getMyAcceptedOrders(
-                jsonObject
-        );
+        Call<AcceptedOrdersResponseModel> call = null;
+        if (tag.equals("order_clicked_verify")) {
+            call = apiInterface.getMyAcceptedOrders(
+                    jsonObject
+            );
+        } else if(tag.equals("order_clicked_verify_end_journey")){
+            call = apiInterface.getMyVerifiedOrder(
+                    jsonObject
+            );
+        }
         call.enqueue(new Callback<AcceptedOrdersResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<AcceptedOrdersResponseModel> call, @NonNull Response<AcceptedOrdersResponseModel> response) {
@@ -605,7 +612,7 @@ public class OrderListFragment extends Fragment {
         });
     }
 
-    private void verifyOTP(Integer deliveryId, String otp) {
+    private void verifyOTP(final Integer deliveryId, String otp) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("delivery_id", deliveryId);
         jsonObject.addProperty("journey_type", "Sender");
@@ -634,6 +641,7 @@ public class OrderListFragment extends Fragment {
                             Bundle bundle = new Bundle();
                             bundle.putInt("parcel_id", parcel_id);
                             bundle.putInt("travel_id", travel_id); //this for to send current location
+                            bundle.putInt("delivery_id", deliveryId); //this for to send current location
                             bundle.putString("tag", "after_verify");
                             orderDetailFragment.setArguments(bundle);
                         }

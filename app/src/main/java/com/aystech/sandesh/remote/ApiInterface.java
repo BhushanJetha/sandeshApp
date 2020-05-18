@@ -193,6 +193,9 @@ public interface ApiInterface {
     @POST("api/getMyAcceptedOrders")
     Call<AcceptedOrdersResponseModel> getMyAcceptedOrders(@Body JsonObject jsonObject);
 
+    @POST("api/getMyVerifiedOrder")
+    Call<AcceptedOrdersResponseModel> getMyVerifiedOrder(@Body JsonObject jsonObject);
+
     @POST("api/sendOTP")
     Call<CommonResponse> sendOTP(@Body JsonObject jsonObject);
 

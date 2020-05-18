@@ -106,6 +106,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                     Objects.requireNonNull(getArguments().getString("tag")).equals("after_verify")) {
                 parcel_id = getArguments().getInt("parcel_id");
                 travel_id = getArguments().getInt("travel_id");
+                delivery_id = getArguments().getInt("delivery_id");
                 tag = getArguments().getString("tag");
             } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("accept_reject_order")) {
@@ -409,14 +410,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 } else {
                     status = "Reject";
                     //TODO API Call
-                    sendVerificationStatus();
+                    sendVerificationStatus(); //btnReject
                 }
                 break;
 
             case R.id.btnVerify:
                 status = "Verify";
                 //TODO API Call
-                sendVerificationStatus();
+                sendVerificationStatus(); //btnVerify
                 break;
 
             case R.id.btnRejectOrder:
@@ -449,6 +450,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     private void sendVerificationStatus() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("parcel_id", parcel_id);
+        jsonObject.addProperty("delivery_id", delivery_id);
         jsonObject.addProperty("status", status);
         jsonObject.addProperty("comment", etComment.getText().toString());
 
