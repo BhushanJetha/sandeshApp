@@ -61,7 +61,7 @@ public interface ApiInterface {
             @Part("refferal_code") RequestBody refferalCode,
             @Part("company_name") RequestBody companyName,
             @Part("branch") RequestBody branch,
-            @Part("gstNumber") RequestBody gstNo,
+            @Part("gst_no") RequestBody gstNo,
             @Part("auth_person_name") RequestBody authPersonName,
             @Part("designation") RequestBody designation,
             @Part MultipartBody.Part image
@@ -139,7 +139,7 @@ public interface ApiInterface {
             @Part("email_id") RequestBody email_id,
             @Part("company_name") RequestBody company_name,
             @Part("branch") RequestBody branch,
-            @Part("gstNumber") RequestBody gstNo,
+            @Part("gst_no") RequestBody gstNo,
             @Part("auth_person_name") RequestBody auth_person_name,
             @Part("designation") RequestBody designation,
             @Part MultipartBody.Part image

@@ -408,14 +408,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                     etComment.setError("Please enter your comment here");
                     etComment.requestFocus();
                 } else {
-                    status = "Reject";
+                    status = "unverify";
                     //TODO API Call
                     sendVerificationStatus(); //btnReject
                 }
                 break;
 
             case R.id.btnVerify:
-                status = "Verify";
+                status = "verify";
                 //TODO API Call
                 sendVerificationStatus(); //btnVerify
                 break;
@@ -425,14 +425,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                     etAcceptRejectComment.setError("Please enter your rejection reason here");
                     etAcceptRejectComment.requestFocus();
                 } else {
-                    status = "Rejected";
+                    status = "reject";
                     //TODO API Call
                     sendOrderRequestStatus(); //btnRejectOrder
                 }
                 break;
 
             case R.id.btnAcceptOrder:
-                status = "Accepted";
+                status = "accept";
                 //TODO API Call
                 sendOrderRequestStatus(); //btnAcceptOrder
                 break;

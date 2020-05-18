@@ -411,18 +411,22 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                             if (!rgStrProhibited.isEmpty()) {
                                                                                                 if (!rgStrFraglle.isEmpty()) {
                                                                                                     if (!rgStrFlamableToxicExplosive.isEmpty()) {
-                                                                                                        if (!rgStrFlamableToxicExplosive.equals("No")) {
-                                                                                                            if (!rgStrFraglle.equals("No")) {
-                                                                                                                if (!rgStrProhibited.equals("Yes")) {
-                                                                                                                    if (!rgStrHazardous.equals("Yes")) {
+                                                                                                        if (!rgStrFlamableToxicExplosive.equals("Yes")) {
+                                                                                                            if (!rgStrFraglle.equals("Yes")) {
+                                                                                                                if (!rgStrProhibited.equals("No")) {
+                                                                                                                    if (!rgStrHazardous.equals("No")) {
                                                                                                                         if (!strReceiverName.isEmpty()) {
                                                                                                                             if (!strReceiverMobileNo.isEmpty()) {
                                                                                                                                 if (!strReceiverAddress.isEmpty()) {
                                                                                                                                     if (cbPricingPolicy.isChecked()) {
                                                                                                                                         if (cbTermsCondition.isChecked()) {
                                                                                                                                             if (!strParcelFilePath.isEmpty()) {
-                                                                                                                                                //TODO API Call
-                                                                                                                                                updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+                                                                                                                                                if(Integer.parseInt(strValueOgGood) <= 50000){
+                                                                                                                                                    //TODO API Call
+                                                                                                                                                    updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+                                                                                                                                                }else {
+                                                                                                                                                    Uitility.showToast(context, "We deliver order below amount 50,000 !");
+                                                                                                                                                }
                                                                                                                                             } else {
                                                                                                                                                 Uitility.showToast(context, "Please select parcel image!");
                                                                                                                                             }
@@ -660,18 +664,22 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                             if (!rgStrProhibited.isEmpty()) {
                                                                                                 if (!rgStrFraglle.isEmpty()) {
                                                                                                     if (!rgStrFlamableToxicExplosive.isEmpty()) {
-                                                                                                        if (!rgStrFlamableToxicExplosive.equals("No")) {
-                                                                                                            if (!rgStrFraglle.equals("No")) {
-                                                                                                                if (!rgStrProhibited.equals("Yes")) {
-                                                                                                                    if (!rgStrHazardous.equals("Yes")) {
+                                                                                                        if (!rgStrFlamableToxicExplosive.equals("Yes")) {
+                                                                                                            if (!rgStrFraglle.equals("Yes")) {
+                                                                                                                if (!rgStrProhibited.equals("No")) {
+                                                                                                                    if (!rgStrHazardous.equals("No")) {
                                                                                                                         if (!strReceiverName.isEmpty()) {
                                                                                                                             if (!strReceiverMobileNo.isEmpty()) {
                                                                                                                                 if (!strReceiverAddress.isEmpty()) {
                                                                                                                                     if (cbPricingPolicy.isChecked()) {
                                                                                                                                         if (cbTermsCondition.isChecked()) {
                                                                                                                                             if (!strParcelFilePath.isEmpty()) {
-                                                                                                                                                //TODO API Call
-                                                                                                                                                sendParcel();
+                                                                                                                                                if(Integer.parseInt(strValueOgGood) <= 50000){
+                                                                                                                                                    //TODO API Call
+                                                                                                                                                    sendParcel();
+                                                                                                                                                }else {
+                                                                                                                                                    Uitility.showToast(context, "We deliver order below amount 50,000 !");
+                                                                                                                                                }
                                                                                                                                             } else {
                                                                                                                                                 Uitility.showToast(context, "Please select parcel image!");
                                                                                                                                             }

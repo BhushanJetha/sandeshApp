@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         Log.d("Login count-->", String.valueOf(login_count));
+        Log.d("TOKEN -->", userSession.getFCMId());
     }
 
     private void onClick() {

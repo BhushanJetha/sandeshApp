@@ -8,6 +8,7 @@ import com.aystech.sandesh.activity.LoginActivity;
 
 public class AppController extends MultiDexApplication {
 
+
     public static String imageURL = "http://13.127.119.95:4444/api/assets/";
     public static String testingURL = "http://13.127.119.95:4444/";
     public static String devURL = "http://13.127.119.95:5555/";
@@ -15,7 +16,7 @@ public class AppController extends MultiDexApplication {
 
     private static AppController mInstance;
 
-    private static boolean isBaseUrl = false;
+    private static boolean isBaseUrl = true;
 
     private UserSession userSession;
 
