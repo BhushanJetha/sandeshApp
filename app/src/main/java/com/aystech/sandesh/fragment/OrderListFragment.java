@@ -153,7 +153,7 @@ public class OrderListFragment extends Fragment {
             case "order_clicked_accept_reject_sender":  //this is for order list
                 //TODO API Call
                 getMyTravellerRequestList();
-                tvScreenTitle.setText("My Requested Orders List");
+                tvScreenTitle.setText("My Requested Traveller List");
                 break;
         }
 
@@ -386,19 +386,19 @@ public class OrderListFragment extends Fragment {
             orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-                    delivery_id = searchOrderModel.getDeliveryId();
-                    travel_id = searchOrderModel.getTravelId();
-                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                            orderDetailFragment, R.id.frame_container, false);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("delivery_id", delivery_id);
-                    bundle.putInt("travel_id", travel_id);
-                    bundle.putString("tag", "accept_reject_order_sender");
-                    orderDetailFragment.setArguments(bundle);
                 }
 
                 @Override
                 public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                    delivery_id = searchTravellerModel.getDeliveryId();
+                    travel_id = searchTravellerModel.getTravelId();
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            travellerDetailFragment, R.id.frame_container, false);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("delivery_id", delivery_id);
+                    bundle.putInt("travel_id", travel_id);
+                    bundle.putString("tag", "accept_reject_order_sender");
+                    travellerDetailFragment.setArguments(bundle);
                 }
 
                 @Override

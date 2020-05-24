@@ -1,13 +1,17 @@
 package com.aystech.sandesh.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,9 +47,12 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
             tvHeight, tvVehicleType, tvVehicleTrainNo, tvOtherDetail;
     private ImageView imgTravelEdit;
     private Button btnSendRequest, btnTravelDelete;
+    private ConstraintLayout clAcceptRejectOrder;
+    private EditText etAcceptRejectComment;
+    private Button btnRejectOrder, btnAcceptOrder;
 
-    private int travel_id;
-    private String tag;
+    private int travel_id, delivery_id;
+    private String tag, status;
 
     private ViewProgressDialog viewProgressDialog;
 
@@ -73,11 +80,20 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
                 Fragment.instantiate(context, PlanTravelFragment.class.getName());
 
         if (getArguments() != null) {
+            delivery_id = getArguments().getInt("delivery_id");
             travel_id = getArguments().getInt("travel_id");
             tag = getArguments().getString("tag");
         }
 
         initView(view);
+
+        if (tag != null && tag.equals("accept_reject_order_sender")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.VISIBLE);
+        } else {
+            btnSendRequest.setVisibility(View.VISIBLE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
+        }
 
         onClickListener();
 
@@ -114,6 +130,10 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         tvOtherDetail = view.findViewById(R.id.tvOtherDetail);
         btnSendRequest = view.findViewById(R.id.btnSendRequest);
         btnTravelDelete = view.findViewById(R.id.btnTravelDelete);
+        clAcceptRejectOrder = view.findViewById(R.id.clAcceptRejectOrder);
+        etAcceptRejectComment = view.findViewById(R.id.etAcceptRejectComment);
+        btnRejectOrder = view.findViewById(R.id.btnRejectOrder);
+        btnAcceptOrder = view.findViewById(R.id.btnAcceptOrder);
         if (tag != null && !tag.equals("")) {
             if (tag.equals("normal"))
                 btnSendRequest.setVisibility(View.VISIBLE);
@@ -126,6 +146,8 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         btnSendRequest.setOnClickListener(this);
         imgTravelEdit.setOnClickListener(this);
         btnTravelDelete.setOnClickListener(this);
+        btnAcceptOrder.setOnClickListener(this);
+        btnRejectOrder.setOnClickListener(this);
     }
 
     private void getTravellerDetail() {
@@ -159,6 +181,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void bindDataToUI(TravelDetailModel data) {
         if (data.getTravelPlan().getFull_name() != null &&
                 !data.getTravelPlan().getFull_name().equals(""))
@@ -250,11 +273,55 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
                 planTravelFragment.setArguments(bundle);
                 break;
 
+            case R.id.btnRejectOrder:
+                if (TextUtils.isEmpty(etAcceptRejectComment.getText().toString().trim())) {
+                    etAcceptRejectComment.setError("Please enter your rejection reason here");
+                    etAcceptRejectComment.requestFocus();
+                } else {
+                    status = "reject";
+                    //TODO API Call
+                    sendOrderRequestStatus(); //btnRejectOrder
+                }
+                break;
+
+            case R.id.btnAcceptOrder:
+                status = "accept";
+                //TODO API Call
+                sendOrderRequestStatus(); //btnAcceptOrder
+                break;
+
             case R.id.btnTravelDelete:
                 //TODO API Call
                 deleteTravelDetail();
                 break;
         }
+    }
+
+    private void sendOrderRequestStatus() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("delivery_id", delivery_id);
+        jsonObject.addProperty("status", status);
+        jsonObject.addProperty("rejection_reason", etAcceptRejectComment.getText().toString());
+        jsonObject.addProperty("request_acceptor", "sender");
+
+        RetrofitInstance.getClient().sendOrderRequestStatus(jsonObject).enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
+                                false);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+            }
+        });
     }
 
     private void deleteTravelDetail() {

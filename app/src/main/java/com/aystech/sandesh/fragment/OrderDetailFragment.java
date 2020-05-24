@@ -114,11 +114,6 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 parcel_id = getArguments().getInt("parcel_id");
                 tag = getArguments().getString("tag");
             } else if (getArguments().getString("tag") != null &&
-                    Objects.requireNonNull(getArguments().getString("tag")).equals("accept_reject_order_sender")) {
-                delivery_id = getArguments().getInt("delivery_id");
-                travel_id = getArguments().getInt("travel_id");
-                tag = getArguments().getString("tag");
-            } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("just_show_order_detail")) {
                 parcel_id = getArguments().getInt("parcel_id");
                 tag = getArguments().getString("tag");
@@ -146,10 +141,6 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             clAfterVerify.setVisibility(View.VISIBLE);
             clAcceptRejectOrder.setVisibility(View.GONE);
         } else if (tag != null && tag.equals("accept_reject_order_traveller")) {
-            btnSendRequest.setVisibility(View.GONE);
-            clAfterVerify.setVisibility(View.GONE);
-            clAcceptRejectOrder.setVisibility(View.VISIBLE);
-        } else if (tag != null && tag.equals("accept_reject_order_sender")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.VISIBLE);
@@ -274,6 +265,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void bindDataToUI(TravelDetailModel data) {
         if (data.getParcelData().getFull_name() != null &&
                 !data.getParcelData().getFull_name().equals(""))
@@ -551,10 +543,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         jsonObject.addProperty("delivery_id", delivery_id);
         jsonObject.addProperty("status", status);
         jsonObject.addProperty("rejection_reason", etAcceptRejectComment.getText().toString());
-        if (tag.equals("accept_reject_order_traveller"))
-            jsonObject.addProperty("request_acceptor", "Traveller");
-        else
-            jsonObject.addProperty("request_acceptor", "sender");
+        jsonObject.addProperty("request_acceptor", "Traveller");
 
         RetrofitInstance.getClient().sendOrderRequestStatus(jsonObject).enqueue(new Callback<CommonResponse>() {
             @Override
