@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.TravelDetailModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
@@ -32,6 +33,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
     private TravelDetailModel travelDetailModel;
 
+    private DashboardFragment dashboardFragment;
     private OrderListFragment orderListFragment;
     private PlanTravelFragment planTravelFragment;
 
@@ -40,7 +42,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
             tvToPincode, tvFromPincode, tvDeliveryOption, tvWeight, tvLength, tvBreadth,
             tvHeight, tvVehicleType, tvVehicleTrainNo, tvOtherDetail;
     private ImageView imgTravelEdit;
-    private Button btnSendRequest;
+    private Button btnSendRequest, btnTravelDelete;
 
     private int travel_id;
     private String tag;
@@ -63,6 +65,8 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_traveller_detail, container, false);
 
+        dashboardFragment = (DashboardFragment) Fragment.instantiate(context,
+                DashboardFragment.class.getName());
         orderListFragment = (OrderListFragment) Fragment.instantiate(context,
                 OrderListFragment.class.getName());
         planTravelFragment = (PlanTravelFragment)
@@ -109,6 +113,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         tvVehicleTrainNo = view.findViewById(R.id.tvVehicleTrainNo);
         tvOtherDetail = view.findViewById(R.id.tvOtherDetail);
         btnSendRequest = view.findViewById(R.id.btnSendRequest);
+        btnTravelDelete = view.findViewById(R.id.btnTravelDelete);
         if (tag != null && !tag.equals("")) {
             if (tag.equals("normal"))
                 btnSendRequest.setVisibility(View.VISIBLE);
@@ -120,6 +125,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     private void onClickListener() {
         btnSendRequest.setOnClickListener(this);
         imgTravelEdit.setOnClickListener(this);
+        btnTravelDelete.setOnClickListener(this);
     }
 
     private void getTravellerDetail() {
@@ -168,10 +174,10 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
         if (data.getAddress() != null &&
                 !data.getAddress().equals(""))
-            tvAddress.setText(data.getAddress().getAddressLine1() + " " +
-                    data.getAddress().getAddressLine2() + "" + data.getAddress().getLandmark()
-                    + "" + data.getAddress().getState() + "" + data.getAddress().getCity()
-                    + "" + data.getAddress().getPincode());
+            tvAddress.setText(data.getAddress().getAddressLine1() + ", " +
+                    data.getAddress().getAddressLine2() + ", " + data.getAddress().getLandmark()
+                    + ", " + data.getAddress().getState() + ", " + data.getAddress().getCity()
+                    + ", " + data.getAddress().getPincode());
         else
             tvAddress.setText("-");
 
@@ -214,6 +220,14 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
             tvOtherDetail.setText(data.getTravelPlan().getOtherDetail());
         else
             tvOtherDetail.setText("-");
+
+        if (data.getTravelPlan().getStatus().equals("Fresh Parcel")) {
+            imgTravelEdit.setVisibility(View.VISIBLE);
+            btnTravelDelete.setVisibility(View.VISIBLE);
+        } else {
+            imgTravelEdit.setVisibility(View.GONE);
+            btnTravelDelete.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -235,7 +249,40 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
                 bundle.putString("tag", "edit");
                 planTravelFragment.setArguments(bundle);
                 break;
+
+            case R.id.btnTravelDelete:
+                //TODO API Call
+                deleteTravelDetail();
+                break;
         }
     }
 
+    private void deleteTravelDetail() {
+        viewProgressDialog.showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("travel_id", travel_id);
+
+        RetrofitInstance.getClient().deleteTravelPlan(jsonObject).enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
+                                false);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
 }

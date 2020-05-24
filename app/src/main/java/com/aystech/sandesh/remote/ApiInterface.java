@@ -304,4 +304,10 @@ public interface ApiInterface {
     Call<CommonResponse> getMyTravellerRequestList(
             @Body JsonObject jsonObject
     );
+
+    @POST("api/deleteOrder")
+    Call<CommonResponse> deleteOrder(@Body JsonObject jsonObject);
+
+    @POST("api/deleteTravelPlan")
+    Call<CommonResponse> deleteTravelPlan(@Body JsonObject jsonObject);
 }

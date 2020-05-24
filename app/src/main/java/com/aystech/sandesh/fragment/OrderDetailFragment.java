@@ -63,7 +63,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
     private ConstraintLayout clAfterVerify, clAcceptRejectOrder;
     private EditText etComment, etAcceptRejectComment;
-    private Button btnSendRequest, btnReject, btnVerify, btnRejectOrder, btnAcceptOrder;
+    private Button btnSendRequest, btnReject, btnVerify, btnRejectOrder, btnAcceptOrder, btnOrderDelete;
 
     private int parcel_id, delivery_id, travel_id;
     private double latitude, longitude;
@@ -225,6 +225,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         etAcceptRejectComment = view.findViewById(R.id.etAcceptRejectComment);
         btnRejectOrder = view.findViewById(R.id.btnRejectOrder);
         btnAcceptOrder = view.findViewById(R.id.btnAcceptOrder);
+        btnOrderDelete = view.findViewById(R.id.btnOrderDelete);
     }
 
     private void onClickListener() {
@@ -233,6 +234,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         btnVerify.setOnClickListener(this);
         btnAcceptOrder.setOnClickListener(this);
         btnRejectOrder.setOnClickListener(this);
+        btnOrderDelete.setOnClickListener(this);
         imgOrderEdit.setOnClickListener(this);
     }
 
@@ -278,10 +280,10 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
         if (data.getAddress() != null &&
                 !data.getAddress().equals(""))
-            tvAddress.setText(data.getAddress().getAddressLine1() + " " +
-                    data.getAddress().getAddressLine2() + "" + data.getAddress().getLandmark()
-                    + "" + data.getAddress().getState() + "" + data.getAddress().getCity()
-                    + "" + data.getAddress().getPincode());
+            tvAddress.setText(data.getAddress().getAddressLine1() + ", " +
+                    data.getAddress().getAddressLine2() + ", " + data.getAddress().getLandmark()
+                    + ", " + data.getAddress().getState() + ", " + data.getAddress().getCity()
+                    + ", " + data.getAddress().getPincode());
         else
             tvAddress.setText("-");
 
@@ -386,6 +388,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             tvReceiverAddress.setText(data.getParcelData().getReceiverAddressDetail());
         else
             tvReceiverAddress.setText("-");
+
+        if (data.getParcelData().getStatus().equals("Fresh Parcel")) {
+            imgOrderEdit.setVisibility(View.VISIBLE);
+            btnOrderDelete.setVisibility(View.VISIBLE);
+        } else {
+            imgOrderEdit.setVisibility(View.GONE);
+            btnOrderDelete.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -441,6 +451,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 bundle.putString("tag", "edit");
                 sendParcelFragment.setArguments(bundle);
                 break;
+
+            case R.id.btnOrderDelete:
+                //TODO API Call
+                deleteOrderDetail();
+                break;
         }
     }
 
@@ -451,11 +466,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         jsonObject.addProperty("status", status);
         jsonObject.addProperty("comment", etComment.getText().toString());
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.sendVerificationStatus(
-                jsonObject
-        );
-        call.enqueue(new Callback<CommonResponse>() {
+        RetrofitInstance.getClient().sendVerificationStatus(jsonObject).enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 if (response.body() != null) {
@@ -531,11 +542,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         jsonObject.addProperty("rejection_reason", etAcceptRejectComment.getText().toString());
         jsonObject.addProperty("request_acceptor", "Traveller / sender");
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.sendOrderRequestStatus(
-                jsonObject
-        );
-        call.enqueue(new Callback<CommonResponse>() {
+        RetrofitInstance.getClient().sendOrderRequestStatus(jsonObject).enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 if (response.body() != null) {
@@ -551,6 +558,35 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void deleteOrderDetail() {
+        viewProgressDialog.showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("parcel_id", parcel_id);
+
+        RetrofitInstance.getClient().deleteOrder(jsonObject).enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
+                                false);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
             }
         });
     }

@@ -1162,6 +1162,24 @@
                     app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
+                <Button
+                    android:id="@+id/btnOrderDelete"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:fontFamily="@font/gotham_light"
+                    android:paddingStart="@dimen/_36sdp"
+                    android:paddingEnd="@dimen/_36sdp"
+                    android:text="@string/order_delete"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_9sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/clAfterVerify"
                     android:layout_width="match_parent"
