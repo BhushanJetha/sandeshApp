@@ -159,11 +159,7 @@ public class StartJourneyFragment extends Fragment {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", "parcel");
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<MyOrdersResponseModel> call = apiInterface.getMyOrdersHistory(
-                jsonObject
-        );
-        call.enqueue(new Callback<MyOrdersResponseModel>() {
+        RetrofitInstance.getClient().getMyOrdersHistory(jsonObject).enqueue(new Callback<MyOrdersResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<MyOrdersResponseModel> call, @NonNull Response<MyOrdersResponseModel> response) {
                 viewProgressDialog.hideDialog();
@@ -187,9 +183,7 @@ public class StartJourneyFragment extends Fragment {
     private void getData() {
         ViewProgressDialog.getInstance().showProgress(context);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<SearchTravellerResponseModel> call = apiInterface.getMyTravellerList();
-        call.enqueue(new Callback<SearchTravellerResponseModel>() {
+        RetrofitInstance.getClient().getMyTravellerList().enqueue(new Callback<SearchTravellerResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<SearchTravellerResponseModel> call, @NonNull Response<SearchTravellerResponseModel> response) {
                 viewProgressDialog.hideDialog();

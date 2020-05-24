@@ -360,14 +360,14 @@ public class OrderListFragment extends Fragment {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("parcel_id", parcel_id);
 
-        RetrofitInstance.getClient().getMyTravellerRequestList(jsonObject).enqueue(new Callback<CommonResponse>() {
+        RetrofitInstance.getClient().getMyTravellerRequestList(jsonObject).enqueue(new Callback<SearchTravellerResponseModel>() {
             @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+            public void onResponse(@NonNull Call<SearchTravellerResponseModel> call, @NonNull Response<SearchTravellerResponseModel> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        //bindDataToRV(response.body().getData());
+                        bindDataToTravellerRequestListRV(response.body().getData());
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -375,25 +375,25 @@ public class OrderListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<SearchTravellerResponseModel> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
     }
 
-    private void bindDataToRV(List<SearchOrderModel> data) {
+    private void bindDataToTravellerRequestListRV(List<SearchTravellerModel> data) {
         if (data.size() > 0) {
-            orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
+            orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                     delivery_id = searchOrderModel.getDeliveryId();
-                    parcel_id = searchOrderModel.getParcelId();
+                    travel_id = searchOrderModel.getTravelId();
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                             orderDetailFragment, R.id.frame_container, false);
                     Bundle bundle = new Bundle();
                     bundle.putInt("delivery_id", delivery_id);
-                    bundle.putInt("parcel_id", parcel_id);
-                    bundle.putString("tag", "accept_reject_order");
+                    bundle.putInt("travel_id", travel_id);
+                    bundle.putString("tag", "accept_reject_order_sender");
                     orderDetailFragment.setArguments(bundle);
                 }
 
@@ -405,7 +405,7 @@ public class OrderListFragment extends Fragment {
                 public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
                 }
             });
-            orderAdapter.addOrderList(data);
+            orderAdapter.addTravellerList(data);
             rvOrder.setAdapter(orderAdapter);
         } else {
             NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Orders Found!");
@@ -438,6 +438,38 @@ public class OrderListFragment extends Fragment {
                 viewProgressDialog.hideDialog();
             }
         });
+    }
+
+    private void bindDataToRV(List<SearchOrderModel> data) {
+        if (data.size() > 0) {
+            orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
+                @Override
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                    delivery_id = searchOrderModel.getDeliveryId();
+                    parcel_id = searchOrderModel.getParcelId();
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            orderDetailFragment, R.id.frame_container, false);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("delivery_id", delivery_id);
+                    bundle.putInt("parcel_id", parcel_id);
+                    bundle.putString("tag", "accept_reject_order_traveller");
+                    orderDetailFragment.setArguments(bundle);
+                }
+
+                @Override
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                }
+
+                @Override
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                }
+            });
+            orderAdapter.addOrderList(data);
+            rvOrder.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Orders Found!");
+            rvOrder.setAdapter(noDataAdapter);
+        }
     }
 
     private void openDialog() {
@@ -489,7 +521,7 @@ public class OrderListFragment extends Fragment {
 
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                 dashboardFragment, R.id.frame_container, false);
-                    } else if (response.body().getBalance() > 0.0) { //Insufficient wallet balance.
+                    } else if (response.body().getBalance() != null && response.body().getBalance() > 0.0) { //Insufficient wallet balance.
                         addAmountInWalletDialog(response.body().getBalance());
                     } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();

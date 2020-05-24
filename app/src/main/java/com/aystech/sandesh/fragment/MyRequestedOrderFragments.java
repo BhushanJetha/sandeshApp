@@ -35,7 +35,6 @@ import retrofit2.Response;
 
 public class MyRequestedOrderFragments extends Fragment implements View.OnClickListener {
 
-    private static final String TAG = "MyRequestedOrderFragmen";
     private Context context;
 
     private ShowHistoryInnerModel showHistoryInnerModel;
@@ -112,7 +111,6 @@ public class MyRequestedOrderFragments extends Fragment implements View.OnClickL
 
             @Override
             public void onFailure(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getLocalizedMessage());
                 viewProgressDialog.hideDialog();
             }
         });

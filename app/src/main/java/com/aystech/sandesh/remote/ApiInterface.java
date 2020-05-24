@@ -301,9 +301,7 @@ public interface ApiInterface {
     Call<ShowHistoryResponseModel> getMyOrderInbox();
 
     @POST("api/getMyTravellerRequestList")
-    Call<CommonResponse> getMyTravellerRequestList(
-            @Body JsonObject jsonObject
-    );
+    Call<SearchTravellerResponseModel> getMyTravellerRequestList(@Body JsonObject jsonObject);
 
     @POST("api/deleteOrder")
     Call<CommonResponse> deleteOrder(@Body JsonObject jsonObject);

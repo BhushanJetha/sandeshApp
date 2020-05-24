@@ -109,9 +109,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 delivery_id = getArguments().getInt("delivery_id");
                 tag = getArguments().getString("tag");
             } else if (getArguments().getString("tag") != null &&
-                    Objects.requireNonNull(getArguments().getString("tag")).equals("accept_reject_order")) {
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("accept_reject_order_traveller")) {
                 delivery_id = getArguments().getInt("delivery_id");
                 parcel_id = getArguments().getInt("parcel_id");
+                tag = getArguments().getString("tag");
+            } else if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("accept_reject_order_sender")) {
+                delivery_id = getArguments().getInt("delivery_id");
+                travel_id = getArguments().getInt("travel_id");
                 tag = getArguments().getString("tag");
             } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("just_show_order_detail")) {
@@ -140,7 +145,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.VISIBLE);
             clAcceptRejectOrder.setVisibility(View.GONE);
-        } else if (tag != null && tag.equals("accept_reject_order")) {
+        } else if (tag != null && tag.equals("accept_reject_order_traveller")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAfterVerify.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.VISIBLE);
+        } else if (tag != null && tag.equals("accept_reject_order_sender")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.VISIBLE);
@@ -540,7 +549,10 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         jsonObject.addProperty("delivery_id", delivery_id);
         jsonObject.addProperty("status", status);
         jsonObject.addProperty("rejection_reason", etAcceptRejectComment.getText().toString());
-        jsonObject.addProperty("request_acceptor", "Traveller / sender");
+        if (tag.equals("accept_reject_order_traveller"))
+            jsonObject.addProperty("request_acceptor", "Traveller");
+        else
+            jsonObject.addProperty("request_acceptor", "sender");
 
         RetrofitInstance.getClient().sendOrderRequestStatus(jsonObject).enqueue(new Callback<CommonResponse>() {
             @Override
