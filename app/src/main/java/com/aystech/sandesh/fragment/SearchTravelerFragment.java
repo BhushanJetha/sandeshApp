@@ -216,11 +216,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         jsonObject.addProperty("start_date", strStartDate);
         jsonObject.addProperty("end_date", strEndDate);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<SearchTravellerResponseModel> call = apiInterface.searchTraveller(
-                jsonObject
-        );
-        call.enqueue(new Callback<SearchTravellerResponseModel>() {
+        RetrofitInstance.getClient().searchTraveller(jsonObject).enqueue(new Callback<SearchTravellerResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<SearchTravellerResponseModel> call, @NonNull Response<SearchTravellerResponseModel> response) {
                 viewProgressDialog.hideDialog();

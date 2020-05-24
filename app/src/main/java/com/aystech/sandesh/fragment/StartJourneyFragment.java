@@ -96,10 +96,10 @@ public class StartJourneyFragment extends Fragment {
             getMyOrders();
         } else if (tag != null && tag.equals("nominate_person")) {
             //TODO API Call
-            getData();
+            getData(); //nominate_person
         } else {
             //TODO API Call
-            getData();
+            getData(); //in else
         }
         return view;
     }
@@ -243,7 +243,7 @@ public class StartJourneyFragment extends Fragment {
                                         nominateAlternatePersonFragment, R.id.frame_container, true);
                                 Bundle bundle = new Bundle();
                                 bundle.putInt("travel_id", searchTravellerModel.getTravelId());
-                                travellerDetailFragment.setArguments(bundle);
+                                nominateAlternatePersonFragment.setArguments(bundle);
                                 break;
                             }
                         }

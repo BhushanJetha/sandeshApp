@@ -8,7 +8,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.ShowHistoryInnerModel;
 import com.aystech.sandesh.model.ShowHistoryResponseModel;
-import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
@@ -36,7 +34,6 @@ import retrofit2.Response;
 
 public class HistoryFragment extends Fragment implements View.OnClickListener {
 
-    private static final String TAG = "HistoryFragment";
     private Context context;
 
     private ShowHistoryInnerModel showHistoryInnerModel;
@@ -127,9 +124,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
     private void getHistoryData() {
         ViewProgressDialog.getInstance().showProgress(context);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<ShowHistoryResponseModel> call = apiInterface.showHistory();
-        call.enqueue(new Callback<ShowHistoryResponseModel>() {
+        RetrofitInstance.getClient().showHistory().enqueue(new Callback<ShowHistoryResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Response<ShowHistoryResponseModel> response) {
                 viewProgressDialog.hideDialog();
@@ -146,7 +141,6 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(@NonNull Call<ShowHistoryResponseModel> call, @NonNull Throwable t) {
-                Log.e(TAG, "onFailure: " + t.getLocalizedMessage());
                 viewProgressDialog.hideDialog();
             }
         });
@@ -155,52 +149,60 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
     private void bindDataToRV(String tag) {
         if (showHistoryInnerModel != null) {
             if (tag.equals("travel")) {
-                orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
-                    @Override
-                    public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-                    }
+                if (showHistoryInnerModel.getTravel().size() > 0) {
+                    orderAdapter = new OrderAdapter(context, "traveller", new OnItemClickListener() {
+                        @Override
+                        public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                        }
 
-                    @Override
-                    public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
-                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                travellerDetailFragment, R.id.frame_container, true);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("travel_id", searchTravellerModel.getTravelId());
-                        bundle.putString("tag", "history");
-                        travellerDetailFragment.setArguments(bundle);
-                    }
+                        @Override
+                        public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                    travellerDetailFragment, R.id.frame_container, true);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("travel_id", searchTravellerModel.getTravelId());
+                            bundle.putString("tag", "history");
+                            travellerDetailFragment.setArguments(bundle);
+                        }
 
-                    @Override
-                    public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
-                    }
-                });
-                orderAdapter.addTravellerList(showHistoryInnerModel.getTravel());
+                        @Override
+                        public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                        }
+                    });
+                    orderAdapter.addTravellerList(showHistoryInnerModel.getTravel());
+                    rvHistory.setAdapter(orderAdapter);
+                } else {
+                    NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+                    rvHistory.setAdapter(noDataAdapter);
+                }
             } else if (tag.equals("parcel")) {
-                orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
-                    @Override
-                    public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                orderDetailFragment, R.id.frame_container, true);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("parcel_id", searchOrderModel.getParcelId());
-                        bundle.putString("tag", "history");
-                        orderDetailFragment.setArguments(bundle);
-                    }
+                if (showHistoryInnerModel.getParcel().size() > 0) {
+                    orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
+                        @Override
+                        public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                    orderDetailFragment, R.id.frame_container, true);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("parcel_id", searchOrderModel.getParcelId());
+                            bundle.putString("tag", "history");
+                            orderDetailFragment.setArguments(bundle);
+                        }
 
-                    @Override
-                    public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
-                    }
+                        @Override
+                        public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                        }
 
-                    @Override
-                    public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
-                    }
-                });
-                orderAdapter.addOrderList(showHistoryInnerModel.getParcel());
+                        @Override
+                        public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                        }
+                    });
+                    orderAdapter.addOrderList(showHistoryInnerModel.getParcel());
+                    rvHistory.setAdapter(orderAdapter);
+                } else {
+                    NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Order Found!");
+                    rvHistory.setAdapter(noDataAdapter);
+                }
             }
-            rvHistory.setAdapter(orderAdapter);
-        } else {
-            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Data Found!");
-            rvHistory.setAdapter(noDataAdapter);
         }
     }
 

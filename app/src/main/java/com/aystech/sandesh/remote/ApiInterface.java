@@ -178,7 +178,7 @@ public interface ApiInterface {
     @GET("api/getVehicleType")
     Call<VehicleResponseModel> getVehicleType();
 
-    @POST("api/getTraveDetail")
+    @POST("api/getTravelDetail")
     Call<TravelDetailResponseModel> travelDetail(@Body JsonObject jsonObject);
 
     @GET("api/getMyTravelList")
@@ -294,6 +294,14 @@ public interface ApiInterface {
 
     @POST("api/rateTraveller")
     Call<CommonResponse> rating(
+            @Body JsonObject jsonObject
+    );
+
+    @GET("api/showOrderInbox")
+    Call<ShowHistoryResponseModel> getMyOrderInbox();
+
+    @POST("api/getMyTravellerRequestList")
+    Call<CommonResponse> getMyTravellerRequestList(
             @Body JsonObject jsonObject
     );
 }

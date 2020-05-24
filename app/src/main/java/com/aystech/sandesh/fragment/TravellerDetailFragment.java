@@ -154,12 +154,9 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     }
 
     private void bindDataToUI(TravelDetailModel data) {
-        if (data.getTravelPlan().getFirstName() != null &&
-                !data.getTravelPlan().getFirstName().equals(""))
-            tvName.setText("" + data.getTravelPlan().getFirstName());
-        else if (data.getTravelPlan().getCompany_name() != null &&
-                !data.getTravelPlan().getCompany_name().equals(""))
-            tvName.setText("" + data.getTravelPlan().getCompany_name());
+        if (data.getTravelPlan().getFull_name() != null &&
+                !data.getTravelPlan().getFull_name().equals(""))
+            tvName.setText("" + data.getTravelPlan().getFull_name());
         else
             tvName.setText("-");
 

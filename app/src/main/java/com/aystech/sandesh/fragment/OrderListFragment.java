@@ -60,7 +60,6 @@ public class OrderListFragment extends Fragment {
     private TextView tvScreenTitle;
 
     private int travel_id, parcel_id, delivery_id;
-    private double estimate_amt;
     private String tag = ""; //default value
 
     private ViewProgressDialog viewProgressDialog;
@@ -146,9 +145,14 @@ public class OrderListFragment extends Fragment {
                 getMyAcceptedOrderList();
                 tvScreenTitle.setText("Accepted Order List");
                 break;
-            case "order_clicked_accept_reject":  //this is for order list
+            case "order_clicked_accept_reject_traveller":  //this is for order list
                 //TODO API Call
                 getMyRequestedOrders();
+                tvScreenTitle.setText("My Requested Orders List");
+                break;
+            case "order_clicked_accept_reject_sender":  //this is for order list
+                //TODO API Call
+                getMyTravellerRequestList();
                 tvScreenTitle.setText("My Requested Orders List");
                 break;
         }
@@ -203,40 +207,12 @@ public class OrderListFragment extends Fragment {
                         bundle.putString("tag", tag);
                         orderDetailFragment.setArguments(bundle);
                     } else {
-                        switch (searchOrderModel.getDeliveryOption()) {
-                            case "Door to Door Service":
-                                estimate_amt = searchOrderModel.getD_to_d();
-                                break;
-                            case "Senders place to Travelers place":
-                                estimate_amt = searchOrderModel.getD_to_c();
-                                break;
-                            case "Travelers place to Travelers place":
-                                estimate_amt = searchOrderModel.getC_to_c();
-                                break;
-                            case "Travelers place to Receivers place":
-                                estimate_amt = searchOrderModel.getC_to_d();
-                                break;
-                        }
                         openDialog(); //bindMyOrderDataToRV ----> onOrderItemClicked
                     }
                 }
 
                 @Override
                 public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
-                    switch (searchTravellerModel.getDeliveryOption()) {
-                        case "Door to Door Service":
-                            estimate_amt = searchTravellerModel.getD_to_d();
-                            break;
-                        case "Senders place to Travelers place":
-                            estimate_amt = searchTravellerModel.getD_to_c();
-                            break;
-                        case "Travelers place to Travelers place":
-                            estimate_amt = searchTravellerModel.getC_to_c();
-                            break;
-                        case "Travelers place to Receivers place":
-                            estimate_amt = searchTravellerModel.getC_to_d();
-                            break;
-                    }
                     openDialog(); //bindMyOrderDataToRV ----> onTravellerItemClicked
                 }
 
@@ -296,20 +272,6 @@ public class OrderListFragment extends Fragment {
                         bundle.putString("tag", tag);
                         travellerDetailFragment.setArguments(bundle);
                     } else {
-                        switch (searchTravellerModel.getDeliveryOption()) {
-                            case "Door to Door Service":
-                                estimate_amt = searchTravellerModel.getD_to_d();
-                                break;
-                            case "Senders place to Travelers place":
-                                estimate_amt = searchTravellerModel.getD_to_c();
-                                break;
-                            case "Travelers place to Travelers place":
-                                estimate_amt = searchTravellerModel.getC_to_c();
-                                break;
-                            case "Travelers place to Receivers place":
-                                estimate_amt = searchTravellerModel.getC_to_d();
-                                break;
-                        }
                         openDialog(); //bindMyTravellerDataToRV ----> onTravellerItemClicked
                     }
                 }
@@ -338,7 +300,7 @@ public class OrderListFragment extends Fragment {
             call = apiInterface.getMyAcceptedOrders(
                     jsonObject
             );
-        } else if(tag.equals("order_clicked_verify_end_journey")){
+        } else if (tag.equals("order_clicked_verify_end_journey")) {
             call = apiInterface.getMyVerifiedOrder(
                     jsonObject
             );
@@ -392,24 +354,20 @@ public class OrderListFragment extends Fragment {
         }
     }
 
-    private void getMyRequestedOrders() {
+    private void getMyTravellerRequestList() {
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("travel_id", travel_id);
+        jsonObject.addProperty("parcel_id", parcel_id);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<SearchOrderResponseModel> call = apiInterface.myRequestedOrders(
-                jsonObject
-        );
-        call.enqueue(new Callback<SearchOrderResponseModel>() {
+        RetrofitInstance.getClient().getMyTravellerRequestList(jsonObject).enqueue(new Callback<CommonResponse>() {
             @Override
-            public void onResponse(@NonNull Call<SearchOrderResponseModel> call, @NonNull Response<SearchOrderResponseModel> response) {
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        bindDataToRV(response.body().getData());
+                        //bindDataToRV(response.body().getData());
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -417,7 +375,7 @@ public class OrderListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<SearchOrderResponseModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
@@ -455,6 +413,33 @@ public class OrderListFragment extends Fragment {
         }
     }
 
+    private void getMyRequestedOrders() {
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("travel_id", travel_id);
+
+        RetrofitInstance.getClient().myRequestedOrders(jsonObject).enqueue(new Callback<SearchOrderResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<SearchOrderResponseModel> call, @NonNull Response<SearchOrderResponseModel> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        bindDataToRV(response.body().getData());
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SearchOrderResponseModel> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
     private void openDialog() {
         new AlertDialog.Builder(context)
                 .setTitle("Send Request")
@@ -482,7 +467,6 @@ public class OrderListFragment extends Fragment {
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("estimate_amount", estimate_amt);
         jsonObject.addProperty("travel_id", travel_id);
         jsonObject.addProperty("parcel_id", parcel_id);
         if (tag.equals("order"))

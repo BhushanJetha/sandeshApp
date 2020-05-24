@@ -1173,6 +1173,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                         userSession.setWeight(json);
 
                         ArrayList<String> weightArrayList = new ArrayList<>();
+                        weightArrayList.add(0, "Select Weight");
                         for (int i = 0; i < response.body().getData().size(); i++) {
                             weightArrayList.add(response.body().getData().get(i).getWeight());
                             bindWeightDataToSpinner(weightArrayList);

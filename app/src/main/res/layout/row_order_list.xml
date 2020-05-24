@@ -140,6 +140,7 @@
                 android:paddingEnd="@dimen/_6sdp"
                 android:text="Expected income: Rs. 250"
                 android:textSize="@dimen/_9sdp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="@+id/tvOrderType"
                 app:layout_constraintStart_toStartOf="@+id/tvOrderType"
                 app:layout_constraintTop_toBottomOf="@+id/clDocInfo" />

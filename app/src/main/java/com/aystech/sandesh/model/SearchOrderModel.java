@@ -28,15 +28,9 @@ public class    SearchOrderModel {
     @SerializedName("user_id")
     @Expose
     private Integer userId;
-    @SerializedName("first_name")
+    @SerializedName("full_name")
     @Expose
-    private String firstName;
-    @SerializedName("last_name")
-    @Expose
-    private String lastName;
-    @SerializedName("company_name")
-    @Expose
-    private String company_name;
+    private String full_name;
     @SerializedName("mobile_no")
     @Expose
     private String mobileNo;
@@ -219,28 +213,12 @@ public class    SearchOrderModel {
         this.userId = userId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFull_name() {
+        return full_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getCompany_name() {
-        return company_name;
-    }
-
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 
     public String getMobileNo() {

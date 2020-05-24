@@ -264,12 +264,9 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     }
 
     private void bindDataToUI(TravelDetailModel data) {
-        if (data.getParcelData().getFirstName() != null &&
-                !data.getParcelData().getFirstName().equals(""))
-            tvName.setText("" + data.getParcelData().getFirstName());
-        else if (data.getParcelData().getCompany_name() != null &&
-                !data.getParcelData().getCompany_name().equals(""))
-            tvName.setText("" + data.getParcelData().getCompany_name());
+        if (data.getParcelData().getFull_name() != null &&
+                !data.getParcelData().getFull_name().equals(""))
+            tvName.setText("" + data.getParcelData().getFull_name());
         else
             tvName.setText("-");
 
@@ -532,6 +529,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         jsonObject.addProperty("delivery_id", delivery_id);
         jsonObject.addProperty("status", status);
         jsonObject.addProperty("rejection_reason", etAcceptRejectComment.getText().toString());
+        jsonObject.addProperty("request_acceptor", "Traveller / sender");
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<CommonResponse> call = apiInterface.sendOrderRequestStatus(
