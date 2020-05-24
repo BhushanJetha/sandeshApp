@@ -398,12 +398,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         else
             tvReceiverAddress.setText("-");
 
-        if (data.getParcelData().getStatus().equals("Fresh Parcel")) {
-            imgOrderEdit.setVisibility(View.VISIBLE);
-            btnOrderDelete.setVisibility(View.VISIBLE);
-        } else {
-            imgOrderEdit.setVisibility(View.GONE);
-            btnOrderDelete.setVisibility(View.GONE);
+        if (tag != null && !tag.equals("")) {
+            if (data.getParcelData().getStatus().equals("Fresh Parcel")) {
+                imgOrderEdit.setVisibility(View.VISIBLE);
+                btnOrderDelete.setVisibility(View.VISIBLE);
+            } else {
+                imgOrderEdit.setVisibility(View.GONE);
+                btnOrderDelete.setVisibility(View.GONE);
+            }
         }
     }
 
