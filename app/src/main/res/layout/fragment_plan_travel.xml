@@ -378,7 +378,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
-                        android:hint="Acceptable length"
+                        android:hint="Acceptable length in CM"
                         android:maxLines="1"
                         android:inputType="number"
                         android:paddingEnd="@dimen/_18sdp"
@@ -401,7 +401,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
-                        android:hint="Acceptable breadth"
+                        android:hint="Acceptable breadth in CM"
                         android:maxLines="1"
                         android:inputType="number"
                         android:paddingEnd="@dimen/_18sdp"
@@ -424,7 +424,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
-                        android:hint="Acceptable height"
+                        android:hint="Acceptable height in CM"
                         android:maxLines="1"
                         android:inputType="number"
                         android:paddingEnd="@dimen/_18sdp"
@@ -553,6 +553,14 @@
                     app:layout_constraintEnd_toEndOf="@+id/tvFomState"
                     app:layout_constraintStart_toStartOf="@+id/tvFomState"
                     app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvFomState"
+                    app:layout_constraintStart_toStartOf="@+id/tvFomState"
+                    app:layout_constraintTop_toBottomOf="@id/btnCancel"/>
 
             </android.support.constraint.ConstraintLayout>
 

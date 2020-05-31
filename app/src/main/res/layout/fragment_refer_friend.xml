@@ -69,6 +69,8 @@
                         android:fontFamily="@font/gotham_light"
                         android:hint="Referral Code"
                         android:inputType="text"
+                        android:focusable="false"
+                        android:enabled="false"
                         android:maxLines="1"
                         android:paddingEnd="@dimen/_18sdp"
                         android:paddingRight="@dimen/_18sdp"

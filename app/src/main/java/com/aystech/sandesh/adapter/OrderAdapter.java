@@ -67,7 +67,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchTravellerModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchTravellerModels.get(i).getPreferredWeight());
             myViewHolder.tvOrderTypeContent.setText("Mode of Travel: " + searchTravellerModels.get(i).getModeOfTravel());
-            if (searchTravellerModels.get(i).getDeliveryOption() != null) {
+            if (searchTravellerModels.get(i).getTraveller_amount() != null) {
+                myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
+                myViewHolder.tvExpectedIncome.setText("Expected cost: Rs. " + searchTravellerModels.get(i).getTraveller_amount());
+            } else {
                 myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
                 switch (searchTravellerModels.get(i).getDeliveryOption()) {
                     case "Door to Door Service":
@@ -82,16 +85,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                     case "Travelers place to Receivers place":
                         myViewHolder.tvExpectedIncome.setText("Expected cost: Rs. " + searchTravellerModels.get(i).getC_to_d());
                         break;
+                    default:
+                        myViewHolder.tvExpectedIncome.setVisibility(View.GONE);
+                        break;
                 }
-            } else
-                myViewHolder.tvExpectedIncome.setVisibility(View.INVISIBLE);
+            }
 
             myViewHolder.tvVolumeInfo.setVisibility(View.VISIBLE);
             myViewHolder.tvVolumeInfo.setText("Vol: " + searchTravellerModels.get(i).getAcceptableVolumeLength() + " * " +
                     searchTravellerModels.get(i).getAcceptableVolumeBreadth() + " * " + searchTravellerModels.get(i).getAcceptableVolumeWidth());
 
-            myViewHolder.rbOrder.setVisibility(View.VISIBLE);
-            myViewHolder.rbOrder.setRating(Float.parseFloat("2.0"));
+            if (searchTravellerModels.get(i).getRating() != 0.0) {
+                myViewHolder.rbOrder.setVisibility(View.VISIBLE);
+                myViewHolder.rbOrder.setRating(searchTravellerModels.get(i).getRating());
+            } else {
+                myViewHolder.rbOrder.setVisibility(View.GONE);
+            }
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,7 +128,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
-            if (searchOrderModels.get(i).getDeliveryOption() != null) {
+            if (searchOrderModels.get(i).getTraveller_amount() != null) {
+                myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
+                myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getTraveller_amount());
+            } else {
                 myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
                 switch (searchOrderModels.get(i).getDeliveryOption()) {
                     case "Door to Door Service":
@@ -134,9 +146,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                     case "Travelers place to Receivers place":
                         myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getC_to_d());
                         break;
+                    default:
+                        myViewHolder.tvExpectedIncome.setVisibility(View.GONE);
+                        break;
                 }
-            } else
-                myViewHolder.tvExpectedIncome.setVisibility(View.INVISIBLE);
+            }
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -154,6 +168,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             else
                 myViewHolder.tvName.setText("-");
 
+            if (acceptedOrdersModels.get(i).getFull_name() != null &&
+                    !acceptedOrdersModels.get(i).getFull_name().equals(""))
+                myViewHolder.tvName.setText("" + acceptedOrdersModels.get(i).getFull_name());
+            else
+                myViewHolder.tvName.setText("-");
+
             if ((acceptedOrdersModels.get(i).getStartDate() != null &&
                     !acceptedOrdersModels.get(i).getStartDate().equals("")) &&
                     (acceptedOrdersModels.get(i).getEndDate() != null &&
@@ -166,7 +186,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + acceptedOrdersModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + acceptedOrdersModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + acceptedOrdersModels.get(i).getNatureOfGoods());
-            if (acceptedOrdersModels.get(i).getDeliveryOption() != null) {
+            if (acceptedOrdersModels.get(i).getTraveller_amount() != null) {
+                myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
+                myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + acceptedOrdersModels.get(i).getTraveller_amount());
+            } else {
                 myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
                 switch (acceptedOrdersModels.get(i).getDeliveryOption()) {
                     case "Door to Door Service":
@@ -181,9 +204,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                     case "Travelers place to Receivers place":
                         myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + acceptedOrdersModels.get(i).getCToD());
                         break;
+                    default:
+                        myViewHolder.tvExpectedIncome.setVisibility(View.GONE);
+                        break;
                 }
-            } else
-                myViewHolder.tvExpectedIncome.setVisibility(View.INVISIBLE);
+            }
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -210,7 +235,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
-            if (searchOrderModels.get(i).getDeliveryOption() != null) {
+            if (searchOrderModels.get(i).getTraveller_amount() != null) {
+                myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
+                myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getTraveller_amount());
+            } else {
                 myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
                 switch (searchOrderModels.get(i).getDeliveryOption()) {
                     case "Door to Door Service":
@@ -225,9 +253,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                     case "Travelers place to Receivers place":
                         myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getC_to_d());
                         break;
+                    default:
+                        myViewHolder.tvExpectedIncome.setVisibility(View.GONE);
+                        break;
                 }
-            } else
-                myViewHolder.tvExpectedIncome.setVisibility(View.INVISIBLE);
+            }
         }
     }
 

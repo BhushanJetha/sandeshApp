@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 
 public class TravellerDetailFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "TravellerDetailFragment";
     private Context context;
 
     private TravelDetailModel travelDetailModel;
@@ -84,6 +86,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
             travel_id = getArguments().getInt("travel_id");
             tag = getArguments().getString("tag");
         }
+        Log.e(TAG, "onCreateView tag : " + tag);
 
         initView(view);
 
@@ -244,12 +247,14 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         else
             tvOtherDetail.setText("-");
 
-        if (data.getTravelPlan().getStatus().equals("Fresh Parcel")) {
-            imgTravelEdit.setVisibility(View.VISIBLE);
-            btnTravelDelete.setVisibility(View.VISIBLE);
-        } else {
-            imgTravelEdit.setVisibility(View.GONE);
-            btnTravelDelete.setVisibility(View.GONE);
+        if (!tag.equals("normal")) {
+            if (data.getTravelPlan().getStatus().equals("Fresh Travel")) {
+                imgTravelEdit.setVisibility(View.VISIBLE);
+                btnTravelDelete.setVisibility(View.VISIBLE);
+            } else {
+                imgTravelEdit.setVisibility(View.GONE);
+                btnTravelDelete.setVisibility(View.GONE);
+            }
         }
     }
 

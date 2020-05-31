@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     private OrderListFragment orderListFragment;
     private DashboardFragment dashboardFragment;
     private SendParcelFragment sendParcelFragment;
+    private EndJourneyDetailFragment endJourneyDetailFragment;
 
     private TextView tvName, tvMobileNo, tvAddress, tvFromStateName, tvToStateName, tvFromCityName,
             tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime, tvToPincode,
@@ -63,7 +65,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
     private ConstraintLayout clAfterVerify, clAcceptRejectOrder;
     private EditText etComment, etAcceptRejectComment;
-    private Button btnSendRequest, btnReject, btnVerify, btnRejectOrder, btnAcceptOrder, btnOrderDelete;
+    private Button btnSendRequest, btnReject, btnVerify, btnRejectOrder, btnAcceptOrder, btnOrderDelete,
+            btnSendOTP;
 
     private int parcel_id, delivery_id, travel_id;
     private double latitude, longitude;
@@ -100,10 +103,18 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 DashboardFragment.class.getName());
         sendParcelFragment = (SendParcelFragment)
                 Fragment.instantiate(context, SendParcelFragment.class.getName());
+        endJourneyDetailFragment = (EndJourneyDetailFragment) Fragment.instantiate(context,
+                EndJourneyDetailFragment.class.getName());
 
         if (getArguments() != null) {
             if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("after_verify")) {
+                parcel_id = getArguments().getInt("parcel_id");
+                travel_id = getArguments().getInt("travel_id");
+                delivery_id = getArguments().getInt("delivery_id");
+                tag = getArguments().getString("tag");
+            } else if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("order_clicked_verify_end_journey")) {
                 parcel_id = getArguments().getInt("parcel_id");
                 travel_id = getArguments().getInt("travel_id");
                 delivery_id = getArguments().getInt("delivery_id");
@@ -138,8 +149,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
         if (tag != null && tag.equals("after_verify")) {
             btnSendRequest.setVisibility(View.GONE);
-            clAfterVerify.setVisibility(View.VISIBLE);
+            clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.GONE);
+            btnSendOTP.setVisibility(View.VISIBLE);
+        } else if (tag != null && tag.equals("order_clicked_verify_end_journey")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAfterVerify.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
+            btnSendOTP.setVisibility(View.VISIBLE);
         } else if (tag != null && tag.equals("accept_reject_order_traveller")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);
@@ -226,6 +243,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         btnRejectOrder = view.findViewById(R.id.btnRejectOrder);
         btnAcceptOrder = view.findViewById(R.id.btnAcceptOrder);
         btnOrderDelete = view.findViewById(R.id.btnOrderDelete);
+        btnSendOTP = view.findViewById(R.id.btnSendOTP);
     }
 
     private void onClickListener() {
@@ -236,6 +254,18 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         btnRejectOrder.setOnClickListener(this);
         btnOrderDelete.setOnClickListener(this);
         imgOrderEdit.setOnClickListener(this);
+        btnSendOTP.setOnClickListener(this);
+
+        rbHazardousYes.setClickable(false);
+        rbHazardousNo.setClickable(false);
+        rbProhibitedYes.setClickable(false);
+        rbProhibitedNo.setClickable(false);
+        rbFraglleYes.setClickable(false);
+        rbFraglleNo.setClickable(false);
+        rbFlamableToxicExplosiveYes.setClickable(false);
+        rbFlamableToxicExplosiveNo.setClickable(false);
+        rbCommercial.setClickable(false);
+        rbNonCommercial.setClickable(false);
     }
 
     private void getOrderDetail() {
@@ -459,6 +489,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 //TODO API Call
                 deleteOrderDetail();
                 break;
+
+            case R.id.btnSendOTP:
+                //TODO API Call
+                sendOTP(delivery_id);
+                break;
         }
     }
 
@@ -590,6 +625,97 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void sendOTP(final Integer deliveryId) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("delivery_id", deliveryId);
+        jsonObject.addProperty("journey_type", "Sender");
+
+        RetrofitInstance.getClient().sendOTP(jsonObject).enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        openOTPDialog(deliveryId);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void openOTPDialog(final Integer deliveryId) {
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.verify_otp_dialog, null);
+
+        final EditText etOTP = alertLayout.findViewById(R.id.etOTP);
+        Button btnVerifyOTP = alertLayout.findViewById(R.id.btnVerifyOTP);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+        // disallow cancel of AlertDialog on click of back button and outside touch
+        alert.setCancelable(false);
+
+        final AlertDialog dialog = alert.create();
+        dialog.show();
+
+        btnVerifyOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String otp = etOTP.getText().toString();
+
+                //TODO API Call
+                verifyOTP(deliveryId, otp);
+
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void verifyOTP(final Integer deliveryId, String otp) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("delivery_id", deliveryId);
+        jsonObject.addProperty("journey_type", "Sender");
+        jsonObject.addProperty("otp", otp);
+
+        ApiInterface apiInterface = RetrofitInstance.getClient();
+        Call<CommonResponse> call = apiInterface.verifyOTP(
+                jsonObject
+        );
+        call.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        if (tag.equals("order_clicked_verify_end_journey")) {
+                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                    endJourneyDetailFragment, R.id.frame_container, false);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("parcel_id", parcel_id);
+                            bundle.putInt("travel_id", travel_id);
+                            bundle.putInt("delivery_id", delivery_id);
+                            endJourneyDetailFragment.setArguments(bundle);
+                        } else {
+                            clAfterVerify.setVisibility(View.VISIBLE);
+                        }
+                        btnSendOTP.setVisibility(View.GONE);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
             }
         });
     }

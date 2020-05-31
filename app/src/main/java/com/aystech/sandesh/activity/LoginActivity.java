@@ -225,7 +225,8 @@ public class LoginActivity extends AppCompatActivity {
                             userSession.setUserType(jsonObject1.getString("user_type"));
                             userSession.setUserMobile(jsonObject1.getString("mobile_no"));
                             userSession.setUserEmail(jsonObject1.getString("email_id"));
-                            userSession.setUserEmail(jsonObject1.getString("email_id"));
+                            userSession.setUserName(jsonObject1.getString("user_name"));
+                            userSession.setReferralCode(jsonObject1.getString("refferal_code"));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

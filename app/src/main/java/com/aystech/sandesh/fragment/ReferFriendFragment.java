@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.utils.UserSession;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +22,10 @@ public class ReferFriendFragment extends Fragment {
 
     Context context;
 
+    EditText etReferralCode;
     Button btnReferNow;
+
+    UserSession userSession;
 
     public ReferFriendFragment() {
         // Required empty public constructor
@@ -36,7 +41,7 @@ public class ReferFriendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_refer_friend, container, false);
+        View view = inflater.inflate(R.layout.fragment_refer_friend, container, false);
 
         initView(view);
 
@@ -46,6 +51,15 @@ public class ReferFriendFragment extends Fragment {
     }
 
     private void initView(View view) {
+        userSession = new UserSession(context);
+
+        etReferralCode = view.findViewById(R.id.etReferralCode);
+        if (userSession.getReferralCode() != null &&
+                !userSession.getReferralCode().equals("")) {
+            etReferralCode.setText("" + userSession.getReferralCode());
+        } else {
+            etReferralCode.setText("-");
+        }
         btnReferNow = view.findViewById(R.id.btnReferNow);
     }
 
@@ -57,7 +71,7 @@ public class ReferFriendFragment extends Fragment {
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(
-                        Intent.EXTRA_TEXT, "Earn While You Travel / Send Your Parcels @ lowest charges. Use My Referral Code xxxxxxxx when your register on SANDESH. Register for FREE. T & C applied.");
+                        Intent.EXTRA_TEXT, "Earn While You Travel / Send Your Parcels @ lowest charges. Use My Referral Code " + userSession.getReferralCode() + " when your register on SANDESH. Register for FREE. T & C applied.");
                 startActivity(Intent.createChooser(shareIntent, "send to"));
             }
         });

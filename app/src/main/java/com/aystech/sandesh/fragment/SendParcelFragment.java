@@ -411,8 +411,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                             if (!rgStrProhibited.isEmpty()) {
                                                                                                 if (!rgStrFraglle.isEmpty()) {
                                                                                                     if (!rgStrFlamableToxicExplosive.isEmpty()) {
-                                                                                                        if (!rgStrFlamableToxicExplosive.equals("Yes")) {
-                                                                                                            if (!rgStrFraglle.equals("Yes")) {
+                                                                                                        if (!rgStrFlamableToxicExplosive.equals("No")) {
+                                                                                                            if (!rgStrFraglle.equals("No")) {
                                                                                                                 if (!rgStrProhibited.equals("No")) {
                                                                                                                     if (!rgStrHazardous.equals("No")) {
                                                                                                                         if (!strReceiverName.isEmpty()) {
@@ -421,10 +421,19 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                                     if (cbPricingPolicy.isChecked()) {
                                                                                                                                         if (cbTermsCondition.isChecked()) {
                                                                                                                                             if (!strParcelFilePath.isEmpty()) {
-                                                                                                                                                if(Integer.parseInt(strValueOgGood) <= 50000){
-                                                                                                                                                    //TODO API Call
-                                                                                                                                                    updateMyParcel(travelDetailModel.getParcelData().getParcelId());
-                                                                                                                                                }else {
+                                                                                                                                                if (Integer.parseInt(strValueOgGood) <= 50000) {
+                                                                                                                                                    if (strOwnership.equals("Commercial")) {
+                                                                                                                                                        if (!strInvoiceFilePath.isEmpty()) {
+                                                                                                                                                            //TODO API Call
+                                                                                                                                                            updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+                                                                                                                                                        } else {
+                                                                                                                                                            Uitility.showToast(context, "Please select invoice picture");
+                                                                                                                                                        }
+                                                                                                                                                    } else {
+                                                                                                                                                        //TODO API Call
+                                                                                                                                                        updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+                                                                                                                                                    }
+                                                                                                                                                } else {
                                                                                                                                                     Uitility.showToast(context, "We deliver order below amount 50,000 !");
                                                                                                                                                 }
                                                                                                                                             } else {
@@ -446,16 +455,16 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                             Uitility.showToast(context, "Please enter receiver name!");
                                                                                                                         }
                                                                                                                     } else {
-                                                                                                                        Uitility.showToast(context, "Sorry we can not send your parcel!");
+                                                                                                                        Uitility.showToast(context, "Please check Hazardous, Prohibited, Fragile and Flammable goods are not eligible for delivery!");
                                                                                                                     }
                                                                                                                 } else {
-                                                                                                                    Uitility.showToast(context, "Sorry we can not send your parcel!");
+                                                                                                                    Uitility.showToast(context, "Please check Hazardous, Prohibited, Fragile and Flammable goods are not eligible for delivery!");
                                                                                                                 }
                                                                                                             } else {
-                                                                                                                Uitility.showToast(context, "Sorry we can not send your parcel!");
+                                                                                                                Uitility.showToast(context, "Please check Hazardous, Prohibited, Fragile and Flammable goods are not eligible for delivery!");
                                                                                                             }
                                                                                                         } else {
-                                                                                                            Uitility.showToast(context, "Sorry we can not send your parcel!");
+                                                                                                            Uitility.showToast(context, "Please check Hazardous, Prohibited, Fragile and Flammable goods are not eligible for delivery!");
                                                                                                         }
                                                                                                     } else {
                                                                                                         Uitility.showToast(context, "Please select Flammable Toxic Explosive type!");
@@ -664,8 +673,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                             if (!rgStrProhibited.isEmpty()) {
                                                                                                 if (!rgStrFraglle.isEmpty()) {
                                                                                                     if (!rgStrFlamableToxicExplosive.isEmpty()) {
-                                                                                                        if (!rgStrFlamableToxicExplosive.equals("Yes")) {
-                                                                                                            if (!rgStrFraglle.equals("Yes")) {
+                                                                                                        if (!rgStrFlamableToxicExplosive.equals("No")) {
+                                                                                                            if (!rgStrFraglle.equals("No")) {
                                                                                                                 if (!rgStrProhibited.equals("No")) {
                                                                                                                     if (!rgStrHazardous.equals("No")) {
                                                                                                                         if (!strReceiverName.isEmpty()) {
@@ -674,10 +683,19 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                                     if (cbPricingPolicy.isChecked()) {
                                                                                                                                         if (cbTermsCondition.isChecked()) {
                                                                                                                                             if (!strParcelFilePath.isEmpty()) {
-                                                                                                                                                if(Integer.parseInt(strValueOgGood) <= 50000){
-                                                                                                                                                    //TODO API Call
-                                                                                                                                                    sendParcel();
-                                                                                                                                                }else {
+                                                                                                                                                if (Integer.parseInt(strValueOgGood) <= 50000) {
+                                                                                                                                                    if (strOwnership.equals("Commercial")) {
+                                                                                                                                                        if (!strInvoiceFilePath.isEmpty()) {
+                                                                                                                                                            //TODO API Call
+                                                                                                                                                            sendParcel();
+                                                                                                                                                        } else {
+                                                                                                                                                            Uitility.showToast(context, "Please select invoice picture");
+                                                                                                                                                        }
+                                                                                                                                                    } else {
+                                                                                                                                                        //TODO API Call
+                                                                                                                                                        sendParcel();
+                                                                                                                                                    }
+                                                                                                                                                } else {
                                                                                                                                                     Uitility.showToast(context, "We deliver order below amount 50,000 !");
                                                                                                                                                 }
                                                                                                                                             } else {
@@ -699,16 +717,16 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                             Uitility.showToast(context, "Please enter receiver name!");
                                                                                                                         }
                                                                                                                     } else {
-                                                                                                                        Uitility.showToast(context, "Sorry we can not send your parcel!");
+                                                                                                                        Uitility.showToast(context, "Please check Hazardous, Prohibited, Fragile and Flammable goods are not eligible for delivery!");
                                                                                                                     }
                                                                                                                 } else {
-                                                                                                                    Uitility.showToast(context, "Sorry we can not send your parcel!");
+                                                                                                                    Uitility.showToast(context, "Please check Hazardous, Prohibited, Fragile and Flammable goods are not eligible for delivery!");
                                                                                                                 }
                                                                                                             } else {
-                                                                                                                Uitility.showToast(context, "Sorry we can not send your parcel!");
+                                                                                                                Uitility.showToast(context, "Please check Hazardous, Prohibited, Fragile and Flammable goods are not eligible for delivery!");
                                                                                                             }
                                                                                                         } else {
-                                                                                                            Uitility.showToast(context, "Sorry we can not send your parcel!");
+                                                                                                            Uitility.showToast(context, "Please check Hazardous, Prohibited, Fragile and Flammable goods are not eligible for delivery!");
                                                                                                         }
                                                                                                     } else {
                                                                                                         Uitility.showToast(context, "Please select Flammable Toxic Explosive type!");
@@ -1029,7 +1047,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Send Parcel Data entered Successfully", Toast.LENGTH_SHORT).show();
 
                         commonRedirect();
                     } else

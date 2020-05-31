@@ -287,7 +287,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
                                         //TODO API Call
                                         updateProfile();
                                     }else {
-                                        Uitility.showToast(getActivity(), "Sorry you are not able to register, your age in below 18 !");
+                                        Uitility.showToast(getActivity(), "Sorry you are not able to register, your age is below 18 !");
                                     }
                                 }else {
                                     Uitility.showToast(getActivity(), "Please select your date of birth !");

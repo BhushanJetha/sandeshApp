@@ -26,6 +26,9 @@ public class AcceptedOrdersModel {
     @SerializedName("d_to_c")
     @Expose
     private Integer dToC;
+    @SerializedName("traveller_amount")
+    @Expose
+    private Double traveller_amount;
     @SerializedName("parcel_id")
     @Expose
     private Integer parcelId;
@@ -134,6 +137,9 @@ public class AcceptedOrdersModel {
     @SerializedName("company_name")
     @Expose
     private String company_name;
+    @SerializedName("full_name")
+    @Expose
+    private String full_name;
     @SerializedName("mobile_no")
     @Expose
     private String mobileNo;
@@ -521,5 +527,21 @@ public class AcceptedOrdersModel {
 
     public void setToCity(String toCity) {
         this.toCity = toCity;
+    }
+
+    public Double getTraveller_amount() {
+        return traveller_amount;
+    }
+
+    public void setTraveller_amount(Double traveller_amount) {
+        this.traveller_amount = traveller_amount;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 }

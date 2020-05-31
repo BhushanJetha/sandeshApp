@@ -25,6 +25,9 @@ public class SearchTravellerModel {
     @SerializedName("d_to_c")
     @Expose
     private Double d_to_c;
+    @SerializedName("traveller_amount")
+    @Expose
+    private Double traveller_amount;
     @SerializedName("user_id")
     @Expose
     private Integer userId;
@@ -115,6 +118,9 @@ public class SearchTravellerModel {
     @SerializedName("email_id")
     @Expose
     private String emailId;
+    @SerializedName("rating")
+    @Expose
+    private float rating;
 
     public Integer getDeliveryId() {
         return deliveryId;
@@ -408,4 +414,23 @@ public class SearchTravellerModel {
         this.to_state = to_state;
     }
 
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public Double getTraveller_amount() {
+        return traveller_amount;
+    }
+
+    public void setTraveller_amount(Double traveller_amount) {
+        this.traveller_amount = traveller_amount;
+    }
 }

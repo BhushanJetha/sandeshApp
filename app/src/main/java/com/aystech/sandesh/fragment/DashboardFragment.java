@@ -2,12 +2,10 @@ package com.aystech.sandesh.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,27 +15,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
-import com.aystech.sandesh.activity.AddressDetailActivity;
-import com.aystech.sandesh.activity.LoginActivity;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
-import com.aystech.sandesh.model.LoginResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
-import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
-import com.aystech.sandesh.utils.JWTUtils;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -137,11 +125,11 @@ public class DashboardFragment extends Fragment {
         imgOrderInbox = view.findViewById(R.id.imgOrderInbox);
 
         String isFirstTimeUser = userSession.getFirstTimeUserStatus();
-        if(isFirstTimeUser.equals("Yes")){
+        if (isFirstTimeUser.equals("Yes")) {
             openWelcomeUserDialog();
         }
 
-        if(userSession.getResetPasswordStatus().equals("reset")){
+        if (userSession.getResetPasswordStatus().equals("reset")) {
             openResetPasswordDialog();
         }
 
@@ -198,7 +186,7 @@ public class DashboardFragment extends Fragment {
                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                         startJourneyFragment, R.id.frame_container, true);
                 Bundle bundle = new Bundle();
-                bundle.putString("tag","track_parcel");
+                bundle.putString("tag", "track_parcel");
                 startJourneyFragment.setArguments(bundle);
             }
         });
@@ -265,19 +253,18 @@ public class DashboardFragment extends Fragment {
 
     private void openWelcomeUserDialog() {
         userSession.setFirstTimeUserStatus("No");
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(context)
                 .setTitle("Sandesh")
-                .setMessage("Welcome in Sandesh application!")
+                .setMessage("Welcome " + userSession.getUSER_NAME() + " in Sandesh application!")
                 .setCancelable(true)
                 .setPositiveButton("close", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                       userSession.setFirstTimeUserStatus("No");
+                        userSession.setFirstTimeUserStatus("No");
 
                     }
                 })
-
                 .show();
     }
 
@@ -308,24 +295,24 @@ public class DashboardFragment extends Fragment {
                 String newPasssword = etNewPassword.getText().toString();
                 String reEnterPassword = etReEnteredPassword.getText().toString();
 
-                if(!oldPassword.isEmpty()){
-                    if(!newPasssword.isEmpty()){
-                        if(!reEnterPassword.isEmpty()){
-                            if(newPasssword.equals(reEnterPassword)){
+                if (!oldPassword.isEmpty()) {
+                    if (!newPasssword.isEmpty()) {
+                        if (!reEnterPassword.isEmpty()) {
+                            if (newPasssword.equals(reEnterPassword)) {
                                 //TODO API Call
                                 doResetPasswordAPICall(oldPassword, newPasssword);
 
                                 dialog.dismiss();
-                            }else {
+                            } else {
                                 Uitility.showToast(getActivity(), "New password and re-entered password are not matching !");
                             }
-                        }else {
+                        } else {
                             Uitility.showToast(getActivity(), "Please re-enter your password !");
                         }
-                    }else {
+                    } else {
                         Uitility.showToast(getActivity(), "Please enter new password !");
                     }
-                }else {
+                } else {
                     Uitility.showToast(getActivity(), "Please enter OTP !");
                 }
 
@@ -336,7 +323,7 @@ public class DashboardFragment extends Fragment {
 
 
     //Reset Password API call
-    private void doResetPasswordAPICall(String oldPassword,String newPassword) {
+    private void doResetPasswordAPICall(String oldPassword, String newPassword) {
         ViewProgressDialog.getInstance().showProgress(getActivity());
 
         JsonObject jsonObject = new JsonObject();
@@ -355,10 +342,10 @@ public class DashboardFragment extends Fragment {
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(getActivity(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        if(response.body().getMessage().equals("Password change successfully")){
+                        if (response.body().getMessage().equals("Password change successfully")) {
                             userSession.setResetPasswordStatus("DoNotReset");
                         }
-                        if(response.body().getMessage().equals("Invalid old password")){
+                        if (response.body().getMessage().equals("Invalid old password")) {
 
                         }
                     } else

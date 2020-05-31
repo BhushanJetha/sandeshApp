@@ -25,6 +25,9 @@ public class    SearchOrderModel {
     @SerializedName("d_to_c")
     @Expose
     private Double d_to_c;
+    @SerializedName("traveller_amount")
+    @Expose
+    private Double traveller_amount;
     @SerializedName("user_id")
     @Expose
     private Integer userId;
@@ -531,5 +534,13 @@ public class    SearchOrderModel {
 
     public void setCompany_address(String company_address) {
         this.company_address = company_address;
+    }
+
+    public Double getTraveller_amount() {
+        return traveller_amount;
+    }
+
+    public void setTraveller_amount(Double traveller_amount) {
+        this.traveller_amount = traveller_amount;
     }
 }

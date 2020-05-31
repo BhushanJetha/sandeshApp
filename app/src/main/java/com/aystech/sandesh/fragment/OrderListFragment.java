@@ -52,7 +52,6 @@ public class OrderListFragment extends Fragment {
 
     private DashboardFragment dashboardFragment;
     private OrderDetailFragment orderDetailFragment;
-    private EndJourneyDetailFragment endJourneyDetailFragment;
     private TravellerDetailFragment travellerDetailFragment;
 
     private RecyclerView rvOrder;
@@ -84,8 +83,6 @@ public class OrderListFragment extends Fragment {
                 DashboardFragment.class.getName());
         orderDetailFragment = (OrderDetailFragment) Fragment.instantiate(context,
                 OrderDetailFragment.class.getName());
-        endJourneyDetailFragment = (EndJourneyDetailFragment) Fragment.instantiate(context,
-                EndJourneyDetailFragment.class.getName());
         travellerDetailFragment = (TravellerDetailFragment) Fragment.instantiate(context,
                 TravellerDetailFragment.class.getName());
 
@@ -231,9 +228,7 @@ public class OrderListFragment extends Fragment {
     private void getMyTravellerList() {
         ViewProgressDialog.getInstance().showProgress(context);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<SearchTravellerResponseModel> call = apiInterface.getMyTravellerList();
-        call.enqueue(new Callback<SearchTravellerResponseModel>() {
+        RetrofitInstance.getClient().getMyTravellerList().enqueue(new Callback<SearchTravellerResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<SearchTravellerResponseModel> call, @NonNull Response<SearchTravellerResponseModel> response) {
                 viewProgressDialog.hideDialog();
@@ -342,8 +337,15 @@ public class OrderListFragment extends Fragment {
                     parcel_id = searchTravellerModel.getParcelId();
                     travel_id = searchTravellerModel.getTravelId();
                     delivery_id = searchTravellerModel.getDeliveryId();
-                    //TODO API Call
-                    sendOTP(searchTravellerModel.getDeliveryId());
+
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            orderDetailFragment, R.id.frame_container, false);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("parcel_id", parcel_id);
+                    bundle.putInt("travel_id", travel_id); //this for to send current location
+                    bundle.putInt("delivery_id", delivery_id); //this for to send current location
+                    bundle.putString("tag", tag);
+                    orderDetailFragment.setArguments(bundle);
                 }
             });
             orderAdapter.addAcceptedOrders(data);
@@ -568,107 +570,6 @@ public class OrderListFragment extends Fragment {
                     intent.putExtra("add_amt", etAddBal.getText().toString().trim());
                     startActivity(intent);
                 }
-            }
-        });
-    }
-
-    private void sendOTP(final Integer deliveryId) {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("delivery_id", deliveryId);
-        jsonObject.addProperty("journey_type", "Sender");
-
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.sendOTP(
-                jsonObject
-        );
-        call.enqueue(new Callback<CommonResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
-                if (response.body() != null) {
-                    if (response.body().getStatus()) {
-                        openOTPDialog(deliveryId);
-                    } else {
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-            }
-        });
-    }
-
-    private void openOTPDialog(final Integer deliveryId) {
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.verify_otp_dialog, null);
-
-        final EditText etOTP = alertLayout.findViewById(R.id.etOTP);
-        Button btnVerifyOTP = alertLayout.findViewById(R.id.btnVerifyOTP);
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        // this is set the view from XML inside AlertDialog
-        alert.setView(alertLayout);
-        // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(false);
-
-        final AlertDialog dialog = alert.create();
-        dialog.show();
-
-        btnVerifyOTP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String otp = etOTP.getText().toString();
-
-                //TODO API Call
-                verifyOTP(deliveryId, otp);
-
-                dialog.dismiss();
-            }
-        });
-    }
-
-    private void verifyOTP(final Integer deliveryId, String otp) {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("delivery_id", deliveryId);
-        jsonObject.addProperty("journey_type", "Sender");
-        jsonObject.addProperty("otp", otp);
-
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.verifyOTP(
-                jsonObject
-        );
-        call.enqueue(new Callback<CommonResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
-                if (response.body() != null) {
-                    if (response.body().getStatus()) {
-                        if (tag.equals("order_clicked_verify_end_journey")) {
-                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                    endJourneyDetailFragment, R.id.frame_container, false);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("parcel_id", parcel_id);
-                            bundle.putInt("travel_id", travel_id);
-                            bundle.putInt("delivery_id", delivery_id);
-                            endJourneyDetailFragment.setArguments(bundle);
-                        } else {
-                            FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                    orderDetailFragment, R.id.frame_container, false);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("parcel_id", parcel_id);
-                            bundle.putInt("travel_id", travel_id); //this for to send current location
-                            bundle.putInt("delivery_id", deliveryId); //this for to send current location
-                            bundle.putString("tag", "after_verify");
-                            orderDetailFragment.setArguments(bundle);
-                        }
-                    } else {
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
             }
         });
     }

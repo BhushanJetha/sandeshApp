@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,6 @@ import retrofit2.Response;
 
 public class StartJourneyFragment extends Fragment {
 
-    private static final String TAG = "StartJourneyFragment";
     private Context context;
 
     private OrderListFragment orderListFragment;
@@ -128,11 +126,7 @@ public class StartJourneyFragment extends Fragment {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", "travel");
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<MyRidesResponseModel> call = apiInterface.getMyRidesHistory(
-                jsonObject
-        );
-        call.enqueue(new Callback<MyRidesResponseModel>() {
+        RetrofitInstance.getClient().getMyRidesHistory(jsonObject).enqueue(new Callback<MyRidesResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<MyRidesResponseModel> call, @NonNull Response<MyRidesResponseModel> response) {
                 viewProgressDialog.hideDialog();
@@ -269,8 +263,6 @@ public class StartJourneyFragment extends Fragment {
             orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-                    Log.e(TAG, "onOrderItemClicked: " + searchOrderModel.getTravelId());
-
                     showRatingDialog(searchOrderModel);
                 }
 
@@ -316,7 +308,7 @@ public class StartJourneyFragment extends Fragment {
                 } /*else if (TextUtils.isEmpty(etFeedback.getText().toString().trim())) {
                     etFeedback.setError("Please give us your valuable feedback");
                     etFeedback.requestFocus();
-                } */else {
+                } */ else {
                     etFeedback.setError(null);
 
                     dialog.dismiss();
@@ -329,7 +321,6 @@ public class StartJourneyFragment extends Fragment {
     }
 
     private void giveRating(final SearchOrderModel searchOrderModel) {
-
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
@@ -348,6 +339,8 @@ public class StartJourneyFragment extends Fragment {
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                 orderDetailFragment, R.id.frame_container, true);
                         Bundle bundle = new Bundle();

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
 
     private ImageView ingStartDate, ingEndDate;
     private EditText etStartDate, etEndDate;
+    private Button btnView;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -55,11 +57,13 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
         etStartDate = view.findViewById(R.id.etFrom);
         ingEndDate = view.findViewById(R.id.ingToCalendar);
         etEndDate = view.findViewById(R.id.etTo);
+        btnView = view.findViewById(R.id.btnView);
     }
 
     private void onClickListener() {
         ingStartDate.setOnClickListener(this);
         ingEndDate.setOnClickListener(this);
+        btnView.setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +77,11 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
             case R.id.ingToCalendar:
                 tag = "end_date";
                 openDatePickerDialog();
+                break;
+
+            case R.id.btnView:
+                //TODO API Call
+                getStatement();
                 break;
         }
     }
@@ -105,4 +114,7 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
         }
 
     };
+
+    private void getStatement() {
+    }
 }

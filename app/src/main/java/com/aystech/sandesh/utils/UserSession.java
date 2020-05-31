@@ -34,6 +34,8 @@ public class UserSession {
     private String QUALITY = "quality";
     private String PACKAGING = "packaging";
 
+    private String REFERRAL_CODE = "referral_code";
+
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
@@ -204,18 +206,6 @@ public class UserSession {
         return pref.getString(PACKAGING, "");
     }
 
-    void clearUserSession() {
-        setUserId(null);
-        setUserType(null);
-        setUserEmail(null);
-        setUserMobile(null);
-        setJWTToken(null);
-    }
-
-    public void logout() {
-        editor.clear().commit();
-    }
-
     public String getFirstTimeUserStatus() {
         return pref.getString(IS_FIRST_USER, "");
     }
@@ -241,5 +231,26 @@ public class UserSession {
     public void setResetPasswordStatus(String resetPasswordStatus) {
         editor.putString(RESET_PASSWORD, resetPasswordStatus);
         editor.commit();
+    }
+
+    public void setReferralCode(String referral_code) {
+        editor.putString(REFERRAL_CODE, referral_code);
+        editor.commit();
+    }
+
+    public String getReferralCode(){
+        return pref.getString(REFERRAL_CODE, "");
+    }
+
+    void clearUserSession() {
+        setUserId(null);
+        setUserType(null);
+        setUserEmail(null);
+        setUserMobile(null);
+        setJWTToken(null);
+    }
+
+    public void logout() {
+        editor.clear().commit();
     }
 }

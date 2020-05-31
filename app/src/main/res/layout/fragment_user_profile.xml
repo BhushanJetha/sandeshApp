@@ -221,7 +221,7 @@
                         android:layout_height="@dimen/_30sdp"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_button_background"
-                        android:text="My Ride"
+                        android:text="My Rides"
                         android:textAllCaps="false"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_10sdp" />
