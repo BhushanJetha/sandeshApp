@@ -7,6 +7,10 @@
     android:background="@color/colorBackground"
     tools:context="com.aystech.sandesh.fragment.TrackYourParcelFragment">
 
-
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>

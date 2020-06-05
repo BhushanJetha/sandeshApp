@@ -30,14 +30,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     String getDefaultChannelDesc = "General Sandesh Notification";
     UserSession userSession;
 
-    @Override
-    public void onNewToken(String s) {
-        super.onNewToken(s);
-
-        Log.e(TAG, "onNewToken: " + s);
-        userSession = new UserSession(this);
-        userSession.setFCMId(s);
-    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

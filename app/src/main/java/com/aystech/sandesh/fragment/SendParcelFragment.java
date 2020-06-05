@@ -411,10 +411,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                             if (!rgStrProhibited.isEmpty()) {
                                                                                                 if (!rgStrFraglle.isEmpty()) {
                                                                                                     if (!rgStrFlamableToxicExplosive.isEmpty()) {
-                                                                                                        if (!rgStrFlamableToxicExplosive.equals("No")) {
-                                                                                                            if (!rgStrFraglle.equals("No")) {
-                                                                                                                if (!rgStrProhibited.equals("No")) {
-                                                                                                                    if (!rgStrHazardous.equals("No")) {
+                                                                                                        if (rgStrFlamableToxicExplosive.equals("No")) {
+                                                                                                            if (rgStrFraglle.equals("No")) {
+                                                                                                                if (rgStrProhibited.equals("No")) {
+                                                                                                                    if (rgStrHazardous.equals("No")) {
                                                                                                                         if (!strReceiverName.isEmpty()) {
                                                                                                                             if (!strReceiverMobileNo.isEmpty()) {
                                                                                                                                 if (!strReceiverAddress.isEmpty()) {
@@ -673,10 +673,10 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                             if (!rgStrProhibited.isEmpty()) {
                                                                                                 if (!rgStrFraglle.isEmpty()) {
                                                                                                     if (!rgStrFlamableToxicExplosive.isEmpty()) {
-                                                                                                        if (!rgStrFlamableToxicExplosive.equals("No")) {
-                                                                                                            if (!rgStrFraglle.equals("No")) {
-                                                                                                                if (!rgStrProhibited.equals("No")) {
-                                                                                                                    if (!rgStrHazardous.equals("No")) {
+                                                                                                        if (rgStrFlamableToxicExplosive.equals("No")) {
+                                                                                                            if (rgStrFraglle.equals("No")) {
+                                                                                                                if (rgStrProhibited.equals("No")) {
+                                                                                                                    if (rgStrHazardous.equals("No")) {
                                                                                                                         if (!strReceiverName.isEmpty()) {
                                                                                                                             if (!strReceiverMobileNo.isEmpty()) {
                                                                                                                                 if (!strReceiverAddress.isEmpty()) {
