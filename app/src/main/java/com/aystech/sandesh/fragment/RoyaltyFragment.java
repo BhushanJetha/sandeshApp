@@ -15,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
+import com.aystech.sandesh.model.MyTransactionResponseModel;
 import com.aystech.sandesh.model.WalletTransactionResponseModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
@@ -31,6 +34,8 @@ import retrofit2.Response;
 public class RoyaltyFragment extends Fragment implements View.OnClickListener {
 
     Context context;
+
+    private MyWalletFragmentOne myWalletFragmentOne;
 
     private ImageView ingStartDate, ingEndDate;
     private EditText etStartDate, etEndDate;
@@ -57,6 +62,9 @@ public class RoyaltyFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_royalty, container, false);
+
+        myWalletFragmentOne = (MyWalletFragmentOne) Fragment.instantiate(context,
+                MyWalletFragmentOne.class.getName());
 
         initView(view);
 
@@ -137,14 +145,18 @@ public class RoyaltyFragment extends Fragment implements View.OnClickListener {
         jsonObject.addProperty("start_date", strStartDate);
         jsonObject.addProperty("end_date", strEndDate);
 
-        RetrofitInstance.getClient().getMyTransactionList(jsonObject).enqueue(new Callback<WalletTransactionResponseModel>() {
+        RetrofitInstance.getClient().getMyRoyaltyPoints(jsonObject).enqueue(new Callback<WalletTransactionResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<WalletTransactionResponseModel> call, @NonNull Response<WalletTransactionResponseModel> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                myWalletFragmentOne, R.id.frame_container, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("transactionData", response.body().getData());
+                        myWalletFragmentOne.setArguments(bundle);
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }

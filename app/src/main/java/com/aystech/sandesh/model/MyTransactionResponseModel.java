@@ -3,30 +3,16 @@ package com.aystech.sandesh.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class MyTransactionResponseModel{
-    @SerializedName("accountData")
+public class MyTransactionResponseModel extends CommonResponse {
+    @SerializedName("data")
     @Expose
-    private List<WalletTransactionModel> accountData = null;
-    @SerializedName("transactionData")
-    @Expose
-    private List<WalletTransactionModel> transactionData = null;
+    private MyTransactionModel data;
 
-    public List<WalletTransactionModel> getAccountData() {
-        return accountData;
+    public MyTransactionModel getData() {
+        return data;
     }
 
-    public void setAccountData(List<WalletTransactionModel> accountData) {
-        this.accountData = accountData;
+    public void setData(MyTransactionModel data) {
+        this.data = data;
     }
-
-    public List<WalletTransactionModel> getTransactionData() {
-        return transactionData;
-    }
-
-    public void setTransactionData(List<WalletTransactionModel> transactionData) {
-        this.transactionData = transactionData;
-    }
-
 }

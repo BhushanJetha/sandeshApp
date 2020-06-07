@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ import retrofit2.Response;
 
 public class OrderDetailFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "OrderDetailFragment";
     private Context context;
 
     private TravelDetailModel travelDetailModel;
@@ -113,7 +115,13 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 travel_id = getArguments().getInt("travel_id");
                 delivery_id = getArguments().getInt("delivery_id");
                 tag = getArguments().getString("tag");
-            } else if (getArguments().getString("tag") != null &&
+            }else if (getArguments().getString("tag") != null &&
+                    Objects.requireNonNull(getArguments().getString("tag")).equals("order_clicked_verify")) {
+                parcel_id = getArguments().getInt("parcel_id");
+                travel_id = getArguments().getInt("travel_id");
+                delivery_id = getArguments().getInt("delivery_id");
+                tag = getArguments().getString("tag");
+            }  else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("order_clicked_verify_end_journey")) {
                 parcel_id = getArguments().getInt("parcel_id");
                 travel_id = getArguments().getInt("travel_id");
@@ -145,9 +153,15 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             }
         }
 
+        Log.e(TAG, "onCreateView tag: " + tag);
         initView(view);
 
         if (tag != null && tag.equals("after_verify")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAfterVerify.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
+            btnSendOTP.setVisibility(View.VISIBLE);
+        } else if (tag != null && tag.equals("order_clicked_verify")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.GONE);

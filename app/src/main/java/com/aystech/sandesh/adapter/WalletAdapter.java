@@ -34,10 +34,10 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.tvWalletPaymentStatus.setText(walletTransactionModels.get(i).getPaymentType());
+        myViewHolder.tvWalletPaymentStatus.setText(walletTransactionModels.get(i).getTransactionType());
         myViewHolder.tvWalletPaymentAmt.setText("Rs. " + walletTransactionModels.get(i).getAmount());
-        myViewHolder.tvPaymentMode.setText(walletTransactionModels.get(i).getPaymentMode());
-        if (walletTransactionModels.get(i).getPaymentType().equals("Credited")){
+        myViewHolder.tvPaymentMode.setText(walletTransactionModels.get(i).getTransactionMode());
+        if (walletTransactionModels.get(i).getTransactionType().equals("Credited")){
             myViewHolder.imgWalletPaymentStatus.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_credit));
         }else{
             myViewHolder.imgWalletPaymentStatus.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_debit));

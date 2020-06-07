@@ -3,6 +3,7 @@ package com.aystech.sandesh.fragment;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,18 +13,18 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
-import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.MyTransactionResponseModel;
+import com.aystech.sandesh.model.WalletTransactionModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import retrofit2.Call;
@@ -149,11 +150,28 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                            myWalletFragmentOne, R.id.frame_container, true);
-                    Bundle bundle = new Bundle();
-
-                    myWalletFragmentOne.setArguments(bundle);
+                    if (response.body().getStatus() != null) {
+                        ArrayList<WalletTransactionModel> walletTransactionModels = new ArrayList<>();
+                        for (int i = 0; i < response.body().getData().getAccountData().size(); i++) {
+                            walletTransactionModels.add(new WalletTransactionModel(response.body().getData().getAccountData().get(i).getAmount(),
+                                    response.body().getData().getAccountData().get(i).getTransactionId(),
+                                    response.body().getData().getAccountData().get(i).getTransactionType(),
+                                    response.body().getData().getAccountData().get(i).getTransactionMode(),
+                                    response.body().getData().getAccountData().get(i).getTransactionDate()));
+                        }
+                        for (int i = 0; i < response.body().getData().getTransactionData().size(); i++) {
+                            walletTransactionModels.add(new WalletTransactionModel(response.body().getData().getTransactionData().get(i).getAmount(),
+                                    response.body().getData().getTransactionData().get(i).getTransactionId(),
+                                    response.body().getData().getTransactionData().get(i).getTransactionType(),
+                                    response.body().getData().getTransactionData().get(i).getTransactionMode(),
+                                    response.body().getData().getTransactionData().get(i).getTransactionDate()));
+                        }
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                myWalletFragmentOne, R.id.frame_container, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("transactionData", walletTransactionModels);
+                        myWalletFragmentOne.setArguments(bundle);
+                    }
                 }
             }
 
