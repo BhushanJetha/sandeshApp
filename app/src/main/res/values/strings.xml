@@ -42,5 +42,7 @@
     <string name="order_delete">Delete Order Details</string>
     <string name="travel_delete">Delete Travel Details</string>
     <string name="send_otp">Send OTP</string>
+    <string name="sort_by">Sort By</string>
+    <string name="vehicle_type">Vehicle Type</string>
 
 </resources>

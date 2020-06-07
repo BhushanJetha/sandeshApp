@@ -291,7 +291,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
                     android:text="Sort by"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/tvResultCount"

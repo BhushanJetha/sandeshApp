@@ -3,6 +3,7 @@ package com.aystech.sandesh.fragment;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,21 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.model.CommonResponse;
+import com.aystech.sandesh.model.WalletTransactionResponseModel;
+import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Uitility;
+import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.google.gson.JsonObject;
 
 import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RoyaltyFragment extends Fragment implements View.OnClickListener {
 
@@ -28,6 +39,8 @@ public class RoyaltyFragment extends Fragment implements View.OnClickListener {
     final Calendar myCalendar = Calendar.getInstance();
 
     private String tag, strStartDate = "", strEndDate = "";
+
+    private ViewProgressDialog viewProgressDialog;
 
     public RoyaltyFragment() {
         // Required empty public constructor
@@ -53,6 +66,8 @@ public class RoyaltyFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
+        viewProgressDialog = ViewProgressDialog.getInstance();
+
         ingStartDate = view.findViewById(R.id.ingFromCalendar);
         etStartDate = view.findViewById(R.id.etFrom);
         ingEndDate = view.findViewById(R.id.ingToCalendar);
@@ -63,6 +78,7 @@ public class RoyaltyFragment extends Fragment implements View.OnClickListener {
     private void onClickListener() {
         ingStartDate.setOnClickListener(this);
         ingEndDate.setOnClickListener(this);
+        btnView.setOnClickListener(this);
     }
 
     @Override
@@ -115,5 +131,30 @@ public class RoyaltyFragment extends Fragment implements View.OnClickListener {
     };
 
     private void getStatement() {
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("start_date", strStartDate);
+        jsonObject.addProperty("end_date", strEndDate);
+
+        RetrofitInstance.getClient().getMyTransactionList(jsonObject).enqueue(new Callback<WalletTransactionResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<WalletTransactionResponseModel> call, @NonNull Response<WalletTransactionResponseModel> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<WalletTransactionResponseModel> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
     }
 }

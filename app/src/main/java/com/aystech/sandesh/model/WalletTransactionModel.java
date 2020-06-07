@@ -13,9 +13,12 @@ public class WalletTransactionModel {
     @SerializedName("paymentMode")
     @Expose
     private String paymentMode;
-    @SerializedName("payment_type")
+    @SerializedName(value = "payment_type", alternate = "transaction_type")
     @Expose
     private String paymentType;
+    @SerializedName("transaction_date")
+    @Expose
+    private String transactionDate;
 
     public Integer getTransId() {
         return transId;
@@ -47,5 +50,13 @@ public class WalletTransactionModel {
 
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public String getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(String transactionDate) {
+        this.transactionDate = transactionDate;
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +47,8 @@ import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -56,6 +61,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
     private StateResponseModel stateResponseModel;
     private CityResponseModel cityResponseModel;
+    private List<SearchTravellerModel> travellerList;
 
     private ConstraintLayout clTravellerList;
     private TextView tvResultCount, tvSortBy;
@@ -75,6 +81,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     private int fromStateId, fromCityId, toStateId, toCityId;
     private String strToPinCode, strFromPincode, strStartDate = "", strEndDate = "";
     private String tag;
+    private boolean isReverse = false;
 
     private ViewProgressDialog viewProgressDialog;
     private UserSession userSession;
@@ -133,6 +140,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         ingStartDate.setOnClickListener(this);
         ingEndDate.setOnClickListener(this);
         btnSearch.setOnClickListener(this);
+        tvSortBy.setOnClickListener(this);
     }
 
     @Override
@@ -152,8 +160,8 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                 strToPinCode = etToPincode.getText().toString();
                 strFromPincode = etFromPincode.getText().toString();
 
-                if(fromCityId != 0){
-                    if(toCityId != 0){
+                if (fromCityId != 0) {
+                    if (toCityId != 0) {
                         if (!strStartDate.isEmpty()) {
                             if (!strEndDate.isEmpty()) {
                                 //TODO API Call
@@ -164,13 +172,17 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                         } else {
                             Uitility.showToast(getActivity(), "Please select start date !!");
                         }
-                    }else {
+                    } else {
                         Uitility.showToast(getActivity(), "Please select to city !!");
                     }
-                }else {
+                } else {
                     Uitility.showToast(getActivity(), "Please select from city !!");
                 }
 
+                break;
+
+            case R.id.tvSortBy:
+                openSortingDialog();
                 break;
         }
     }
@@ -223,6 +235,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
+                        travellerList = response.body().getData();
                         bindDataToRV(response.body().getData());
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -276,6 +289,41 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         }
     }
 
+    private void openSortingDialog() {
+        LayoutInflater factory = LayoutInflater.from(context);
+        final View sortingDialogView = factory.inflate(R.layout.dailog_traveller_sorting, null);
+        final AlertDialog sortDialog = new AlertDialog.Builder(context).create();
+        sortDialog.setView(sortingDialogView);
+        CheckBox cbVehicleType = sortingDialogView.findViewById(R.id.cbVehicleType);
+        cbVehicleType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sortDialog.dismiss();
+
+                if (isReverse) {
+                    isReverse = false;
+                    Collections.sort(travellerList, new Comparator<SearchTravellerModel>() {
+                        @Override
+                        public int compare(SearchTravellerModel first, SearchTravellerModel second) {
+                            return second.getModeOfTravel().compareToIgnoreCase(first.getModeOfTravel());
+                        }
+                    });
+                } else {
+                    isReverse = true;
+                    Collections.sort(travellerList, new Comparator<SearchTravellerModel>() {
+                        @Override
+                        public int compare(SearchTravellerModel first, SearchTravellerModel second) {
+                            return first.getModeOfTravel().compareToIgnoreCase(second.getModeOfTravel());
+                        }
+                    });
+                }
+                bindDataToRV(travellerList);
+            }
+        });
+
+        sortDialog.show();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -318,7 +366,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     private void bindStateDataToUI(List<StateModel> data) {
         ArrayList<String> manufactureArrayList = new ArrayList<>();
 
-        manufactureArrayList.add(0,"Select State");
+        manufactureArrayList.add(0, "Select State");
         for (int i = 0; i < data.size(); i++) {
             manufactureArrayList.add(data.get(i).getStateName());
         }
@@ -395,7 +443,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         if (tag.equals("from")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
 
-            manufactureArrayList.add(0,"Select City");
+            manufactureArrayList.add(0, "Select City");
             for (int i = 0; i < data.size(); i++) {
                 manufactureArrayList.add(data.get(i).getCityName());
             }
@@ -408,7 +456,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
         if (tag.equals("to")) {
             ArrayList<String> manufactureArrayList = new ArrayList<>();
 
-            manufactureArrayList.add(0,"Select City");
+            manufactureArrayList.add(0, "Select City");
             for (int i = 0; i < data.size(); i++) {
                 manufactureArrayList.add(data.get(i).getCityName());
             }

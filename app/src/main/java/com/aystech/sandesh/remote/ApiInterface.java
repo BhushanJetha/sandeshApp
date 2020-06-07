@@ -7,6 +7,7 @@ import com.aystech.sandesh.model.DeliveryOptionResponseModel;
 import com.aystech.sandesh.model.LoginResponseModel;
 import com.aystech.sandesh.model.MyOrdersResponseModel;
 import com.aystech.sandesh.model.MyRidesResponseModel;
+import com.aystech.sandesh.model.MyTransactionResponseModel;
 import com.aystech.sandesh.model.NatureOfGoodsResponseModel;
 import com.aystech.sandesh.model.OrderDetailResponseModel;
 import com.aystech.sandesh.model.PackagingResponseModel;
@@ -221,9 +222,6 @@ public interface ApiInterface {
     @POST("api/addBalance")
     Call<CommonResponse> verifyPaymentDetail(@Body JsonObject jsonObject);
 
-    @GET("api/getMyTransactionList")
-    Call<WalletTransactionResponseModel> getMyTransactionList();
-
     @POST("api/getMyOrderRequestList")
     Call<SearchOrderResponseModel> myRequestedOrders(@Body JsonObject jsonObject);
 
@@ -308,4 +306,13 @@ public interface ApiInterface {
 
     @POST("api/deleteTravelPlan")
     Call<CommonResponse> deleteTravelPlan(@Body JsonObject jsonObject);
+
+    @POST("api/getMyStatement")
+    Call<MyTransactionResponseModel> getMyStatement(@Body JsonObject jsonObject);
+
+    @POST("api/getMyTransactionList")
+    Call<WalletTransactionResponseModel> getMyTransactionList(@Body JsonObject jsonObject);
+
+    @GET("api/getWalletBalance")
+    Call<CommonResponse> getWalletBalance();
 }

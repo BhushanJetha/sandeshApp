@@ -21,6 +21,7 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.activity.PaymentActivity;
 import com.aystech.sandesh.adapter.MyWalletTabLayoutAdapter;
+import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.WalletTransactionResponseModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.UserSession;
@@ -32,14 +33,14 @@ import retrofit2.Response;
 
 public class MyWalletFragmentTwo extends Fragment implements View.OnClickListener {
 
-    Context context;
+    private Context context;
 
-    TabLayout walletTabLayout;
-    ViewPager viewPager;
+    private TabLayout walletTabLayout;
+    private ViewPager viewPager;
 
     private TextView tvUserName;
     private TextView tvWalletAmt;
-    Button btnAddMoney;
+    private Button btnAddMoney;
 
     private Double walletBal;
 
@@ -115,6 +116,22 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
         btnAddMoney.setOnClickListener(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) context).setUpToolbar(true, false, "", false);
+
+        //TODO Call API
+        getWalletBalance();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnAddMoney) {
+            addAmountInWalletDialog();
+        }
+    }
+
     private void addAmountInWalletDialog() {
         LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
         final View alertLayout = inflater.inflate(R.layout.dialog_add_amt_in_wallet, null);
@@ -152,30 +169,12 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((MainActivity) context).setUpToolbar(true, false, "", false);
-
-        //TODO API Call
-        getMyTransactionList();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnAddMoney:
-                addAmountInWalletDialog();
-                break;
-        }
-    }
-
-    private void getMyTransactionList() {
+    private void getWalletBalance() {
         viewProgressDialog.showProgress(context);
 
-        RetrofitInstance.getClient().getMyTransactionList().enqueue(new Callback<WalletTransactionResponseModel>() {
+        RetrofitInstance.getClient().getWalletBalance().enqueue(new Callback<CommonResponse>() {
             @Override
-            public void onResponse(@NonNull Call<WalletTransactionResponseModel> call, @NonNull Response<WalletTransactionResponseModel> response) {
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
 
                 viewProgressDialog.hideDialog();
 
@@ -191,7 +190,7 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
             }
 
             @Override
-            public void onFailure(@NonNull Call<WalletTransactionResponseModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
