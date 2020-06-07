@@ -184,7 +184,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
                         app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
                         app:layout_constraintTop_toBottomOf="@+id/tvAddressTitle" />
-                    
+
                     <TextView
                         android:id="@+id/tvTravellerInformation"
                         android:layout_width="0dp"
@@ -793,6 +793,155 @@
                         app:layout_constraintEnd_toEndOf="@+id/otherBreakUpLine"
                         app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
                         app:layout_constraintTop_toBottomOf="@id/otherBreakUpLine" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/clNAP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvOtherDetail">
+
+                        <TextView
+                            android:id="@+id/tvNAPInformation"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/gotham_medium"
+                            android:padding="@dimen/_4sdp"
+                            android:text="Nominate Alternate Person Information"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_11sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/napBreakUpLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_6sdp"
+                            android:background="@color/colorAccent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvNAPInformation" />
+
+                        <TextView
+                            android:id="@+id/tvNAPNameTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:fontFamily="@font/gotham_light"
+                            android:text="Name"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toStartOf="@+id/tvNAPName"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="@+id/napBreakUpLine"
+                            app:layout_constraintTop_toBottomOf="@+id/napBreakUpLine" />
+
+                        <TextView
+                            android:id="@+id/tvNAPName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gotham_light"
+                            android:text=""
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvNAPNameTitle"
+                            app:layout_constraintEnd_toEndOf="@+id/napBreakUpLine"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/tvNAPNameTitle"
+                            app:layout_constraintTop_toTopOf="@+id/tvNAPNameTitle" />
+
+                        <TextView
+                            android:id="@+id/tvNAPMobileNoTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:fontFamily="@font/gotham_light"
+                            android:text="Mobile No"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toStartOf="@+id/tvNAPMobileNo"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="@+id/napBreakUpLine"
+                            app:layout_constraintTop_toBottomOf="@+id/tvNAPNameTitle" />
+
+                        <TextView
+                            android:id="@+id/tvNAPMobileNo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gotham_light"
+                            android:text=""
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvNAPMobileNoTitle"
+                            app:layout_constraintEnd_toEndOf="@+id/napBreakUpLine"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/tvNAPMobileNoTitle"
+                            app:layout_constraintTop_toTopOf="@+id/tvNAPMobileNoTitle" />
+
+                        <TextView
+                            android:id="@+id/tvPancardTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:fontFamily="@font/gotham_light"
+                            android:text="Pancard"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toStartOf="@+id/tvNAPMobileNo"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="@+id/napBreakUpLine"
+                            app:layout_constraintTop_toBottomOf="@+id/tvNAPMobileNoTitle" />
+
+                        <TextView
+                            android:id="@+id/tvPancard"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gotham_light"
+                            android:text=""
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvPancardTitle"
+                            app:layout_constraintEnd_toEndOf="@+id/napBreakUpLine"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/tvPancardTitle"
+                            app:layout_constraintTop_toTopOf="@+id/tvPancardTitle" />
+
+                        <TextView
+                            android:id="@+id/tvPancardPicTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:fontFamily="@font/gotham_light"
+                            android:gravity="center"
+                            android:text="Pancard"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="@+id/napBreakUpLine"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="@+id/napBreakUpLine"
+                            app:layout_constraintTop_toBottomOf="@+id/tvPancardTitle" />
+
+                        <ImageView
+                            android:id="@+id/imgNAPPancard"
+                            android:layout_width="@dimen/_72sdp"
+                            android:layout_height="@dimen/_72sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            app:layout_constraintEnd_toEndOf="@+id/tvPancardPicTitle"
+                            app:layout_constraintStart_toStartOf="@+id/tvPancardPicTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/tvPancardPicTitle" />
+
+                    </android.support.constraint.ConstraintLayout>
 
                 </android.support.constraint.ConstraintLayout>
 

@@ -201,11 +201,7 @@ public class LoginActivity extends AppCompatActivity {
         jsonObject.addProperty("fcm_id", userSession.getFCMId());
         jsonObject.addProperty("device_type", "Android");
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<LoginResponseModel> call = apiInterface.doLogin(
-                jsonObject
-        );
-        call.enqueue(new Callback<LoginResponseModel>() {
+        RetrofitInstance.getClient().doLogin(jsonObject).enqueue(new Callback<LoginResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<LoginResponseModel> call, @NonNull Response<LoginResponseModel> response) {
                 viewProgressDialog.hideDialog();
@@ -215,18 +211,16 @@ public class LoginActivity extends AppCompatActivity {
 
                         userSession.setJWTToken(response.body().getToken());
                         userSession.setUserName(response.body().getUserName());
+                        userSession.setReferralCode(response.body().getRefferalCode());
                         userSession.setLoginCount(0);
 
                         try {
                             String json = JWTUtils.decoded(response.body().getToken().split(" ")[1]);
                             JSONObject jsonObject1 = new JSONObject(json);
-                            Log.d("LoginActivity", "onResponse: " + jsonObject1.toString());
                             userSession.setUserId(jsonObject1.getString("user_id"));
                             userSession.setUserType(jsonObject1.getString("user_type"));
                             userSession.setUserMobile(jsonObject1.getString("mobile_no"));
                             userSession.setUserEmail(jsonObject1.getString("email_id"));
-                            userSession.setUserName(jsonObject1.getString("user_name"));
-                            userSession.setReferralCode(jsonObject1.getString("refferal_code"));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

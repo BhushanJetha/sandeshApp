@@ -181,7 +181,7 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
                 if (response.body() != null) {
                     if (response.body().getBalance() != null) {
                         walletBal = response.body().getBalance();
-                        tvWalletAmt.setText("Rs. " + walletBal);
+                        tvWalletAmt.setText("Rs. " + String.format("%.2f", walletBal));
                     } else {
                         walletBal = 0.0;
                         tvWalletAmt.setText("Rs. " + walletBal);

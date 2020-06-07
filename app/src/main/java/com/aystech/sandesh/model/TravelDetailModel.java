@@ -19,6 +19,9 @@ public class TravelDetailModel implements Parcelable {
     @SerializedName("parcelData")
     @Expose
     private SearchOrderModel parcelData;
+    @SerializedName("nominationData")
+    @Expose
+    private NominateAPModel nominationData;
 
     protected TravelDetailModel(Parcel in) {
         address = in.readParcelable(AddressModel.class.getClassLoader());
@@ -59,6 +62,14 @@ public class TravelDetailModel implements Parcelable {
 
     public void setCorporateData(CorporateModel corporateData) {
         this.corporateData = corporateData;
+    }
+
+    public NominateAPModel getNominationData() {
+        return nominationData;
+    }
+
+    public void setNominationData(NominateAPModel nominationData) {
+        this.nominationData = nominationData;
     }
 
     public SearchOrderModel getParcelData() {

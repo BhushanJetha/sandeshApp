@@ -7,7 +7,6 @@ import com.aystech.sandesh.model.DeliveryOptionResponseModel;
 import com.aystech.sandesh.model.LoginResponseModel;
 import com.aystech.sandesh.model.MyOrdersResponseModel;
 import com.aystech.sandesh.model.MyRidesResponseModel;
-import com.aystech.sandesh.model.MyTransactionModel;
 import com.aystech.sandesh.model.MyTransactionResponseModel;
 import com.aystech.sandesh.model.NatureOfGoodsResponseModel;
 import com.aystech.sandesh.model.OrderDetailResponseModel;
@@ -18,6 +17,7 @@ import com.aystech.sandesh.model.SearchOrderResponseModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.model.ShowHistoryResponseModel;
 import com.aystech.sandesh.model.StateResponseModel;
+import com.aystech.sandesh.model.TrackParcelResponseModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
 import com.aystech.sandesh.model.VehicleResponseModel;
 import com.aystech.sandesh.model.WalletTransactionResponseModel;
@@ -236,7 +236,7 @@ public interface ApiInterface {
     Call<CommonResponse> sendCurrentLocation(@Body JsonObject jsonObject);
 
     @POST("api/trackParcel")
-    Call<OrderDetailResponseModel> trackParcel(@Body JsonObject jsonObject);
+    Call<TrackParcelResponseModel> trackParcel(@Body JsonObject jsonObject);
 
     @POST("api/getMyPreviousOrderHistory")
     Call<MyRidesResponseModel> getMyRidesHistory(@Body JsonObject jsonObject);

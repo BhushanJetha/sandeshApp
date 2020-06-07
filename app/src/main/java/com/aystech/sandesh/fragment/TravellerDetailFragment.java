@@ -24,8 +24,10 @@ import com.aystech.sandesh.model.TravelDetailModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -46,10 +48,10 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     private TextView tvName, tvMobileNo, tvAddress, tvFromStateName, tvToStateName,
             tvFromCityName, tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime,
             tvToPincode, tvFromPincode, tvDeliveryOption, tvWeight, tvLength, tvBreadth,
-            tvHeight, tvVehicleType, tvVehicleTrainNo, tvOtherDetail;
-    private ImageView imgTravelEdit;
+            tvHeight, tvVehicleType, tvVehicleTrainNo, tvOtherDetail, tvNAPName, tvNAPMobileNo, tvPancard;
+    private ImageView imgTravelEdit, imgNAPPancard;
     private Button btnSendRequest, btnTravelDelete;
-    private ConstraintLayout clAcceptRejectOrder;
+    private ConstraintLayout clAcceptRejectOrder, clNAP;
     private EditText etAcceptRejectComment;
     private Button btnRejectOrder, btnAcceptOrder;
 
@@ -131,6 +133,11 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         tvVehicleType = view.findViewById(R.id.tvVehicleType);
         tvVehicleTrainNo = view.findViewById(R.id.tvVehicleTrainNo);
         tvOtherDetail = view.findViewById(R.id.tvOtherDetail);
+        clNAP = view.findViewById(R.id.clNAP);
+        tvNAPName = view.findViewById(R.id.tvNAPName);
+        tvNAPMobileNo = view.findViewById(R.id.tvNAPMobileNo);
+        tvPancard = view.findViewById(R.id.tvPancard);
+        imgNAPPancard = view.findViewById(R.id.imgNAPPancard);
         btnSendRequest = view.findViewById(R.id.btnSendRequest);
         btnTravelDelete = view.findViewById(R.id.btnTravelDelete);
         clAcceptRejectOrder = view.findViewById(R.id.clAcceptRejectOrder);
@@ -246,6 +253,19 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
             tvOtherDetail.setText(data.getTravelPlan().getOtherDetail());
         else
             tvOtherDetail.setText("-");
+
+        if (data.getNominationData() != null) {
+            clNAP.setVisibility(View.VISIBLE);
+            tvNAPName.setText(data.getNominationData().getUserName());
+            tvNAPMobileNo.setText(data.getNominationData().getMobileNo());
+            tvPancard.setText(data.getNominationData().getPancardNo());
+            Glide.with(context)
+                    .load(AppController.imageURL + data.getNominationData().getPancardPic())
+                    .error(R.drawable.ic_logo_sandesh)
+                    .into(imgNAPPancard);
+        } else {
+            clNAP.setVisibility(View.GONE);
+        }
 
         if (!tag.equals("normal")) {
             if (data.getTravelPlan().getStatus().equals("Fresh Travel")) {

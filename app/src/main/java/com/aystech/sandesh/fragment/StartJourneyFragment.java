@@ -26,6 +26,7 @@ import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.MyOrdersResponseModel;
 import com.aystech.sandesh.model.MyRidesResponseModel;
 import com.aystech.sandesh.model.SearchOrderModel;
+import com.aystech.sandesh.model.SearchOrderResponseModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
@@ -95,6 +96,9 @@ public class StartJourneyFragment extends Fragment {
         } else if (tag != null && tag.equals("nominate_person")) {
             //TODO API Call
             getData(); //nominate_person
+        } else if (tag != null && tag.equals("track_parcel")) {
+            //TODO API Call
+            getMyOrderList();
         } else {
             //TODO API Call
             getData(); //in else
@@ -108,7 +112,7 @@ public class StartJourneyFragment extends Fragment {
         rvTraveller = view.findViewById(R.id.rvTraveller);
         tvTitle = view.findViewById(R.id.tvTitle);
         if (tag != null && tag.equals("track_parcel")) {
-            tvTitle.setText("My Traveller List");
+            tvTitle.setText("My Order List");
         } else if (tag != null && tag.equals("my_rides")) {
             tvTitle.setText("My Rides");
         } else if (tag != null && tag.equals("my_orders")) {
@@ -174,6 +178,30 @@ public class StartJourneyFragment extends Fragment {
         });
     }
 
+    private void bindOrdersDataToRV(List<SearchOrderModel> data) {
+        if (data.size() > 0) {
+            orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
+                @Override
+                public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
+                    showRatingDialog(searchOrderModel);
+                }
+
+                @Override
+                public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
+                }
+
+                @Override
+                public void openOtpDialog(AcceptedOrdersModel searchTravellerModel) {
+                }
+            });
+            orderAdapter.addOrderList(data);
+            rvTraveller.setAdapter(orderAdapter);
+        } else {
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Order Found!");
+            rvTraveller.setAdapter(noDataAdapter);
+        }
+    }
+
     private void getData() {
         ViewProgressDialog.getInstance().showProgress(context);
 
@@ -209,14 +237,6 @@ public class StartJourneyFragment extends Fragment {
                 public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                     if (tag != null && !tag.equals("")) {
                         switch (tag) {
-                            case "track_parcel": {
-                                FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                        trackYourParcelFragment, R.id.frame_container, true);
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("travel_id", searchTravellerModel.getTravelId());
-                                trackYourParcelFragment.setArguments(bundle);
-                                break;
-                            }
                             case "my_rides": {
                                 FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                         travellerDetailFragment, R.id.frame_container, true);
@@ -258,12 +278,40 @@ public class StartJourneyFragment extends Fragment {
         }
     }
 
-    private void bindOrdersDataToRV(List<SearchOrderModel> data) {
+    private void getMyOrderList() {
+        ViewProgressDialog.getInstance().showProgress(context);
+
+        RetrofitInstance.getClient().getMyOrderList().enqueue(new Callback<SearchOrderResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<SearchOrderResponseModel> call, @NonNull Response<SearchOrderResponseModel> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        bindMyOrderDataToRV(response.body().getData());
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SearchOrderResponseModel> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void bindMyOrderDataToRV(List<SearchOrderModel> data) {
         if (data.size() > 0) {
             orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-                    showRatingDialog(searchOrderModel);
+                    FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                            trackYourParcelFragment, R.id.frame_container, true);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("travel_id", searchOrderModel.getTravelId());
+                    trackYourParcelFragment.setArguments(bundle);
                 }
 
                 @Override
@@ -277,7 +325,7 @@ public class StartJourneyFragment extends Fragment {
             orderAdapter.addOrderList(data);
             rvTraveller.setAdapter(orderAdapter);
         } else {
-            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Order Found!");
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Orders Found!");
             rvTraveller.setAdapter(noDataAdapter);
         }
     }

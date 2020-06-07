@@ -25,7 +25,7 @@ public class SearchTravellerModel {
     @SerializedName("d_to_c")
     @Expose
     private Double d_to_c;
-    @SerializedName("traveller_amount")
+    @SerializedName(value = "traveller_amount", alternate = "total_amount")
     @Expose
     private Double traveller_amount;
     @SerializedName("user_id")

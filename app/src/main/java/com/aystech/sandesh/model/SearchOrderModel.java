@@ -25,7 +25,7 @@ public class    SearchOrderModel {
     @SerializedName("d_to_c")
     @Expose
     private Double d_to_c;
-    @SerializedName("traveller_amount")
+    @SerializedName(value = "traveller_amount", alternate = "total_amount")
     @Expose
     private Double traveller_amount;
     @SerializedName("user_id")
@@ -136,9 +136,6 @@ public class    SearchOrderModel {
     @SerializedName("gst_amount")
     @Expose
     private Double gstAmount;
-    @SerializedName("total_amount")
-    @Expose
-    private Double totalAmount;
     @SerializedName("status")
     @Expose
     private String status;
@@ -462,14 +459,6 @@ public class    SearchOrderModel {
 
     public void setGstAmount(Double gstAmount) {
         this.gstAmount = gstAmount;
-    }
-
-    public Double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(Double totalAmount) {
-        this.totalAmount = totalAmount;
     }
 
     public String getStatus() {

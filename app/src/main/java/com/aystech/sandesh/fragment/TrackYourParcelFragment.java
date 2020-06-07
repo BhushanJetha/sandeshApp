@@ -25,8 +25,7 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
-import com.aystech.sandesh.model.OrderDetailResponseModel;
-import com.aystech.sandesh.remote.ApiInterface;
+import com.aystech.sandesh.model.TrackParcelResponseModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.android.gms.common.ConnectionResult;
@@ -55,20 +54,19 @@ import retrofit2.Response;
 public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener{
+        LocationListener {
 
     private Context context;
 
     private int travel_id;
 
     //Google Map
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
     private Marker mCurrLocationMarker;
     private GoogleMap mMap;
-    private String finalLatitude, finalLongitude;
+    private double finalLatitude, finalLongitude;
     private Button btnNext;
     private MapView mapView;
 
@@ -91,7 +89,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
         if (getArguments() != null)
             travel_id = getArguments().getInt("travel_id");
 
-        initView(view,savedInstanceState);
+        initView(view, savedInstanceState);
 
         //TODO API Call
         getTrackingOfParcel();
@@ -101,7 +99,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
 
     private void initView(View view, Bundle savedInstanceState) {
         viewProgressDialog = ViewProgressDialog.getInstance();
-        mapView = (MapView) view.findViewById(R.id.map);
+        mapView = view.findViewById(R.id.map);
 
 
         mapView.onCreate(savedInstanceState);
@@ -116,50 +114,36 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
                 mMap.getUiSettings().setZoomGesturesEnabled(true);
                 mMap.getUiSettings().setCompassEnabled(true);
                 //Initialize Google Play Services
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-                        buildGoogleApiClient();
-                        mMap.setMyLocationEnabled(true);
-                    }
-                } else {
-                    buildGoogleApiClient();
-                    mMap.setMyLocationEnabled(true);
-                }
+                buildGoogleApiClient();
+                mMap.setMyLocationEnabled(true);
             }
         });
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
-        }
     }
 
-    private void getTrackingOfParcel(){
+    private void getTrackingOfParcel() {
         ViewProgressDialog.getInstance().showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("travel_id", travel_id);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<OrderDetailResponseModel> call = apiInterface.trackParcel(
-                jsonObject
-        );
-        call.enqueue(new Callback<OrderDetailResponseModel>() {
+        RetrofitInstance.getClient().trackParcel(jsonObject).enqueue(new Callback<TrackParcelResponseModel>() {
             @Override
-            public void onResponse(@NonNull Call<OrderDetailResponseModel> call, @NonNull Response<OrderDetailResponseModel> response) {
+            public void onResponse(@NonNull Call<TrackParcelResponseModel> call, @NonNull Response<TrackParcelResponseModel> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if (response.body().getStatus())
+                    if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    else
+                        finalLatitude = response.body().getData().get(0).getLat();
+                        finalLongitude = response.body().getData().get(0).getLong();
+                    } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<OrderDetailResponseModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<TrackParcelResponseModel> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
@@ -171,7 +155,6 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
         ((MainActivity) context).setUpToolbar(true, false, "", false);
         mapView.onResume();
     }
-
 
     @Override
     public void onLocationChanged(Location location) {
@@ -211,10 +194,10 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
                     markerOptions.title("" + latLng + "," + subLocality + "," + state
                             + "," + country);
 
-                    finalLatitude = String.valueOf(latitude);
-                    finalLongitude = String.valueOf(longitude);
+                    finalLatitude = latitude;
+                    finalLongitude = longitude;
 
-                    Log.d("Address-->","State: "+state + " Lat: "+latitude +" Lon: "+ latitude);
+                    Log.d("Address-->", "State: " + state + " Lat: " + latitude + " Lon: " + latitude);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -232,17 +215,14 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
 
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
-
     }
 
     @Override
     public void onProviderEnabled(String s) {
-
     }
 
     @Override
     public void onProviderDisabled(String s) {
-
     }
 
     @Override
@@ -255,24 +235,18 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
         mMap.addMarker(new MarkerOptions().position(location));
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            if (mGoogleApiClient != null) {
-                //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,
-                        //this);
-            }
+        if (mGoogleApiClient != null) {
+            //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,
+            //this);
         }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
     @Override
@@ -283,17 +257,8 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
         //Initialize Google Play Services
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                buildGoogleApiClient();
-                mMap.setMyLocationEnabled(true);
-            }
-        } else {
-            buildGoogleApiClient();
-            mMap.setMyLocationEnabled(true);
-        }
+        buildGoogleApiClient();
+        mMap.setMyLocationEnabled(true);
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -303,50 +268,5 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
                 .addApi(LocationServices.API)
                 .build();
         mGoogleApiClient.connect();
-    }
-
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            } else {
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ContextCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-                        if (mGoogleApiClient == null) {
-                            buildGoogleApiClient();
-                        }
-
-                        mMap.setMyLocationEnabled(true);
-                    }
-                } else {
-                    Toast.makeText(getActivity(), "permission denied",
-                            Toast.LENGTH_LONG).show();
-                }
-                return;
-            }
-        }
     }
 }
