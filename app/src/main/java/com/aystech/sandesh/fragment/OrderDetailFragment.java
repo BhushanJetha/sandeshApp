@@ -108,6 +108,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         endJourneyDetailFragment = (EndJourneyDetailFragment) Fragment.instantiate(context,
                 EndJourneyDetailFragment.class.getName());
 
+        Log.d("TAG----->",getArguments().getString("tag"));
         if (getArguments() != null) {
             if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("after_verify")) {
@@ -156,7 +157,15 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         Log.e(TAG, "onCreateView tag: " + tag);
         initView(view);
 
-        if (tag != null && tag.equals("after_verify")) {
+       /* if (tag != null && tag.equals("after_verify")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAfterVerify.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
+            btnSendOTP.setVisibility(View.VISIBLE);
+        }*/
+
+        Log.d("TAG name----->",getArguments().getString("tag"));
+        if (tag != null && tag.equals("order_clicked_verify")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.GONE);

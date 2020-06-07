@@ -95,6 +95,9 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         if (tag != null && tag.equals("accept_reject_order_sender")) {
             btnSendRequest.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.VISIBLE);
+        }else if (tag != null && tag.equals("history")) {
+            btnSendRequest.setVisibility(View.GONE);
+            clAcceptRejectOrder.setVisibility(View.GONE);
         } else {
             btnSendRequest.setVisibility(View.VISIBLE);
             clAcceptRejectOrder.setVisibility(View.GONE);
@@ -256,13 +259,19 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
         if (data.getNominationData() != null) {
             clNAP.setVisibility(View.VISIBLE);
-            tvNAPName.setText(data.getNominationData().getUserName());
-            tvNAPMobileNo.setText(data.getNominationData().getMobileNo());
-            tvPancard.setText(data.getNominationData().getPancardNo());
-            Glide.with(context)
-                    .load(AppController.imageURL + data.getNominationData().getPancardPic())
-                    .error(R.drawable.ic_logo_sandesh)
-                    .into(imgNAPPancard);
+            if(data.getNominationData().getUserName() != null){
+                tvNAPName.setText(data.getNominationData().getUserName());
+                tvNAPMobileNo.setText(data.getNominationData().getMobileNo());
+                tvPancard.setText(data.getNominationData().getPancardNo());
+                Glide.with(context)
+                        .load(AppController.imageURL + data.getNominationData().getPancardPic())
+                        .error(R.drawable.ic_logo_sandesh)
+                        .into(imgNAPPancard);
+            }
+            else {
+                clNAP.setVisibility(View.GONE);
+            }
+
         } else {
             clNAP.setVisibility(View.GONE);
         }
