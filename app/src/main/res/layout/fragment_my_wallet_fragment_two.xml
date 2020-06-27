@@ -73,7 +73,7 @@
             android:id="@+id/tvWalletAmt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Rs. 100"
+            android:text="Rs. "
             android:layout_marginLeft="@dimen/_8sdp"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_16sdp"
