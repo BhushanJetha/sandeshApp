@@ -292,13 +292,9 @@ public class OrderListFragment extends Fragment {
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<AcceptedOrdersResponseModel> call = null;
         if (tag.equals("order_clicked_verify")) {
-            call = apiInterface.getMyAcceptedOrders(
-                    jsonObject
-            );
+            call = apiInterface.getMyAcceptedOrders(jsonObject);
         } else if (tag.equals("order_clicked_verify_end_journey")) {
-            call = apiInterface.getMyVerifiedOrder(
-                    jsonObject
-            );
+            call = apiInterface.getMyVerifiedOrder(jsonObject);
         }
         call.enqueue(new Callback<AcceptedOrdersResponseModel>() {
             @Override

@@ -153,8 +153,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="@+id/tILEmail"
-                    app:layout_constraintStart_toStartOf="@+id/tILEmail"
+                    app:layout_constraintEnd_toEndOf="@+id/tILFirstName"
+                    app:layout_constraintStart_toStartOf="@+id/tILFirstName"
                     app:layout_constraintTop_toBottomOf="@id/tILEmailId">
                     <TextView
                         android:layout_width="match_parent"

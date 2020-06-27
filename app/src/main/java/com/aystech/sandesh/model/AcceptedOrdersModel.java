@@ -110,9 +110,6 @@ public class AcceptedOrdersModel {
     @SerializedName("gst_amount")
     @Expose
     private Double gstAmount;
-    @SerializedName("total_amount")
-    @Expose
-    private Double totalAmount;
     @SerializedName("status")
     @Expose
     private String status;
@@ -423,34 +420,6 @@ public class AcceptedOrdersModel {
 
     public void setGstAmount(Double gstAmount) {
         this.gstAmount = gstAmount;
-    }
-
-    public Double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(Double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getVerificationStatus() {
-        return verificationStatus;
     }
 
     public void setVerificationStatus(String verificationStatus) {
