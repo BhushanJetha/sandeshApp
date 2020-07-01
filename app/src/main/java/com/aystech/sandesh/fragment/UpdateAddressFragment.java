@@ -216,7 +216,7 @@ public class UpdateAddressFragment extends Fragment {
     }
 
     private void getCity(int strStateId) {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", strStateId);
@@ -276,7 +276,7 @@ public class UpdateAddressFragment extends Fragment {
     }
 
     private void updateAddress() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", stateId);

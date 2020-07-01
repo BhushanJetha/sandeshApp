@@ -187,7 +187,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
     }
 
     private void updateProfile() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RequestBody emailIdPart = RequestBody.create(MultipartBody.FORM, strEmailId);
         RequestBody companyNamePart = RequestBody.create(MultipartBody.FORM, strCompanyName);

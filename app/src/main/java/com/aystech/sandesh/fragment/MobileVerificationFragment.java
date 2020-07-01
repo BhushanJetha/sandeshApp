@@ -109,7 +109,7 @@ public class MobileVerificationFragment extends Fragment {
     }
 
     private void doVerifyOTPAPICall() {
-        ViewProgressDialog.getInstance().showProgress(this.getActivity());
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("mobile_no", strMobileNumber);

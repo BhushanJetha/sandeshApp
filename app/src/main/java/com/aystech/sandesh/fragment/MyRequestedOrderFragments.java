@@ -92,7 +92,7 @@ public class MyRequestedOrderFragments extends Fragment implements View.OnClickL
     }
 
     private void getData() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RetrofitInstance.getClient().getMyOrderInbox().enqueue(new Callback<ShowHistoryResponseModel>() {
             @Override

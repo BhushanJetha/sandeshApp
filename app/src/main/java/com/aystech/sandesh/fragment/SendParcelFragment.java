@@ -965,7 +965,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     }
 
     private void sendParcel() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RequestBody from_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(fromCityId));
         RequestBody from_pincode = RequestBody.create(MultipartBody.FORM, strFromPincode);
@@ -1063,7 +1063,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     }
 
     private void updateMyParcel(Integer parcelId) {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RequestBody parcel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(parcelId));
         RequestBody from_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(fromCityId));
@@ -1565,7 +1565,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
     private void getCity(int strStateId, final String tag) {
         if (tag.equals("to"))
-            ViewProgressDialog.getInstance().showProgress(context);
+            viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", strStateId);

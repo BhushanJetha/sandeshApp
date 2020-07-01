@@ -170,11 +170,6 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.GONE);
             btnSendOTP.setVisibility(View.VISIBLE);
-        } else if (tag != null && tag.equals("order_clicked_verify")) {
-            btnSendRequest.setVisibility(View.GONE);
-            clAfterVerify.setVisibility(View.GONE);
-            clAcceptRejectOrder.setVisibility(View.GONE);
-            btnSendOTP.setVisibility(View.VISIBLE);
         } else if (tag != null && tag.equals("order_clicked_verify_end_journey")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);

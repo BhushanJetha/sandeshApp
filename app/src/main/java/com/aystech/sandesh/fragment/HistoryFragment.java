@@ -122,7 +122,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getHistoryData() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RetrofitInstance.getClient().showHistory().enqueue(new Callback<ShowHistoryResponseModel>() {
             @Override

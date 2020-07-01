@@ -113,7 +113,7 @@ public class AddressDetailActivity extends AppCompatActivity {
     }
 
     private void doRigistrationAPICall() {
-        ViewProgressDialog.getInstance().showProgress(this);
+        viewProgressDialog.showProgress(this);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", strStateId);
@@ -204,7 +204,7 @@ public class AddressDetailActivity extends AppCompatActivity {
     }
 
     private void getCity(int strStateId) {
-        ViewProgressDialog.getInstance().showProgress(this);
+        viewProgressDialog.showProgress(this);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", strStateId);

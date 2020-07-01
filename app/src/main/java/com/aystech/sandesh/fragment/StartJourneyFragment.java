@@ -125,7 +125,7 @@ public class StartJourneyFragment extends Fragment {
     }
 
     private void getMyRides() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", "travel");
@@ -152,7 +152,7 @@ public class StartJourneyFragment extends Fragment {
     }
 
     private void getMyOrders() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", "parcel");
@@ -203,7 +203,7 @@ public class StartJourneyFragment extends Fragment {
     }
 
     private void getData() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RetrofitInstance.getClient().getMyTravellerList().enqueue(new Callback<SearchTravellerResponseModel>() {
             @Override
@@ -279,7 +279,7 @@ public class StartJourneyFragment extends Fragment {
     }
 
     private void getMyOrderList() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RetrofitInstance.getClient().getMyOrderList().enqueue(new Callback<SearchOrderResponseModel>() {
             @Override
@@ -369,7 +369,7 @@ public class StartJourneyFragment extends Fragment {
     }
 
     private void giveRating(final SearchOrderModel searchOrderModel) {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("travel_id", searchOrderModel.getTravelId());

@@ -203,7 +203,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     }
 
     private void doRigistrationAPICall() {
-        ViewProgressDialog.getInstance().showProgress(this);
+        viewProgressDialog.showProgress(this);
 
         RequestBody emailIdPart = RequestBody.create(MultipartBody.FORM, strEmailId);
         RequestBody mobileNoPart = RequestBody.create(MultipartBody.FORM, strMobileNumber);

@@ -121,7 +121,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
     }
 
     private void getTrackingOfParcel() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("travel_id", travel_id);

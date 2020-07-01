@@ -165,7 +165,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
     }
 
     private void getProfile() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<ProfileResponseModel> call = apiInterface.getProfile();

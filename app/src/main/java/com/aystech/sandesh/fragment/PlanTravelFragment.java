@@ -503,7 +503,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     }
 
     private void planTravel() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("from_city_id", fromCityId);
@@ -546,7 +546,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     }
 
     private void updateMyTravel(Integer travelId) {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("travel_id", travelId);
@@ -928,7 +928,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
 
     private void getCity(int strStateId, final String tag) {
         if (tag.equals("to"))
-            ViewProgressDialog.getInstance().showProgress(context);
+            viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", strStateId);

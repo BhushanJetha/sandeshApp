@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,9 +29,11 @@ import com.aystech.sandesh.fragment.StartJourneyFragment;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.UserSession;
+import com.aystech.sandesh.utils.ViewProgressDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "MainActivity";
     ImageView imgNotification, imgOtherNotification, imgLogout, imgOtherLogout, imgOtherHome;
     Toolbar toolBar;
     ConstraintLayout clDashboard, clOther;
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int counter = 0;
 
     UserSession userSession;
+    private ViewProgressDialog viewProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolBar = findViewById(R.id.toolBar);
         setSupportActionBar(toolBar);
 
+        viewProgressDialog = ViewProgressDialog.getInstance();
         userSession = new UserSession(this);
 
         imgNotification = findViewById(R.id.imgNotification);
@@ -177,6 +183,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.imgOtherHome:
+                // this will clear the back stack and displays no animation on the screen
+                getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
                 FragmentUtil.commonMethodForFragment(getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
                         false);
                 break;
@@ -278,5 +287,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (isBack) {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG, "onResume: ");
+        if (viewProgressDialog.isShowingDialog())
+            viewProgressDialog.hideDialog();
     }
 }

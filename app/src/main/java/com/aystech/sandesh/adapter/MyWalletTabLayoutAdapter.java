@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.aystech.sandesh.fragment.InvoiceFragment;
 import com.aystech.sandesh.fragment.RoyaltyFragment;
 import com.aystech.sandesh.fragment.StatementFragment;
 
@@ -27,8 +26,6 @@ public class MyWalletTabLayoutAdapter extends FragmentPagerAdapter {
             case 0:
                 return new StatementFragment();
             case 1:
-                return new InvoiceFragment();
-            case 2:
                 return new RoyaltyFragment();
             default:
                 return null;

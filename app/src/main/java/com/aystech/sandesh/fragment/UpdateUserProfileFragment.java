@@ -218,7 +218,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     };
 
     private void updateProfile() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RequestBody emailIdPart = RequestBody.create(MultipartBody.FORM, strEmailId);
         RequestBody firstNamePart = RequestBody.create(MultipartBody.FORM, strFirstName);

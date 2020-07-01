@@ -83,7 +83,6 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
         btnAddMoney = view.findViewById(R.id.btnAddMoney);
 
         walletTabLayout.addTab(walletTabLayout.newTab().setText("Statement"));
-        walletTabLayout.addTab(walletTabLayout.newTab().setText("Invoice"));
         walletTabLayout.addTab(walletTabLayout.newTab().setText("Royalty"));
 
         walletTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

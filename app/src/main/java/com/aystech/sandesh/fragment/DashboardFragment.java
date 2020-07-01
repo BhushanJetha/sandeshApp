@@ -324,7 +324,7 @@ public class DashboardFragment extends Fragment {
 
     //Reset Password API call
     private void doResetPasswordAPICall(String oldPassword, String newPassword) {
-        ViewProgressDialog.getInstance().showProgress(getActivity());
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("oldPassword", oldPassword);

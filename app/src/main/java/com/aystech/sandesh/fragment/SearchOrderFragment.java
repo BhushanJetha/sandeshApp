@@ -224,7 +224,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
     };
 
     private void searchOrderByData() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("from_city_id", fromCityId);
@@ -382,7 +382,7 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
 
     private void getCity(int strStateId, final String tag) {
         if (tag.equals("to"))
-            ViewProgressDialog.getInstance().showProgress(context);
+            viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", strStateId);

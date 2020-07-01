@@ -147,7 +147,7 @@ public class VerifyOTPFragment extends Fragment {
     }
 
     private void getOTPAPICall() {
-        ViewProgressDialog.getInstance().showProgress(this.getActivity());
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("mobile_no", strMobileNumber);
@@ -181,7 +181,7 @@ public class VerifyOTPFragment extends Fragment {
     }
 
     private void doVerifyOTPAPICall() {
-        ViewProgressDialog.getInstance().showProgress(this.getActivity());
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("mobile_no", strMobileNumber);

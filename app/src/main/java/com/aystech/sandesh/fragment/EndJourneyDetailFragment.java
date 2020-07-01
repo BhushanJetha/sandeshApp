@@ -193,7 +193,7 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
     }
 
     private void endJourney() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RequestBody travel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(travelId));
         RequestBody parcel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(parcelId));

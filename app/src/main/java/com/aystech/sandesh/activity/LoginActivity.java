@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void forgetPassword(String mobileNo) {
-        ViewProgressDialog.getInstance().showProgress(this);
+        viewProgressDialog.showProgress(this);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("mobile_no", mobileNo);
@@ -193,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void doLoginAPICall() {
-        ViewProgressDialog.getInstance().showProgress(this);
+        viewProgressDialog.showProgress(this);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("mobile_no", strUserName);

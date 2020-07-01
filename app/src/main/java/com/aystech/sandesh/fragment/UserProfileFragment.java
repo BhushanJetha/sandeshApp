@@ -129,7 +129,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
     }
 
     private void getProfile() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<ProfileResponseModel> call = apiInterface.getProfile();

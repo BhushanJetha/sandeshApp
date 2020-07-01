@@ -109,7 +109,7 @@ public class ComplaintDisputeFragment extends Fragment implements View.OnClickLi
     }
 
     private void sendComplaint() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", strName);

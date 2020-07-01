@@ -10,15 +10,24 @@ import com.bumptech.glide.Glide;
 
 public class ViewProgressDialog {
 
-    private static ViewProgressDialog viewProgressDialog;
+    private static volatile ViewProgressDialog viewProgressDialog;
     private Dialog m_Dialog;
 
     private ViewProgressDialog() {
+        //Prevent form the reflection api.
+        if (viewProgressDialog != null) {
+            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+        }
     }
 
     public static ViewProgressDialog getInstance() {
-        if (viewProgressDialog == null) {
-            viewProgressDialog = new ViewProgressDialog();
+        //Double check locking pattern
+        if (viewProgressDialog == null) { //Check for the first time
+
+            synchronized (ViewProgressDialog.class) {   //Check for the second time.
+                //if there is no instance available... create new one
+                if (viewProgressDialog == null) viewProgressDialog = new ViewProgressDialog();
+            }
         }
         return viewProgressDialog;
     }
@@ -36,10 +45,19 @@ public class ViewProgressDialog {
                 .load(R.drawable.ic_loader)
                 .into(gifImageView);
 
-        m_Dialog.show();
+        if (m_Dialog != null && m_Dialog.isShowing())
+            m_Dialog.dismiss();
+        else
+            m_Dialog.show();
     }
 
     public void hideDialog() {
-        m_Dialog.dismiss();
+        if (m_Dialog != null && m_Dialog.isShowing()) {
+            m_Dialog.dismiss();
+        }
+    }
+
+    public boolean isShowingDialog(){
+        return m_Dialog != null && m_Dialog.isShowing();
     }
 }

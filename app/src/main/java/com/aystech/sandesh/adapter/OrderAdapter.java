@@ -243,7 +243,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
                 myViewHolder.tvExpectedIncome.setText("Expected income: Rs. " + searchOrderModels.get(i).getTraveller_amount());
             } else {
-
                 myViewHolder.tvExpectedIncome.setVisibility(View.GONE);
                 /*myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
                 switch (searchOrderModels.get(i).getDeliveryOption()) {

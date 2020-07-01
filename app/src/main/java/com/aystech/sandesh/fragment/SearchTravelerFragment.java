@@ -218,7 +218,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
     };
 
     private void searchTravelerData() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("from_city_id", fromCityId);
@@ -410,7 +410,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
     private void getCity(int strStateId, final String tag) {
         if (tag.equals("to"))
-            ViewProgressDialog.getInstance().showProgress(context);
+            viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("state_id", strStateId);

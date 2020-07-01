@@ -164,7 +164,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
     }
 
     private void getTravellerDetail() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("travel_id", travel_id);

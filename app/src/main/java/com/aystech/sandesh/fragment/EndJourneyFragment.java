@@ -71,7 +71,7 @@ public class EndJourneyFragment extends Fragment {
     }
 
     private void getData() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RetrofitInstance.getClient().getMyStartedJourney().enqueue(new Callback<SearchTravellerResponseModel>() {
             @Override

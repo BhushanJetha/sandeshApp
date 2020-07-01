@@ -165,7 +165,7 @@ public class OrderListFragment extends Fragment {
     }
 
     private void getMyOrderList() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         ApiInterface apiInterface = RetrofitInstance.getClient();
         Call<SearchOrderResponseModel> call = apiInterface.getMyOrderList();
@@ -226,7 +226,7 @@ public class OrderListFragment extends Fragment {
     }
 
     private void getMyTravellerList() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RetrofitInstance.getClient().getMyTravellerList().enqueue(new Callback<SearchTravellerResponseModel>() {
             @Override
@@ -284,7 +284,7 @@ public class OrderListFragment extends Fragment {
     }
 
     private void getMyAcceptedOrderList() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("travel_id", travel_id);
@@ -353,7 +353,7 @@ public class OrderListFragment extends Fragment {
     }
 
     private void getMyTravellerRequestList() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("parcel_id", parcel_id);
@@ -412,7 +412,7 @@ public class OrderListFragment extends Fragment {
     }
 
     private void getMyRequestedOrders() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("travel_id", travel_id);
@@ -494,7 +494,7 @@ public class OrderListFragment extends Fragment {
     }
 
     private void sendDeliveryRequest() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("travel_id", travel_id);

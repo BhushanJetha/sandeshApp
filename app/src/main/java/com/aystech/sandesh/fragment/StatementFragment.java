@@ -138,7 +138,7 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
     };
 
     private void getStatement() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("start_date", strStartDate);

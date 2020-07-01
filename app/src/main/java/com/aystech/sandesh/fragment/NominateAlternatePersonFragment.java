@@ -179,7 +179,7 @@ public class NominateAlternatePersonFragment extends Fragment implements View.On
     }
 
     private void nominateAlternatePerson() {
-        ViewProgressDialog.getInstance().showProgress(context);
+        viewProgressDialog.showProgress(context);
 
         RequestBody travel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(travelId));
         RequestBody user_name = RequestBody.create(MultipartBody.FORM, userName);
