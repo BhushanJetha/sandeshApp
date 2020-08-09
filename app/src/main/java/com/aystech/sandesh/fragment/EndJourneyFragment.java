@@ -19,8 +19,8 @@ import com.aystech.sandesh.model.AcceptedOrdersModel;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
-import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 
@@ -58,8 +58,10 @@ public class EndJourneyFragment extends Fragment {
 
         initView(view);
 
-        //TODO API Call
-        getData();
+        if (Connectivity.isConnected(context)) {
+            //TODO API Call
+            getData();
+        }
 
         return view;
     }
@@ -119,7 +121,7 @@ public class EndJourneyFragment extends Fragment {
             orderAdapter.addTravellerList(data);
             rvOrder.setAdapter(orderAdapter);
         } else {
-            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Travellers Found!");
             rvOrder.setAdapter(noDataAdapter);
         }
     }

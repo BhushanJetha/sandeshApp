@@ -30,6 +30,7 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
@@ -147,8 +148,10 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                                                 if (cbAccetTermsAndConditions.isChecked()) {
                                                     if(!strBirthDate.isEmpty()){
                                                         if(age >= 18){
-                                                            //TODO API Call
-                                                            doRegistrationAPICall();
+                                                            if(Connectivity.isConnected(IndividualRegistrationActivity.this)) {
+                                                                //TODO API Call
+                                                                doRegistrationAPICall();
+                                                            }
                                                         }else {
                                                             Uitility.showToast(IndividualRegistrationActivity.this, "Sorry you are not able to register, your age in below 18 !");
                                                         }

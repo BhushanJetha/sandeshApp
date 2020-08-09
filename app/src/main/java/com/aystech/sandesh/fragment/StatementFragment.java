@@ -19,6 +19,7 @@ import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.MyTransactionResponseModel;
 import com.aystech.sandesh.model.WalletTransactionModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
@@ -103,8 +104,10 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
                 break;
 
             case R.id.btnView:
-                //TODO API Call
-                getStatement();
+                if(Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    getStatement();
+                }
                 break;
         }
     }

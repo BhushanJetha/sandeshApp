@@ -20,10 +20,11 @@ import android.widget.TextView;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.activity.PaymentActivity;
+import com.aystech.sandesh.activity.WithdrawAmountActivity;
 import com.aystech.sandesh.adapter.MyWalletTabLayoutAdapter;
 import com.aystech.sandesh.model.CommonResponse;
-import com.aystech.sandesh.model.WalletTransactionResponseModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 
@@ -40,7 +41,7 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
 
     private TextView tvUserName;
     private TextView tvWalletAmt;
-    private Button btnAddMoney;
+    private Button btnAddMoney, btnTransferMoney;
 
     private Double walletBal;
 
@@ -81,13 +82,14 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
         tvUserName.setText(userSession.getUSER_NAME());
         tvWalletAmt = view.findViewById(R.id.tvWalletAmt);
         btnAddMoney = view.findViewById(R.id.btnAddMoney);
+        btnTransferMoney = view.findViewById(R.id.btnTransferMoney);
 
         walletTabLayout.addTab(walletTabLayout.newTab().setText("Statement"));
         walletTabLayout.addTab(walletTabLayout.newTab().setText("Royalty"));
 
         walletTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        MyWalletTabLayoutAdapter adapter = new MyWalletTabLayoutAdapter(context, ((MainActivity) context).getSupportFragmentManager(),
+        MyWalletTabLayoutAdapter adapter = new MyWalletTabLayoutAdapter(context, getChildFragmentManager(),
                 walletTabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
@@ -113,6 +115,7 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
 
     private void onClickListener() {
         btnAddMoney.setOnClickListener(this);
+        btnTransferMoney.setOnClickListener(this);
     }
 
     @Override
@@ -120,14 +123,23 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
 
-        //TODO Call API
-        getWalletBalance();
+        if(Connectivity.isConnected(context)) {
+            //TODO Call API
+            getWalletBalance();
+        }
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnAddMoney) {
-            addAmountInWalletDialog();
+        switch (v.getId()) {
+            case R.id.btnAddMoney:
+                addAmountInWalletDialog();
+                break;
+
+            case R.id.btnTransferMoney:
+                Intent intent = new Intent(context, WithdrawAmountActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 

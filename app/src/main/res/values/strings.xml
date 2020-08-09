@@ -44,5 +44,12 @@
     <string name="send_otp">Send OTP</string>
     <string name="sort_by">Sort By</string>
     <string name="vehicle_type">Vehicle Type</string>
+    <string name="download_invoice">Download Invoice</string>
+
+    <string name="connection_error">Connection Error</string>
+    <string name="no_internet_message">Please check your network connectivity and try again.</string>
+    <string name="retry">Retry</string>
+    <string name="proceed">Proceed</string>
+    <string name="withdraw_msg">Make sure you enter correct IFSC code and account number</string>
 
 </resources>

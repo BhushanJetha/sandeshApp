@@ -38,6 +38,7 @@ import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
@@ -174,8 +175,10 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                     if(toCityId != 0){
                         if (!strStartDate.isEmpty()) {
                             if (!strEndDate.isEmpty()) {
-                                //TODO API Call
-                                searchOrderByData();
+                                if(Connectivity.isConnected(context)) {
+                                    //TODO API Call
+                                    searchOrderByData();
+                                }
                             } else {
                                 Uitility.showToast(getActivity(), "Please select end date !!");
                             }

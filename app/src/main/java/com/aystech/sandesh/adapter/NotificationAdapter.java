@@ -9,22 +9,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aystech.sandesh.R;
-import com.aystech.sandesh.model.NotificationListModel;
+import com.aystech.sandesh.model.NotificationModel;
+import com.aystech.sandesh.model.NotificationResponseModel;
 
 import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder> {
 
     private Context context;
-    private List<NotificationListModel> notificationListModels;
+    private List<NotificationModel> notificationResponseModels;
 
-    public NotificationAdapter(Context context, List<NotificationListModel> notificationListModels) {
+    public NotificationAdapter(List<NotificationModel> data) {
         this.context = context;
-        this.notificationListModels = notificationListModels;
-    }
-
-    public NotificationAdapter() {
-
+        this.notificationResponseModels = data;
     }
 
     @NonNull
@@ -37,21 +34,24 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
-        myViewHolder.tvNotificationMsg.setText("Notification " + (i + 1));
+        myViewHolder.tvNotificationTitle.setText(notificationResponseModels.get(i).getTitle());
+        myViewHolder.tvNotificationMsg.setText(notificationResponseModels.get(i).getBody());
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return notificationResponseModels.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
+        TextView tvNotificationTitle;
         TextView tvNotificationMsg;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            tvNotificationTitle = itemView.findViewById(R.id.tvNotificationTitle);
             tvNotificationMsg = itemView.findViewById(R.id.tvNotificationMsg);
         }
     }

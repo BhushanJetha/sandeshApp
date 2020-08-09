@@ -31,6 +31,7 @@ import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
@@ -87,21 +88,23 @@ public class StartJourneyFragment extends Fragment {
 
         initView(view);
 
-        if (tag != null && tag.equals("my_rides")) {
-            //TODO API Call
-            getMyRides();
-        } else if (tag != null && tag.equals("my_orders")) {
-            //TODO API Call
-            getMyOrders();
-        } else if (tag != null && tag.equals("nominate_person")) {
-            //TODO API Call
-            getData(); //nominate_person
-        } else if (tag != null && tag.equals("track_parcel")) {
-            //TODO API Call
-            getMyOrderList();
-        } else {
-            //TODO API Call
-            getData(); //in else
+        if(Connectivity.isConnected(context)) {
+            if (tag != null && tag.equals("my_rides")) {
+                //TODO API Call
+                getMyRides();
+            } else if (tag != null && tag.equals("my_orders")) {
+                //TODO API Call
+                getMyOrders();
+            } else if (tag != null && tag.equals("nominate_person")) {
+                //TODO API Call
+                getData(); //nominate_person
+            } else if (tag != null && tag.equals("track_parcel")) {
+                //TODO API Call
+                getMyOrderList();
+            } else {
+                //TODO API Call
+                getData(); //in else
+            }
         }
         return view;
     }
@@ -118,7 +121,7 @@ public class StartJourneyFragment extends Fragment {
         } else if (tag != null && tag.equals("my_orders")) {
             tvTitle.setText("My Orders");
         } else if (tag != null && tag.equals("nominate_person")) {
-            tvTitle.setText("Traveller List");
+            tvTitle.setText("Travellers List");
         } else {
             tvTitle.setText("Start Journey");
         }
@@ -273,7 +276,7 @@ public class StartJourneyFragment extends Fragment {
             orderAdapter.addTravellerList(data);
             rvTraveller.setAdapter(orderAdapter);
         } else {
-            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Travellers Found!");
             rvTraveller.setAdapter(noDataAdapter);
         }
     }

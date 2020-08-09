@@ -1,14 +1,17 @@
 package com.aystech.sandesh.remote;
 
+import com.aystech.sandesh.model.AadhaarDetailsResponseModel;
 import com.aystech.sandesh.model.AcceptedOrdersResponseModel;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.DeliveryOptionResponseModel;
+import com.aystech.sandesh.model.GenerateOTPResponseModel;
 import com.aystech.sandesh.model.LoginResponseModel;
 import com.aystech.sandesh.model.MyOrdersResponseModel;
 import com.aystech.sandesh.model.MyRidesResponseModel;
 import com.aystech.sandesh.model.MyTransactionResponseModel;
 import com.aystech.sandesh.model.NatureOfGoodsResponseModel;
+import com.aystech.sandesh.model.NotificationResponseModel;
 import com.aystech.sandesh.model.OrderDetailResponseModel;
 import com.aystech.sandesh.model.PackagingResponseModel;
 import com.aystech.sandesh.model.ProfileResponseModel;
@@ -17,6 +20,7 @@ import com.aystech.sandesh.model.SearchOrderResponseModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.model.ShowHistoryResponseModel;
 import com.aystech.sandesh.model.StateResponseModel;
+import com.aystech.sandesh.model.SubmitOTPResponseModel;
 import com.aystech.sandesh.model.TrackParcelResponseModel;
 import com.aystech.sandesh.model.TravelDetailResponseModel;
 import com.aystech.sandesh.model.VehicleResponseModel;
@@ -316,4 +320,22 @@ public interface ApiInterface {
 
     @GET("api/getWalletBalance")
     Call<CommonResponse> getWalletBalance();
+
+    @POST("generate-otp")
+    Call<GenerateOTPResponseModel> generateOTP(@Body JsonObject jsonObject);
+
+    @POST("submit-otp")
+    Call<SubmitOTPResponseModel> submitOTP(@Body JsonObject jsonObject);
+
+    @POST("api/addKYC")
+    Call<CommonResponse> addKYC(@Body JsonObject jsonObject);
+
+    @GET("api/isVerifiedKYC")
+    Call<AadhaarDetailsResponseModel> isVerifyKYC();
+
+    @POST("api/withdrawReq")
+    Call<CommonResponse> withdrawRequest(@Body JsonObject jsonObject);
+
+    @GET("api/getNotificatonList")
+    Call<NotificationResponseModel> getNotifications();
 }

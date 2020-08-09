@@ -21,6 +21,7 @@ import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.LoginResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.JWTUtils;
 import com.aystech.sandesh.utils.Uitility;
@@ -101,14 +102,16 @@ public class LoginActivity extends AppCompatActivity {
                 strUserName = etUserName.getText().toString();
                 strPassword = etPassword.getText().toString();
 
-                if(login_count < 5) {
+                if (login_count < 5) {
                     if (!strUserName.isEmpty() && !strPassword.isEmpty()) {
-                        //TODO API Call
-                        doLoginAPICall();
+                        if (Connectivity.isConnected(LoginActivity.this)) {
+                            //TODO API Call
+                            doLoginAPICall();
+                        }
                     } else {
                         Toast.makeText(LoginActivity.this, "Please enter user name and password !!", Toast.LENGTH_SHORT).show();
                     }
-                }else {
+                } else {
                     showPasswordLockDialog();
                 }
 
@@ -144,16 +147,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String pass = etEmail.getText().toString();
 
-                if(!pass.isEmpty()){
-                    if(pass.length()==10){
-                        //TODO API Call
-                        forgetPassword(pass);
+                if (!pass.isEmpty()) {
+                    if (pass.length() == 10) {
+                        if (Connectivity.isConnected(LoginActivity.this)) {
+                            //TODO API Call
+                            forgetPassword(pass);
 
-                        dialog.dismiss();
-                    }else {
+                            dialog.dismiss();
+                        }
+                    } else {
                         Uitility.showToast(LoginActivity.this, "Please enter 10 digit mobile number !");
                     }
-                }else {
+                } else {
                     Uitility.showToast(LoginActivity.this, "Please enter your mobile number !");
                 }
             }

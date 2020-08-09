@@ -21,8 +21,8 @@ import android.widget.Toast;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
-import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.UserSession;
@@ -144,8 +144,16 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
                 break;
 
             case R.id.btnEndJourney:
-                //TODO API Call
-                endJourney();
+                if (strParcelFilePath == null) {
+                    Toast.makeText(context, "Please select parcel image", Toast.LENGTH_SHORT).show();
+                } else if (strSelfieFilePath == null) {
+                    Toast.makeText(context, "Please select selfie image", Toast.LENGTH_SHORT).show();
+                } else {
+                    if(Connectivity.isConnected(context)) {
+                        //TODO API Call
+                        endJourney();
+                    }
+                }
                 break;
         }
     }
@@ -153,6 +161,63 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
     private void gotoSelectPicture(String type) {
         tag = type;
         startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context), 200);
+    }
+
+    private void endJourney() {
+        viewProgressDialog.showProgress(context);
+
+        RequestBody travel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(travelId));
+        RequestBody parcel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(parcelId));
+        RequestBody delivery_id = RequestBody.create(MultipartBody.FORM, String.valueOf(deliveryId));
+
+        MultipartBody.Part parcel_pic_body;
+        if (strParcelFilePath != null && !strParcelFilePath.equals("")) {
+            File file = new File(strParcelFilePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", "", requestBody);
+        }
+
+        MultipartBody.Part selfie_pic_body;
+        if (strSelfieFilePath != null && !strSelfieFilePath.equals("")) {
+            File file = new File(strSelfieFilePath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            selfie_pic_body = MultipartBody.Part.createFormData("selfie_pic", file.getName(), requestBody);
+        } else {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            selfie_pic_body = MultipartBody.Part.createFormData("selfie_pic", "", requestBody);
+        }
+
+        RetrofitInstance.getClient().endJourney(travel_id, parcel_id, delivery_id, parcel_pic_body, selfie_pic_body).enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                        //after end journey travel_id should be removed from internal storage
+                        //caused for next order new travel_id should be managed.
+                        userSession.setTravelId(0);
+                        userSession.setHours(0);
+                        userSession.setMinute(0);
+
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
+                                false);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
     }
 
     @Override
@@ -192,68 +257,4 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
         }
     }
 
-    private void endJourney() {
-        viewProgressDialog.showProgress(context);
-
-        RequestBody travel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(travelId));
-        RequestBody parcel_id = RequestBody.create(MultipartBody.FORM, String.valueOf(parcelId));
-        RequestBody delivery_id = RequestBody.create(MultipartBody.FORM, String.valueOf(deliveryId));
-
-        MultipartBody.Part parcel_pic_body;
-        if (strParcelFilePath != null && !strParcelFilePath.equals("")) {
-            File file = new File(strParcelFilePath);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", file.getName(), requestBody);
-        } else {
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
-            parcel_pic_body = MultipartBody.Part.createFormData("parcel_pic", "", requestBody);
-        }
-
-        MultipartBody.Part selfie_pic_body;
-        if (strSelfieFilePath != null && !strSelfieFilePath.equals("")) {
-            File file = new File(strSelfieFilePath);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            selfie_pic_body = MultipartBody.Part.createFormData("selfie_pic", file.getName(), requestBody);
-        } else {
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), "");
-            selfie_pic_body = MultipartBody.Part.createFormData("selfie_pic", "", requestBody);
-        }
-
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.endJourney(
-                travel_id,
-                parcel_id,
-                delivery_id,
-                parcel_pic_body,
-                selfie_pic_body
-        );
-        call.enqueue(new Callback<CommonResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
-                viewProgressDialog.hideDialog();
-
-                if (response.body() != null) {
-                    if (response.body().getStatus()) {
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                        //after end journey travel_id should be removed from internal storage
-                        //caused for next order new travel_id should be managed.
-                        userSession.setTravelId(0);
-                        userSession.setHours(0);
-                        userSession.setMinute(0);
-
-                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(), dashboardFragment, R.id.frame_container,
-                                false);
-                    } else {
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-                viewProgressDialog.hideDialog();
-            }
-        });
-    }
 }

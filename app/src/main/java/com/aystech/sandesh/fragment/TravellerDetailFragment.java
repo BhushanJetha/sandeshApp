@@ -25,6 +25,7 @@ import com.aystech.sandesh.model.TravelDetailResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
@@ -105,8 +106,10 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
         onClickListener();
 
-        //TODO API Call
-        getTravellerDetail();
+        if(Connectivity.isConnected(context)) {
+            //TODO API Call
+            getTravellerDetail();
+        }
 
         return view;
     }
@@ -325,8 +328,10 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
                 break;
 
             case R.id.btnTravelDelete:
-                //TODO API Call
-                deleteTravelDetail();
+                if(Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    deleteTravelDetail();
+                }
                 break;
         }
     }

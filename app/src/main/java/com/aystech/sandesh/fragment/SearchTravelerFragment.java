@@ -38,6 +38,7 @@ import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
@@ -164,8 +165,10 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                     if (toCityId != 0) {
                         if (!strStartDate.isEmpty()) {
                             if (!strEndDate.isEmpty()) {
-                                //TODO API Call
-                                searchTravelerData();
+                                if(Connectivity.isConnected(context)) {
+                                    //TODO API Call
+                                    searchTravelerData();
+                                }
                             } else {
                                 Uitility.showToast(getActivity(), "Please select end date !!");
                             }
@@ -284,7 +287,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
             clTravellerList.setVisibility(View.VISIBLE);
             tvResultCount.setVisibility(View.GONE);
             tvSortBy.setVisibility(View.GONE);
-            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Travellers Found!");
             rvOrder.setAdapter(noDataAdapter);
         }
     }

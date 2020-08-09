@@ -24,6 +24,7 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
@@ -129,8 +130,10 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                                                 if (!strReEnteredPassword.isEmpty()) {
                                                     if (strPassword.equals(strReEnteredPassword)) {
                                                         if (cbAccetTermsAndConditions.isChecked()) {
-                                                            //TODO API Call
-                                                            doRigistrationAPICall();
+                                                            if(Connectivity.isConnected(CorporateRegistrationActivity.this)) {
+                                                                //TODO API Call
+                                                                doRigistrationAPICall();
+                                                            }
                                                         } else {
                                                             Uitility.showToast(CorporateRegistrationActivity.this, "Please accept terms and condition!");
                                                         }

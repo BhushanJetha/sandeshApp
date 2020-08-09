@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ import com.aystech.sandesh.model.WeightResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
@@ -84,7 +86,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private PackagingResponseModel packagingResponseModel;
     private QualityResponseModel qualityResponseModel;
 
-    private OrderListFragment orderListFragment;
+    private DashboardFragment dashboardFragment;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private EditText etFromPincode, etToPincode, etGoodsDescription,
@@ -137,8 +139,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_send_parcel, container, false);
 
-        orderListFragment = (OrderListFragment) Fragment.instantiate(context,
-                OrderListFragment.class.getName());
+        dashboardFragment = (DashboardFragment) Fragment.instantiate(context,
+                DashboardFragment.class.getName());
 
         if (getArguments() != null) {
             travelDetailModel = getArguments().getParcelable("order_detail");
@@ -420,24 +422,20 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                                 if (!strReceiverAddress.isEmpty()) {
                                                                                                                                     if (cbPricingPolicy.isChecked()) {
                                                                                                                                         if (cbTermsCondition.isChecked()) {
-                                                                                                                                            if (!strParcelFilePath.isEmpty()) {
-                                                                                                                                                if (Integer.parseInt(strValueOgGood) <= 50000) {
-                                                                                                                                                    if (strOwnership.equals("Commercial")) {
-                                                                                                                                                        if (!strInvoiceFilePath.isEmpty()) {
-                                                                                                                                                            //TODO API Call
-                                                                                                                                                            updateMyParcel(travelDetailModel.getParcelData().getParcelId());
-                                                                                                                                                        } else {
-                                                                                                                                                            Uitility.showToast(context, "Please select invoice picture");
-                                                                                                                                                        }
-                                                                                                                                                    } else {
+                                                                                                                                            if (Integer.parseInt(strValueOgGood) <= 50000) {
+                                                                                                                                                if (strOwnership.equals("Commercial")) {
+                                                                                                                                                    if (Connectivity.isConnected(context)) {
                                                                                                                                                         //TODO API Call
                                                                                                                                                         updateMyParcel(travelDetailModel.getParcelData().getParcelId());
                                                                                                                                                     }
                                                                                                                                                 } else {
-                                                                                                                                                    Uitility.showToast(context, "We deliver order below amount 50,000 !");
+                                                                                                                                                    if (Connectivity.isConnected(context)) {
+                                                                                                                                                        //TODO API Call
+                                                                                                                                                        updateMyParcel(travelDetailModel.getParcelData().getParcelId());
+                                                                                                                                                    }
                                                                                                                                                 }
                                                                                                                                             } else {
-                                                                                                                                                Uitility.showToast(context, "Please select parcel image!");
+                                                                                                                                                Uitility.showToast(context, "We deliver order below amount 50,000 !");
                                                                                                                                             }
                                                                                                                                         } else {
                                                                                                                                             Uitility.showToast(context, "Please accept terms and condition!");
@@ -686,14 +684,18 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                                                                                                                                 if (Integer.parseInt(strValueOgGood) <= 50000) {
                                                                                                                                                     if (strOwnership.equals("Commercial")) {
                                                                                                                                                         if (!strInvoiceFilePath.isEmpty()) {
-                                                                                                                                                            //TODO API Call
-                                                                                                                                                            sendParcel();
+                                                                                                                                                            if (Connectivity.isConnected(context)) {
+                                                                                                                                                                //TODO API Call
+                                                                                                                                                                sendParcel();
+                                                                                                                                                            }
                                                                                                                                                         } else {
                                                                                                                                                             Uitility.showToast(context, "Please select invoice picture");
                                                                                                                                                         }
                                                                                                                                                     } else {
-                                                                                                                                                        //TODO API Call
-                                                                                                                                                        sendParcel();
+                                                                                                                                                        if (Connectivity.isConnected(context)) {
+                                                                                                                                                            //TODO API Call
+                                                                                                                                                            sendParcel();
+                                                                                                                                                        }
                                                                                                                                                     }
                                                                                                                                                 } else {
                                                                                                                                                     Uitility.showToast(context, "We deliver order below amount 50,000 !");
@@ -1049,7 +1051,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "Send Parcel Data entered Successfully", Toast.LENGTH_SHORT).show();
 
-                        commonRedirect();
+                        commonRedirect(); //sendParcel
                     } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -1149,7 +1151,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
-                        commonRedirect();
+                        commonRedirect(); //updateMyParcel
                     } else
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -1163,11 +1165,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     }
 
     private void commonRedirect() {
-        Bundle bundle = new Bundle();
         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                orderListFragment, R.id.frame_container, false);
-        bundle.putString("tag", "success_parcel");
-        orderListFragment.setArguments(bundle);
+                dashboardFragment, R.id.frame_container, false);
     }
 
     @Override

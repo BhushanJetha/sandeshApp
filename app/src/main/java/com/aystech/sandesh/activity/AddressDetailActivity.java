@@ -87,11 +87,11 @@ public class AddressDetailActivity extends AppCompatActivity {
                 strLandmark = etLandmark.getText().toString();
                 strPincode = etPincode.getText().toString();
 
-                if(strCityId != 0){
+                if (strCityId != 0) {
                     if (!strAddressLine1.isEmpty()) {
                         if (!strLandmark.isEmpty()) {
                             if (!strPincode.isEmpty()) {
-                                if(strPincode.length() <= 6){
+                                if (strPincode.length() <= 6) {
                                     doRigistrationAPICall();
                                 } else {
                                     Uitility.showToast(AddressDetailActivity.this, "Please enter 6 digit pin code !");
@@ -105,7 +105,7 @@ public class AddressDetailActivity extends AppCompatActivity {
                     } else {
                         Uitility.showToast(AddressDetailActivity.this, "Please enter address line 1 !");
                     }
-                }else {
+                } else {
                     Uitility.showToast(AddressDetailActivity.this, "Please select your city !");
                 }
             }
@@ -177,7 +177,7 @@ public class AddressDetailActivity extends AppCompatActivity {
     private void bindStateDataToUI(List<StateModel> data) {
         ArrayList<String> manufactureArrayList = new ArrayList<>();
 
-        manufactureArrayList.add(0,"Select State");
+        manufactureArrayList.add(0, "Select State");
         for (int i = 0; i < data.size(); i++) {
             manufactureArrayList.add(data.get(i).getStateName());
         }
@@ -234,7 +234,7 @@ public class AddressDetailActivity extends AppCompatActivity {
     private void bindCityDataToUI(List<CityModel> data) {
         ArrayList<String> manufactureArrayList = new ArrayList<>();
 
-        manufactureArrayList.add(0,"Select City");
+        manufactureArrayList.add(0, "Select City");
         for (int i = 0; i < data.size(); i++) {
             manufactureArrayList.add(data.get(i).getCityName());
         }

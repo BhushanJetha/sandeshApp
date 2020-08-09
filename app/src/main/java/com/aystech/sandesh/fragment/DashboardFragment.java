@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,11 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.model.AadhaarDetailsResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
@@ -53,6 +56,7 @@ public class DashboardFragment extends Fragment {
     private UserProfileFragment userProfileFragment;
     private CompanyProfileFragment companyProfileFragment;
     private MyRequestedOrderFragments myRequestedOrderFragments;
+    private KYCFragment kycFragment;
 
     ViewProgressDialog viewProgressDialog;
 
@@ -98,6 +102,8 @@ public class DashboardFragment extends Fragment {
                 Fragment.instantiate(context, CompanyProfileFragment.class.getName());
         myRequestedOrderFragments = (MyRequestedOrderFragments) Fragment.instantiate(context,
                 MyRequestedOrderFragments.class.getName());
+        kycFragment = (KYCFragment) Fragment.instantiate(context,
+                KYCFragment.class.getName());
 
         initView(view);
 
@@ -243,6 +249,40 @@ public class DashboardFragment extends Fragment {
                         myRequestedOrderFragments, R.id.frame_container, true);
             }
         });
+
+        imgKYC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO API Call
+                isVerifyAlready();
+            }
+        });
+    }
+
+    private void isVerifyAlready() {
+        RetrofitInstance.getClient().isVerifyKYC().enqueue(new Callback<AadhaarDetailsResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<AadhaarDetailsResponseModel> call, @NonNull Response<AadhaarDetailsResponseModel> response) {
+                viewProgressDialog.hideDialog();
+
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        FragmentTransaction transaction = ((MainActivity) context)
+                                .getSupportFragmentManager()
+                                .beginTransaction();
+                        VerifiedKYCFragment.newInstance(response.body()).show(transaction, "verified_kyc");
+                    } else {
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                kycFragment, R.id.frame_container, false);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<AadhaarDetailsResponseModel> call, @NonNull Throwable t) {
+                viewProgressDialog.hideDialog();
+            }
+        });
     }
 
     @Override
@@ -299,9 +339,10 @@ public class DashboardFragment extends Fragment {
                     if (!newPasssword.isEmpty()) {
                         if (!reEnterPassword.isEmpty()) {
                             if (newPasssword.equals(reEnterPassword)) {
-                                //TODO API Call
-                                doResetPasswordAPICall(oldPassword, newPasssword);
-
+                                if (Connectivity.isConnected(context)) {
+                                    //TODO API Call
+                                    doResetPasswordAPICall(oldPassword, newPasssword);
+                                }
                                 dialog.dismiss();
                             } else {
                                 Uitility.showToast(getActivity(), "New password and re-entered password are not matching !");

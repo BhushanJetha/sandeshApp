@@ -34,6 +34,7 @@ import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.SearchTravellerResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
@@ -103,14 +104,6 @@ public class OrderListFragment extends Fragment {
                     Objects.requireNonNull(getArguments().getString("tag")).equals("upcoming_rides")) {
                 tag = getArguments().getString("tag");
             }
-            if (getArguments().getString("tag") != null &&
-                    Objects.requireNonNull(getArguments().getString("tag")).equals("success_travel")) {
-                tag = getArguments().getString("tag");
-            }
-            if (getArguments().getString("tag") != null &&
-                    Objects.requireNonNull(getArguments().getString("tag")).equals("success_parcel")) {
-                tag = getArguments().getString("tag");
-            }
         }
 
         initView(view);
@@ -118,9 +111,10 @@ public class OrderListFragment extends Fragment {
         switch (tag) {
             case "traveller":
             case "upcoming_orders":  //this is for traveller detail
-            case "success_parcel":  //this is for parcel list
-                //TODO API Call
-                getMyOrderList();
+                if (Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    getMyOrderList();
+                }
                 if (tag.equals("traveller"))
                     tvScreenTitle.setText("My Order List");
                 else
@@ -128,9 +122,10 @@ public class OrderListFragment extends Fragment {
                 break;
             case "order":
             case "upcoming_rides":  //this is for order detail
-            case "success_travel":  //this is for travel list
-                //TODO API Call
-                getMyTravellerList();
+                if(Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    getMyTravellerList();
+                }
                 if (tag.equals("order"))
                     tvScreenTitle.setText("My Journey");
                 else
@@ -138,19 +133,25 @@ public class OrderListFragment extends Fragment {
                 break;
             case "order_clicked_verify":
             case "order_clicked_verify_end_journey":  //this is for start journey
-                //TODO API Call
-                getMyAcceptedOrderList();
+                if(Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    getMyAcceptedOrderList();
+                }
                 tvScreenTitle.setText("Accepted Order List");
                 break;
             case "order_clicked_accept_reject_traveller":  //this is for order list
-                //TODO API Call
-                getMyRequestedOrders();
+                if(Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    getMyRequestedOrders();
+                }
                 tvScreenTitle.setText("My Requested Orders List");
                 break;
             case "order_clicked_accept_reject_sender":  //this is for order list
-                //TODO API Call
-                getMyTravellerRequestList();
-                tvScreenTitle.setText("My Requested Traveller List");
+                if(Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    getMyTravellerRequestList();
+                }
+                tvScreenTitle.setText("My Requested Travellers List");
                 break;
         }
 
@@ -167,9 +168,7 @@ public class OrderListFragment extends Fragment {
     private void getMyOrderList() {
         viewProgressDialog.showProgress(context);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<SearchOrderResponseModel> call = apiInterface.getMyOrderList();
-        call.enqueue(new Callback<SearchOrderResponseModel>() {
+        RetrofitInstance.getClient().getMyOrderList().enqueue(new Callback<SearchOrderResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<SearchOrderResponseModel> call, @NonNull Response<SearchOrderResponseModel> response) {
                 viewProgressDialog.hideDialog();
@@ -196,7 +195,7 @@ public class OrderListFragment extends Fragment {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
                     parcel_id = searchOrderModel.getParcelId();
-                    if (tag.equals("upcoming_orders") || tag.equals("success_parcel")) {
+                    if (tag.equals("upcoming_orders")) {
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                 orderDetailFragment, R.id.frame_container, true);
                         Bundle bundle = new Bundle();
@@ -259,7 +258,7 @@ public class OrderListFragment extends Fragment {
                 @Override
                 public void onTravellerItemClicked(SearchTravellerModel searchTravellerModel) {
                     travel_id = searchTravellerModel.getTravelId();
-                    if (tag.equals("upcoming_rides") || tag.equals("success_travel")) {
+                    if (tag.equals("upcoming_rides")) {
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                 travellerDetailFragment, R.id.frame_container, true);
                         Bundle bundle = new Bundle();
@@ -278,7 +277,7 @@ public class OrderListFragment extends Fragment {
             orderAdapter.addTravellerList(data);
             rvOrder.setAdapter(orderAdapter);
         } else {
-            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+            NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Travellers Found!");
             rvOrder.setAdapter(noDataAdapter);
         }
     }
@@ -480,8 +479,10 @@ public class OrderListFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
 
-                        //TODO API Call
-                        sendDeliveryRequest();
+                        if(Connectivity.isConnected(context)) {
+                            //TODO API Call
+                            sendDeliveryRequest();
+                        }
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

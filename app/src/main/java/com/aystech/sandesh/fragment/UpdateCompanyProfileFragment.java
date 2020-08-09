@@ -25,6 +25,7 @@ import com.aystech.sandesh.model.UserModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
@@ -153,8 +154,10 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
                                 if (!strDesignation.isEmpty()) {
                                     if (!strEmailId.isEmpty()) {
                                         if (Uitility.isValidEmailId(strEmailId)) {
-                                            //TODO API Call
-                                            updateProfile();
+                                            if(Connectivity.isConnected(context)) {
+                                                //TODO API Call
+                                                updateProfile();
+                                            }
                                         } else {
                                             Uitility.showToast(getActivity(), "Please enter valid email id !");
                                         }

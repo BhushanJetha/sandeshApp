@@ -43,6 +43,24 @@
 
             </android.support.constraint.ConstraintLayout>
 
+            <Button
+                android:id="@+id/btnDownloadInvoice"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@drawable/rounded_button_background"
+                android:fontFamily="@font/gotham_light"
+                android:paddingStart="@dimen/_36sdp"
+                android:paddingEnd="@dimen/_36sdp"
+                android:text="@string/download_invoice"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_9sdp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clTopView" />
+
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
@@ -50,7 +68,7 @@
                 android:padding="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clTopView">
+                app:layout_constraintTop_toBottomOf="@id/btnDownloadInvoice">
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/constraintLayout3"

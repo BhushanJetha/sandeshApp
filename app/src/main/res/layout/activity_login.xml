@@ -1,108 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_new_bg"
-    android:orientation="vertical"
-    tools:context="com.aystech.sandesh.activity.LoginActivity">
+    android:background="@drawable/login_new_bg">
 
-    <LinearLayout
-        android:id="@+id/clLoginDetail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="@dimen/_40sdp"
-        android:layout_marginRight="@dimen/_40sdp">
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/tILUserName"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginLeft="@dimen/_12sdp"
-            android:fontFamily="@font/gotham_light"
-            app:backgroundTint="@color/colorWhite"
-            android:textColor="@color/colorWhite"
-            android:layout_marginRight="@dimen/_12sdp">
+            android:padding="@dimen/_8sdp"
+            android:layout_gravity="bottom">
 
-            <EditText
-                android:id="@+id/etUserName"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tILUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/gotham_light"
                 android:textColor="@color/colorWhite"
-                android:inputType="number"
-                android:maxLength="10"
-                android:fontFamily="@font/gotham_light"
-                android:textColorHint="@color/colorWhite"
-                android:hint="Mobile Number" />
+                app:backgroundTint="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/etUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:hint="Mobile Number"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/tILPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/gotham_light"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_12sdp"
-            android:layout_marginRight="@dimen/_12sdp">
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tILPassword"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/gotham_light"
-                android:hint="Password"
-                android:inputType="textPassword"/>
+                app:layout_constraintEnd_toEndOf="@+id/tILUserName"
+                app:layout_constraintStart_toStartOf="@+id/tILUserName"
+                app:layout_constraintTop_toBottomOf="@id/tILUserName">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
 
-        <TextView
-            android:id="@+id/tvForgotPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="center"
-            android:fontFamily="@font/gotham_light"
-            android:text="@string/forgot_password"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+            </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/rounded_button_background"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="@dimen/_14sdp"
-            android:paddingStart="@dimen/_48sdp"
-            android:paddingEnd="@dimen/_48sdp"
-            android:text="@string/login"
-            android:fontFamily="@font/gotham_medium"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_10sdp"
-            android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/gotham_light"
+                android:gravity="center"
+                android:text="@string/forgot_password"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tILUserName"
+                app:layout_constraintStart_toStartOf="@+id/tILUserName"
+                app:layout_constraintTop_toBottomOf="@id/tILPassword" />
 
-        <TextView
-            android:id="@+id/tvRegisterHere"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="center"
-            android:fontFamily="@font/gotham_medium"
-            android:text="@string/new_user"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-    </LinearLayout>
-</ScrollView>
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:background="@drawable/rounded_button_background"
+                android:fontFamily="@font/gotham_medium"
+                android:paddingStart="@dimen/_48sdp"
+                android:paddingEnd="@dimen/_48sdp"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tILUserName"
+                app:layout_constraintStart_toStartOf="@+id/tILUserName"
+                app:layout_constraintTop_toBottomOf="@id/tvForgotPassword" />
+
+            <TextView
+                android:id="@+id/tvRegisterHere"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/gotham_medium"
+                android:gravity="center"
+                android:text="@string/new_user"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tILUserName"
+                app:layout_constraintStart_toStartOf="@+id/tILUserName"
+                app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

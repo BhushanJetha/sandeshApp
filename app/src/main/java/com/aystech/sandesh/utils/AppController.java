@@ -9,14 +9,15 @@ import com.aystech.sandesh.activity.LoginActivity;
 public class AppController extends MultiDexApplication {
 
 
-    public static String imageURL = "http://13.127.119.95:4444/api/assets/";
+    public static String imageURL = "http://13.127.119.95:5555/api/assets/";
     public static String testingURL = "http://13.127.119.95:4444/";
     public static String devURL = "http://13.127.119.95:5555/";
+    public static String kyc = "https://kyc-api.aadhaarkyc.io/api/v1/aadhaar-v2/";
     public static String BASEURL;
 
     private static AppController mInstance;
 
-    private static boolean isBaseUrl = false;
+    private static boolean isBaseUrl = true;
 
     private UserSession userSession;
 
@@ -51,4 +52,7 @@ public class AppController extends MultiDexApplication {
         return userSession.getJWTToken();
     }
 
+    public String getKYCToken() {
+        return "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoiYWNjZXNzIiwiaWRlbnRpdHkiOiJkZXYuYXZhbnRpa2FAYWFkaGFhcmFwaS5pbyIsIm5iZiI6MTU5NDkwMzk0MywiZXhwIjoxOTEwMjYzOTQzLCJ1c2VyX2NsYWltcyI6eyJzY29wZXMiOlsicmVhZCJdfSwiZnJlc2giOmZhbHNlLCJqdGkiOiI2NjRiMTMxMS0wNmE3LTRkMjAtOGFiNS1hYzRmMWMwMWU2YmUiLCJpYXQiOjE1OTQ5MDM5NDN9.D98H5RwiaLvsjkOy7OuG1OGbZL0zBg8hZVd6mzSX_0A";
+    }
 }

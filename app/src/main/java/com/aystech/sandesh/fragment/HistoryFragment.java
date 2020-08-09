@@ -25,6 +25,7 @@ import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.model.ShowHistoryInnerModel;
 import com.aystech.sandesh.model.ShowHistoryResponseModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 
@@ -74,8 +75,10 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
         onClickListener();
 
-        //TODO API Call
-        getHistoryData();
+        if(Connectivity.isConnected(context)) {
+            //TODO API Call
+            getHistoryData();
+        }
 
         return view;
     }
@@ -172,7 +175,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
                     orderAdapter.addTravellerList(showHistoryInnerModel.getTravel());
                     rvHistory.setAdapter(orderAdapter);
                 } else {
-                    NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Traveller Found!");
+                    NoDataAdapter noDataAdapter = new NoDataAdapter(context, "No Travellers Found!");
                     rvHistory.setAdapter(noDataAdapter);
                 }
             } else if (tag.equals("parcel")) {

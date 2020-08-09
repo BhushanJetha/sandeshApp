@@ -15,6 +15,12 @@ public class CommonResponse {
     @SerializedName(value = "balance", alternate = "amount")
     @Expose
     private Double balance;
+    @SerializedName(value = "withdrawable_amount")
+    @Expose
+    private Double withdrawable_amount;
+    @SerializedName(value = "charges_neft")
+    @Expose
+    private Double charges_neft;
 
     public String getMessage() {
         return message;
@@ -26,5 +32,13 @@ public class CommonResponse {
 
     public Double getBalance() {
         return balance;
+    }
+
+    public Double getWithdrawable_amount() {
+        return withdrawable_amount;
+    }
+
+    public Double getCharges_neft() {
+        return charges_neft;
     }
 }

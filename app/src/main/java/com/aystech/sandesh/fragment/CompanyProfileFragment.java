@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.activity.LoginActivity;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.AddressModel;
 import com.aystech.sandesh.model.CorporateModel;
@@ -22,6 +23,7 @@ import com.aystech.sandesh.model.UserModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
@@ -160,8 +162,10 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
 
-        //TODO API Call
-        getProfile();
+        if(Connectivity.isConnected(context)) {
+            //TODO API Call
+            getProfile();
+        }
     }
 
     private void getProfile() {

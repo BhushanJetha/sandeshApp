@@ -25,6 +25,7 @@ import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
@@ -120,8 +121,10 @@ public class NominateAlternatePersonFragment extends Fragment implements View.On
                         if(mobileNo.length() == 10) {
                             if(!panNo.isEmpty()) {
                                 if(!filepath.isEmpty()){
-                                    //TODO API Call
-                                    nominateAlternatePerson();
+                                    if(Connectivity.isConnected(context)) {
+                                        //TODO API Call
+                                        nominateAlternatePerson();
+                                    }
                                 }else {
                                     Uitility.showToast(context,"Please select ID proof image!");
                                 }

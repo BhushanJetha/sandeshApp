@@ -27,6 +27,7 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.TrackParcelResponseModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -91,8 +92,10 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
 
         initView(view, savedInstanceState);
 
-        //TODO API Call
-        getTrackingOfParcel();
+        if(Connectivity.isConnected(context)) {
+            //TODO API Call
+            getTrackingOfParcel();
+        }
 
         return view;
     }

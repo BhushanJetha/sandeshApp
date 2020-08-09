@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.aystech.sandesh.model.UserModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
@@ -40,7 +42,9 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -166,6 +170,30 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
         }
         strGender = userModel.getGender();
         strDateOfBirth = userModel.getBirthDate();
+
+        //to find age
+        findOutYearDayMonth(strDateOfBirth);
+    }
+
+    private void findOutYearDayMonth(String strDateOfBirth) {
+        int month = 0, dd = 0, year = 0;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = sdf.parse(strDateOfBirth);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(d);
+            month = Integer.parseInt(checkDigit(cal.get(Calendar.MONTH)+1));
+            dd = Integer.parseInt(checkDigit(cal.get(Calendar.DATE)));
+            year = Integer.parseInt(checkDigit(cal.get(Calendar.YEAR)));
+
+            age = Integer.parseInt(Uitility.getAge(year, month, dd));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String checkDigit (int number) {
+        return number <= 9 ? "0" + number : String.valueOf(number);
     }
 
     private void onClick() {
@@ -211,7 +239,6 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
 
             strDateOfBirth = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //UpdateUserProfileFragment
             age = Integer.parseInt(Uitility.getAge(year, monthOfYear, dayOfMonth));
-            Log.d("age-->", String.valueOf(age));
             tvBirthDate.setText(strDateOfBirth);
         }
 
@@ -284,8 +311,10 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
                             if (Uitility.isValidEmailId(strEmailId)){
                                 if(!strDateOfBirth.isEmpty()){
                                     if(age >= 18){
-                                        //TODO API Call
-                                        updateProfile();
+                                        if(Connectivity.isConnected(context)) {
+                                            //TODO API Call
+                                            updateProfile();
+                                        }
                                     }else {
                                         Uitility.showToast(getActivity(), "Sorry you are not able to register, your age is below 18 !");
                                     }

@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.model.AadhaarDetailsResponseModel;
 import com.aystech.sandesh.model.CityModel;
 import com.aystech.sandesh.model.CityResponseModel;
 import com.aystech.sandesh.model.CommonResponse;
@@ -37,6 +38,7 @@ import com.aystech.sandesh.model.VehicleResponseModel;
 import com.aystech.sandesh.model.WeightResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
@@ -63,7 +65,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private CityResponseModel cityResponseModel;
     private TravelDetailModel travelDetailModel;
 
-    private OrderListFragment orderListFragment;
+    private DashboardFragment dashboardFragment;
 
     private Spinner spinnerFromState, spinnerFromCity, spinnerToState, spinnerToCity;
     private ImageView ingStartDate, ingStartTime;
@@ -79,7 +81,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
 
     private String tag, edit, fromState, fromCity, toState, toCity;
     private int mHour, mMinute;
-    private int fromStateId, fromCityId, toStateId, toCityId, weight_id;
+    private int travelId, fromStateId, fromCityId, toStateId, toCityId, weight_id;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -106,8 +108,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_plan_travel, container, false);
 
-        orderListFragment = (OrderListFragment) Fragment.instantiate(context,
-                OrderListFragment.class.getName());
+        dashboardFragment = (DashboardFragment) Fragment.instantiate(context,
+                DashboardFragment.class.getName());
 
         if (getArguments() != null) {
             travelDetailModel = getArguments().getParcelable("travel_detail");
@@ -269,8 +271,11 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                                                                             if (!modeOfTravel.equals("Select Vehicle Type")) {
                                                                                 if (!strVehicleNo.isEmpty()) {
                                                                                     if (cbTermsCondition.isChecked()) {
-                                                                                        //TODO API Call
-                                                                                        updateMyTravel(travelDetailModel.getTravelPlan().getTravelId());
+                                                                                        travelId = travelDetailModel.getTravelPlan().getTravelId();
+                                                                                        if (Connectivity.isConnected(context)) {
+                                                                                            //TODO API Call
+                                                                                            updateMyTravel();
+                                                                                        }
                                                                                     } else {
                                                                                         Uitility.showToast(context, "Please accept terms and condition!");
                                                                                     }
@@ -385,8 +390,10 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                                                                             if (!modeOfTravel.equals("Select Vehicle Type")) {
                                                                                 if (!strVehicleNo.isEmpty()) {
                                                                                     if (cbTermsCondition.isChecked()) {
-                                                                                        //TODO API Call
-                                                                                        planTravel();
+                                                                                        if (Connectivity.isConnected(context)) {
+                                                                                            //TODO API Call
+                                                                                            planTravel();
+                                                                                        }
                                                                                     } else {
                                                                                         Uitility.showToast(context, "Please accept terms and condition!");
                                                                                     }
@@ -503,102 +510,123 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     }
 
     private void planTravel() {
-        viewProgressDialog.showProgress(context);
-
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("from_city_id", fromCityId);
-        jsonObject.addProperty("from_pincode", strFromPincode);
-        jsonObject.addProperty("to_city_id", toCityId);
-        jsonObject.addProperty("to_pincode", strToPincode);
-        jsonObject.addProperty("start_date", strStartDate);
-        jsonObject.addProperty("start_time", strStartTime);
-        jsonObject.addProperty("end_date", strEndDate);
-        jsonObject.addProperty("end_time", strEndTime);
-        jsonObject.addProperty("delivery_option", deliveryOption);
-        jsonObject.addProperty("preferred_weight", weight_id);
-        jsonObject.addProperty("acceptable_volume_length", strAcceptableLength);
-        jsonObject.addProperty("acceptable_volume_breadth", strAcceptableBreadth);
-        jsonObject.addProperty("acceptable_volume_width", strAcceptableHeight);
-        jsonObject.addProperty("mode_of_travel", modeOfTravel);
-        jsonObject.addProperty("vehicle_number", strVehicleNo);
-        jsonObject.addProperty("other_detail", strOtherDetail);
-
-        RetrofitInstance.getClient().planTravel(jsonObject).enqueue(new Callback<CommonResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
-                viewProgressDialog.hideDialog();
-
-                if (response.body() != null) {
-                    if (response.body().getStatus()) {
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                        commonRedirect();
-                    } else
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-                viewProgressDialog.hideDialog();
-            }
-        });
+        //TODO API Call
+        isVerifyAlready("new");
     }
 
-    private void updateMyTravel(Integer travelId) {
-        viewProgressDialog.showProgress(context);
+    private void updateMyTravel() {
+        //TODO API Call
+        isVerifyAlready("edit");
+    }
 
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("travel_id", travelId);
-        jsonObject.addProperty("from_city_id", fromCityId);
-        jsonObject.addProperty("from_pincode", strFromPincode);
-        jsonObject.addProperty("to_city_id", toCityId);
-        jsonObject.addProperty("to_pincode", strToPincode);
-        jsonObject.addProperty("start_date", strStartDate);
-        jsonObject.addProperty("start_time", strStartTime);
-        jsonObject.addProperty("end_date", strEndDate);
-        jsonObject.addProperty("end_time", strEndTime);
-        jsonObject.addProperty("delivery_option", deliveryOption);
-        jsonObject.addProperty("preferred_weight", weight_id);
-        jsonObject.addProperty("acceptable_volume_length", strAcceptableLength);
-        jsonObject.addProperty("acceptable_volume_breadth", strAcceptableBreadth);
-        jsonObject.addProperty("acceptable_volume_width", strAcceptableHeight);
-        jsonObject.addProperty("mode_of_travel", modeOfTravel);
-        jsonObject.addProperty("vehicle_number", strVehicleNo);
-        jsonObject.addProperty("other_detail", strOtherDetail);
-
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.updateMyTravel(
-                jsonObject
-        );
-        call.enqueue(new Callback<CommonResponse>() {
+    private void isVerifyAlready(final String tag) {
+        RetrofitInstance.getClient().isVerifyKYC().enqueue(new Callback<AadhaarDetailsResponseModel>() {
             @Override
-            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+            public void onResponse(@NonNull Call<AadhaarDetailsResponseModel> call, @NonNull Response<AadhaarDetailsResponseModel> response) {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        if (tag.equals("new")) {
+                            viewProgressDialog.showProgress(context);
 
-                        commonRedirect();
-                    } else
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            JsonObject jsonObject = new JsonObject();
+                            jsonObject.addProperty("from_city_id", fromCityId);
+                            jsonObject.addProperty("from_pincode", strFromPincode);
+                            jsonObject.addProperty("to_city_id", toCityId);
+                            jsonObject.addProperty("to_pincode", strToPincode);
+                            jsonObject.addProperty("start_date", strStartDate);
+                            jsonObject.addProperty("start_time", strStartTime);
+                            jsonObject.addProperty("end_date", strEndDate);
+                            jsonObject.addProperty("end_time", strEndTime);
+                            jsonObject.addProperty("delivery_option", deliveryOption);
+                            jsonObject.addProperty("preferred_weight", weight_id);
+                            jsonObject.addProperty("acceptable_volume_length", strAcceptableLength);
+                            jsonObject.addProperty("acceptable_volume_breadth", strAcceptableBreadth);
+                            jsonObject.addProperty("acceptable_volume_width", strAcceptableHeight);
+                            jsonObject.addProperty("mode_of_travel", modeOfTravel);
+                            jsonObject.addProperty("vehicle_number", strVehicleNo);
+                            jsonObject.addProperty("other_detail", strOtherDetail);
+
+                            RetrofitInstance.getClient().planTravel(jsonObject).enqueue(new Callback<CommonResponse>() {
+                                @Override
+                                public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                                    viewProgressDialog.hideDialog();
+
+                                    if (response.body() != null) {
+                                        if (response.body().getStatus()) {
+                                            Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                            commonRedirect(); //isVerifyAlready in if
+                                        } else
+                                            Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                                    viewProgressDialog.hideDialog();
+                                }
+                            });
+                        } else {
+                            viewProgressDialog.showProgress(context);
+
+                            JsonObject jsonObject = new JsonObject();
+                            jsonObject.addProperty("travel_id", travelId);
+                            jsonObject.addProperty("from_city_id", fromCityId);
+                            jsonObject.addProperty("from_pincode", strFromPincode);
+                            jsonObject.addProperty("to_city_id", toCityId);
+                            jsonObject.addProperty("to_pincode", strToPincode);
+                            jsonObject.addProperty("start_date", strStartDate);
+                            jsonObject.addProperty("start_time", strStartTime);
+                            jsonObject.addProperty("end_date", strEndDate);
+                            jsonObject.addProperty("end_time", strEndTime);
+                            jsonObject.addProperty("delivery_option", deliveryOption);
+                            jsonObject.addProperty("preferred_weight", weight_id);
+                            jsonObject.addProperty("acceptable_volume_length", strAcceptableLength);
+                            jsonObject.addProperty("acceptable_volume_breadth", strAcceptableBreadth);
+                            jsonObject.addProperty("acceptable_volume_width", strAcceptableHeight);
+                            jsonObject.addProperty("mode_of_travel", modeOfTravel);
+                            jsonObject.addProperty("vehicle_number", strVehicleNo);
+                            jsonObject.addProperty("other_detail", strOtherDetail);
+
+                            RetrofitInstance.getClient().updateMyTravel(jsonObject).enqueue(new Callback<CommonResponse>() {
+                                @Override
+                                public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                                    viewProgressDialog.hideDialog();
+
+                                    if (response.body() != null) {
+                                        if (response.body().getStatus()) {
+                                            Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                            commonRedirect(); //isVerifyAlready in else
+                                        } else
+                                            Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                                    viewProgressDialog.hideDialog();
+                                }
+                            });
+                        }
+                    } else {
+                        Toast.makeText(context, "Please complete your KYC first!!!", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<AadhaarDetailsResponseModel> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
             }
         });
     }
 
     private void commonRedirect() {
-        Bundle bundle = new Bundle();
         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                orderListFragment, R.id.frame_container, false);
-        bundle.putString("tag", "success_travel");
-        orderListFragment.setArguments(bundle);
+                dashboardFragment, R.id.frame_container, false);
     }
 
     private void openDatePickerDialog() {

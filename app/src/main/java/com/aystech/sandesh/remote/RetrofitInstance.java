@@ -57,4 +57,39 @@ public class RetrofitInstance {
                 .build()
                 .create(ApiInterface.class);
     }
+
+    public static ApiInterface getKYCClient() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
+                Request original = chain.request();
+
+                // Request customization: add request headers
+                Request.Builder requestBuilder = original.newBuilder()
+                        .header("Authorization", AppController.getmInstance().getKYCToken()); // <-- this is the important line
+
+                Request request = requestBuilder.build();
+
+                return chain.proceed(request);
+            }
+        });
+
+        OkHttpClient client = httpClient
+                .addInterceptor(interceptor)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build();
+
+        return new Retrofit.Builder()
+                .baseUrl(AppController.kyc)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+                .create(ApiInterface.class);
+    }
 }

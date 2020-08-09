@@ -24,6 +24,7 @@ import com.aystech.sandesh.model.StateModel;
 import com.aystech.sandesh.model.StateResponseModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
@@ -135,8 +136,10 @@ public class UpdateAddressFragment extends Fragment {
                     if(!strLandmark.isEmpty()){
                         if(!strPincode.isEmpty()){
                             if(strPincode.length() == 6){
-                                //TODO API Call
-                                updateAddress();
+                                if(Connectivity.isConnected(context)) {
+                                    //TODO API Call
+                                    updateAddress();
+                                }
                             }else {
                                 Uitility.showToast(getActivity(), "Please enter 6 digit pin code !");
                             }

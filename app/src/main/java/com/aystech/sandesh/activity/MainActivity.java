@@ -292,7 +292,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(TAG, "onResume: ");
+        if (viewProgressDialog.isShowingDialog())
+            viewProgressDialog.hideDialog();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         if (viewProgressDialog.isShowingDialog())
             viewProgressDialog.hideDialog();
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/_6sdp">
@@ -13,10 +14,10 @@
         android:background="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/tvNotificationMsg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvNotificationMsg" />
+        app:layout_constraintTop_toTopOf="@+id/tvNotificationTitle" />
 
     <TextView
-        android:id="@+id/tvNotificationMsg"
+        android:id="@+id/tvNotificationTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_6sdp"
@@ -24,9 +25,24 @@
         android:layout_marginEnd="@dimen/_6sdp"
         android:padding="@dimen/_4sdp"
         android:text="Notification"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNotificationMsg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_4sdp"
+        android:text="Notification"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="@+id/tvNotificationTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvNotificationTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvNotificationTitle" />
 
     <View
         android:layout_width="match_parent"

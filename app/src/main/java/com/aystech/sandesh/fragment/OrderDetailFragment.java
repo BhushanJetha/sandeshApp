@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.aystech.sandesh.model.TravelDetailModel;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
+import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.GPSTracker;
 import com.aystech.sandesh.utils.UserSession;
@@ -54,7 +56,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     private SendParcelFragment sendParcelFragment;
     private EndJourneyDetailFragment endJourneyDetailFragment;
 
-    private TextView tvName, tvMobileNo, tvAddress, tvFromStateName, tvToStateName, tvFromCityName,
+    private TextView tvParcelInformation, tvName, tvMobileNo, tvAddress, tvFromStateName, tvToStateName, tvFromCityName,
             tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime, tvToPincode,
             tvFromPincode, tvDeliveryOption, tvNatureGoods, tvGoodsDesc, tvQuality, tvWeight,
             tvPackaging, tvGoods, tvReceiverName, tvReceiverMobileNo, tvReceiverAddress;
@@ -68,11 +70,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     private ConstraintLayout clAfterVerify, clAcceptRejectOrder;
     private EditText etComment, etAcceptRejectComment;
     private Button btnSendRequest, btnReject, btnVerify, btnRejectOrder, btnAcceptOrder, btnOrderDelete,
-            btnSendOTP;
+            btnSendOTP, btnDownloadInvoice;
 
     private int parcel_id, delivery_id, travel_id;
     private double latitude, longitude;
-    private String tag, status;
+    private String tag, status, invoiceURl, parcelURL;
 
     private ViewProgressDialog viewProgressDialog;
     private UserSession userSession;
@@ -108,7 +110,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         endJourneyDetailFragment = (EndJourneyDetailFragment) Fragment.instantiate(context,
                 EndJourneyDetailFragment.class.getName());
 
-        Log.d("TAG----->",getArguments().getString("tag"));
+        Log.d("TAG----->", getArguments().getString("tag"));
         if (getArguments() != null) {
             if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("after_verify")) {
@@ -116,13 +118,13 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 travel_id = getArguments().getInt("travel_id");
                 delivery_id = getArguments().getInt("delivery_id");
                 tag = getArguments().getString("tag");
-            }else if (getArguments().getString("tag") != null &&
+            } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("order_clicked_verify")) {
                 parcel_id = getArguments().getInt("parcel_id");
                 travel_id = getArguments().getInt("travel_id");
                 delivery_id = getArguments().getInt("delivery_id");
                 tag = getArguments().getString("tag");
-            }  else if (getArguments().getString("tag") != null &&
+            } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("order_clicked_verify_end_journey")) {
                 parcel_id = getArguments().getInt("parcel_id");
                 travel_id = getArguments().getInt("travel_id");
@@ -164,7 +166,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             btnSendOTP.setVisibility(View.VISIBLE);
         }*/
 
-        Log.d("TAG name----->",getArguments().getString("tag"));
+        Log.d("TAG name----->", getArguments().getString("tag"));
         if (tag != null && tag.equals("order_clicked_verify")) {
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);
@@ -205,8 +207,10 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
         onClickListener();
 
-        //TODO API Call
-        getOrderDetail();
+        if (Connectivity.isConnected(context)) {
+            //TODO API Call
+            getOrderDetail();
+        }
 
         return view;
     }
@@ -215,6 +219,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         viewProgressDialog = ViewProgressDialog.getInstance();
         userSession = new UserSession(context);
 
+        tvParcelInformation = view.findViewById(R.id.tvParcelInformation);
         tvName = view.findViewById(R.id.tvName);
         tvMobileNo = view.findViewById(R.id.tvMobileNo);
         tvAddress = view.findViewById(R.id.tvAddress);
@@ -262,6 +267,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         btnAcceptOrder = view.findViewById(R.id.btnAcceptOrder);
         btnOrderDelete = view.findViewById(R.id.btnOrderDelete);
         btnSendOTP = view.findViewById(R.id.btnSendOTP);
+        btnDownloadInvoice = view.findViewById(R.id.btnDownloadInvoice);
     }
 
     private void onClickListener() {
@@ -273,6 +279,9 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         btnOrderDelete.setOnClickListener(this);
         imgOrderEdit.setOnClickListener(this);
         btnSendOTP.setOnClickListener(this);
+        btnDownloadInvoice.setOnClickListener(this);
+        imgInvoice.setOnClickListener(this);
+        imgParcel.setOnClickListener(this);
 
         rbHazardousYes.setClickable(false);
         rbHazardousNo.setClickable(false);
@@ -348,6 +357,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         tvFromPincode.setText(data.getParcelData().getFromPincode());
         tvDeliveryOption.setText(data.getParcelData().getDeliveryOption());
         tvNatureGoods.setText(data.getParcelData().getNatureOfGoods());
+        tvParcelInformation.setText("Parcel Information - " + data.getParcelData().getStatus());
 
         if (data.getParcelData().getGoodDescription() != null && !data.getParcelData().getGoodDescription().equals(""))
             tvGoodsDesc.setText(data.getParcelData().getGoodDescription());
@@ -373,6 +383,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             }
         }
 
+        invoiceURl = AppController.imageURL + data.getParcelData().getInvoicePic();
+        parcelURL = AppController.imageURL + data.getParcelData().getParcelPic();
         Glide.with(context)
                 .load(AppController.imageURL + data.getParcelData().getInvoicePic())
                 .error(R.drawable.ic_logo_sandesh)
@@ -447,10 +459,19 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 btnOrderDelete.setVisibility(View.GONE);
             }
         }
+
+        if (data.getParcelData().getStatus().equals("Parcel Delivered")) {
+            btnDownloadInvoice.setVisibility(View.VISIBLE);
+        } else {
+            btnDownloadInvoice.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onClick(View v) {
+        FragmentTransaction transaction = ((MainActivity) context)
+                .getSupportFragmentManager()
+                .beginTransaction();
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.btnSendRequest:
@@ -474,8 +495,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
             case R.id.btnVerify:
                 status = "verify";
-                //TODO API Call
-                sendVerificationStatus(); //btnVerify
+
+                if (Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    sendVerificationStatus(); //btnVerify
+                }
                 break;
 
             case R.id.btnRejectOrder:
@@ -491,8 +515,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
 
             case R.id.btnAcceptOrder:
                 status = "accept";
-                //TODO API Call
-                sendOrderRequestStatus(); //btnAcceptOrder
+
+                if (Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    sendOrderRequestStatus(); //btnAcceptOrder
+                }
                 break;
 
             case R.id.imgOrderEdit:
@@ -504,13 +531,26 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.btnOrderDelete:
-                //TODO API Call
-                deleteOrderDetail();
+                if (Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    deleteOrderDetail();
+                }
                 break;
 
             case R.id.btnSendOTP:
                 //TODO API Call
                 sendOTP(delivery_id);
+                break;
+
+            case R.id.btnDownloadInvoice:
+
+                break;
+
+            case R.id.imgInvoice:
+                ZoomImageFragment.newInstance(invoiceURl).show(transaction, "zoom_image");
+                break;
+            case R.id.imgParcel:
+                ZoomImageFragment.newInstance(parcelURL).show(transaction, "zoom_image");
                 break;
         }
     }
