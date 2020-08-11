@@ -444,7 +444,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:maxLength="5"
-                        android:hint="Value of goods" />
+                        android:hint="Value of goods in Rs" />
 
                 </android.support.design.widget.TextInputLayout>
 

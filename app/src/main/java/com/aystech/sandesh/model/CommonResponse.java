@@ -21,6 +21,9 @@ public class CommonResponse {
     @SerializedName(value = "charges_neft")
     @Expose
     private Double charges_neft;
+    @SerializedName("is_verified")
+    @Expose
+    private Boolean is_verified;
 
     public String getMessage() {
         return message;
@@ -40,5 +43,9 @@ public class CommonResponse {
 
     public Double getCharges_neft() {
         return charges_neft;
+    }
+
+    public Boolean getIs_verified() {
+        return is_verified;
     }
 }

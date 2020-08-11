@@ -313,7 +313,7 @@ public class StartJourneyFragment extends Fragment {
                     FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                             trackYourParcelFragment, R.id.frame_container, true);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("travel_id", searchOrderModel.getTravelId());
+                    bundle.putInt("parcel_id", searchOrderModel.getParcelId());
                     trackYourParcelFragment.setArguments(bundle);
                 }
 

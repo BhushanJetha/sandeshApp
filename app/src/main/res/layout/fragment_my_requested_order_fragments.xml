@@ -21,7 +21,7 @@
             android:gravity="center"
             android:paddingStart="@dimen/_10sdp"
             android:paddingEnd="@dimen/_10sdp"
-            android:text="My Travellers"
+            android:text="Order Inbox"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_18sdp"
             app:layout_constraintBottom_toBottomOf="parent"

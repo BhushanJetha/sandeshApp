@@ -81,12 +81,101 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
+
+                    <!---->
+                    <TextView
+                        android:id="@+id/tvTravellerInformation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/gotham_medium"
+                        android:padding="@dimen/_4sdp"
+                        android:text="Traveller Information"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_11sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/travellerBreakUpLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_6sdp"
+                        android:background="@color/colorAccent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTravellerInformation" />
+
+                    <TextView
+                        android:id="@+id/tvTravellerNameTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Name"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/tvName"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/travellerBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@+id/travellerBreakUpLine" />
+
+                    <TextView
+                        android:id="@+id/tvTravellerName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Bhushan"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvTravellerNameTitle"
+                        app:layout_constraintEnd_toEndOf="@+id/travellerBreakUpLine"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvTravellerNameTitle"
+                        app:layout_constraintTop_toTopOf="@+id/tvTravellerNameTitle" />
+
+                    <TextView
+                        android:id="@+id/tvTravellerMobileNoTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Mobile No"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/tvMobileNo"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/travellerBreakUpLine"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTravellerNameTitle" />
+
+                    <TextView
+                        android:id="@+id/tvTravellerMobileNo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="9766616910"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvTravellerMobileNoTitle"
+                        app:layout_constraintEnd_toEndOf="@+id/travellerBreakUpLine"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvTravellerMobileNoTitle"
+                        app:layout_constraintTop_toTopOf="@+id/tvTravellerMobileNoTitle" />
+                    <!---->
+
+
                     <TextView
                         android:id="@+id/tvPersonalInformation"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/gotham_medium"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:padding="@dimen/_4sdp"
                         android:text="Personal Information"
                         android:textColor="@color/colorBlack"
@@ -94,7 +183,7 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@id/tvTravellerMobileNoTitle"/>
 
                     <ImageView
                         android:id="@+id/imgOrderEdit"

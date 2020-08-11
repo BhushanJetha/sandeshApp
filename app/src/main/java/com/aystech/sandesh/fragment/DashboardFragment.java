@@ -266,14 +266,14 @@ public class DashboardFragment extends Fragment {
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if (response.body().getStatus()) {
+                    if (response.body().getIs_verified()) {
                         FragmentTransaction transaction = ((MainActivity) context)
                                 .getSupportFragmentManager()
                                 .beginTransaction();
                         VerifiedKYCFragment.newInstance(response.body()).show(transaction, "verified_kyc");
                     } else {
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
-                                kycFragment, R.id.frame_container, false);
+                                kycFragment, R.id.frame_container, true);
                     }
                 }
             }

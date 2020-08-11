@@ -59,7 +59,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
 
     private Context context;
 
-    private int travel_id;
+    private int parcel_id;
 
     //Google Map
     private GoogleApiClient mGoogleApiClient;
@@ -88,7 +88,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
         View view = inflater.inflate(R.layout.fragment_track_your_parcel, container, false);
 
         if (getArguments() != null)
-            travel_id = getArguments().getInt("travel_id");
+            parcel_id = getArguments().getInt("parcel_id");
 
         initView(view, savedInstanceState);
 
@@ -116,6 +116,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
                 mMap.getUiSettings().setZoomControlsEnabled(true);
                 mMap.getUiSettings().setZoomGesturesEnabled(true);
                 mMap.getUiSettings().setCompassEnabled(true);
+                mMap.setMyLocationEnabled(true);
                 //Initialize Google Play Services
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
@@ -127,7 +128,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
         viewProgressDialog.showProgress(context);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("travel_id", travel_id);
+        jsonObject.addProperty("parcel_id", parcel_id);
 
         RetrofitInstance.getClient().trackParcel(jsonObject).enqueue(new Callback<TrackParcelResponseModel>() {
             @Override
@@ -137,8 +138,21 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        finalLatitude = response.body().getData().get(0).getLat();
-                        finalLongitude = response.body().getData().get(0).getLong();
+                        finalLatitude = response.body().getData().getLat();
+                        finalLongitude = response.body().getData().getLong();
+
+
+                        Log.d("Lat-->", String.valueOf(finalLatitude));
+                        Log.d("Long-->", String.valueOf(finalLongitude));
+
+                        LatLng myCarLocation = new LatLng(finalLatitude, finalLongitude);
+                        //Marker myTravelleMarker = mMap.addMarker(new MarkerOptions().position(myCarLocation).title("Traveller"));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(myCarLocation));
+                        CameraPosition target = CameraPosition.builder().target(myCarLocation).zoom(15).build();
+                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
+                        mMap.addMarker(new MarkerOptions().position(myCarLocation));
+                      //  mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -197,8 +211,8 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
                     markerOptions.title("" + latLng + "," + subLocality + "," + state
                             + "," + country);
 
-                    finalLatitude = latitude;
-                    finalLongitude = longitude;
+                   // finalLatitude = latitude;
+                    //finalLongitude = longitude;
 
                     Log.d("Address-->", "State: " + state + " Lat: " + latitude + " Lon: " + latitude);
                 }
@@ -207,9 +221,9 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
             }
         }
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        mCurrLocationMarker = mMap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+        //mCurrLocationMarker = mMap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        //mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
         if (mGoogleApiClient != null) {
             /*LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,
                     getActivity());*/
@@ -230,18 +244,17 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+       /* LatLng location;
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
-        LatLng location = new LatLng(19.163398, 73.077189);
+        location = new LatLng(finalLatitude, finalLongitude);
+
         CameraPosition target = CameraPosition.builder().target(location).zoom(15).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
         mMap.addMarker(new MarkerOptions().position(location));
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        if (mGoogleApiClient != null) {
-            //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,
-            //this);
-        }
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);*/
+
     }
 
     @Override

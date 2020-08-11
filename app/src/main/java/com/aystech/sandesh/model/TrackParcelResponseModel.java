@@ -8,13 +8,13 @@ import java.util.List;
 public class TrackParcelResponseModel extends CommonResponse {
     @SerializedName("data")
     @Expose
-    private List<TrackParcelModel> data = null;
+    private TrackParcelModel data = null;
 
-    public List<TrackParcelModel> getData() {
+    public TrackParcelModel getData() {
         return data;
     }
 
-    public void setData(List<TrackParcelModel> data) {
+    public void setData(TrackParcelModel data) {
         this.data = data;
     }
 }

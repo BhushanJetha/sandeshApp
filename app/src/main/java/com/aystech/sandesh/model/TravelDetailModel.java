@@ -22,6 +22,9 @@ public class TravelDetailModel implements Parcelable {
     @SerializedName("nominationData")
     @Expose
     private NominateAPModel nominationData;
+    @SerializedName("travellerData")
+    @Expose
+    private TravellerDetailModel travellerData;
 
     protected TravelDetailModel(Parcel in) {
         address = in.readParcelable(AddressModel.class.getClassLoader());
@@ -80,14 +83,22 @@ public class TravelDetailModel implements Parcelable {
         this.parcelData = parcelData;
     }
 
+    public TravellerDetailModel getTravellerData() {
+        return travellerData;
+    }
+
+    public void setTravellerData(TravellerDetailModel travellerData) {
+        this.travellerData = travellerData;
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(address, flags);
-        dest.writeParcelable(corporateData, flags);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeParcelable(address, i);
+        parcel.writeParcelable(corporateData, i);
     }
 }

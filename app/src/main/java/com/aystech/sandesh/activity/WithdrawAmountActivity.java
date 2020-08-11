@@ -1,5 +1,6 @@
 package com.aystech.sandesh.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -182,8 +183,13 @@ public class WithdrawAmountActivity extends AppCompatActivity {
                     if (response.body().getStatus()) {
                         Toast.makeText(WithdrawAmountActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
-                        FragmentUtil.commonMethodForFragment(getSupportFragmentManager(),
-                                dashboardFragment, R.id.frame_container, false);
+
+                        Intent i = new Intent(WithdrawAmountActivity.this,MainActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+
+                       // FragmentUtil.commonMethodForFragment(getSupportFragmentManager(),
+                                //dashboardFragment, R.id.frame_container, false);
                     } else {
                         Toast.makeText(WithdrawAmountActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }

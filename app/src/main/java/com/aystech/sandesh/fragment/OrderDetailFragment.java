@@ -59,7 +59,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
     private TextView tvParcelInformation, tvName, tvMobileNo, tvAddress, tvFromStateName, tvToStateName, tvFromCityName,
             tvToCityName, tvStartDate, tvStartTime, tvEndDate, tvEndTime, tvToPincode,
             tvFromPincode, tvDeliveryOption, tvNatureGoods, tvGoodsDesc, tvQuality, tvWeight,
-            tvPackaging, tvGoods, tvReceiverName, tvReceiverMobileNo, tvReceiverAddress;
+            tvPackaging, tvGoods, tvReceiverName, tvReceiverMobileNo, tvReceiverAddress,
+            tvTravellerName, tvTravellerMobileNumber;
 
     private RadioButton rbCommercial, rbNonCommercial, rbHazardousYes, rbHazardousNo,
             rbProhibitedYes, rbProhibitedNo, rbFraglleYes, rbFraglleNo, rbFlamableToxicExplosiveYes,
@@ -268,6 +269,9 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         btnOrderDelete = view.findViewById(R.id.btnOrderDelete);
         btnSendOTP = view.findViewById(R.id.btnSendOTP);
         btnDownloadInvoice = view.findViewById(R.id.btnDownloadInvoice);
+
+        tvTravellerMobileNumber= view.findViewById(R.id.tvTravellerMobileNo);
+        tvTravellerName = view.findViewById(R.id.tvTravellerName);
     }
 
     private void onClickListener() {
@@ -358,6 +362,14 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         tvDeliveryOption.setText(data.getParcelData().getDeliveryOption());
         tvNatureGoods.setText(data.getParcelData().getNatureOfGoods());
         tvParcelInformation.setText("Parcel Information - " + data.getParcelData().getStatus());
+
+        if(data.getTravellerData() != null){
+            if(!data.getTravellerData().getFull_name().isEmpty())
+                tvTravellerName.setText(data.getTravellerData().getFull_name());
+
+            if(!data.getTravellerData().getMobileNo().isEmpty())
+                tvMobileNo.setText(data.getTravellerData().getMobileNo());
+        }
 
         if (data.getParcelData().getGoodDescription() != null && !data.getParcelData().getGoodDescription().equals(""))
             tvGoodsDesc.setText(data.getParcelData().getGoodDescription());
