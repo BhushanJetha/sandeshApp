@@ -35,10 +35,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.NoInternetActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.WithdrawAmountActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.NoInternetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WithdrawAmountActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PaymentActivity"
             android:screenOrientation="portrait" />
@@ -104,7 +106,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".utils.MyFirebaseInstanceService"
+        <service
+            android:name=".utils.MyFirebaseInstanceService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
