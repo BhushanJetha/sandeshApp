@@ -25,7 +25,7 @@ public class    SearchOrderModel {
     @SerializedName("d_to_c")
     @Expose
     private Double d_to_c;
-    @SerializedName(value = "traveller_amount", alternate = "total_amount")
+    @SerializedName(value = "traveller_amount")
     @Expose
     private Double traveller_amount;
     @SerializedName("user_id")
@@ -148,6 +148,10 @@ public class    SearchOrderModel {
     @SerializedName("paymnet_status")
     @Expose
     private String paymnetStatus;
+    @SerializedName("rating_status")
+    @Expose
+    private String rating_status;
+
 
     public Integer getDeliveryId() {
         return deliveryId;
@@ -531,5 +535,13 @@ public class    SearchOrderModel {
 
     public void setTraveller_amount(Double traveller_amount) {
         this.traveller_amount = traveller_amount;
+    }
+
+    public void setRatingStatus(String ratingStatus) {
+        this.rating_status = ratingStatus;
+    }
+
+    public String getRatingStatus() {
+        return rating_status;
     }
 }

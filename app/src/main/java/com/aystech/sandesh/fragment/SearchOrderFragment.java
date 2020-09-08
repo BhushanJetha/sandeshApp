@@ -171,6 +171,8 @@ public class SearchOrderFragment extends Fragment implements View.OnClickListene
                 strToPinCode = etToPincode.getText().toString();
                 strFromPincode = etFromPincode.getText().toString();
 
+                Log.d("City Id-->","#######->"+String.valueOf(toCityId));
+
                 if(fromCityId != 0){
                     if(toCityId != 0){
                         if (!strStartDate.isEmpty()) {

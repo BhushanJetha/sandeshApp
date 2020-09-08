@@ -126,7 +126,7 @@ public class MobileVerificationFragment extends Fragment {
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
-                        Uitility.showToast(getActivity(), "OTP has sent on your mobile no!");
+                        Uitility.showToast(getActivity(), "OTP has been sent on your mobile no!");
 
                         FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
                                 verifyOTPFragment, R.id.frame_container, true);

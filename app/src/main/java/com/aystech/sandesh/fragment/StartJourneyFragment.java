@@ -186,7 +186,17 @@ public class StartJourneyFragment extends Fragment {
             orderAdapter = new OrderAdapter(context, "order", new OnItemClickListener() {
                 @Override
                 public void onOrderItemClicked(SearchOrderModel searchOrderModel) {
-                    showRatingDialog(searchOrderModel);
+                    if(!searchOrderModel.getRatingStatus().equals("Yes")){
+                        showRatingDialog(searchOrderModel);
+                    }else {
+                        FragmentUtil.commonMethodForFragment(((MainActivity) context).getSupportFragmentManager(),
+                                orderDetailFragment, R.id.frame_container, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("parcel_id", searchOrderModel.getParcelId());
+                        bundle.putInt("delivery_id", searchOrderModel.getDeliveryId());
+                        bundle.putString("tag", "just_show_order_detail");
+                        orderDetailFragment.setArguments(bundle);
+                    }
                 }
 
                 @Override
@@ -396,6 +406,7 @@ public class StartJourneyFragment extends Fragment {
                                 orderDetailFragment, R.id.frame_container, true);
                         Bundle bundle = new Bundle();
                         bundle.putInt("parcel_id", searchOrderModel.getParcelId());
+                        bundle.putInt("delivery_id", searchOrderModel.getDeliveryId());
                         bundle.putString("tag", "just_show_order_detail");
                         orderDetailFragment.setArguments(bundle);
                     } else {

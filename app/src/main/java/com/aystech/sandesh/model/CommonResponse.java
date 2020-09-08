@@ -24,6 +24,9 @@ public class CommonResponse {
     @SerializedName("is_verified")
     @Expose
     private Boolean is_verified;
+    @SerializedName("invoice")
+    @Expose
+    private String invoice;
 
     public String getMessage() {
         return message;
@@ -48,4 +51,10 @@ public class CommonResponse {
     public Boolean getIs_verified() {
         return is_verified;
     }
+
+    public String getInvoice() {
+        return invoice;
+    }
+
+
 }

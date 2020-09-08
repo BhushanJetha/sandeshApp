@@ -116,7 +116,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
     private Uri picUri;
     private Bitmap myBitmap;
-    private String strInvoiceFilePath, strParcelFilePath = "";
+    private String strInvoiceFilePath = "", strParcelFilePath = "";
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -954,11 +954,18 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
+
+                        String strMinute = "";
+                        if(minute < 9){
+                            strMinute = "0" + minute;
+                        }else
+                            strMinute = String.valueOf(minute);
+
                         if (tag.equals("start_time")) {
-                            strStartTime = hourOfDay + ":" + minute;
+                            strStartTime = hourOfDay + ":" + strMinute;
                             etStartTime.setText(strStartTime);
                         } else if (tag.equals("end_time")) {
-                            strEndTime = hourOfDay + ":" + minute;
+                            strEndTime = hourOfDay + ":" + strMinute;
                             etEndTime.setText(strEndTime);
                         }
                     }
@@ -1698,6 +1705,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
                     if (tag.equals("invoice")) {
                         imgInvoice.setImageBitmap(myBitmap);
+
                     } else if (tag.equals("parcel")) {
                         imgParcel.setImageBitmap(myBitmap);
                     }

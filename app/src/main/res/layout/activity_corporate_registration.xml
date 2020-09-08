@@ -105,6 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
+                    android:maxLength="15"
                     android:hint="GST No" />
 
             </android.support.design.widget.TextInputLayout>
@@ -210,7 +211,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
-                    android:hint="Referral code" />
+                    android:hint="Referral code (Optional)" />
 
             </android.support.design.widget.TextInputLayout>
 

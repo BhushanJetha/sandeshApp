@@ -24,7 +24,7 @@
                 android:id="@+id/clTopView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_70sdp"
-                android:background="@drawable/bottom_rectangle_background"
+                android:background="@drawable/ic_bg_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -510,7 +510,7 @@
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginLeft="@dimen/_6sdp"
                     android:fontFamily="@font/gotham_light"
-                    android:text="Photo of invoice"
+                    android:text="Photo of invoice (Only for Commercial goods)"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/imgInvoice"
                     app:layout_constraintLeft_toRightOf="@id/imgInvoice"

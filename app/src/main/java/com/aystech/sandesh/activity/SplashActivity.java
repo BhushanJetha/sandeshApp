@@ -71,6 +71,8 @@ public class SplashActivity extends AppCompatActivity implements PermissionManag
 
             @Override
             public void run() {
+
+                Log.d("User Idd--------->", userSession.getUSER_ID());
                 if (userSession.getUSER_ID() != null && !userSession.getUSER_ID().equals("") && dayDifference <= 3) {
                     Constants.fragmentType = "Dashboard";
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);

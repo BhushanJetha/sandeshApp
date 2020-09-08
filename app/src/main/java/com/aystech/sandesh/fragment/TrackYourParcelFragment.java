@@ -137,22 +137,21 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
 
                 if (response.body() != null) {
                     if (response.body().getStatus()) {
+
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        finalLatitude = response.body().getData().getLat();
-                        finalLongitude = response.body().getData().getLong();
+                        if(response.body().getData().getLat() != null){
+                            finalLatitude = response.body().getData().getLat();
+                            finalLongitude = response.body().getData().getLong();
 
+                            Log.d("Lat-->", String.valueOf(finalLatitude));
+                            Log.d("Long-->", String.valueOf(finalLongitude));
 
-                        Log.d("Lat-->", String.valueOf(finalLatitude));
-                        Log.d("Long-->", String.valueOf(finalLongitude));
-
-                        LatLng myCarLocation = new LatLng(finalLatitude, finalLongitude);
-                        //Marker myTravelleMarker = mMap.addMarker(new MarkerOptions().position(myCarLocation).title("Traveller"));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(myCarLocation));
-                        CameraPosition target = CameraPosition.builder().target(myCarLocation).zoom(15).build();
-                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
-                        mMap.addMarker(new MarkerOptions().position(myCarLocation));
-                      //  mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-
+                            LatLng myCarLocation = new LatLng(finalLatitude, finalLongitude);
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(myCarLocation));
+                            CameraPosition target = CameraPosition.builder().target(myCarLocation).zoom(15).build();
+                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(target), 5000, null);
+                            mMap.addMarker(new MarkerOptions().position(myCarLocation));
+                        }
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }

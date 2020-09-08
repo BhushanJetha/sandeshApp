@@ -178,9 +178,10 @@
 
             <LinearLayout
                 android:id="@+id/llDateOfBirth"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_2sdp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -195,7 +196,47 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
                     android:text=""
+                    android:visibility="gone"
                     android:textSize="@dimen/_15sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etDOBDay"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:maxLength="2"
+                        android:inputType="number"
+                        android:hint="Day" />
+
+                    <EditText
+                        android:id="@+id/etDOBMonth"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:layout_marginLeft="10dp"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:hint="Month" />
+
+                    <EditText
+                        android:id="@+id/etDOBYear"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham_light"
+                        android:layout_marginLeft="10dp"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:hint="Year" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -238,7 +279,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gotham_light"
-                    android:hint="Enter referral code received from your friend"/>
+                    android:hint="Enter referral code received from your friend  (Optional)"/>
 
             </android.support.design.widget.TextInputLayout>
 

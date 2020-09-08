@@ -338,4 +338,7 @@ public interface ApiInterface {
 
     @GET("api/getNotificatonList")
     Call<NotificationResponseModel> getNotifications();
+
+    @POST("api/generateInvoice")
+    Call<CommonResponse> getGeneratedInvoice(@Body JsonObject jsonObject);
 }

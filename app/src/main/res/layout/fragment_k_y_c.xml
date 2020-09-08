@@ -39,7 +39,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:gravity="center"
-        android:text="Please make sure your Registered Mobile Number is linked Aadhaar Card"
+        android:text="Please make sure your Registered Mobile Number is linked to Aadhaar Card"
         android:textSize="@dimen/_12sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

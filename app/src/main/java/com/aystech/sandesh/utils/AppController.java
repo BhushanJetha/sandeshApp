@@ -9,6 +9,7 @@ import com.aystech.sandesh.activity.LoginActivity;
 public class AppController extends MultiDexApplication {
 
 
+    public static String invoiceURL = "http://13.127.119.95:5555/api/Invoice";
     public static String imageURL = "http://13.127.119.95:5555/api/assets/";
     public static String testingURL = "http://13.127.119.95:4444/";
     public static String devURL = "http://13.127.119.95:5555/";

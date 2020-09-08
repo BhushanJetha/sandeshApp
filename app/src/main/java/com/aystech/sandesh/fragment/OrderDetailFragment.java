@@ -2,6 +2,7 @@ package com.aystech.sandesh.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -29,6 +30,7 @@ import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.Connectivity;
+import com.aystech.sandesh.utils.DownloadFile;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.GPSTracker;
 import com.aystech.sandesh.utils.UserSession;
@@ -139,6 +141,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("just_show_order_detail")) {
                 parcel_id = getArguments().getInt("parcel_id");
+                delivery_id = getArguments().getInt("delivery_id");
                 tag = getArguments().getString("tag");
             } else if (getArguments().getString("tag") != null &&
                     Objects.requireNonNull(getArguments().getString("tag")).equals("upcoming_orders")) {
@@ -200,6 +203,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             btnSendRequest.setVisibility(View.GONE);
             clAfterVerify.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.GONE);
+            btnDownloadInvoice.setVisibility(View.GONE);
         } else {
             btnSendRequest.setVisibility(View.VISIBLE);
             clAfterVerify.setVisibility(View.GONE);
@@ -364,11 +368,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         tvParcelInformation.setText("Parcel Information - " + data.getParcelData().getStatus());
 
         if(data.getTravellerData() != null){
-            if(!data.getTravellerData().getFull_name().isEmpty())
+            if(data.getTravellerData().getFull_name() != null)
                 tvTravellerName.setText(data.getTravellerData().getFull_name());
 
-            if(!data.getTravellerData().getMobileNo().isEmpty())
-                tvMobileNo.setText(data.getTravellerData().getMobileNo());
+            if(data.getTravellerData().getMobileNo() != null)
+                tvTravellerMobileNumber.setText(data.getTravellerData().getMobileNo());
         }
 
         if (data.getParcelData().getGoodDescription() != null && !data.getParcelData().getGoodDescription().equals(""))
@@ -463,7 +467,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             tvReceiverAddress.setText("-");
 
         if (tag != null && !tag.equals("")) {
-            if (data.getParcelData().getStatus().equals("Fresh Parcel")) {
+            if (data.getParcelData().getStatus().equals("Fresh Parcel") || data.getParcelData().getStatus().equals("Request Reject")) {
                 imgOrderEdit.setVisibility(View.VISIBLE);
                 btnOrderDelete.setVisibility(View.VISIBLE);
             } else {
@@ -472,7 +476,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             }
         }
 
-        if (data.getParcelData().getStatus().equals("Parcel Delivered")) {
+        if (data.getParcelData().getStatus().equals("Parcel Delivered") && tag != null && tag !="history") {
             btnDownloadInvoice.setVisibility(View.VISIBLE);
         } else {
             btnDownloadInvoice.setVisibility(View.GONE);
@@ -555,7 +559,8 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.btnDownloadInvoice:
-
+                Log.d("Download-->", "Click");
+                generateInvoice();
                 break;
 
             case R.id.imgInvoice:
@@ -778,6 +783,33 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                             clAfterVerify.setVisibility(View.VISIBLE);
                         }
                         btnSendOTP.setVisibility(View.GONE);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+
+    private void generateInvoice() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("delivery_id", delivery_id);
+
+        RetrofitInstance.getClient().getGeneratedInvoice(jsonObject).enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        //Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, DownloadFile.class);
+                        intent.putExtra("path", AppController.invoiceURL + ""+ response.body().getInvoice()); //add here file url
+                        getActivity().startActivity(intent);
+
                     } else {
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }

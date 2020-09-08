@@ -25,7 +25,7 @@
                 android:id="@+id/clTopView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
-                android:background="@drawable/bottom_rectangle_background"
+                android:background="@drawable/ic_bg_circle"
                 android:elevation="@dimen/_1sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

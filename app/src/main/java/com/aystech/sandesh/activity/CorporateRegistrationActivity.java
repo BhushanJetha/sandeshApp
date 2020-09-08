@@ -121,45 +121,41 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
 
                 if (!strCompanyName.isEmpty()) {
                     if (!strBranch.isEmpty()) {
-                        if (!strGSTNo.isEmpty()) {
-                            if (!strAuthPersonName.isEmpty()) {
-                                if (!strDesignation.isEmpty()) {
-                                    if (!strEmailId.isEmpty()) {
-                                        if (Uitility.isValidEmailId(strEmailId)) {
-                                            if (!strPassword.isEmpty()) {
-                                                if (!strReEnteredPassword.isEmpty()) {
-                                                    if (strPassword.equals(strReEnteredPassword)) {
-                                                        if (cbAccetTermsAndConditions.isChecked()) {
-                                                            if(Connectivity.isConnected(CorporateRegistrationActivity.this)) {
-                                                                //TODO API Call
-                                                                doRigistrationAPICall();
-                                                            }
-                                                        } else {
-                                                            Uitility.showToast(CorporateRegistrationActivity.this, "Please accept terms and condition!");
+                        if (!strAuthPersonName.isEmpty()) {
+                            if (!strDesignation.isEmpty()) {
+                                if (!strEmailId.isEmpty()) {
+                                    if (Uitility.isValidEmailId(strEmailId)) {
+                                        if (!strPassword.isEmpty()) {
+                                            if (!strReEnteredPassword.isEmpty()) {
+                                                if (strPassword.equals(strReEnteredPassword)) {
+                                                    if (cbAccetTermsAndConditions.isChecked()) {
+                                                        if(Connectivity.isConnected(CorporateRegistrationActivity.this)) {
+                                                            //TODO API Call
+                                                            doRigistrationAPICall();
                                                         }
                                                     } else {
-                                                        Uitility.showToast(CorporateRegistrationActivity.this, "Password and re-Entered Password not matched !!");
+                                                        Uitility.showToast(CorporateRegistrationActivity.this, "Please accept terms and condition!");
                                                     }
                                                 } else {
-                                                    Uitility.showToast(CorporateRegistrationActivity.this, "Please re-enter your password !!");
+                                                    Uitility.showToast(CorporateRegistrationActivity.this, "Password and re-Entered Password not matched !!");
                                                 }
                                             } else {
-                                                Uitility.showToast(CorporateRegistrationActivity.this, "Password enter you password !!");
+                                                Uitility.showToast(CorporateRegistrationActivity.this, "Please re-enter your password !!");
                                             }
                                         } else {
-                                            Uitility.showToast(CorporateRegistrationActivity.this, "Please enter valid email id !!");
+                                            Uitility.showToast(CorporateRegistrationActivity.this, "Password enter you password !!");
                                         }
                                     } else {
-                                        Uitility.showToast(CorporateRegistrationActivity.this, "Please enter your email id !!");
+                                        Uitility.showToast(CorporateRegistrationActivity.this, "Please enter valid email id !!");
                                     }
                                 } else {
-                                    Uitility.showToast(CorporateRegistrationActivity.this, "Please enter designation !!");
+                                    Uitility.showToast(CorporateRegistrationActivity.this, "Please enter your email id !!");
                                 }
                             } else {
-                                Uitility.showToast(CorporateRegistrationActivity.this, "Please enter authorised person name !!");
+                                Uitility.showToast(CorporateRegistrationActivity.this, "Please enter designation !!");
                             }
                         } else {
-                            Uitility.showToast(CorporateRegistrationActivity.this, "Please enter GST No !!");
+                            Uitility.showToast(CorporateRegistrationActivity.this, "Please enter authorised person name !!");
                         }
                     } else {
                         Uitility.showToast(CorporateRegistrationActivity.this, "Please enter branch name !!");

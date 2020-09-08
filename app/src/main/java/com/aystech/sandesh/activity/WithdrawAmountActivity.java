@@ -92,13 +92,16 @@ public class WithdrawAmountActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if (Double.parseDouble(String.valueOf(s)) > walletBal) {
-                    etAmount.setError("You can not withdraw amount above Rs. " + walletBal);
-                    etAmount.requestFocus();
-                    isWithdrawAmtGreter = true;
-                } else {
-                    isWithdrawAmtGreter = false;
-                    etAmount.setError(null);
+
+                if(s.toString() != null && s.toString() !=""  && !s.toString().isEmpty()){
+                    if (Double.parseDouble(String.valueOf(s)) > walletBal) {
+                        etAmount.setError("You can not withdraw amount above Rs. " + walletBal);
+                        etAmount.requestFocus();
+                        isWithdrawAmtGreter = true;
+                    } else {
+                        isWithdrawAmtGreter = false;
+                        etAmount.setError(null);
+                    }
                 }
             }
         });

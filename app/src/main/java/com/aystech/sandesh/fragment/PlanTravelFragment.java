@@ -526,10 +526,9 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 viewProgressDialog.hideDialog();
 
                 if (response.body() != null) {
-                    if (response.body().getStatus()) {
+                    if (response.body().getIs_verified()) {
                         if (tag.equals("new")) {
                             viewProgressDialog.showProgress(context);
-
                             JsonObject jsonObject = new JsonObject();
                             jsonObject.addProperty("from_city_id", fromCityId);
                             jsonObject.addProperty("from_pincode", strFromPincode);
@@ -570,7 +569,6 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                             });
                         } else {
                             viewProgressDialog.showProgress(context);
-
                             JsonObject jsonObject = new JsonObject();
                             jsonObject.addProperty("travel_id", travelId);
                             jsonObject.addProperty("from_city_id", fromCityId);
@@ -672,11 +670,18 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
+
+                        String strMinute = "";
+                        if(minute < 9){
+                            strMinute = "0" + minute;
+                        }else
+                            strMinute = String.valueOf(minute);
+
                         if (tag.equals("start_time")) {
-                            strStartTime = hourOfDay + ":" + minute;
+                            strStartTime = hourOfDay + ":" + strMinute;
                             etStartTime.setText(strStartTime);
                         } else if (tag.equals("end_time")) {
-                            strEndTime = hourOfDay + ":" + minute;
+                            strEndTime = hourOfDay + ":" + strMinute;
                             etEndTime.setText(strEndTime);
                         }
                     }

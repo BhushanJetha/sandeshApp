@@ -251,6 +251,6 @@ public class UserSession {
     }
 
     public void logout() {
-        editor.clear().commit();
+        setUserId(null);
     }
 }

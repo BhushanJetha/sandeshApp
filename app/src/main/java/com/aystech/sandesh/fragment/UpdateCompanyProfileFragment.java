@@ -149,29 +149,25 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
 
                 if(!strCompanyName.isEmpty()){
                     if(!strBranch.isEmpty()){
-                        if (!strGSTNo.isEmpty()) {
-                            if (!strAuthorisedName.isEmpty()) {
-                                if (!strDesignation.isEmpty()) {
-                                    if (!strEmailId.isEmpty()) {
-                                        if (Uitility.isValidEmailId(strEmailId)) {
-                                            if(Connectivity.isConnected(context)) {
-                                                //TODO API Call
-                                                updateProfile();
-                                            }
-                                        } else {
-                                            Uitility.showToast(getActivity(), "Please enter valid email id !");
+                        if (!strAuthorisedName.isEmpty()) {
+                            if (!strDesignation.isEmpty()) {
+                                if (!strEmailId.isEmpty()) {
+                                    if (Uitility.isValidEmailId(strEmailId)) {
+                                        if(Connectivity.isConnected(context)) {
+                                            //TODO API Call
+                                            updateProfile();
                                         }
                                     } else {
-                                        Uitility.showToast(getActivity(), "Please enter your company email id !");
+                                        Uitility.showToast(getActivity(), "Please enter valid email id !");
                                     }
                                 } else {
-                                    Uitility.showToast(getActivity(), "Please enter authorised person designation !");
+                                    Uitility.showToast(getActivity(), "Please enter your company email id !");
                                 }
                             } else {
-                                Uitility.showToast(getActivity(), "Please enter authorized person name !");
+                                Uitility.showToast(getActivity(), "Please enter authorised person designation !");
                             }
-                        }else {
-                            Uitility.showToast(getActivity(), "Please enter your GST No !");
+                        } else {
+                            Uitility.showToast(getActivity(), "Please enter authorized person name !");
                         }
                     }else {
                         Uitility.showToast(getActivity(), "Please enter your company branch !");

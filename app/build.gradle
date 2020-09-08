@@ -1,4 +1,7 @@
+import com.google.gms.googleservices.GoogleServicesPlugin
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -59,6 +62,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
 
     //Google Map
+    implementation 'com.google.android.gms:play-services:11.0.4'
     implementation 'com.google.android.gms:play-services-maps:11.0.4'
     implementation 'com.google.android.gms:play-services-location:11.0.4'
 
@@ -67,4 +71,3 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
 }
-apply plugin: 'com.google.gms.google-services'

@@ -64,13 +64,13 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     private ImageView imgUserProfile, imgUserProfileCamera;
     private RadioGroup rgGender;
     private RadioButton rbGender;
-    private EditText etFirstName, etMiddleName, etLastName, etEmialId;
+    private EditText etFirstName, etMiddleName, etLastName, etEmialId, etDOBDay, etDOBMonth, etDOBYear;;
     private RadioButton rbMale, rbFemale, rbOther;
     private TextView tvBirthDate;
     private LinearLayout llDateOfBirth;
     private Button btnUpdate;
 
-    private String strFirstName, strMiddleName, strLastName, strEmailId, strGender, strDateOfBirth;
+    private String strFirstName, strMiddleName, strLastName, strEmailId, strGender, strDateOfBirth, strDay, strMonth, strYear;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -127,6 +127,10 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
         tvBirthDate = view.findViewById(R.id.tvBirthDate);
         llDateOfBirth = view.findViewById(R.id.llDateOfBirth);
 
+        etDOBDay = view.findViewById(R.id.etDOBDay);
+        etDOBMonth = view.findViewById(R.id.etDOBMonth);
+        etDOBYear = view.findViewById(R.id.etDOBYear);
+
         btnUpdate = view.findViewById(R.id.btnUpdate);
     }
 
@@ -170,9 +174,13 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
         }
         strGender = userModel.getGender();
         strDateOfBirth = userModel.getBirthDate();
+        Log.d("DOB-->", userModel.getBirthDate());
 
-        //to find age
-        findOutYearDayMonth(strDateOfBirth);
+        String[] dob = userModel.getBirthDate().split("-");
+        etDOBDay.setText(String.valueOf(dob[2]));
+        etDOBMonth.setText(String.valueOf(dob[1]));
+        etDOBYear.setText(String.valueOf(dob[0]));
+        //findOutYearDayMonth(strDateOfBirth);
     }
 
     private void findOutYearDayMonth(String strDateOfBirth) {
@@ -182,9 +190,13 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
             Date d = sdf.parse(strDateOfBirth);
             Calendar cal = Calendar.getInstance();
             cal.setTime(d);
-            month = Integer.parseInt(checkDigit(cal.get(Calendar.MONTH)+1));
+            month = Integer.parseInt(checkDigit(cal.get(Calendar.MONTH + 1)));
             dd = Integer.parseInt(checkDigit(cal.get(Calendar.DATE)));
             year = Integer.parseInt(checkDigit(cal.get(Calendar.YEAR)));
+
+            etDOBDay.setText(String.valueOf(dd));
+            etDOBMonth.setText(String.valueOf(month));
+            etDOBYear.setText(String.valueOf(year));
 
             age = Integer.parseInt(Uitility.getAge(year, month, dd));
         } catch (Exception e) {
@@ -233,13 +245,13 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
 
-            myCalendar.set(Calendar.YEAR, year);
+          /*  myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             strDateOfBirth = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //UpdateUserProfileFragment
             age = Integer.parseInt(Uitility.getAge(year, monthOfYear, dayOfMonth));
-            tvBirthDate.setText(strDateOfBirth);
+            tvBirthDate.setText(strDateOfBirth);*/
         }
 
     };
@@ -304,6 +316,28 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
                 strMiddleName = etMiddleName.getText().toString();
                 strLastName = etLastName.getText().toString();
                 strEmailId = etEmialId.getText().toString();
+                strDay = etDOBDay.getText().toString();
+                strMonth = etDOBMonth.getText().toString();
+                strYear = etDOBYear.getText().toString();
+
+                if(!strDay.isEmpty()){
+                    if(!strMonth.isEmpty()){
+                        if(!strYear.isEmpty()){
+                            strDateOfBirth = strYear + "-" +strMonth +"-"+ strDay;
+                            age = Integer.parseInt(Uitility.getAge(Integer.parseInt(strYear), Integer.parseInt(strMonth), Integer.parseInt(strDay)));
+                        }
+                        else {
+                            Uitility.showToast(getActivity(), "Please enter your Birth Year !!");
+                        }
+                    }
+                    else {
+                        Uitility.showToast(getActivity(), "Please enter your Birth Month !!");
+                    }
+                }
+                else {
+                    Uitility.showToast(getActivity(), "Please enter your Birth Date !!");
+                }
+
 
                 if(!strFirstName.isEmpty()){
                     if(!strLastName.isEmpty()){
@@ -337,7 +371,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
                 break;
 
             case R.id.llDateOfBirth:
-                openDatePickerDialog();
+                //openDatePickerDialog();
                 break;
 
             case R.id.clProfileImage:

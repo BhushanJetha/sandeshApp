@@ -50,9 +50,10 @@ import retrofit2.Response;
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
 
-    private EditText etFirstName, etMiddleName, etLastName, etEmailId, etPassword, etReEnteredPassword, etRefferalCode;
+    private EditText etFirstName, etMiddleName, etLastName, etEmailId, etPassword, etReEnteredPassword, etRefferalCode,
+                        etDOBDay, etDOBMonth, etDOBYear;
     private String strFirstName, strMiddleName, strLastName, strEmailId, strPassword, strReEnteredPassword,
-            strRefferalCode, strMobileNumber, strGender, strBirthDate = "";
+            strRefferalCode, strMobileNumber, strGender, strBirthDate = "", strDay, strMonth, strYear;
     private RadioButton rbMale, rbFemale, rbOther;
     private CheckBox cbAccetTermsAndConditions;
     private TextView tvBirthDate, tvAcceptTermsAndCondition;
@@ -96,6 +97,10 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         etReEnteredPassword = findViewById(R.id.etReEnteredPassword);
         etRefferalCode = findViewById(R.id.etReferalCode);
 
+        etDOBDay = findViewById(R.id.etDOBDay);
+        etDOBMonth = findViewById(R.id.etDOBMonth);
+        etDOBYear = findViewById(R.id.etDOBYear);
+
         rbMale = findViewById(R.id.rbMale);
         rbFemale = findViewById(R.id.rbFemale);
         rbOther = findViewById(R.id.rbOther);
@@ -136,6 +141,29 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 strPassword = etPassword.getText().toString();
                 strReEnteredPassword = etReEnteredPassword.getText().toString();
                 strRefferalCode = etRefferalCode.getText().toString();
+                strDay = etDOBDay.getText().toString();
+                strMonth = etDOBMonth.getText().toString();
+                strYear = etDOBYear.getText().toString();
+
+
+                if(!strDay.isEmpty()){
+                    if(!strMonth.isEmpty()){
+                        if(!strYear.isEmpty()){
+                            strBirthDate = Uitility.dateFormat(Integer.parseInt(strYear), Integer.parseInt(strMonth), Integer.parseInt(strDay));
+                            age = Integer.parseInt(Uitility.getAge(Integer.parseInt(strYear), Integer.parseInt(strMonth), Integer.parseInt(strDay)));
+                        }
+                        else {
+                            Uitility.showToast(IndividualRegistrationActivity.this, "Please enter your Birth Year !!");
+                        }
+                    }
+                    else {
+                        Uitility.showToast(IndividualRegistrationActivity.this, "Please enter your Birth Month !!");
+                    }
+                }
+                else {
+                    Uitility.showToast(IndividualRegistrationActivity.this, "Please enter your Birth Date !!");
+                }
+
 
                 if (!strFirstName.isEmpty()) {
                     if (!strLastName.isEmpty()) {
@@ -212,7 +240,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         llDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDatePickerDialog();
+                //openDatePickerDialog();
             }
         });
 
