@@ -138,7 +138,7 @@
                 android:padding="@dimen/_4sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_6sdp"
-                android:text="Expected income: Rs. 250"
+                android:text=""
                 android:textSize="@dimen/_9sdp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="@+id/tvOrderType"

@@ -341,4 +341,10 @@ public interface ApiInterface {
 
     @POST("api/generateInvoice")
     Call<CommonResponse> getGeneratedInvoice(@Body JsonObject jsonObject);
+
+    @POST("api/downloadStatement")
+    Call<CommonResponse> getDownloadStatement(@Body JsonObject jsonObject);
+
+    @POST("api/downloadRoyalityStatement")
+    Call<CommonResponse> getDownloadRoyaltyStatement(@Body JsonObject jsonObject);
 }

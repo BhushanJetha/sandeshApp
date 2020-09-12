@@ -25,6 +25,7 @@ import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.FragmentUtil;
+import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.bumptech.glide.Glide;
 
@@ -144,6 +145,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
                 break;
 
             case R.id.btnMyOrders:
+                Uitility.journey = "MyOrdersFromProfile";
                 commonRedirect("my_orders", bundle, startJourneyFragment);
                 break;
 

@@ -26,7 +26,7 @@ public class AcceptedOrdersModel {
     @SerializedName("d_to_c")
     @Expose
     private Integer dToC;
-    @SerializedName(value = "traveller_amount", alternate = "total_amount")
+    @SerializedName(value = "traveller_amount")
     @Expose
     private Double traveller_amount;
     @SerializedName("parcel_id")

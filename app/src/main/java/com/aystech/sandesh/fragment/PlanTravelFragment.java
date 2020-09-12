@@ -91,6 +91,7 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
     private String deliveryOption, modeOfTravel, strStartTime = "", strEndTime = "", strStartDate = "", strEndDate = "",
             strFromPincode, strToPincode, strAcceptableLength, strAcceptableBreadth, strAcceptableHeight, strVehicleNo,
             strOtherDetail, strWeight;
+    private int startYear, startMonth, startDay;
 
     public PlanTravelFragment() {
         // Required empty public constructor
@@ -632,7 +633,8 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
         mDate.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        mDate.show();
+        Uitility.showDatePickerWithConditionalDateForOrders(mDate,tag,getActivity(),strStartDate,startYear,
+                startMonth,startDay);
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -647,6 +649,9 @@ public class PlanTravelFragment extends Fragment implements View.OnClickListener
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             if (tag.equals("start_date")) {
+                startYear = year;
+                startMonth = monthOfYear;
+                startDay = dayOfMonth;
                 strStartDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //PlanTravelFragment
                 etStartDate.setText(strStartDate);
             } else if (tag.equals("end_date")) {

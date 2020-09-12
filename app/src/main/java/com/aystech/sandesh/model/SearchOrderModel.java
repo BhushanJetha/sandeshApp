@@ -28,6 +28,9 @@ public class    SearchOrderModel {
     @SerializedName(value = "traveller_amount")
     @Expose
     private Double traveller_amount;
+    @SerializedName(value = "total_amount")
+    @Expose
+    private Double total_amount;
     @SerializedName("user_id")
     @Expose
     private Integer userId;
@@ -543,5 +546,13 @@ public class    SearchOrderModel {
 
     public String getRatingStatus() {
         return rating_status;
+    }
+
+    public Double getTotal_amount() {
+        return total_amount;
+    }
+
+    public void setTotal_amount(Double total_amount) {
+        this.total_amount = total_amount;
     }
 }

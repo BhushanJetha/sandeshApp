@@ -96,7 +96,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         if (tag != null && tag.equals("accept_reject_order_sender")) {
             btnSendRequest.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.VISIBLE);
-        }else if (tag != null && tag.equals("history")) {
+        }else if (tag != null && tag.equals("history") || tag.equals("my_rides") || tag.equals("upcoming_rides")) {
             btnSendRequest.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.GONE);
         } else {

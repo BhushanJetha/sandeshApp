@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.aystech.sandesh.interfaces.OnItemClickListener;
 import com.aystech.sandesh.model.AcceptedOrdersModel;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
+import com.aystech.sandesh.utils.Uitility;
+import com.aystech.sandesh.utils.UserSession;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -48,6 +51,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+        Log.d("Tell me Tag Name-->", tag);
         if (tag != null && tag.equals("traveller")) {
             if (searchTravellerModels.get(i).getFull_name() != null &&
                     !searchTravellerModels.get(i).getFull_name().equals(""))
@@ -111,11 +115,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderType.setText("" + searchOrderModels.get(i).getDeliveryOption());
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
-            if (searchOrderModels.get(i).getTraveller_amount() != null) {
-                myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
-                myViewHolder.tvExpectedIncome.setText("Expected cost / Income : Rs. " + searchOrderModels.get(i).getTraveller_amount());
-            } else {
-                myViewHolder.tvExpectedIncome.setVisibility(View.GONE);
+
+            if(Uitility.journey.equals("MyOrdersFromProfile")){
+                if(searchOrderModels.get(i).getTotal_amount() != null){
+
+                    if(searchOrderModels.get(i).getTotal_amount() > 0){
+                        myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
+                        myViewHolder.tvExpectedIncome.setText("Expected cost / Income : Rs. " + searchOrderModels.get(i).getTotal_amount());
+                    }
+                }
+            }else{
+                if (searchOrderModels.get(i).getTraveller_amount() != null) {
+                    myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
+                    myViewHolder.tvExpectedIncome.setText("Expected cost / Income : Rs. " + searchOrderModels.get(i).getTraveller_amount());
+                } else {
+                    myViewHolder.tvExpectedIncome.setVisibility(View.GONE);
+                }
             }
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +200,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             myViewHolder.tvOrderDistance.setText("" + searchOrderModels.get(i).getWeight());
             myViewHolder.tvOrderTypeContent.setText("" + searchOrderModels.get(i).getNatureOfGoods());
             if (searchOrderModels.get(i).getTraveller_amount() != null) {
+
                 myViewHolder.tvExpectedIncome.setVisibility(View.VISIBLE);
                 myViewHolder.tvExpectedIncome.setText("Expected cost / Income : Rs. " + searchOrderModels.get(i).getTraveller_amount());
             } else {

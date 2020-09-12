@@ -86,6 +86,7 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
 
     private ViewProgressDialog viewProgressDialog;
     private UserSession userSession;
+    private int startYear, startMonth, startDay;
 
     public SearchTravelerFragment() {
         // Required empty public constructor
@@ -195,7 +196,8 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
         mDate.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        mDate.show();
+        Uitility.showDatePickerWithConditionalDateForOrders(mDate,tag,getActivity(),strStartDate,startYear,
+                startMonth,startDay);
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -210,6 +212,9 @@ public class SearchTravelerFragment extends Fragment implements View.OnClickList
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             if (tag.equals("start_date")) {
+                startYear = year;
+                startMonth = monthOfYear;
+                startDay = dayOfMonth;
                 strStartDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SearchTravelerFragment
                 etStartDate.setText(strStartDate);
             } else if (tag.equals("end_date")) {

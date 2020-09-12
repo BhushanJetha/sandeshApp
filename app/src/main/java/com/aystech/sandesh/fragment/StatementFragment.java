@@ -2,6 +2,7 @@ package com.aystech.sandesh.fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -13,13 +14,17 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
+import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.MyTransactionResponseModel;
 import com.aystech.sandesh.model.WalletTransactionModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.Connectivity;
+import com.aystech.sandesh.utils.DownloadFile;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.Uitility;
 import com.aystech.sandesh.utils.ViewProgressDialog;
@@ -40,7 +45,8 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
 
     private ImageView ingStartDate, ingEndDate;
     private EditText etStartDate, etEndDate;
-    private Button btnView;
+    private Button btnView, btnDownload;
+    private int startYear, startMonth, startDay;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -82,12 +88,14 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
         ingEndDate = view.findViewById(R.id.ingToCalendar);
         etEndDate = view.findViewById(R.id.etTo);
         btnView = view.findViewById(R.id.btnView);
+        btnDownload = view.findViewById(R.id.btnDownload);
     }
 
     private void onClickListener() {
         ingStartDate.setOnClickListener(this);
         ingEndDate.setOnClickListener(this);
         btnView.setOnClickListener(this);
+        btnDownload.setOnClickListener(this);
     }
 
     @Override
@@ -109,6 +117,13 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
                     getStatement();
                 }
                 break;
+
+            case R.id.btnDownload:
+                if(Connectivity.isConnected(context)) {
+                    //TODO API Call
+                    downloadStatement();
+                }
+                break;
         }
     }
 
@@ -117,7 +132,8 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
         mDate.getDatePicker().setMaxDate(System.currentTimeMillis());
-        mDate.show();
+        Uitility.showDatePickerWithConditionalDate(mDate,tag,getActivity(),strStartDate,startYear,
+                startMonth,startDay);
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -130,6 +146,9 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             if (tag.equals("start_date")) {
+                startYear = year;
+                startMonth = monthOfYear;
+                startDay = dayOfMonth;
                 strStartDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //StatementFragment
                 etStartDate.setText(strStartDate);
             } else if (tag.equals("end_date")) {
@@ -181,6 +200,33 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onFailure(@NonNull Call<MyTransactionResponseModel> call, @NonNull Throwable t) {
                 viewProgressDialog.hideDialog();
+            }
+        });
+    }
+
+    private void downloadStatement() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("start_date", strStartDate);
+        jsonObject.addProperty("end_date", strEndDate);
+
+        RetrofitInstance.getClient().getDownloadStatement(jsonObject).enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        //Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, DownloadFile.class);
+                        intent.putExtra("path", AppController.statementURL + ""+ response.body().getInvoice()); //add here file url
+                        getActivity().startActivity(intent);
+
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
             }
         });
     }

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,8 +73,10 @@ public class StartJourneyFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_start_journey, container, false);
 
+
         if (getArguments() != null)
             tag = getArguments().getString("tag");
+
 
         orderListFragment = (OrderListFragment) Fragment.instantiate(context,
                 OrderListFragment.class.getName());

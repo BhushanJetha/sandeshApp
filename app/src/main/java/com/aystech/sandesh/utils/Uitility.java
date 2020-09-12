@@ -1,6 +1,8 @@
 package com.aystech.sandesh.utils;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -8,6 +10,8 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Uitility {
+
+    public static String journey = "";
 
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
@@ -78,4 +82,55 @@ public class Uitility {
 
         return different / daysInMilli;
     }
+
+    public static boolean showDatePickerWithConditionalDate(DatePickerDialog mDate, String tag,Context context,
+                                                            String strStartDate, int year, int month, int day){
+        boolean flag = true;
+        if(tag.equals("start_date")){
+            mDate.show();
+            flag = true;
+        }
+        if(tag.equals("end_date")){
+            if(!strStartDate.isEmpty()){
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, day);//Year,Mounth -1,Day
+                mDate.getDatePicker().setMinDate(c.getTimeInMillis());
+                mDate.getDatePicker().setMaxDate(System.currentTimeMillis());
+                mDate.show();
+                flag = true;
+            }
+            else {
+                showToast(context, "Please select start date first");
+                flag = false;
+            }
+        }
+        return flag;
+
+    }
+
+    public static boolean showDatePickerWithConditionalDateForOrders(DatePickerDialog mDate, String tag,Context context,
+                                                            String strStartDate, int year, int month, int day){
+        boolean flag = true;
+        if(tag.equals("start_date")){
+            mDate.show();
+            flag = true;
+        }
+        if(tag.equals("end_date")){
+            if(!strStartDate.isEmpty()){
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, day);//Year,Mounth -1,Day
+                mDate.getDatePicker().setMinDate(c.getTimeInMillis());
+
+                mDate.show();
+                flag = true;
+            }
+            else {
+                showToast(context, "Please select start date first");
+                flag = false;
+            }
+        }
+        return flag;
+
+    }
+
 }

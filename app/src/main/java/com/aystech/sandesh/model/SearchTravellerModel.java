@@ -25,9 +25,12 @@ public class SearchTravellerModel {
     @SerializedName("d_to_c")
     @Expose
     private Double d_to_c;
-    @SerializedName(value = "traveller_amount", alternate = "total_amount")
+    @SerializedName(value = "traveller_amount")
     @Expose
     private Double traveller_amount;
+    @SerializedName(value = "total_amount")
+    @Expose
+    private Double total_amount;
     @SerializedName("user_id")
     @Expose
     private Integer userId;
@@ -432,5 +435,13 @@ public class SearchTravellerModel {
 
     public void setTraveller_amount(Double traveller_amount) {
         this.traveller_amount = traveller_amount;
+    }
+
+    public Double getTotal_amount() {
+        return total_amount;
+    }
+
+    public void setTotal_amount(Double total_amount) {
+        this.total_amount = total_amount;
     }
 }

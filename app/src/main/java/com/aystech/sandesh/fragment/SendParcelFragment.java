@@ -122,6 +122,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
     private ViewProgressDialog viewProgressDialog;
     private UserSession userSession;
+    private int startYear, startMonth, startDay;
 
     public SendParcelFragment() {
         // Required empty public constructor
@@ -916,7 +917,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
         mDate.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        mDate.show();
+        Uitility.showDatePickerWithConditionalDateForOrders(mDate,tag,getActivity(),strStartDate,startYear,
+                startMonth,startDay);
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -931,6 +933,9 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             if (tag.equals("start_date")) {
+                startYear = year;
+                startMonth = monthOfYear;
+                startDay = dayOfMonth;
                 strStartDate = Uitility.dateFormat(year, monthOfYear, dayOfMonth); //SendParcelFragment
                 etStartDate.setText(strStartDate);
             } else if (tag.equals("end_date")) {
