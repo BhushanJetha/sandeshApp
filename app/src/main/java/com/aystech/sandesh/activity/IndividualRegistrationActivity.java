@@ -149,7 +149,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 if(!strDay.isEmpty()){
                     if(!strMonth.isEmpty()){
                         if(!strYear.isEmpty()){
-                            strBirthDate = Uitility.dateFormat(Integer.parseInt(strYear), Integer.parseInt(strMonth), Integer.parseInt(strDay));
+                            strBirthDate = strYear + "-" + strMonth + "-" + strDay;//  Uitility.dateFormat(Integer.parseInt(strYear), Integer.parseInt(strMonth), Integer.parseInt(strDay));
                             age = Integer.parseInt(Uitility.getAge(Integer.parseInt(strYear), Integer.parseInt(strMonth), Integer.parseInt(strDay)));
                         }
                         else {

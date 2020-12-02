@@ -9,17 +9,17 @@ import com.aystech.sandesh.activity.LoginActivity;
 public class AppController extends MultiDexApplication {
 
 
-    public static String invoiceURL = "http://13.127.119.95:5555/api/invoice";
-    public static String statementURL = "http://13.127.119.95:5555/api/statement";
-    public static String imageURL = "http://13.127.119.95:5555/api/assets/";
-    public static String testingURL = "http://13.127.119.95:4444/";
-    public static String devURL = "http://13.127.119.95:5555/";
+    public static String invoiceURL = "http://www.avantikasandesh.com/api/invoice";
+    public static String statementURL = "http://www.avantikasandesh.com/api/statement";
+    public static String imageURL = "http://www.avantikasandesh.com/api/assets/";
+    public static String prodURL = "http://www.avantikasandesh.com/";
+    public static String devURL = "http://www.avantikasandesh.com:4444/";
     public static String kyc = "https://kyc-api.aadhaarkyc.io/api/v1/aadhaar-v2/";
     public static String BASEURL;
 
     private static AppController mInstance;
 
-    private static boolean isBaseUrl = true;
+    private static boolean isBaseUrl = false;
 
     private UserSession userSession;
 
@@ -36,7 +36,7 @@ public class AppController extends MultiDexApplication {
         if (isBaseUrl) {
             BASEURL = devURL;
         } else {
-            BASEURL = testingURL;
+            BASEURL = prodURL;
         }
 
         userSession = new UserSession(this);

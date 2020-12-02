@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:padding="@dimen/_10sdp">
 
+    <WebView
+        android:id="@+id/wvPricingPolicy"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_400sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvOk"
         android:layout_width="wrap_content"
@@ -14,7 +22,7 @@
         android:text="Ok"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/_17sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/wvPricingPolicy"
+        app:layout_constraintTop_toBottomOf="@+id/wvPricingPolicy"  />
 
 </android.support.constraint.ConstraintLayout>

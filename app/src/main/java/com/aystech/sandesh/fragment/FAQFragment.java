@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -31,6 +32,8 @@ public class FAQFragment extends Fragment {
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
 
+    private WebView webView;
+
     public FAQFragment() {
         // Required empty public constructor
     }
@@ -52,6 +55,11 @@ public class FAQFragment extends Fragment {
         bindDataToUI();
 
         onClickListener();
+
+        webView = (WebView) view.findViewById(R.id.wvFAQ);
+        // displaying content in WebView from html file that stored in assets folder
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_res/raw/" + "faq.html");
 
         return view;
     }

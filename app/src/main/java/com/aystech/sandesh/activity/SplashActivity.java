@@ -56,7 +56,6 @@ public class SplashActivity extends AppCompatActivity implements PermissionManag
         } else {
             gotoNextActivity();
         }
-
     }
 
     private void gotoNextActivity() {

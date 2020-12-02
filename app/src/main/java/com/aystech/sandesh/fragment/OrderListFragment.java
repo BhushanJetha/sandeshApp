@@ -144,14 +144,14 @@ public class OrderListFragment extends Fragment {
                     //TODO API Call
                     getMyRequestedOrders();
                 }
-                tvScreenTitle.setText("My Requested Orders List");
+                tvScreenTitle.setText("Request From Sender");
                 break;
             case "order_clicked_accept_reject_sender":  //this is for order list
                 if(Connectivity.isConnected(context)) {
                     //TODO API Call
                     getMyTravellerRequestList();
                 }
-                tvScreenTitle.setText("My Requested Travellers List");
+                tvScreenTitle.setText("Request From Travellers");
                 break;
         }
 

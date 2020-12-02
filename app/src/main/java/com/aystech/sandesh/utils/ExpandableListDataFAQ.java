@@ -14,7 +14,7 @@ public class ExpandableListDataFAQ {
         String qusFive = "Will I get a Proof of Delivery?";
         String qusSix = "In case the receiver is not there will you be retrying to deliver my parcel the next day?";
         String qusSeven = "In case your maximum attempts for delivery is expired what do I need to do next?";
-        String qusEight = "Can I pay in cash?";
+        String qusEight = "Can I   in cash?";
         String qusNine = "In case the parcel is in transit can I change the address of the receiver then?";
         String qusTen = "Can I send multiple documents/parcels in single order?";
         String qusEleven = "In case my parcel is lost how will I be compensated?";

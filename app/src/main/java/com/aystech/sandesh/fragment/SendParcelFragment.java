@@ -903,6 +903,11 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         final AlertDialog dialog = alert.create();
         dialog.show();
 
+        WebView wvTermsConditions = alertLayout.findViewById(R.id.wvPricingPolicy);
+        // displaying content in WebView from html file that stored in assets folder
+        wvTermsConditions.getSettings().setJavaScriptEnabled(true);
+        wvTermsConditions.loadUrl("file:///android_res/raw/" + "pricing_policy.html");
+
         TextView tvOk = alertLayout.findViewById(R.id.tvOk);
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
