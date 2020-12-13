@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -879,7 +880,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         WebView wvTermsConditions = alertLayout.findViewById(R.id.wvTermsCondition);
         // displaying content in WebView from html file that stored in assets folder
         wvTermsConditions.getSettings().setJavaScriptEnabled(true);
-        wvTermsConditions.loadUrl("file:///android_res/raw/" + "terms_and_condition.html");
+        wvTermsConditions.loadUrl("http://avantikasandesh.com/api/document/terms_and_conditions.html");
 
         TextView tvOk = alertLayout.findViewById(R.id.tvOk);
         tvOk.setOnClickListener(new View.OnClickListener() {
@@ -906,7 +907,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         WebView wvTermsConditions = alertLayout.findViewById(R.id.wvPricingPolicy);
         // displaying content in WebView from html file that stored in assets folder
         wvTermsConditions.getSettings().setJavaScriptEnabled(true);
-        wvTermsConditions.loadUrl("file:///android_res/raw/" + "pricing_policy.html");
+        wvTermsConditions.loadUrl("http://avantikasandesh.com/api/document/pricing_policy.html");
 
         TextView tvOk = alertLayout.findViewById(R.id.tvOk);
         tvOk.setOnClickListener(new View.OnClickListener() {
@@ -986,6 +987,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private void sendParcel() {
         viewProgressDialog.showProgress(context);
 
+        Log.d("Test","-------test--------");
+
         RequestBody from_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(fromCityId));
         RequestBody from_pincode = RequestBody.create(MultipartBody.FORM, strFromPincode);
         RequestBody to_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(toCityId));
@@ -1006,6 +1009,9 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         RequestBody isFlamable = RequestBody.create(MultipartBody.FORM, rgStrFlamableToxicExplosive);
         RequestBody value_of_goods = RequestBody.create(MultipartBody.FORM, strValueOgGood);
         RequestBody ownership = RequestBody.create(MultipartBody.FORM, strOwnership);
+
+        Log.d("Test","-------test--------");
+
 
         MultipartBody.Part parcel_pic_body;
         if (strParcelFilePath != null && !strParcelFilePath.equals("")) {
@@ -1076,6 +1082,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                Log.d("ABCD-->",t.getMessage());
                 viewProgressDialog.hideDialog();
             }
         });

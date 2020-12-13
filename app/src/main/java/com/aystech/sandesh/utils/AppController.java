@@ -9,13 +9,14 @@ import com.aystech.sandesh.activity.LoginActivity;
 public class AppController extends MultiDexApplication {
 
 
-    public static String invoiceURL = "http://www.avantikasandesh.com/api/invoice";
-    public static String statementURL = "http://www.avantikasandesh.com/api/statement";
-    public static String imageURL = "http://www.avantikasandesh.com/api/assets/";
-    public static String prodURL = "http://www.avantikasandesh.com/";
-    public static String devURL = "http://www.avantikasandesh.com:4444/";
+    public static String invoiceURL = "http://www.app.avantikasandesh.com/api/invoice";
+    public static String statementURL = "http://www.app.avantikasandesh.com/api/statement";
+    public static String imageURL = "http://www.app.avantikasandesh.com/api/assets/";
+    public static String prodURL = "http://www.app.avantikasandesh.com/";
+    public static String devURL = "http://www.app.avantikasandesh.com:4444/";
     public static String kyc = "https://kyc-api.aadhaarkyc.io/api/v1/aadhaar-v2/";
     public static String BASEURL;
+
 
     private static AppController mInstance;
 
