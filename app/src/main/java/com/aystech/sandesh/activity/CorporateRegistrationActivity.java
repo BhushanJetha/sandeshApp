@@ -190,7 +190,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         WebView wvTermsConditions = alertLayout.findViewById(R.id.wvTermsCondition);
         // displaying content in WebView from html file that stored in assets folder
         wvTermsConditions.getSettings().setJavaScriptEnabled(true);
-        wvTermsConditions.loadUrl("http://avantikasandesh.com/api/document/terms_and_conditions.html");
+        wvTermsConditions.loadUrl("http://app.avantikasandesh.com/api/document/terms_and_conditions.html");
 
         TextView tvOk = alertLayout.findViewById(R.id.tvOk);
         tvOk.setOnClickListener(new View.OnClickListener() {

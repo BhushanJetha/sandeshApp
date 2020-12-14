@@ -59,7 +59,7 @@ public class FAQFragment extends Fragment {
         webView = (WebView) view.findViewById(R.id.wvFAQ);
         // displaying content in WebView from html file that stored in assets folder
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("file:///android_res/raw/" + "faq.html");
+        webView.loadUrl("http://app.avantikasandesh.com/api/document/frequently_ask_question.html");
 
         return view;
     }
