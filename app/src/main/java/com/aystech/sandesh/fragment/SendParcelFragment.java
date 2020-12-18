@@ -996,7 +996,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private void sendParcel() {
         viewProgressDialog.showProgress(context);
 
-        Log.d("Test", "-------test--------");
+        Log.d("Test","-------test--------");
 
         RequestBody from_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(fromCityId));
         RequestBody from_pincode = RequestBody.create(MultipartBody.FORM, strFromPincode);
@@ -1019,7 +1019,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         RequestBody value_of_goods = RequestBody.create(MultipartBody.FORM, strValueOgGood);
         RequestBody ownership = RequestBody.create(MultipartBody.FORM, strOwnership);
 
-        Log.d("Test", "-------test--------");
+        Log.d("Test","-------test--------");
 
 
         MultipartBody.Part parcel_pic_body;
@@ -1091,7 +1091,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-                Log.d("ABCD-->", t.getMessage());
+                Log.d("ABCD-->",t.getMessage());
                 viewProgressDialog.hideDialog();
             }
         });
