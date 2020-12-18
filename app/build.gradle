@@ -60,6 +60,7 @@ dependencies {
 
     // image
     implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     //Google Map
     implementation 'com.google.android.gms:play-services:11.0.4'

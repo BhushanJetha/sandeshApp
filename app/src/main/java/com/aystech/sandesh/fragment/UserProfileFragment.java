@@ -37,6 +37,7 @@ import retrofit2.Response;
  */
 public class UserProfileFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "UserProfileFragment";
     private Context context;
 
     private UpdateUserProfileFragment updateUserProfileFragment;
@@ -126,7 +127,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
 
-        if(Connectivity.isConnected(context)) {
+        if (Connectivity.isConnected(context)) {
             //TODO API Call
             getProfile();
         }
@@ -149,7 +150,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
 
                         //this is for profile
                         Glide.with(context)
-                                .load(AppController.imageURL + response.body().getData().getUserData().getProfileImg())
+                                .load(AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + response.body().getData().getUserData().getProfileImg() : AppController.prodURL + AppController.imageURL + response.body().getData().getUserData().getProfileImg())
                                 .error(R.drawable.ic_logo_sandesh)
                                 .into(imgUserProfile);
 
@@ -190,9 +191,9 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                         strPincode = String.valueOf(response.body().getData().getAddress().getPincode());
 
 
-                        if(strAddressLine1 != null && !strAddressLine1.equals("")){
+                        if (strAddressLine1 != null && !strAddressLine1.equals("")) {
                             tvAddresLine1.setText(strAddressLine1);
-                        }else {
+                        } else {
                             tvAddresLine1.setText("-");
                         }
 
@@ -221,9 +222,9 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
                         }
 
                         if (strPincode != null && !strPincode.equals("")) {
-                            if(strPincode.equals("null")){
+                            if (strPincode.equals("null")) {
                                 tvPincode.setText("-");
-                            }else {
+                            } else {
                                 tvPincode.setText(strPincode);
                             }
                         } else {

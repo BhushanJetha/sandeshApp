@@ -274,7 +274,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         btnSendOTP = view.findViewById(R.id.btnSendOTP);
         btnDownloadInvoice = view.findViewById(R.id.btnDownloadInvoice);
 
-        tvTravellerMobileNumber= view.findViewById(R.id.tvTravellerMobileNo);
+        tvTravellerMobileNumber = view.findViewById(R.id.tvTravellerMobileNo);
         tvTravellerName = view.findViewById(R.id.tvTravellerName);
     }
 
@@ -367,11 +367,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         tvNatureGoods.setText(data.getParcelData().getNatureOfGoods());
         tvParcelInformation.setText("Parcel Information - " + data.getParcelData().getStatus());
 
-        if(data.getTravellerData() != null){
-            if(data.getTravellerData().getFull_name() != null)
+        if (data.getTravellerData() != null) {
+            if (data.getTravellerData().getFull_name() != null)
                 tvTravellerName.setText(data.getTravellerData().getFull_name());
 
-            if(data.getTravellerData().getMobileNo() != null)
+            if (data.getTravellerData().getMobileNo() != null)
                 tvTravellerMobileNumber.setText(data.getTravellerData().getMobileNo());
         }
 
@@ -399,15 +399,16 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             }
         }
 
-        invoiceURl = AppController.imageURL + data.getParcelData().getInvoicePic();
-        parcelURL = AppController.imageURL + data.getParcelData().getParcelPic();
+        invoiceURl = AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + data.getParcelData().getInvoicePic() : AppController.prodURL + AppController.imageURL + data.getParcelData().getInvoicePic();
+        parcelURL = AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + data.getParcelData().getParcelPic() : AppController.prodURL + AppController.imageURL + data.getParcelData().getParcelPic();
+
         Glide.with(context)
-                .load(AppController.imageURL + data.getParcelData().getInvoicePic())
+                .load(AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + data.getParcelData().getInvoicePic() : AppController.prodURL + AppController.imageURL + data.getParcelData().getInvoicePic())
                 .error(R.drawable.ic_logo_sandesh)
                 .into(imgInvoice);
 
         Glide.with(context)
-                .load(AppController.imageURL + data.getParcelData().getParcelPic())
+                .load(AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + data.getParcelData().getParcelPic() : AppController.prodURL + AppController.imageURL + data.getParcelData().getParcelPic())
                 .error(R.drawable.ic_logo_sandesh)
                 .into(imgParcel);
 
@@ -476,7 +477,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
             }
         }
 
-        if (data.getParcelData().getStatus().equals("Parcel Delivered") && tag != null && tag !="history") {
+        if (data.getParcelData().getStatus().equals("Parcel Delivered") && tag != null && tag != "history") {
             btnDownloadInvoice.setVisibility(View.VISIBLE);
         } else {
             btnDownloadInvoice.setVisibility(View.GONE);
@@ -807,7 +808,11 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                     if (response.body().getStatus()) {
                         //Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, DownloadFile.class);
-                        intent.putExtra("path", AppController.invoiceURL + ""+ response.body().getInvoice()); //add here file url
+                        if (AppController.isBaseUrl) {
+                            intent.putExtra("path", AppController.devURL + AppController.invoiceURL + "" + response.body().getInvoice()); //add here file url
+                        } else {
+                            intent.putExtra("path", AppController.prodURL + AppController.invoiceURL + "" + response.body().getInvoice()); //add here file url
+                        }
                         getActivity().startActivity(intent);
 
                     } else {

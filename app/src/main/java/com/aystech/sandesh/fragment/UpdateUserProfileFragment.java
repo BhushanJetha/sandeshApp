@@ -11,7 +11,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
-import com.aystech.sandesh.activity.IndividualRegistrationActivity;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.model.UserModel;
@@ -64,7 +62,8 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     private ImageView imgUserProfile, imgUserProfileCamera;
     private RadioGroup rgGender;
     private RadioButton rbGender;
-    private EditText etFirstName, etMiddleName, etLastName, etEmialId, etDOBDay, etDOBMonth, etDOBYear;;
+    private EditText etFirstName, etMiddleName, etLastName, etEmialId, etDOBDay, etDOBMonth, etDOBYear;
+    ;
     private RadioButton rbMale, rbFemale, rbOther;
     private TextView tvBirthDate;
     private LinearLayout llDateOfBirth;
@@ -137,7 +136,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     private void setDataToUI() {
         //this is for profile
         Glide.with(context)
-                .load(AppController.imageURL + userModel.getProfileImg())
+                .load(AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + userModel.getProfileImg() : AppController.prodURL + AppController.imageURL + userModel.getProfileImg())
                 .error(R.drawable.ic_logo_sandesh)
                 .into(imgUserProfile);
 
@@ -204,7 +203,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
         }
     }
 
-    public String checkDigit (int number) {
+    public String checkDigit(int number) {
         return number <= 9 ? "0" + number : String.valueOf(number);
     }
 
@@ -320,51 +319,48 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
                 strMonth = etDOBMonth.getText().toString();
                 strYear = etDOBYear.getText().toString();
 
-                if(!strDay.isEmpty()){
-                    if(!strMonth.isEmpty()){
-                        if(!strYear.isEmpty()){
-                            strDateOfBirth = strYear + "-" +strMonth +"-"+ strDay;
+                if (!strDay.isEmpty()) {
+                    if (!strMonth.isEmpty()) {
+                        if (!strYear.isEmpty()) {
+                            strDateOfBirth = strYear + "-" + strMonth + "-" + strDay;
                             age = Integer.parseInt(Uitility.getAge(Integer.parseInt(strYear), Integer.parseInt(strMonth), Integer.parseInt(strDay)));
-                        }
-                        else {
+                        } else {
                             Uitility.showToast(getActivity(), "Please enter your Birth Year !!");
                         }
-                    }
-                    else {
+                    } else {
                         Uitility.showToast(getActivity(), "Please enter your Birth Month !!");
                     }
-                }
-                else {
+                } else {
                     Uitility.showToast(getActivity(), "Please enter your Birth Date !!");
                 }
 
 
-                if(!strFirstName.isEmpty()){
-                    if(!strLastName.isEmpty()){
-                        if(!strEmailId.isEmpty()){
-                            if (Uitility.isValidEmailId(strEmailId)){
-                                if(!strDateOfBirth.isEmpty()){
-                                    if(age >= 18){
-                                        if(Connectivity.isConnected(context)) {
+                if (!strFirstName.isEmpty()) {
+                    if (!strLastName.isEmpty()) {
+                        if (!strEmailId.isEmpty()) {
+                            if (Uitility.isValidEmailId(strEmailId)) {
+                                if (!strDateOfBirth.isEmpty()) {
+                                    if (age >= 18) {
+                                        if (Connectivity.isConnected(context)) {
                                             //TODO API Call
                                             updateProfile();
                                         }
-                                    }else {
+                                    } else {
                                         Uitility.showToast(getActivity(), "Sorry you are not able to register, your age is below 18 !");
                                     }
-                                }else {
+                                } else {
                                     Uitility.showToast(getActivity(), "Please select your date of birth !");
                                 }
-                            }else {
+                            } else {
                                 Uitility.showToast(getActivity(), "Please enter valid email id  !");
                             }
-                        }else {
+                        } else {
                             Uitility.showToast(getActivity(), "Please enter your email Id !");
                         }
-                    }else {
+                    } else {
                         Uitility.showToast(getActivity(), "Please enter your last name !");
                     }
-                }else {
+                } else {
                     Uitility.showToast(getActivity(), "Please enter your first name !");
                 }
 

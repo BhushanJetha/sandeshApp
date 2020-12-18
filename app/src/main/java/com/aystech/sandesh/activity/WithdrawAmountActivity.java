@@ -19,12 +19,9 @@ import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.fragment.DashboardFragment;
-import com.aystech.sandesh.fragment.KYCFragment;
-import com.aystech.sandesh.fragment.SearchOrderFragment;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Connectivity;
-import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.ViewProgressDialog;
 import com.google.gson.JsonObject;
 

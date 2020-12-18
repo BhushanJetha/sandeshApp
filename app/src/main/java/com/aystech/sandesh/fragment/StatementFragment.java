@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -216,7 +215,11 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
                     if (response.body().getStatus()) {
                         //Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, DownloadFile.class);
-                        intent.putExtra("path", AppController.statementURL + ""+ response.body().getInvoice()); //add here file url
+                        if (AppController.isBaseUrl) {
+                            intent.putExtra("path", AppController.devURL + AppController.statementURL + "" + response.body().getInvoice()); //add here file url
+                        } else {
+                            intent.putExtra("path", AppController.prodURL + AppController.statementURL + "" + response.body().getInvoice()); //add here file url
+                        }
                         getActivity().startActivity(intent);
 
                     } else {

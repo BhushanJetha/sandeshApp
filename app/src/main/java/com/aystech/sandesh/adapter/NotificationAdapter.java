@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.model.NotificationModel;
-import com.aystech.sandesh.model.NotificationResponseModel;
 
 import java.util.List;
 

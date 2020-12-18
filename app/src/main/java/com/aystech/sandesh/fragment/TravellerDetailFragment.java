@@ -96,7 +96,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
         if (tag != null && tag.equals("accept_reject_order_sender")) {
             btnSendRequest.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.VISIBLE);
-        }else if (tag != null && tag.equals("history") || tag.equals("my_rides") || tag.equals("upcoming_rides")) {
+        } else if (tag != null && tag.equals("history") || tag.equals("my_rides") || tag.equals("upcoming_rides")) {
             btnSendRequest.setVisibility(View.GONE);
             clAcceptRejectOrder.setVisibility(View.GONE);
         } else {
@@ -106,7 +106,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
         onClickListener();
 
-        if(Connectivity.isConnected(context)) {
+        if (Connectivity.isConnected(context)) {
             //TODO API Call
             getTravellerDetail();
         }
@@ -262,16 +262,15 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
 
         if (data.getNominationData() != null) {
             clNAP.setVisibility(View.VISIBLE);
-            if(data.getNominationData().getUserName() != null){
+            if (data.getNominationData().getUserName() != null) {
                 tvNAPName.setText(data.getNominationData().getUserName());
                 tvNAPMobileNo.setText(data.getNominationData().getMobileNo());
                 tvPancard.setText(data.getNominationData().getPancardNo());
                 Glide.with(context)
-                        .load(AppController.imageURL + data.getNominationData().getPancardPic())
+                        .load(AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + data.getNominationData().getPancardPic() : AppController.prodURL + AppController.imageURL + data.getNominationData().getPancardPic())
                         .error(R.drawable.ic_logo_sandesh)
                         .into(imgNAPPancard);
-            }
-            else {
+            } else {
                 clNAP.setVisibility(View.GONE);
             }
 
@@ -328,7 +327,7 @@ public class TravellerDetailFragment extends Fragment implements View.OnClickLis
                 break;
 
             case R.id.btnTravelDelete:
-                if(Connectivity.isConnected(context)) {
+                if (Connectivity.isConnected(context)) {
                     //TODO API Call
                     deleteTravelDetail();
                 }

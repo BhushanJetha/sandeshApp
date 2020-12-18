@@ -3,7 +3,6 @@ package com.aystech.sandesh.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.aystech.sandesh.R;
-import com.aystech.sandesh.utils.AppController;
 import com.bumptech.glide.Glide;
 
 public class ZoomImageFragment extends BottomSheetDialogFragment {

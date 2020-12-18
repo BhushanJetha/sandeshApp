@@ -17,7 +17,6 @@ import com.aystech.sandesh.model.AcceptedOrdersModel;
 import com.aystech.sandesh.model.SearchOrderModel;
 import com.aystech.sandesh.model.SearchTravellerModel;
 import com.aystech.sandesh.utils.Uitility;
-import com.aystech.sandesh.utils.UserSession;
 
 import java.text.DateFormat;
 import java.text.ParseException;

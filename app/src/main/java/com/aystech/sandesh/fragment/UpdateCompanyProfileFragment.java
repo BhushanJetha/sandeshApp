@@ -106,7 +106,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
 
     private void setDataToUI() {
         Glide.with(context)
-                .load(AppController.imageURL + userModel.getProfileImg())
+                .load(AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + userModel.getProfileImg() : AppController.prodURL + AppController.imageURL + userModel.getProfileImg())
                 .error(R.drawable.ic_logo_sandesh)
                 .into(imgCompanyProfile);
 
@@ -147,13 +147,13 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
                 strEmailId = etEmailId.getText().toString();
 
 
-                if(!strCompanyName.isEmpty()){
-                    if(!strBranch.isEmpty()){
+                if (!strCompanyName.isEmpty()) {
+                    if (!strBranch.isEmpty()) {
                         if (!strAuthorisedName.isEmpty()) {
                             if (!strDesignation.isEmpty()) {
                                 if (!strEmailId.isEmpty()) {
                                     if (Uitility.isValidEmailId(strEmailId)) {
-                                        if(Connectivity.isConnected(context)) {
+                                        if (Connectivity.isConnected(context)) {
                                             //TODO API Call
                                             updateProfile();
                                         }
@@ -169,10 +169,10 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
                         } else {
                             Uitility.showToast(getActivity(), "Please enter authorized person name !");
                         }
-                    }else {
+                    } else {
                         Uitility.showToast(getActivity(), "Please enter your company branch !");
                     }
-                }else {
+                } else {
                     Uitility.showToast(getActivity(), "Please enter your company name !");
                 }
 

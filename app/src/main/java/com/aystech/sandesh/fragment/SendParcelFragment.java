@@ -12,7 +12,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -323,12 +322,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         etReceiverAddress.setText(travelDetailModel.getParcelData().getReceiverAddressDetail());
 
         Glide.with(context)
-                .load(AppController.imageURL + travelDetailModel.getParcelData().getInvoicePic())
+                .load(AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + travelDetailModel.getParcelData().getInvoicePic() : AppController.prodURL + AppController.imageURL + travelDetailModel.getParcelData().getInvoicePic())
                 .error(R.drawable.ic_logo_sandesh)
                 .into(imgInvoice);
 
         Glide.with(context)
-                .load(AppController.imageURL + travelDetailModel.getParcelData().getParcelPic())
+                .load(AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + travelDetailModel.getParcelData().getParcelPic() : AppController.prodURL + AppController.imageURL + travelDetailModel.getParcelData().getParcelPic())
                 .error(R.drawable.ic_logo_sandesh)
                 .into(imgParcel);
 
@@ -996,7 +995,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private void sendParcel() {
         viewProgressDialog.showProgress(context);
 
-        Log.d("Test","-------test--------");
+        Log.d("Test", "-------test--------");
 
         RequestBody from_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(fromCityId));
         RequestBody from_pincode = RequestBody.create(MultipartBody.FORM, strFromPincode);
@@ -1019,7 +1018,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         RequestBody value_of_goods = RequestBody.create(MultipartBody.FORM, strValueOgGood);
         RequestBody ownership = RequestBody.create(MultipartBody.FORM, strOwnership);
 
-        Log.d("Test","-------test--------");
+        Log.d("Test", "-------test--------");
 
 
         MultipartBody.Part parcel_pic_body;
@@ -1091,7 +1090,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-                Log.d("ABCD-->",t.getMessage());
+                Log.d("ABCD-->", t.getMessage());
                 viewProgressDialog.hideDialog();
             }
         });

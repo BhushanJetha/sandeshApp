@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.CommonResponse;
-import com.aystech.sandesh.model.MyTransactionResponseModel;
 import com.aystech.sandesh.model.WalletTransactionResponseModel;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.AppController;
@@ -203,7 +202,11 @@ public class RoyaltyFragment extends Fragment implements View.OnClickListener {
                     if (response.body().getStatus()) {
                         //Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, DownloadFile.class);
-                        intent.putExtra("path", AppController.statementURL + ""+ response.body().getInvoice()); //add here file url
+                        if (AppController.isBaseUrl) {
+                            intent.putExtra("path", AppController.devURL + AppController.statementURL + "" + response.body().getInvoice()); //add here file url
+                        } else {
+                            intent.putExtra("path", AppController.prodURL + AppController.statementURL + "" + response.body().getInvoice()); //add here file url
+                        }
                         getActivity().startActivity(intent);
 
                     } else {

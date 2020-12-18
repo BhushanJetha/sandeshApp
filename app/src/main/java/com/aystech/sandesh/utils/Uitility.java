@@ -2,7 +2,6 @@ package com.aystech.sandesh.utils;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;

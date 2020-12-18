@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aystech.sandesh.R;
-import com.aystech.sandesh.activity.LoginActivity;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.model.AddressModel;
 import com.aystech.sandesh.model.CorporateModel;
@@ -48,7 +47,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
 
     private ImageView imgCompanyProfile;
     private TextView tvCompanyName, tvCompany, tvBranch, tvGSTNo, tvAuthorisedName, tvDesignation, tvMobileNumber, tvEmailId,
-            tvAddresLine1, tvAddresLine2, tvLandmark, tvState, tvCity,tvPincode;
+            tvAddresLine1, tvAddresLine2, tvLandmark, tvState, tvCity, tvPincode;
     private Button btnMyRide, btnMyOrders, btnUpcomingRides, btnUpcomingOrders;
     private LinearLayout editCompanyDetail, editAddressDetail;
 
@@ -164,7 +163,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
 
-        if(Connectivity.isConnected(context)) {
+        if (Connectivity.isConnected(context)) {
             //TODO API Call
             getProfile();
         }
@@ -188,7 +187,7 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
 
                         //this is for profile
                         Glide.with(context)
-                                .load(AppController.imageURL + response.body().getData().getUserData().getProfileImg())
+                                .load(AppController.isBaseUrl ? AppController.devURL + AppController.imageURL + response.body().getData().getUserData().getProfileImg() : AppController.prodURL + AppController.imageURL + response.body().getData().getUserData().getProfileImg())
                                 .error(R.drawable.ic_logo_sandesh)
                                 .into(imgCompanyProfile);
 
@@ -214,9 +213,9 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
                         strPincode = String.valueOf(response.body().getData().getAddress().getPincode());
 
 
-                        if(strAddressLine1 != null && !strAddressLine1.equals("")){
+                        if (strAddressLine1 != null && !strAddressLine1.equals("")) {
                             tvAddresLine1.setText(strAddressLine1);
-                        }else {
+                        } else {
                             tvAddresLine1.setText("-");
                         }
 
@@ -245,9 +244,9 @@ public class CompanyProfileFragment extends Fragment implements View.OnClickList
                         }
 
                         if (strPincode != null && !strPincode.equals("")) {
-                            if(strPincode.equals("null")){
+                            if (strPincode.equals("null")) {
                                 tvPincode.setText("-");
-                            }else {
+                            } else {
                                 tvPincode.setText(strPincode);
                             }
                         } else {
