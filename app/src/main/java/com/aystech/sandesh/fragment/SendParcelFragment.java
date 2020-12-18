@@ -880,7 +880,11 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         WebView wvTermsConditions = alertLayout.findViewById(R.id.wvTermsCondition);
         // displaying content in WebView from html file that stored in assets folder
         wvTermsConditions.getSettings().setJavaScriptEnabled(true);
-        wvTermsConditions.loadUrl("http://avantikasandesh.com/api/document/terms_and_conditions.html");
+        if (AppController.isBaseUrl) {
+            wvTermsConditions.loadUrl(AppController.devURL + AppController.terms_and_conditions);
+        } else {
+            wvTermsConditions.loadUrl(AppController.prodURL + AppController.terms_and_conditions);
+        }
 
         TextView tvOk = alertLayout.findViewById(R.id.tvOk);
         tvOk.setOnClickListener(new View.OnClickListener() {
@@ -907,7 +911,12 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         WebView wvTermsConditions = alertLayout.findViewById(R.id.wvPricingPolicy);
         // displaying content in WebView from html file that stored in assets folder
         wvTermsConditions.getSettings().setJavaScriptEnabled(true);
-        wvTermsConditions.loadUrl("http://avantikasandesh.com/api/document/pricing_policy.html");
+        if (AppController.isBaseUrl) {
+            wvTermsConditions.loadUrl(AppController.devURL + AppController.pricing_policy);
+        } else {
+            wvTermsConditions.loadUrl(AppController.prodURL + AppController.pricing_policy);
+        }
+
 
         TextView tvOk = alertLayout.findViewById(R.id.tvOk);
         tvOk.setOnClickListener(new View.OnClickListener() {
@@ -923,8 +932,8 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
         mDate.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        Uitility.showDatePickerWithConditionalDateForOrders(mDate,tag,getActivity(),strStartDate,startYear,
-                startMonth,startDay);
+        Uitility.showDatePickerWithConditionalDateForOrders(mDate, tag, getActivity(), strStartDate, startYear,
+                startMonth, startDay);
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -967,9 +976,9 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
                                           int minute) {
 
                         String strMinute = "";
-                        if(minute < 9){
+                        if (minute < 9) {
                             strMinute = "0" + minute;
-                        }else
+                        } else
                             strMinute = String.valueOf(minute);
 
                         if (tag.equals("start_time")) {
@@ -987,7 +996,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private void sendParcel() {
         viewProgressDialog.showProgress(context);
 
-        Log.d("Test","-------test--------");
+        Log.d("Test", "-------test--------");
 
         RequestBody from_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(fromCityId));
         RequestBody from_pincode = RequestBody.create(MultipartBody.FORM, strFromPincode);
@@ -1010,7 +1019,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         RequestBody value_of_goods = RequestBody.create(MultipartBody.FORM, strValueOgGood);
         RequestBody ownership = RequestBody.create(MultipartBody.FORM, strOwnership);
 
-        Log.d("Test","-------test--------");
+        Log.d("Test", "-------test--------");
 
 
         MultipartBody.Part parcel_pic_body;
@@ -1082,7 +1091,7 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-                Log.d("ABCD-->",t.getMessage());
+                Log.d("ABCD-->", t.getMessage());
                 viewProgressDialog.hideDialog();
             }
         });

@@ -24,6 +24,7 @@ import com.aystech.sandesh.R;
 import com.aystech.sandesh.model.CommonResponse;
 import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
+import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.ImageSelectionMethods;
@@ -190,7 +191,11 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         WebView wvTermsConditions = alertLayout.findViewById(R.id.wvTermsCondition);
         // displaying content in WebView from html file that stored in assets folder
         wvTermsConditions.getSettings().setJavaScriptEnabled(true);
-        wvTermsConditions.loadUrl("http://avantikasandesh.com/api/document/terms_and_conditions.html");
+        if (AppController.isBaseUrl) {
+            wvTermsConditions.loadUrl(AppController.devURL + AppController.terms_and_conditions);
+        } else {
+            wvTermsConditions.loadUrl(AppController.prodURL + AppController.terms_and_conditions);
+        }
 
         TextView tvOk = alertLayout.findViewById(R.id.tvOk);
         tvOk.setOnClickListener(new View.OnClickListener() {

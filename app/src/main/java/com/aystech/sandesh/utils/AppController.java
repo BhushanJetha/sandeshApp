@@ -14,13 +14,16 @@ public class AppController extends MultiDexApplication {
     public static String imageURL = "http://www.app.avantikasandesh.com/api/assets/";
     public static String prodURL = "http://www.app.avantikasandesh.com/";
     public static String devURL = "http://www.app.avantikasandesh.com:4444/";
+    public static String pricing_policy = "api/document/pricing_policy.html";
+    public static String terms_and_conditions = "api/document/terms_and_conditions.html";
+    public static String frequently_ask_question = "api/document/frequently_ask_question.html";
     public static String kyc = "https://kyc-api.aadhaarkyc.io/api/v1/aadhaar-v2/";
     public static String BASEURL;
 
 
     private static AppController mInstance;
 
-    private static boolean isBaseUrl = false;
+    public static boolean isBaseUrl = true;
 
     private UserSession userSession;
 

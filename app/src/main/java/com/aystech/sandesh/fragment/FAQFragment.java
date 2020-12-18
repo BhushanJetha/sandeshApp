@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
 import com.aystech.sandesh.adapter.CustomExpandableListAdapter;
+import com.aystech.sandesh.utils.AppController;
 import com.aystech.sandesh.utils.ExpandableListDataFAQ;
 
 import java.util.ArrayList;
@@ -59,7 +60,11 @@ public class FAQFragment extends Fragment {
         webView = (WebView) view.findViewById(R.id.wvFAQ);
         // displaying content in WebView from html file that stored in assets folder
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("file:///android_res/raw/" + "faq.html");
+        if (AppController.isBaseUrl) {
+            webView.loadUrl(AppController.devURL + AppController.frequently_ask_question);
+        } else {
+            webView.loadUrl(AppController.prodURL + AppController.frequently_ask_question);
+        }
 
         return view;
     }

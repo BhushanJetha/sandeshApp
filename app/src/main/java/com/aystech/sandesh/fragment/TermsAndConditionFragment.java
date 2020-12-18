@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.aystech.sandesh.R;
+import com.aystech.sandesh.utils.AppController;
 
 public class TermsAndConditionFragment extends Fragment {
 
@@ -23,7 +24,11 @@ public class TermsAndConditionFragment extends Fragment {
         // displaying content in WebView from html file that stored in assets folder
         webView.getSettings().setJavaScriptEnabled(true);
         //webView.loadUrl("file:///android_res/raw/" + "terms_and_condition.html");
-        webView.loadUrl("http://avantikasandesh.com/api/document/terms_and_conditions.html");
+        if (AppController.isBaseUrl) {
+            webView.loadUrl(AppController.devURL + AppController.terms_and_conditions);
+        } else {
+            webView.loadUrl(AppController.prodURL + AppController.terms_and_conditions);
+        }
         return  view;
     }
 }
