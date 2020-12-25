@@ -33,6 +33,9 @@ public class ViewProgressDialog {
     }
 
     public void showProgress(Context m_Context) {
+        if (m_Dialog != null && m_Dialog.isShowing()) {
+            return;
+        }
         m_Dialog = new Dialog(m_Context);
         m_Dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         m_Dialog.setCancelable(false);
@@ -45,19 +48,12 @@ public class ViewProgressDialog {
                 .load(R.drawable.ic_loader)
                 .into(gifImageView);
 
-        if (m_Dialog != null && m_Dialog.isShowing())
-            m_Dialog.dismiss();
-        else
-            m_Dialog.show();
+        m_Dialog.show();
     }
 
     public void hideDialog() {
         if (m_Dialog != null && m_Dialog.isShowing()) {
             m_Dialog.dismiss();
         }
-    }
-
-    public boolean isShowingDialog(){
-        return m_Dialog != null && m_Dialog.isShowing();
     }
 }
