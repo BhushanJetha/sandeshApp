@@ -101,14 +101,14 @@
             android:name=".utils.DownloadFile"
             android:screenOrientation="portrait" />
 
-        <!--<meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_live_fzN70V374Xu7IS" />-->
-
-        <!-- Test API key -->
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_Hf2MMuT0zBin2o" />
+            android:value="rzp_live_fzN70V374Xu7IS" />
+
+        <!-- Test API key -->
+        <!--<meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_Hf2MMuT0zBin2o" />-->
         <!--
             Because android:exported is set to "false",
             the service is only available to this app.

@@ -21,7 +21,7 @@ public class AppController extends MultiDexApplication {
 
     private static AppController mInstance;
 
-    public static boolean isBaseUrl = true;
+    public static boolean isBaseUrl = false;
 
     private UserSession userSession;
 
