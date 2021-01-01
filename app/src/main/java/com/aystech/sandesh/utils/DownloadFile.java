@@ -32,7 +32,7 @@ public class DownloadFile extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dest_file_path = getIntent().getExtras().getInt("orderId") + " Report";
+        dest_file_path = getIntent().getExtras().getString("invoice_name");
         download_file_url = getIntent().getExtras().getString("path");
 
         tv_loading = new TextView(this);

@@ -215,6 +215,7 @@ public class StatementFragment extends Fragment implements View.OnClickListener 
                     if (response.body().getStatus()) {
                         //Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, DownloadFile.class);
+                        intent.putExtra("invoice_name", response.body().getInvoice());
                         if (AppController.isBaseUrl) {
                             intent.putExtra("path", AppController.devURL + AppController.statementURL + "" + response.body().getInvoice()); //add here file url
                         } else {
