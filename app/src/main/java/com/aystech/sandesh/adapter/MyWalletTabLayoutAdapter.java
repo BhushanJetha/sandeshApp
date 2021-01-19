@@ -10,8 +10,8 @@ import com.aystech.sandesh.fragment.StatementFragment;
 
 public class MyWalletTabLayoutAdapter extends FragmentPagerAdapter {
 
-    private Context myContext;
-    private int totalTabs;
+    private final Context myContext;
+    private final int totalTabs;
 
     public MyWalletTabLayoutAdapter(Context context, FragmentManager fm, int totalTabs) {
         super(fm);

@@ -14,8 +14,8 @@ import com.bumptech.glide.Glide;
 
 public class NoDataAdapter extends RecyclerView.Adapter<NoDataAdapter.MyViewHolder> {
 
-    private Context context;
-    private String title;
+    private final Context context;
+    private final String title;
 
     public NoDataAdapter(Context context, String title) {
         this.context = context;
@@ -45,8 +45,8 @@ public class NoDataAdapter extends RecyclerView.Adapter<NoDataAdapter.MyViewHold
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView imgCommon;
-        private TextView tvTitle;
+        private final ImageView imgCommon;
+        private final TextView tvTitle;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

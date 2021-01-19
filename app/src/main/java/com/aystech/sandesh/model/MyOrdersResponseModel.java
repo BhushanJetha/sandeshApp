@@ -8,7 +8,7 @@ import java.util.List;
 public class MyOrdersResponseModel extends CommonResponse {
     @SerializedName("data")
     @Expose
-    private List<SearchOrderModel> data = null;
+    private final List<SearchOrderModel> data = null;
 
     public List<SearchOrderModel> getData() {
         return data;

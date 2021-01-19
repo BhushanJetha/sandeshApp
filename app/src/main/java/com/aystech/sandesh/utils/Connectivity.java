@@ -15,7 +15,7 @@ public class Connectivity {
         NetworkInfo info = cm.getActiveNetworkInfo();
         boolean isConnected = info != null &&
                 info.isConnectedOrConnecting();
-        if(isConnected != true){
+        if (isConnected != true) {
             Intent intent = new Intent(context, NoInternetActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(intent);

@@ -44,7 +44,7 @@ public class VerifyOTPFragment extends Fragment {
 
     private ViewProgressDialog viewProgressDialog;
 
-    private long START_TIME_IN_MILLIS = 300000;
+    private final long START_TIME_IN_MILLIS = 300000;
     private CountDownTimer mCountDownTimer = null;
     private boolean mTimerRunning = false;
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;

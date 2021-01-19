@@ -8,7 +8,7 @@ import java.util.List;
 public class StateResponseModel extends CommonResponse {
     @SerializedName("data")
     @Expose
-    private List<StateModel> data = null;
+    private final List<StateModel> data = null;
 
     public List<StateModel> getData() {
         return data;

@@ -8,7 +8,7 @@ import java.util.List;
 public class QualityResponseModel extends CommonResponse {
     @SerializedName("data")
     @Expose
-    private List<QualityModel> data = null;
+    private final List<QualityModel> data = null;
 
     public List<QualityModel> getData() {
         return data;

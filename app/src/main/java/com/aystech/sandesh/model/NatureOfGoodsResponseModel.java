@@ -8,7 +8,7 @@ import java.util.List;
 public class NatureOfGoodsResponseModel extends CommonResponse {
     @SerializedName("data")
     @Expose
-    private List<NatureOfGoodsModel> data = null;
+    private final List<NatureOfGoodsModel> data = null;
 
     public List<NatureOfGoodsModel> getData() {
         return data;

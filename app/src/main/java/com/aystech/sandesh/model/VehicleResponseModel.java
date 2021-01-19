@@ -8,7 +8,7 @@ import java.util.List;
 public class VehicleResponseModel extends CommonResponse {
     @SerializedName("data")
     @Expose
-    private List<VehicleModel> data = null;
+    private final List<VehicleModel> data = null;
 
     public List<VehicleModel> getData() {
         return data;

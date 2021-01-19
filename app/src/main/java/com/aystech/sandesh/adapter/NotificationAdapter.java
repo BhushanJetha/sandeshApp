@@ -16,7 +16,7 @@ import java.util.List;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder> {
 
     private Context context;
-    private List<NotificationModel> notificationResponseModels;
+    private final List<NotificationModel> notificationResponseModels;
 
     public NotificationAdapter(List<NotificationModel> data) {
         this.context = context;

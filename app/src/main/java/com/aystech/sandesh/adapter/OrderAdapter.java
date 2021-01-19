@@ -26,12 +26,12 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
 
-    private Context context;
+    private final Context context;
     private List<SearchOrderModel> searchOrderModels;
     private List<SearchTravellerModel> searchTravellerModels;
     private List<AcceptedOrdersModel> acceptedOrdersModels;
-    private String tag;
-    private OnItemClickListener onItemClickListener;
+    private final String tag;
+    private final OnItemClickListener onItemClickListener;
 
     //this form SearchOrderFragment, SearchTravellerFragment, & HistoryFragment for order/traveller section
     public OrderAdapter(Context context, String tag, OnItemClickListener onItemClickListener) {
@@ -267,14 +267,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvName;
-        private TextView tvOrderDate;
-        private TextView tvOrderType;
-        private TextView tvOrderDistance;
-        private TextView tvOrderTypeContent;
-        private TextView tvExpectedIncome;
-        private TextView tvVolumeInfo;
-        private RatingBar rbOrder;
+        private final TextView tvName;
+        private final TextView tvOrderDate;
+        private final TextView tvOrderType;
+        private final TextView tvOrderDistance;
+        private final TextView tvOrderTypeContent;
+        private final TextView tvExpectedIncome;
+        private final TextView tvVolumeInfo;
+        private final RatingBar rbOrder;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);

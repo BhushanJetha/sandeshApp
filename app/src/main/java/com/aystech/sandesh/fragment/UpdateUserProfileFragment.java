@@ -63,7 +63,6 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     private RadioGroup rgGender;
     private RadioButton rbGender;
     private EditText etFirstName, etMiddleName, etLastName, etEmialId, etDOBDay, etDOBMonth, etDOBYear;
-    ;
     private RadioButton rbMale, rbFemale, rbOther;
     private TextView tvBirthDate;
     private LinearLayout llDateOfBirth;

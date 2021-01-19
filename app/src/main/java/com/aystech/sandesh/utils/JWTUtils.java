@@ -4,6 +4,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public class JWTUtils {
 
@@ -21,6 +22,6 @@ public class JWTUtils {
 
     private static String getJson(String strEncoded) throws UnsupportedEncodingException {
         byte[] decodedBytes = Base64.decode(strEncoded, Base64.URL_SAFE);
-        return new String(decodedBytes, "UTF-8");
+        return new String(decodedBytes, StandardCharsets.UTF_8);
     }
 }

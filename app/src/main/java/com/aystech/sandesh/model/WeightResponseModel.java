@@ -8,7 +8,7 @@ import java.util.List;
 public class WeightResponseModel extends CommonResponse {
     @SerializedName("data")
     @Expose
-    private List<WeightModel> data = null;
+    private final List<WeightModel> data = null;
 
     public List<WeightModel> getData() {
         return data;

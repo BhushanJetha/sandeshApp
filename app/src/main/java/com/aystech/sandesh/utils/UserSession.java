@@ -8,36 +8,36 @@ public class UserSession {
     String PREFER_NAME = "userdata_Sandesh";
     int PRIVATE_MODE = 0;
 
-    private String USER_ID = "user_id";
-    private String USER_NAME = "user_name";
-    private String USER_MOBILE = "user_mobile";
-    private String USER_EMAIL = "user_email";
-    private String USER_TYPE = "user_type";
-    private String KEY_JWT_TOKEN = "jwtToken";
-    private String KEY_FCM_ID = "fcm_id";
-    private String IS_FIRST_USER = "first_time_user";
-    private String USER_PREVIOUS_ONLINE_DATE_TIME = "user_previous_login_date_time";
-    private String RESET_PASSWORD = "reset_password";
+    private final String USER_ID = "user_id";
+    private final String USER_NAME = "user_name";
+    private final String USER_MOBILE = "user_mobile";
+    private final String USER_EMAIL = "user_email";
+    private final String USER_TYPE = "user_type";
+    private final String KEY_JWT_TOKEN = "jwtToken";
+    private final String KEY_FCM_ID = "fcm_id";
+    private final String IS_FIRST_USER = "first_time_user";
+    private final String USER_PREVIOUS_ONLINE_DATE_TIME = "user_previous_login_date_time";
+    private final String RESET_PASSWORD = "reset_password";
 
-    private String TRAVEL_ID = "travel_id";
+    private final String TRAVEL_ID = "travel_id";
 
-    private String HOURS = "hours";
-    private String MINUTE = "minute";
+    private final String HOURS = "hours";
+    private final String MINUTE = "minute";
 
-    private String LOGIN_COUNT = "login_count";
+    private final String LOGIN_COUNT = "login_count";
 
-    private String FROM_STATE = "from_state";
-    private String WEIGHT = "weight";
-    private String DELIVERY_OPTION = "delivery_option";
-    private String VEHICLE_TYPE = "vehicle_type";
-    private String NATURE_OF_GOODS = "nature_of_goods";
-    private String QUALITY = "quality";
-    private String PACKAGING = "packaging";
+    private final String FROM_STATE = "from_state";
+    private final String WEIGHT = "weight";
+    private final String DELIVERY_OPTION = "delivery_option";
+    private final String VEHICLE_TYPE = "vehicle_type";
+    private final String NATURE_OF_GOODS = "nature_of_goods";
+    private final String QUALITY = "quality";
+    private final String PACKAGING = "packaging";
 
-    private String REFERRAL_CODE = "referral_code";
+    private final String REFERRAL_CODE = "referral_code";
 
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences pref;
+    private final SharedPreferences.Editor editor;
 
     public UserSession(Context context) {
         pref = context.getSharedPreferences(PREFER_NAME, PRIVATE_MODE);

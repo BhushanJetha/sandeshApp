@@ -8,10 +8,10 @@ import java.util.List;
 public class ShowHistoryInnerModel {
     @SerializedName("travel")
     @Expose
-    private List<SearchTravellerModel> travel = null;
+    private final List<SearchTravellerModel> travel = null;
     @SerializedName("parcel")
     @Expose
-    private List<SearchOrderModel> parcel = null;
+    private final List<SearchOrderModel> parcel = null;
 
     public List<SearchTravellerModel> getTravel() {
         return travel;

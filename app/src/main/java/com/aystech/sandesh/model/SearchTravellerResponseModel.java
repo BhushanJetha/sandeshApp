@@ -9,7 +9,7 @@ public class SearchTravellerResponseModel extends CommonResponse{
 
     @SerializedName("data")
     @Expose
-    private List<SearchTravellerModel> data = null;
+    private final List<SearchTravellerModel> data = null;
 
     public List<SearchTravellerModel> getData() {
         return data;

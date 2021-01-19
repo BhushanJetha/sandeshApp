@@ -8,7 +8,7 @@ import java.util.List;
 public class CityResponseModel extends CommonResponse {
     @SerializedName("data")
     @Expose
-    private List<CityModel> data = null;
+    private final List<CityModel> data = null;
 
     public List<CityModel> getData() {
         return data;

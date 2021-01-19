@@ -8,7 +8,7 @@ import java.util.List;
 public class PackagingResponseModel extends CommonResponse {
     @SerializedName("data")
     @Expose
-    private List<PackagingModel> data = null;
+    private final List<PackagingModel> data = null;
 
     public List<PackagingModel> getData() {
         return data;

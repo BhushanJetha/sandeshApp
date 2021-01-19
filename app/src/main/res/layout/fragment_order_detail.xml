@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".fragment.OrderDetailFragment">
 
     <android.support.v4.widget.NestedScrollView
@@ -62,1392 +63,1396 @@
                 app:layout_constraintTop_toBottomOf="@id/clTopView" />
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="match_parent"
+                android:id="@+id/constraintLayout3"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_16sdp"
+                android:layout_margin="@dimen/_16sdp"
+                android:background="@drawable/row_rounded_white_rectangle"
+                android:elevation="@dimen/_3sdp"
+                android:padding="@dimen/_4sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnDownloadInvoice">
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/constraintLayout3"
+                <!---->
+                <TextView
+                    android:id="@+id/tvTravellerInformation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/row_rounded_white_rectangle"
-                    android:elevation="@dimen/_3sdp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/gotham_medium"
                     android:padding="@dimen/_4sdp"
+                    android:text="Traveller Information"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/travellerBreakUpLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTravellerInformation" />
+
+                <TextView
+                    android:id="@+id/tvTravellerNameTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvName"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/travellerBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/travellerBreakUpLine" />
+
+                <TextView
+                    android:id="@+id/tvTravellerName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvTravellerNameTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/travellerBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvTravellerNameTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvTravellerNameTitle" />
+
+                <TextView
+                    android:id="@+id/tvTravellerMobileNoTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Mobile No"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvMobileNo"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/travellerBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTravellerNameTitle" />
+
+                <TextView
+                    android:id="@+id/tvTravellerMobileNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvTravellerMobileNoTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/travellerBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvTravellerMobileNoTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvTravellerMobileNoTitle" />
+                <!---->
+
+
+                <TextView
+                    android:id="@+id/tvPersonalInformation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_medium"
+                    android:padding="@dimen/_4sdp"
+                    android:text="Personal Information"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTravellerMobileNoTitle" />
+
+                <ImageView
+                    android:id="@+id/imgOrderEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:background="@drawable/ic_edit_black_24dp"
+                    android:padding="@dimen/_6sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPersonalInformation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvPersonalInformation" />
+
+                <View
+                    android:id="@+id/personalBreakUpLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPersonalInformation" />
+
+                <TextView
+                    android:id="@+id/tvNameTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvName"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/personalBreakUpLine" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvNameTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvNameTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvNameTitle" />
+
+                <TextView
+                    android:id="@+id/tvMobileNoTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Mobile No"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvMobileNo"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNameTitle" />
+
+                <TextView
+                    android:id="@+id/tvMobileNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvMobileNoTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvMobileNoTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvMobileNoTitle" />
+
+                <TextView
+                    android:id="@+id/tvAddressTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Address"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMobileNoTitle" />
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
+                    app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAddressTitle" />
+
+                <TextView
+                    android:id="@+id/tvParcelInformation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_medium"
+                    android:padding="@dimen/_4sdp"
+                    android:text="Parcel Information"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvAddress" />
+
+                <View
+                    android:id="@+id/parcelBreakUpLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvParcelInformation" />
+
+                <TextView
+                    android:id="@+id/tvParcelFromState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="From State"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvParcelToState"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/parcelBreakUpLine" />
+
+                <TextView
+                    android:id="@+id/tvFromStateName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tvToStateName"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvParcelFromState"
+                    app:layout_constraintTop_toBottomOf="@id/tvParcelFromState" />
+
+                <TextView
+                    android:id="@+id/tvParcelToState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="To State"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvParcelFromState"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvParcelFromState"
+                    app:layout_constraintTop_toTopOf="@+id/tvParcelFromState" />
+
+                <TextView
+                    android:id="@+id/tvToStateName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFromStateName"
+                    app:layout_constraintEnd_toEndOf="@+id/tvParcelToState"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFromStateName"
+                    app:layout_constraintTop_toBottomOf="@id/tvParcelToState" />
+
+                <TextView
+                    android:id="@+id/tvParcelFromCity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="From City"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvParcelToCity"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFromStateName" />
+
+                <TextView
+                    android:id="@+id/tvFromCityName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tvToCityName"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvParcelFromCity"
+                    app:layout_constraintTop_toBottomOf="@+id/tvParcelFromCity" />
+
+                <TextView
+                    android:id="@+id/tvParcelToCity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="To City"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toTopOf="@+id/tvFromCityName"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvParcelFromCity"
+                    app:layout_constraintTop_toTopOf="@+id/tvParcelFromCity" />
+
+                <TextView
+                    android:id="@+id/tvToCityName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFromCityName"
+                    app:layout_constraintEnd_toEndOf="@+id/tvParcelToCity"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFromCityName"
+                    app:layout_constraintTop_toBottomOf="@+id/tvParcelToCity" />
+
+                <TextView
+                    android:id="@+id/tvFromPincodeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="From Pincode"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvToPincodeTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvFromCityName" />
+
+                <TextView
+                    android:id="@+id/tvFromPincode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tvToPincode"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvFromPincodeTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvFromPincodeTitle" />
+
+                <TextView
+                    android:id="@+id/tvToPincodeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="To Pincode"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFromPincodeTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFromPincodeTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvFromPincodeTitle" />
+
+                <TextView
+                    android:id="@+id/tvToPincode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFromPincode"
+                    app:layout_constraintEnd_toEndOf="@+id/tvToPincodeTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFromPincode"
+                    app:layout_constraintTop_toBottomOf="@id/tvToPincodeTitle" />
+
+                <TextView
+                    android:id="@+id/tvStartDateTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Start Date"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvStartTimeTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvFromPincode" />
+
+                <TextView
+                    android:id="@+id/tvStartDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tvStartTime"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvStartDateTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvStartDateTitle" />
+
+                <TextView
+                    android:id="@+id/tvStartTimeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Start Time"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvStartDateTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvStartDateTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvStartDateTitle" />
+
+                <TextView
+                    android:id="@+id/tvStartTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvStartDate"
+                    app:layout_constraintEnd_toEndOf="@+id/tvStartTimeTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvStartDate"
+                    app:layout_constraintTop_toTopOf="@+id/tvStartDate" />
+
+                <TextView
+                    android:id="@+id/tvEndDateTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="End Date"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvEndTimeTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvStartDate" />
+
+                <TextView
+                    android:id="@+id/tvEndDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tvEndTime"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvEndDateTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvEndDateTitle" />
+
+                <TextView
+                    android:id="@+id/tvEndTimeTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="End Time"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvEndDateTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvEndDateTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvEndDateTitle" />
+
+                <TextView
+                    android:id="@+id/tvEndTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvEndDate"
+                    app:layout_constraintEnd_toEndOf="@+id/tvEndTimeTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvEndDate"
+                    app:layout_constraintTop_toTopOf="@+id/tvEndDate" />
+
+                <TextView
+                    android:id="@+id/tvDeliveryOptionTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Delivery Option"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvNatureGoodsTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvEndDate" />
+
+                <TextView
+                    android:id="@+id/tvDeliveryOption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tvNatureGoods"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvDeliveryOptionTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvDeliveryOptionTitle" />
+
+                <TextView
+                    android:id="@+id/tvNatureGoodsTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Nature of Goods"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvDeliveryOptionTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvDeliveryOptionTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvDeliveryOptionTitle" />
+
+                <TextView
+                    android:id="@+id/tvNatureGoods"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvDeliveryOption"
+                    app:layout_constraintEnd_toEndOf="@+id/tvNatureGoodsTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvDeliveryOption"
+                    app:layout_constraintTop_toTopOf="@+id/tvDeliveryOption" />
+
+                <TextView
+                    android:id="@+id/tvGoodsDescTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Goods Description"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvDeliveryOption" />
+
+                <TextView
+                    android:id="@+id/tvGoodsDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvGoodsDescTitle" />
+
+                <TextView
+                    android:id="@+id/tvQualityTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Quality"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvWeightTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvGoodsDesc" />
+
+                <TextView
+                    android:id="@+id/tvQuality"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tvWeight"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvQualityTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvQualityTitle" />
+
+                <TextView
+                    android:id="@+id/tvWeightTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Weight"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvQualityTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvQualityTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvQualityTitle" />
+
+                <TextView
+                    android:id="@+id/tvWeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvQuality"
+                    app:layout_constraintEnd_toEndOf="@+id/tvWeightTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvQuality"
+                    app:layout_constraintTop_toTopOf="@+id/tvQuality" />
+
+                <TextView
+                    android:id="@+id/tvPackagingTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Packaging"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvQuality" />
+
+                <TextView
+                    android:id="@+id/tvPackaging"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/tvPackagingTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvPackagingTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvPackagingTitle" />
+
+                <TextView
+                    android:id="@+id/tvGoodsTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Value of Goods"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvPackaging" />
+
+                <TextView
+                    android:id="@+id/tvGoods"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@id/tvGoodsTitle" />
+
+                <TextView
+                    android:id="@+id/tvOwnershipTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Ownership"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvGoods" />
+
+                <RadioGroup
+                    android:id="@+id/rgOwnership"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvOwnershipTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbCommercial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Commercial"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                    <RadioButton
+                        android:id="@+id/rbNonCommercial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Non-Commercial"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvPictureDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_medium"
+                    android:padding="@dimen/_4sdp"
+                    android:text="Picture Details"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rgOwnership" />
+
+                <View
+                    android:id="@+id/pictureBreakUpLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPictureDetail" />
+
+                <TextView
+                    android:id="@+id/tvInvoicePicTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:gravity="center"
+                    android:text="Invoice"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvParcelPicTitle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/pictureBreakUpLine" />
+
+                <TextView
+                    android:id="@+id/tvParcelPicTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:gravity="center"
+                    android:text="Parcel"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvInvoicePicTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/pictureBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvInvoicePicTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvInvoicePicTitle" />
+
+                <ImageView
+                    android:id="@+id/imgInvoice"
+                    android:layout_width="@dimen/_72sdp"
+                    android:layout_height="@dimen/_72sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvInvoicePicTitle"
+                    app:layout_constraintStart_toStartOf="@+id/tvInvoicePicTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvInvoicePicTitle" />
+
+                <ImageView
+                    android:id="@+id/imgParcel"
+                    android:layout_width="@dimen/_72sdp"
+                    android:layout_height="@dimen/_72sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvParcelPicTitle"
+                    app:layout_constraintStart_toStartOf="@+id/tvParcelPicTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvParcelPicTitle" />
+
+                <TextView
+                    android:id="@+id/tvOtherDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_medium"
+                    android:padding="@dimen/_4sdp"
+                    android:text="Other Details"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgInvoice" />
+
+                <View
+                    android:id="@+id/otherBreakUpLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvOtherDetail" />
+
+                <TextView
+                    android:id="@+id/tvHazardousTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Hazardous"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgHazardous"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/otherBreakUpLine" />
+
+                <RadioGroup
+                    android:id="@+id/rgHazardous"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvHazardousTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/otherBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvHazardousTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvHazardousTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbHazardousYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Yes"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                    <RadioButton
+                        android:id="@+id/rbHazardousNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="No"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvProhibitedRGTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Prohibited"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgProhibited"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHazardousTitle" />
+
+                <RadioGroup
+                    android:id="@+id/rgProhibited"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvProhibitedRGTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/otherBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvProhibitedRGTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvProhibitedRGTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbProhibitedYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Yes"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                    <RadioButton
+                        android:id="@+id/rbProhibitedNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="No"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvFraglleTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Fragile"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgFraglle"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProhibitedRGTitle" />
+
+                <RadioGroup
+                    android:id="@+id/rgFraglle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFraglleTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/otherBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFraglleTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvFraglleTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbFraglleYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Yes"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                    <RadioButton
+                        android:id="@+id/rbFraglleNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="No"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvFlamableToxicExplosiveTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:padding="@dimen/_6sdp"
+                    android:text="Flamable / Toxic / Explosive"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/rgFlamableToxicExplosive"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFraglleTitle" />
+
+                <RadioGroup
+                    android:id="@+id/rgFlamableToxicExplosive"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFlamableToxicExplosiveTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/otherBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvFlamableToxicExplosiveTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvFlamableToxicExplosiveTitle">
+
+                    <RadioButton
+                        android:id="@+id/rbFlamableToxicExplosiveYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="Yes"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                    <RadioButton
+                        android:id="@+id/rbFlamableToxicExplosiveNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gotham_light"
+                        android:text="No"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_9sdp" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvReceiverDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/gotham_medium"
+                    android:padding="@dimen/_4sdp"
+                    android:text="Receiver Details"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvFlamableToxicExplosiveTitle" />
+
+                <View
+                    android:id="@+id/receiverBreakUpLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvReceiverDetail" />
+
+                <TextView
+                    android:id="@+id/tvReceiverNameTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvReceiverName"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/receiverBreakUpLine" />
+
+                <TextView
+                    android:id="@+id/tvReceiverName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvReceiverNameTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/receiverBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvReceiverNameTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvReceiverNameTitle" />
+
+                <TextView
+                    android:id="@+id/tvReceiverMobileNoTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Mobile No"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvReceiverMobileNo"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvReceiverNameTitle" />
+
+                <TextView
+                    android:id="@+id/tvReceiverMobileNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvReceiverMobileNoTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/receiverBreakUpLine"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvReceiverMobileNoTitle"
+                    app:layout_constraintTop_toTopOf="@+id/tvReceiverMobileNoTitle" />
+
+                <TextView
+                    android:id="@+id/tvReceiverAddressTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    android:text="Address"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvReceiverMobileNoTitle" />
+
+                <TextView
+                    android:id="@+id/tvReceiverAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham_light"
+                    android:text=""
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/receiverBreakUpLine"
+                    app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvReceiverAddressTitle" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <Button
+                android:id="@+id/btnSendOTP"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_margin="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_14sdp"
+                android:background="@drawable/rounded_button_background"
+                android:fontFamily="@font/gotham_light"
+                android:paddingStart="@dimen/_36sdp"
+                android:paddingEnd="@dimen/_36sdp"
+                android:text="@string/send_otp"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_9sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+            <Button
+                android:id="@+id/btnSendRequest"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_margin="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_14sdp"
+                android:background="@drawable/rounded_button_background"
+                android:fontFamily="@font/gotham_light"
+                android:paddingStart="@dimen/_36sdp"
+                android:paddingEnd="@dimen/_36sdp"
+                android:text="@string/send_request"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_9sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+            <Button
+                android:id="@+id/btnOrderDelete"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_margin="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_14sdp"
+                android:background="@drawable/rounded_button_background"
+                android:fontFamily="@font/gotham_light"
+                android:paddingStart="@dimen/_36sdp"
+                android:paddingEnd="@dimen/_36sdp"
+                android:text="@string/order_delete"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_9sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clAfterVerify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_14sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILComment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-
-                    <!---->
-                    <TextView
-                        android:id="@+id/tvTravellerInformation"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/gotham_medium"
-                        android:padding="@dimen/_4sdp"
-                        android:text="Traveller Information"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_11sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:id="@+id/travellerBreakUpLine"
+                    <EditText
+                        android:id="@+id/etComment"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:background="@color/colorAccent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvTravellerInformation" />
-
-                    <TextView
-                        android:id="@+id/tvTravellerNameTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Name"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvName"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/travellerBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/travellerBreakUpLine" />
-
-                    <TextView
-                        android:id="@+id/tvTravellerName"
-                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvTravellerNameTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/travellerBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvTravellerNameTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvTravellerNameTitle" />
+                        android:hint="Enter your comment here" />
 
-                    <TextView
-                        android:id="@+id/tvTravellerMobileNoTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Mobile No"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvMobileNo"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/travellerBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvTravellerNameTitle" />
-
-                    <TextView
-                        android:id="@+id/tvTravellerMobileNo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvTravellerMobileNoTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/travellerBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvTravellerMobileNoTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvTravellerMobileNoTitle" />
-                    <!---->
-
-
-                    <TextView
-                        android:id="@+id/tvPersonalInformation"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/gotham_medium"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:padding="@dimen/_4sdp"
-                        android:text="Personal Information"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_11sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTravellerMobileNoTitle"/>
-
-                    <ImageView
-                        android:id="@+id/imgOrderEdit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:background="@drawable/ic_edit_black_24dp"
-                        android:padding="@dimen/_6sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvPersonalInformation"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvPersonalInformation" />
-
-                    <View
-                        android:id="@+id/personalBreakUpLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:background="@color/colorAccent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvPersonalInformation" />
-
-                    <TextView
-                        android:id="@+id/tvNameTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Name"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvName"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/personalBreakUpLine" />
-
-                    <TextView
-                        android:id="@+id/tvName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvNameTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvNameTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvNameTitle" />
-
-                    <TextView
-                        android:id="@+id/tvMobileNoTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Mobile No"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvMobileNo"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvNameTitle" />
-
-                    <TextView
-                        android:id="@+id/tvMobileNo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvMobileNoTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvMobileNoTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvMobileNoTitle" />
-
-                    <TextView
-                        android:id="@+id/tvAddressTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Address"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvMobileNoTitle" />
-
-                    <TextView
-                        android:id="@+id/tvAddress"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/personalBreakUpLine"
-                        app:layout_constraintStart_toStartOf="@+id/personalBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvAddressTitle" />
-
-                    <TextView
-                        android:id="@+id/tvParcelInformation"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_medium"
-                        android:padding="@dimen/_4sdp"
-                        android:text="Parcel Information"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_11sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvAddress" />
-
-                    <View
-                        android:id="@+id/parcelBreakUpLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:background="@color/colorAccent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvParcelInformation" />
-
-                    <TextView
-                        android:id="@+id/tvParcelFromState"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="From State"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvParcelToState"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/parcelBreakUpLine" />
-
-                    <TextView
-                        android:id="@+id/tvFromStateName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tvToStateName"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tvParcelFromState"
-                        app:layout_constraintTop_toBottomOf="@id/tvParcelFromState" />
-
-                    <TextView
-                        android:id="@+id/tvParcelToState"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="To State"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvParcelFromState"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvParcelFromState"
-                        app:layout_constraintTop_toTopOf="@+id/tvParcelFromState" />
-
-                    <TextView
-                        android:id="@+id/tvToStateName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvFromStateName"
-                        app:layout_constraintEnd_toEndOf="@+id/tvParcelToState"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvFromStateName"
-                        app:layout_constraintTop_toBottomOf="@id/tvParcelToState" />
-
-                    <TextView
-                        android:id="@+id/tvParcelFromCity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="From City"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvParcelToCity"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvFromStateName" />
-
-                    <TextView
-                        android:id="@+id/tvFromCityName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tvToCityName"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tvParcelFromCity"
-                        app:layout_constraintTop_toBottomOf="@+id/tvParcelFromCity" />
-
-                    <TextView
-                        android:id="@+id/tvParcelToCity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="To City"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toTopOf="@+id/tvFromCityName"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvParcelFromCity"
-                        app:layout_constraintTop_toTopOf="@+id/tvParcelFromCity" />
-
-                    <TextView
-                        android:id="@+id/tvToCityName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvFromCityName"
-                        app:layout_constraintEnd_toEndOf="@+id/tvParcelToCity"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvFromCityName"
-                        app:layout_constraintTop_toBottomOf="@+id/tvParcelToCity" />
-
-                    <TextView
-                        android:id="@+id/tvFromPincodeTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="From Pincode"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvToPincodeTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvFromCityName" />
-
-                    <TextView
-                        android:id="@+id/tvFromPincode"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tvToPincode"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tvFromPincodeTitle"
-                        app:layout_constraintTop_toBottomOf="@id/tvFromPincodeTitle" />
-
-                    <TextView
-                        android:id="@+id/tvToPincodeTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="To Pincode"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvFromPincodeTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvFromPincodeTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvFromPincodeTitle" />
-
-                    <TextView
-                        android:id="@+id/tvToPincode"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvFromPincode"
-                        app:layout_constraintEnd_toEndOf="@+id/tvToPincodeTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvFromPincode"
-                        app:layout_constraintTop_toBottomOf="@id/tvToPincodeTitle" />
-
-                    <TextView
-                        android:id="@+id/tvStartDateTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Start Date"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvStartTimeTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvFromPincode" />
-
-                    <TextView
-                        android:id="@+id/tvStartDate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tvStartTime"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tvStartDateTitle"
-                        app:layout_constraintTop_toBottomOf="@id/tvStartDateTitle" />
-
-                    <TextView
-                        android:id="@+id/tvStartTimeTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Start Time"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvStartDateTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvStartDateTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvStartDateTitle" />
-
-                    <TextView
-                        android:id="@+id/tvStartTime"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvStartDate"
-                        app:layout_constraintEnd_toEndOf="@+id/tvStartTimeTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvStartDate"
-                        app:layout_constraintTop_toTopOf="@+id/tvStartDate" />
-
-                    <TextView
-                        android:id="@+id/tvEndDateTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="End Date"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvEndTimeTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvStartDate" />
-
-                    <TextView
-                        android:id="@+id/tvEndDate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tvEndTime"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tvEndDateTitle"
-                        app:layout_constraintTop_toBottomOf="@id/tvEndDateTitle" />
-
-                    <TextView
-                        android:id="@+id/tvEndTimeTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="End Time"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvEndDateTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvEndDateTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvEndDateTitle" />
-
-                    <TextView
-                        android:id="@+id/tvEndTime"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvEndDate"
-                        app:layout_constraintEnd_toEndOf="@+id/tvEndTimeTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvEndDate"
-                        app:layout_constraintTop_toTopOf="@+id/tvEndDate" />
-
-                    <TextView
-                        android:id="@+id/tvDeliveryOptionTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Delivery Option"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvNatureGoodsTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvEndDate" />
-
-                    <TextView
-                        android:id="@+id/tvDeliveryOption"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tvNatureGoods"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tvDeliveryOptionTitle"
-                        app:layout_constraintTop_toBottomOf="@id/tvDeliveryOptionTitle" />
-
-                    <TextView
-                        android:id="@+id/tvNatureGoodsTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Nature of Goods"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvDeliveryOptionTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvDeliveryOptionTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvDeliveryOptionTitle" />
-
-                    <TextView
-                        android:id="@+id/tvNatureGoods"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvDeliveryOption"
-                        app:layout_constraintEnd_toEndOf="@+id/tvNatureGoodsTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvDeliveryOption"
-                        app:layout_constraintTop_toTopOf="@+id/tvDeliveryOption" />
-
-                    <TextView
-                        android:id="@+id/tvGoodsDescTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Goods Description"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvDeliveryOption" />
-
-                    <TextView
-                        android:id="@+id/tvGoodsDesc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvGoodsDescTitle" />
-
-                    <TextView
-                        android:id="@+id/tvQualityTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Quality"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvWeightTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvGoodsDesc" />
-
-                    <TextView
-                        android:id="@+id/tvQuality"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/tvWeight"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tvQualityTitle"
-                        app:layout_constraintTop_toBottomOf="@id/tvQualityTitle" />
-
-                    <TextView
-                        android:id="@+id/tvWeightTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Weight"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvQualityTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvQualityTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvQualityTitle" />
-
-                    <TextView
-                        android:id="@+id/tvWeight"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvQuality"
-                        app:layout_constraintEnd_toEndOf="@+id/tvWeightTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvQuality"
-                        app:layout_constraintTop_toTopOf="@+id/tvQuality" />
-
-                    <TextView
-                        android:id="@+id/tvPackagingTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Packaging"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvQuality" />
-
-                    <TextView
-                        android:id="@+id/tvPackaging"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/tvPackagingTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/tvPackagingTitle"
-                        app:layout_constraintTop_toBottomOf="@id/tvPackagingTitle" />
-
-                    <TextView
-                        android:id="@+id/tvGoodsTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Value of Goods"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvPackaging" />
-
-                    <TextView
-                        android:id="@+id/tvGoods"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@id/tvGoodsTitle" />
-
-                    <TextView
-                        android:id="@+id/tvOwnershipTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Ownership"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvGoods" />
-
-                    <RadioGroup
-                        android:id="@+id/rgOwnership"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvOwnershipTitle">
-
-                        <RadioButton
-                            android:id="@+id/rbCommercial"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="Commercial"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                        <RadioButton
-                            android:id="@+id/rbNonCommercial"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="Non-Commercial"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                    </RadioGroup>
-
-                    <TextView
-                        android:id="@+id/tvPictureDetail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_medium"
-                        android:padding="@dimen/_4sdp"
-                        android:text="Picture Details"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_11sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rgOwnership" />
-
-                    <View
-                        android:id="@+id/pictureBreakUpLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:background="@color/colorAccent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvPictureDetail" />
-
-                    <TextView
-                        android:id="@+id/tvInvoicePicTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:gravity="center"
-                        android:text="Invoice"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvParcelPicTitle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/parcelBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/pictureBreakUpLine" />
-
-                    <TextView
-                        android:id="@+id/tvParcelPicTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:gravity="center"
-                        android:text="Parcel"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvInvoicePicTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/pictureBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvInvoicePicTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvInvoicePicTitle" />
-
-                    <ImageView
-                        android:id="@+id/imgInvoice"
-                        android:layout_width="@dimen/_72sdp"
-                        android:layout_height="@dimen/_72sdp"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/tvInvoicePicTitle"
-                        app:layout_constraintStart_toStartOf="@+id/tvInvoicePicTitle"
-                        app:layout_constraintTop_toBottomOf="@+id/tvInvoicePicTitle" />
-
-                    <ImageView
-                        android:id="@+id/imgParcel"
-                        android:layout_width="@dimen/_72sdp"
-                        android:layout_height="@dimen/_72sdp"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        app:layout_constraintEnd_toEndOf="@+id/tvParcelPicTitle"
-                        app:layout_constraintStart_toStartOf="@+id/tvParcelPicTitle"
-                        app:layout_constraintTop_toBottomOf="@+id/tvParcelPicTitle" />
-
-                    <TextView
-                        android:id="@+id/tvOtherDetail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_medium"
-                        android:padding="@dimen/_4sdp"
-                        android:text="Other Details"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_11sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/imgInvoice" />
-
-                    <View
-                        android:id="@+id/otherBreakUpLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:background="@color/colorAccent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvOtherDetail" />
-
-                    <TextView
-                        android:id="@+id/tvHazardousTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:padding="@dimen/_6sdp"
-                        android:text="Hazardous"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/rgHazardous"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/otherBreakUpLine" />
-
-                    <RadioGroup
-                        android:id="@+id/rgHazardous"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvHazardousTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/otherBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvHazardousTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvHazardousTitle">
-
-                        <RadioButton
-                            android:id="@+id/rbHazardousYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="Yes"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                        <RadioButton
-                            android:id="@+id/rbHazardousNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="No"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                    </RadioGroup>
-
-                    <TextView
-                        android:id="@+id/tvProhibitedRGTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:padding="@dimen/_6sdp"
-                        android:text="Prohibited"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/rgProhibited"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvHazardousTitle" />
-
-                    <RadioGroup
-                        android:id="@+id/rgProhibited"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginLeft="@dimen/_6sdp"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvProhibitedRGTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/otherBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvProhibitedRGTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvProhibitedRGTitle">
-
-                        <RadioButton
-                            android:id="@+id/rbProhibitedYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="Yes"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                        <RadioButton
-                            android:id="@+id/rbProhibitedNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="No"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                    </RadioGroup>
-
-                    <TextView
-                        android:id="@+id/tvFraglleTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:padding="@dimen/_6sdp"
-                        android:text="Fragile"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/rgFraglle"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvProhibitedRGTitle" />
-
-                    <RadioGroup
-                        android:id="@+id/rgFraglle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginLeft="@dimen/_6sdp"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvFraglleTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/otherBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvFraglleTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvFraglleTitle">
-
-                        <RadioButton
-                            android:id="@+id/rbFraglleYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="Yes"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                        <RadioButton
-                            android:id="@+id/rbFraglleNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="No"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                    </RadioGroup>
-
-                    <TextView
-                        android:id="@+id/tvFlamableToxicExplosiveTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:padding="@dimen/_6sdp"
-                        android:text="Flamable / Toxic / Explosive"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/rgFlamableToxicExplosive"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/otherBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvFraglleTitle" />
-
-                    <RadioGroup
-                        android:id="@+id/rgFlamableToxicExplosive"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginLeft="@dimen/_6sdp"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvFlamableToxicExplosiveTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/otherBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvFlamableToxicExplosiveTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvFlamableToxicExplosiveTitle">
-
-                        <RadioButton
-                            android:id="@+id/rbFlamableToxicExplosiveYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="Yes"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                        <RadioButton
-                            android:id="@+id/rbFlamableToxicExplosiveNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/gotham_light"
-                            android:text="No"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/_9sdp" />
-
-                    </RadioGroup>
-
-                    <TextView
-                        android:id="@+id/tvReceiverDetail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/gotham_medium"
-                        android:padding="@dimen/_4sdp"
-                        android:text="Receiver Details"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_11sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvFlamableToxicExplosiveTitle" />
-
-                    <View
-                        android:id="@+id/receiverBreakUpLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:background="@color/colorAccent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvReceiverDetail" />
-
-                    <TextView
-                        android:id="@+id/tvReceiverNameTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Name"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvReceiverName"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/receiverBreakUpLine" />
-
-                    <TextView
-                        android:id="@+id/tvReceiverName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvReceiverNameTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/receiverBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvReceiverNameTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvReceiverNameTitle" />
-
-                    <TextView
-                        android:id="@+id/tvReceiverMobileNoTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Mobile No"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintEnd_toStartOf="@+id/tvReceiverMobileNo"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvReceiverNameTitle" />
-
-                    <TextView
-                        android:id="@+id/tvReceiverMobileNo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvReceiverMobileNoTitle"
-                        app:layout_constraintEnd_toEndOf="@+id/receiverBreakUpLine"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/tvReceiverMobileNoTitle"
-                        app:layout_constraintTop_toTopOf="@+id/tvReceiverMobileNoTitle" />
-
-                    <TextView
-                        android:id="@+id/tvReceiverAddressTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        android:text="Address"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_10sdp"
-                        app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvReceiverMobileNoTitle" />
-
-                    <TextView
-                        android:id="@+id/tvReceiverAddress"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham_light"
-                        android:text=""
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/_9sdp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/receiverBreakUpLine"
-                        app:layout_constraintStart_toStartOf="@+id/receiverBreakUpLine"
-                        app:layout_constraintTop_toBottomOf="@+id/tvReceiverAddressTitle" />
-
-                </android.support.constraint.ConstraintLayout>
+                </android.support.design.widget.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btnSendOTP"
-                    android:layout_width="match_parent"
+                    android:id="@+id/btnReject"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:background="@drawable/rounded_button_background"
-                    android:fontFamily="@font/gotham_light"
+                    android:backgroundTint="@color/colorRed"
+                    android:fontFamily="@font/gotham_medium"
                     android:paddingStart="@dimen/_36sdp"
                     android:paddingEnd="@dimen/_36sdp"
-                    android:text="@string/send_otp"
+                    android:text="@string/reject"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_9sdp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnVerify"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILComment" />
 
                 <Button
-                    android:id="@+id/btnSendRequest"
-                    android:layout_width="match_parent"
+                    android:id="@+id/btnVerify"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_14sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:background="@drawable/rounded_button_background"
-                    android:fontFamily="@font/gotham_light"
+                    android:backgroundTint="@color/colorGreen"
+                    android:fontFamily="@font/gotham_medium"
                     android:paddingStart="@dimen/_36sdp"
                     android:paddingEnd="@dimen/_36sdp"
-                    android:text="@string/send_request"
+                    android:text="@string/verify"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_9sdp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+                    app:layout_constraintBottom_toBottomOf="@+id/btnReject"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnReject"
+                    app:layout_constraintTop_toTopOf="@+id/btnReject" />
 
-                <Button
-                    android:id="@+id/btnOrderDelete"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:background="@drawable/rounded_button_background"
-                    android:fontFamily="@font/gotham_light"
-                    android:paddingStart="@dimen/_36sdp"
-                    android:paddingEnd="@dimen/_36sdp"
-                    android:text="@string/order_delete"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_9sdp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+            </android.support.constraint.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/clAfterVerify"
-                    android:layout_width="match_parent"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clAcceptRejectOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_14sdp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILAcceptRejectComment"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:fontFamily="@font/gotham_light"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/tILComment"
-                        android:layout_width="0dp"
+                    <EditText
+                        android:id="@+id/etAcceptRejectComment"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
                         android:fontFamily="@font/gotham_light"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:hint="Enter your rejection reason here..." />
 
-                        <EditText
-                            android:id="@+id/etComment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/gotham_light"
-                            android:hint="Enter your comment here" />
+                </android.support.design.widget.TextInputLayout>
 
-                    </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:id="@+id/btnRejectOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/colorRed"
+                    android:fontFamily="@font/gotham_medium"
+                    android:paddingStart="@dimen/_36sdp"
+                    android:paddingEnd="@dimen/_36sdp"
+                    android:text="@string/reject_order"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnAcceptOrder"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tILAcceptRejectComment" />
 
-                    <Button
-                        android:id="@+id/btnReject"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:background="@drawable/rounded_button_background"
-                        android:backgroundTint="@color/colorRed"
-                        android:fontFamily="@font/gotham_medium"
-                        android:paddingStart="@dimen/_36sdp"
-                        android:paddingEnd="@dimen/_36sdp"
-                        android:text="@string/reject"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_9sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btnVerify"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tILComment" />
-
-                    <Button
-                        android:id="@+id/btnVerify"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:background="@drawable/rounded_button_background"
-                        android:backgroundTint="@color/colorGreen"
-                        android:fontFamily="@font/gotham_medium"
-                        android:paddingStart="@dimen/_36sdp"
-                        android:paddingEnd="@dimen/_36sdp"
-                        android:text="@string/verify"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_9sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/btnReject"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btnReject"
-                        app:layout_constraintTop_toTopOf="@+id/btnReject" />
-
-                </android.support.constraint.ConstraintLayout>
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/clAcceptRejectOrder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/tILAcceptRejectComment"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:fontFamily="@font/gotham_light"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <EditText
-                            android:id="@+id/etAcceptRejectComment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/gotham_light"
-                            android:hint="Enter your rejection reason here..." />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <Button
-                        android:id="@+id/btnRejectOrder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:background="@drawable/rounded_button_background"
-                        android:backgroundTint="@color/colorRed"
-                        android:fontFamily="@font/gotham_medium"
-                        android:paddingStart="@dimen/_36sdp"
-                        android:paddingEnd="@dimen/_36sdp"
-                        android:text="@string/reject_order"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_9sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btnAcceptOrder"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tILAcceptRejectComment" />
-
-                    <Button
-                        android:id="@+id/btnAcceptOrder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:background="@drawable/rounded_button_background"
-                        android:backgroundTint="@color/colorGreen"
-                        android:fontFamily="@font/gotham_medium"
-                        android:paddingStart="@dimen/_36sdp"
-                        android:paddingEnd="@dimen/_36sdp"
-                        android:text="@string/accept_order"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_9sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/btnRejectOrder"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btnRejectOrder"
-                        app:layout_constraintTop_toTopOf="@+id/btnRejectOrder" />
-
-                </android.support.constraint.ConstraintLayout>
+                <Button
+                    android:id="@+id/btnAcceptOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/colorGreen"
+                    android:fontFamily="@font/gotham_medium"
+                    android:paddingStart="@dimen/_36sdp"
+                    android:paddingEnd="@dimen/_36sdp"
+                    android:text="@string/accept_order"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnRejectOrder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnRejectOrder"
+                    app:layout_constraintTop_toTopOf="@+id/btnRejectOrder" />
 
             </android.support.constraint.ConstraintLayout>
 

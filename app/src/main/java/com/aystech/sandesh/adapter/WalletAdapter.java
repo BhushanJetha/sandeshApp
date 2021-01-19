@@ -17,8 +17,8 @@ import java.util.List;
 
 public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<WalletTransactionModel> walletTransactionModels;
+    private final Context context;
+    private final List<WalletTransactionModel> walletTransactionModels;
 
     public WalletAdapter(Context context, List<WalletTransactionModel> data) {
         this.context = context;
@@ -51,10 +51,10 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.MyViewHold
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvWalletPaymentStatus;
-        private TextView tvWalletPaymentAmt;
-        private TextView tvPaymentMode;
-        private ImageView imgWalletPaymentStatus;
+        private final TextView tvWalletPaymentStatus;
+        private final TextView tvWalletPaymentAmt;
+        private final TextView tvPaymentMode;
+        private final ImageView imgWalletPaymentStatus;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
