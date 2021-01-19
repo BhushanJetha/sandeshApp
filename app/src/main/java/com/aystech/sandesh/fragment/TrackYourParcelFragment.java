@@ -33,8 +33,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -67,7 +67,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
     private GoogleMap mMap;
     private double finalLatitude, finalLongitude;
     private Button btnNext;
-    private MapView mapView;
+    private SupportMapFragment mapView;
 
     private Marker marker;
 
@@ -90,7 +90,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
 
         initView(view, savedInstanceState);
 
-        if(Connectivity.isConnected(context)) {
+        if (Connectivity.isConnected(context)) {
             //TODO API Call
             getTrackingOfParcel();
         }
@@ -100,26 +100,12 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
 
     private void initView(View view, Bundle savedInstanceState) {
         viewProgressDialog = ViewProgressDialog.getInstance();
-        mapView = view.findViewById(R.id.map);
 
-
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                //setUpMap(googleMap);
-
-                mMap = googleMap;
-                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                mMap.getUiSettings().setZoomControlsEnabled(true);
-                mMap.getUiSettings().setZoomGesturesEnabled(true);
-                mMap.getUiSettings().setCompassEnabled(true);
-                mMap.setMyLocationEnabled(true);
-                //Initialize Google Play Services
-                buildGoogleApiClient();
-                mMap.setMyLocationEnabled(true);
-            }
-        });
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        mapView = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        assert mapView != null;
+        mapView.getMapAsync(this);
     }
 
     private void getTrackingOfParcel() {
@@ -137,7 +123,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
                     if (response.body().getStatus()) {
 
                         Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        if(response.body().getData().getLat() != null){
+                        if (response.body().getData().getLat() != null) {
                             finalLatitude = response.body().getData().getLat();
                             finalLongitude = response.body().getData().getLong();
 
@@ -191,9 +177,10 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
                         != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+        assert provider != null;
         Location locations = locationManager.getLastKnownLocation(provider);
         List<String> providerList = locationManager.getAllProviders();
-        if (null != locations && null != providerList && providerList.size() > 0) {
+        if (null != locations && providerList.size() > 0) {
             double longitude = locations.getLongitude();
             double latitude = locations.getLatitude();
             Geocoder geocoder = new Geocoder(getActivity(),
@@ -208,7 +195,7 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
                     markerOptions.title("" + latLng + "," + subLocality + "," + state
                             + "," + country);
 
-                   // finalLatitude = latitude;
+                    // finalLatitude = latitude;
                     //finalLongitude = longitude;
 
                     Log.d("Address-->", "State: " + state + " Lat: " + latitude + " Lon: " + latitude);
@@ -221,10 +208,8 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
         //mCurrLocationMarker = mMap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         //mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
-        if (mGoogleApiClient != null) {
-            /*LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,
+        /*LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,
                     getActivity());*/
-        }
     }
 
     @Override
@@ -271,11 +256,12 @@ public class TrackYourParcelFragment extends Fragment implements OnMapReadyCallb
         mMap.getUiSettings().setCompassEnabled(true);
         //Initialize Google Play Services
         buildGoogleApiClient();
+
         mMap.setMyLocationEnabled(true);
     }
 
     protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+        mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)

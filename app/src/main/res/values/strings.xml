@@ -51,5 +51,6 @@
     <string name="retry">Retry</string>
     <string name="proceed">Proceed</string>
     <string name="withdraw_msg">Make sure you enter correct IFSC code and account number</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
