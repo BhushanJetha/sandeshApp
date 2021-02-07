@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.aystech.sandesh.model.CommonResponse;
-import com.aystech.sandesh.remote.ApiInterface;
 import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.UserSession;
 import com.google.gson.JsonObject;
@@ -49,11 +48,7 @@ public class MyService extends IntentService {
         jsonObject.addProperty("lat", latitude);
         jsonObject.addProperty("long", longitude);
 
-        ApiInterface apiInterface = RetrofitInstance.getClient();
-        Call<CommonResponse> call = apiInterface.sendCurrentLocation(
-                jsonObject
-        );
-        call.enqueue(new Callback<CommonResponse>() {
+        RetrofitInstance.getClient().sendCurrentLocation(jsonObject).enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 if (response.body() != null) {

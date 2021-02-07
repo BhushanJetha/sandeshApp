@@ -49,9 +49,6 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
     private TextView tvNewSelfie, tvReceivedParcel;
     private Button btnEndJourney;
 
-    private Uri picUri;
-    private Bitmap myBitmap;
-
     private String strSelfieFilePath, strParcelFilePath;
     private String tag;
     private int parcelId, travelId, deliveryId;
@@ -133,14 +130,14 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
             case R.id.imgNewSelfie:
             case R.id.imgNewSelfieCamera:
             case R.id.tvNewSelfie:
-                gotoSelectPicture("selfie");
+                gotoSelectPicture("selfie", 200);
                 break;
 
             case R.id.gpReceivedParcel:
             case R.id.imgReceivedParcel:
             case R.id.imgReceivedParcelCamera:
             case R.id.tvReceivedParcel:
-                gotoSelectPicture("parcel");
+                gotoSelectPicture("parcel", 201);
                 break;
 
             case R.id.btnEndJourney:
@@ -149,7 +146,7 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
                 } else if (strSelfieFilePath == null) {
                     Toast.makeText(context, "Please select selfie image", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(Connectivity.isConnected(context)) {
+                    if (Connectivity.isConnected(context)) {
                         //TODO API Call
                         endJourney();
                     }
@@ -158,9 +155,9 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
         }
     }
 
-    private void gotoSelectPicture(String type) {
+    private void gotoSelectPicture(String type, int requestCode) {
         tag = type;
-        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context), 200);
+        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context, type), requestCode);
     }
 
     private void endJourney() {
@@ -224,34 +221,52 @@ public class EndJourneyDetailFragment extends Fragment implements View.OnClickLi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK) {
-            if (ImageSelectionMethods.getPickImageResultUri(context, data) != null) {
-                picUri = ImageSelectionMethods.getPickImageResultUri(context, data);
-                if (tag.equals("selfie")) {
-                    strSelfieFilePath = ImageSelectionMethods.getPath(context, picUri);
+        if (requestCode == 200) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (ImageSelectionMethods.getPickImageResultUri(context, data, tag) != null) {
+                    Uri picUri = ImageSelectionMethods.getPickImageResultUri(context, data, tag);
+                    if (tag.equals("selfie")) {
+                        strSelfieFilePath = ImageSelectionMethods.getPath(context, picUri);
 
-                    if (strSelfieFilePath.equals("Not found")) {
-                        strSelfieFilePath = picUri.getPath();
+                        if (strSelfieFilePath.equals("Not found")) {
+                            strSelfieFilePath = picUri.getPath();
+                        }
                     }
-                } else if (tag.equals("parcel")) {
-                    strParcelFilePath = ImageSelectionMethods.getPath(context, picUri);
 
-                    if (strParcelFilePath.equals("Not found")) {
-                        strParcelFilePath = picUri.getPath();
+                    try {
+                        Bitmap myBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), picUri);
+                        myBitmap = ImageSelectionMethods.getResizedBitmap(myBitmap, 500);
+
+                        if (tag.equals("selfie")) {
+                            imgNewSelfie.setImageBitmap(myBitmap);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
+            }
+        } else if (requestCode == 201) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (ImageSelectionMethods.getPickImageResultUri(context, data, tag) != null) {
+                    Uri picUri = ImageSelectionMethods.getPickImageResultUri(context, data, tag);
+                    if (tag.equals("parcel")) {
+                        strParcelFilePath = ImageSelectionMethods.getPath(context, picUri);
 
-                try {
-                    myBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), picUri);
-                    myBitmap = ImageSelectionMethods.getResizedBitmap(myBitmap, 500);
-
-                    if (tag.equals("selfie")) {
-                        imgNewSelfie.setImageBitmap(myBitmap);
-                    } else if (tag.equals("parcel")) {
-                        imgReceivedParcel.setImageBitmap(myBitmap);
+                        if (strParcelFilePath.equals("Not found")) {
+                            strParcelFilePath = picUri.getPath();
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                    try {
+                        Bitmap myBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), picUri);
+                        myBitmap = ImageSelectionMethods.getResizedBitmap(myBitmap, 500);
+
+                        if (tag.equals("parcel")) {
+                            imgReceivedParcel.setImageBitmap(myBitmap);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

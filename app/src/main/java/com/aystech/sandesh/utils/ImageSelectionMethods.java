@@ -17,9 +17,9 @@ import java.util.Objects;
 
 public class ImageSelectionMethods {
 
-    public static Intent getPickImageChooserIntent(Context context) {
+    public static Intent getPickImageChooserIntent(Context context, String type) {
         // Determine Uri of camera image to save.
-        Uri outputFileUri = getCaptureImageOutputUri(context);
+        Uri outputFileUri = getCaptureImageOutputUri(context, type);
 
         List<Intent> allIntents = new ArrayList<>();
 
@@ -68,11 +68,11 @@ public class ImageSelectionMethods {
     /**
      * Get URI to image received from capture by camera.
      */
-    public static Uri getCaptureImageOutputUri(Context context) {
+    public static Uri getCaptureImageOutputUri(Context context, String type) {
         Uri outputFileUri = null;
         File getImage = context.getExternalCacheDir();
         if (getImage != null) {
-            outputFileUri = Uri.fromFile(new File(getImage.getPath(), "profile.png"));
+            outputFileUri = Uri.fromFile(new File(getImage.getPath(), type + "_profile.png"));
         }
         return outputFileUri;
     }
@@ -110,19 +110,19 @@ public class ImageSelectionMethods {
     }
 
     /**
-     * Get the URI of the selected image from {@link #getPickImageChooserIntent(Context)}.<br />
+     * Get the URI of the selected image from {@link #getPickImageChooserIntent(Context, String)}.<br />
      * Will return the correct URI for camera and gallery image.
      *
      * @param context
      * @param data    the returned data of the activity result
      */
-    public static Uri getPickImageResultUri(Context context, Intent data) {
+    public static Uri getPickImageResultUri(Context context, Intent data, String type) {
         boolean isCamera = true;
         if (data != null) {
             String action = data.getAction();
             isCamera = action != null && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
         }
 
-        return isCamera ? getCaptureImageOutputUri(context) : data.getData();
+        return isCamera ? getCaptureImageOutputUri(context, type) : data.getData();
     }
 }

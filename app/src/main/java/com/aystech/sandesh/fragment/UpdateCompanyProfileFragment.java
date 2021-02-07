@@ -238,7 +238,7 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
     }
 
     private void gotoSelectPicture() {
-        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context), 200);
+        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context, "update_corporate"), 200);
     }
 
     @Override
@@ -246,8 +246,8 @@ public class UpdateCompanyProfileFragment extends Fragment implements View.OnCli
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (ImageSelectionMethods.getPickImageResultUri(context, data) != null) {
-                picUri = ImageSelectionMethods.getPickImageResultUri(context, data);
+            if (ImageSelectionMethods.getPickImageResultUri(context, data, "update_corporate") != null) {
+                picUri = ImageSelectionMethods.getPickImageResultUri(context, data, "update_corporate");
                 filepath = ImageSelectionMethods.getPath(context, picUri);
 
                 if (filepath.equals("Not found")) {

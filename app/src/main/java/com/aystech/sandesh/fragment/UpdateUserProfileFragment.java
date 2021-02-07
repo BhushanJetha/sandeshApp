@@ -378,7 +378,7 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
     }
 
     private void gotoSelectPicture() {
-        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context), 200);
+        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context, "update_individual"), 200);
     }
 
     @Override
@@ -386,8 +386,8 @@ public class UpdateUserProfileFragment extends Fragment implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (ImageSelectionMethods.getPickImageResultUri(context, data) != null) {
-                picUri = ImageSelectionMethods.getPickImageResultUri(context, data);
+            if (ImageSelectionMethods.getPickImageResultUri(context, data, "update_individual") != null) {
+                picUri = ImageSelectionMethods.getPickImageResultUri(context, data, "update_individual");
                 filepath = ImageSelectionMethods.getPath(context, picUri);
 
                 if (filepath.equals("Not found")) {

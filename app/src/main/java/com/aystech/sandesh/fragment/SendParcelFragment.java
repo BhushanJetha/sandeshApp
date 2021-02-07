@@ -114,8 +114,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private int mHour, mMinute;
     private int fromStateId, fromCityId, toStateId, toCityId, weightId;
 
-    private Uri picUri;
-    private Bitmap myBitmap;
     private String strInvoiceFilePath = "", strParcelFilePath = "";
 
     final Calendar myCalendar = Calendar.getInstance();
@@ -803,13 +801,13 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
             case R.id.imgInvoice:
             case R.id.tvInvoice:
             case R.id.imgInvoiceCamera:
-                gotoSelectPicture("invoice");
+                gotoSelectPicture("invoice", 200);
                 break;
             case R.id.gpParcel:
             case R.id.imgParcel:
             case R.id.tvParcel:
             case R.id.imgParcelCamera:
-                gotoSelectPicture("parcel");
+                gotoSelectPicture("parcel", 201);
                 break;
             case R.id.btnCancel:
                 //((MainActivity) context).getSupportFragmentManager().popBackStack();
@@ -995,8 +993,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
     private void sendParcel() {
         viewProgressDialog.showProgress(context);
 
-        Log.d("Test", "-------test--------");
-
         RequestBody from_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(fromCityId));
         RequestBody from_pincode = RequestBody.create(MultipartBody.FORM, strFromPincode);
         RequestBody to_city_id = RequestBody.create(MultipartBody.FORM, String.valueOf(toCityId));
@@ -1017,9 +1013,6 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         RequestBody isFlamable = RequestBody.create(MultipartBody.FORM, rgStrFlamableToxicExplosive);
         RequestBody value_of_goods = RequestBody.create(MultipartBody.FORM, strValueOgGood);
         RequestBody ownership = RequestBody.create(MultipartBody.FORM, strOwnership);
-
-        Log.d("Test", "-------test--------");
-
 
         MultipartBody.Part parcel_pic_body;
         if (strParcelFilePath != null && !strParcelFilePath.equals("")) {
@@ -1121,6 +1114,9 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         RequestBody value_of_goods = RequestBody.create(MultipartBody.FORM, strValueOgGood);
         RequestBody ownership = RequestBody.create(MultipartBody.FORM, strOwnership);
 
+        Log.e(TAG, "-------test--------");
+        Log.e(TAG, "strParcelFilePath: " + strParcelFilePath);
+        Log.e(TAG, "strInvoiceFilePath: " + strInvoiceFilePath);
         MultipartBody.Part parcel_pic_body;
         if (strParcelFilePath != null && !strParcelFilePath.equals("")) {
             File file = new File(strParcelFilePath);
@@ -1698,44 +1694,61 @@ public class SendParcelFragment extends Fragment implements View.OnClickListener
         });
     }
 
-    private void gotoSelectPicture(String type) {
+    private void gotoSelectPicture(String type, int resultCode) {
         tag = type;
-        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context), 200);
+        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context, type), resultCode);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK) {
-            if (ImageSelectionMethods.getPickImageResultUri(context, data) != null) {
-                picUri = ImageSelectionMethods.getPickImageResultUri(context, data);
-                if (tag.equals("invoice")) {
-                    strInvoiceFilePath = ImageSelectionMethods.getPath(context, picUri);
+        if (requestCode == 200) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (ImageSelectionMethods.getPickImageResultUri(context, data, tag) != null) {
+                    Uri picUri = ImageSelectionMethods.getPickImageResultUri(context, data, tag);
+                    if (tag.equals("invoice")) {
+                        strInvoiceFilePath = ImageSelectionMethods.getPath(context, picUri);
 
-                    if (strInvoiceFilePath.equals("Not found")) {
-                        strInvoiceFilePath = picUri.getPath();
+                        if (strInvoiceFilePath.equals("Not found")) {
+                            strInvoiceFilePath = picUri.getPath();
+                        }
                     }
-                } else if (tag.equals("parcel")) {
-                    strParcelFilePath = ImageSelectionMethods.getPath(context, picUri);
 
-                    if (strParcelFilePath.equals("Not found")) {
-                        strParcelFilePath = picUri.getPath();
+                    try {
+                        Bitmap myBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), picUri);
+                        myBitmap = ImageSelectionMethods.getResizedBitmap(myBitmap, 500);
+
+                        if (tag.equals("invoice")) {
+                            imgInvoice.setImageBitmap(myBitmap);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
+            }
+        } else if (requestCode == 201) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (ImageSelectionMethods.getPickImageResultUri(context, data, tag) != null) {
+                    Uri picUri = ImageSelectionMethods.getPickImageResultUri(context, data, tag);
+                    if (tag.equals("parcel")) {
+                        strParcelFilePath = ImageSelectionMethods.getPath(context, picUri);
 
-                try {
-                    myBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), picUri);
-                    myBitmap = ImageSelectionMethods.getResizedBitmap(myBitmap, 500);
-
-                    if (tag.equals("invoice")) {
-                        imgInvoice.setImageBitmap(myBitmap);
-
-                    } else if (tag.equals("parcel")) {
-                        imgParcel.setImageBitmap(myBitmap);
+                        if (strParcelFilePath.equals("Not found")) {
+                            strParcelFilePath = picUri.getPath();
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                    try {
+                        Bitmap myBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), picUri);
+                        myBitmap = ImageSelectionMethods.getResizedBitmap(myBitmap, 500);
+
+                        if (tag.equals("parcel")) {
+                            imgParcel.setImageBitmap(myBitmap);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

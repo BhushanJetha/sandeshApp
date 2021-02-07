@@ -52,7 +52,7 @@ import retrofit2.Response;
 public class IndividualRegistrationActivity extends AppCompatActivity {
 
     private EditText etFirstName, etMiddleName, etLastName, etEmailId, etPassword, etReEnteredPassword, etRefferalCode,
-                        etDOBDay, etDOBMonth, etDOBYear;
+            etDOBDay, etDOBMonth, etDOBYear;
     private String strFirstName, strMiddleName, strLastName, strEmailId, strPassword, strReEnteredPassword,
             strRefferalCode, strMobileNumber, strGender, strBirthDate = "", strDay, strMonth, strYear;
     private RadioButton rbMale, rbFemale, rbOther;
@@ -147,21 +147,18 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 strYear = etDOBYear.getText().toString();
 
 
-                if(!strDay.isEmpty()){
-                    if(!strMonth.isEmpty()){
-                        if(!strYear.isEmpty()){
+                if (!strDay.isEmpty()) {
+                    if (!strMonth.isEmpty()) {
+                        if (!strYear.isEmpty()) {
                             strBirthDate = strYear + "-" + strMonth + "-" + strDay;//  Uitility.dateFormat(Integer.parseInt(strYear), Integer.parseInt(strMonth), Integer.parseInt(strDay));
                             age = Integer.parseInt(Uitility.getAge(Integer.parseInt(strYear), Integer.parseInt(strMonth), Integer.parseInt(strDay)));
-                        }
-                        else {
+                        } else {
                             Uitility.showToast(IndividualRegistrationActivity.this, "Please enter your Birth Year !!");
                         }
-                    }
-                    else {
+                    } else {
                         Uitility.showToast(IndividualRegistrationActivity.this, "Please enter your Birth Month !!");
                     }
-                }
-                else {
+                } else {
                     Uitility.showToast(IndividualRegistrationActivity.this, "Please enter your Birth Date !!");
                 }
 
@@ -175,16 +172,16 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                                         if (!strReEnteredPassword.isEmpty()) {
                                             if (strPassword.equals(strReEnteredPassword)) {
                                                 if (cbAccetTermsAndConditions.isChecked()) {
-                                                    if(!strBirthDate.isEmpty()){
-                                                        if(age >= 18){
-                                                            if(Connectivity.isConnected(IndividualRegistrationActivity.this)) {
+                                                    if (!strBirthDate.isEmpty()) {
+                                                        if (age >= 18) {
+                                                            if (Connectivity.isConnected(IndividualRegistrationActivity.this)) {
                                                                 //TODO API Call
                                                                 doRegistrationAPICall();
                                                             }
-                                                        }else {
+                                                        } else {
                                                             Uitility.showToast(IndividualRegistrationActivity.this, "Sorry you are not able to register, your age in below 18 !");
                                                         }
-                                                    }else {
+                                                    } else {
                                                         Uitility.showToast(IndividualRegistrationActivity.this, "Please select your date of birth !");
                                                     }
                                                 } else {
@@ -373,7 +370,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     };
 
     private void gotoSelectPicture() {
-        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(this), 200);
+        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(this, "individual"), 200);
     }
 
     @Override
@@ -381,8 +378,8 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (ImageSelectionMethods.getPickImageResultUri(this, data) != null) {
-                picUri = ImageSelectionMethods.getPickImageResultUri(this, data);
+            if (ImageSelectionMethods.getPickImageResultUri(this, data, "individual") != null) {
+                picUri = ImageSelectionMethods.getPickImageResultUri(this, data, "individual");
                 filepath = ImageSelectionMethods.getPath(getApplicationContext(), picUri);
 
                 if (filepath.equals("Not found")) {

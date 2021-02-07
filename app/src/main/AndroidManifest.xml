@@ -58,9 +58,6 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".fragment.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
-        <activity
             android:name=".activity.NoInternetActivity"
             android:screenOrientation="portrait" />
         <activity

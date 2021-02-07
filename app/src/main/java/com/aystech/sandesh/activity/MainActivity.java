@@ -28,11 +28,9 @@ import com.aystech.sandesh.fragment.StartJourneyFragment;
 import com.aystech.sandesh.utils.Constants;
 import com.aystech.sandesh.utils.FragmentUtil;
 import com.aystech.sandesh.utils.UserSession;
-import com.aystech.sandesh.utils.ViewProgressDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "MainActivity";
     ImageView imgNotification, imgOtherNotification, imgLogout, imgOtherLogout, imgOtherHome;
     Toolbar toolBar;
     ConstraintLayout clDashboard, clOther;
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int counter = 0;
 
     UserSession userSession;
-    private ViewProgressDialog viewProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolBar = findViewById(R.id.toolBar);
         setSupportActionBar(toolBar);
 
-        viewProgressDialog = ViewProgressDialog.getInstance();
         userSession = new UserSession(this);
 
         imgNotification = findViewById(R.id.imgNotification);

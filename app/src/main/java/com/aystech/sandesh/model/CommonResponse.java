@@ -27,6 +27,9 @@ public class CommonResponse {
     @SerializedName("invoice")
     @Expose
     private String invoice;
+    @SerializedName("order_id")
+    @Expose
+    private String orderId;
 
     public String getMessage() {
         return message;
@@ -56,5 +59,7 @@ public class CommonResponse {
         return invoice;
     }
 
-
+    public String getOrderId() {
+        return orderId;
+    }
 }

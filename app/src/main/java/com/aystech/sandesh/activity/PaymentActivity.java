@@ -31,6 +31,7 @@ import retrofit2.Response;
 public class PaymentActivity extends AppCompatActivity implements PaymentResultListener {
 
     private String add_amt;
+    private String order_id;
     private UserSession userSession;
     private ViewProgressDialog viewProgressDialog;
 
@@ -44,19 +45,21 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
 
         if (getIntent() != null) {
             add_amt = getIntent().getStringExtra("add_amt");
+            order_id = getIntent().getStringExtra("order_id");
 
             if (!TextUtils.isEmpty(add_amt) || !add_amt.equals("")) {
                 double totalOrderAmount = Double.parseDouble(add_amt);
                 totalOrderAmount = totalOrderAmount * 100;
 
                 Log.e("totalOrderAmount Before", "" + new DecimalFormat("##.##").format(totalOrderAmount));
+                Log.e("totalOrderAmount Before", "" + order_id);
 
-                startPayment(new DecimalFormat("##.##").format(totalOrderAmount));
+                startPayment(new DecimalFormat("##.##").format(totalOrderAmount), order_id);
             }
         }
     }
 
-    private void startPayment(String add_amt) {
+    private void startPayment(String add_amt, String order_id) {
  /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -70,6 +73,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
             options.put("currency", "INR");
             options.put("amount", add_amt);
             options.put("payment_capture", 1);
+            options.put("order_id", order_id);
 
             JSONObject notes = new JSONObject();
             notes.put("user_id", userSession.getUSER_ID());

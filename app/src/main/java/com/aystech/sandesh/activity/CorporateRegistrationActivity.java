@@ -130,7 +130,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
                                             if (!strReEnteredPassword.isEmpty()) {
                                                 if (strPassword.equals(strReEnteredPassword)) {
                                                     if (cbAccetTermsAndConditions.isChecked()) {
-                                                        if(Connectivity.isConnected(CorporateRegistrationActivity.this)) {
+                                                        if (Connectivity.isConnected(CorporateRegistrationActivity.this)) {
                                                             //TODO API Call
                                                             doRigistrationAPICall();
                                                         }
@@ -271,7 +271,7 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
     }
 
     private void gotoSelectPicture() {
-        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(this), 200);
+        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(this, "corporate"), 200);
     }
 
     @Override
@@ -279,8 +279,8 @@ public class CorporateRegistrationActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (ImageSelectionMethods.getPickImageResultUri(this, data) != null) {
-                picUri = ImageSelectionMethods.getPickImageResultUri(this, data);
+            if (ImageSelectionMethods.getPickImageResultUri(this, data, "corporate") != null) {
+                picUri = ImageSelectionMethods.getPickImageResultUri(this, data, "corporate");
                 filepath = ImageSelectionMethods.getPath(getApplicationContext(), picUri);
 
                 if (filepath.equals("Not found")) {

@@ -152,7 +152,7 @@ public class NominateAlternatePersonFragment extends Fragment implements View.On
     }
 
     private void gotoSelectPicture() {
-        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context), 200);
+        startActivityForResult(ImageSelectionMethods.getPickImageChooserIntent(context, "NAP"), 200);
     }
 
     @Override
@@ -160,8 +160,8 @@ public class NominateAlternatePersonFragment extends Fragment implements View.On
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (ImageSelectionMethods.getPickImageResultUri(context, data) != null) {
-                picUri = ImageSelectionMethods.getPickImageResultUri(context, data);
+            if (ImageSelectionMethods.getPickImageResultUri(context, data, "NAP") != null) {
+                picUri = ImageSelectionMethods.getPickImageResultUri(context, data, "NAP");
                 filepath = ImageSelectionMethods.getPath(context, picUri);
 
                 if (filepath.equals("Not found")) {

@@ -122,7 +122,7 @@ public class OrderListFragment extends Fragment {
                 break;
             case "order":
             case "upcoming_rides":  //this is for order detail
-                if(Connectivity.isConnected(context)) {
+                if (Connectivity.isConnected(context)) {
                     //TODO API Call
                     getMyTravellerList();
                 }
@@ -133,21 +133,21 @@ public class OrderListFragment extends Fragment {
                 break;
             case "order_clicked_verify":
             case "order_clicked_verify_end_journey":  //this is for start journey
-                if(Connectivity.isConnected(context)) {
+                if (Connectivity.isConnected(context)) {
                     //TODO API Call
                     getMyAcceptedOrderList();
                 }
                 tvScreenTitle.setText("Accepted Order List");
                 break;
             case "order_clicked_accept_reject_traveller":  //this is for order list
-                if(Connectivity.isConnected(context)) {
+                if (Connectivity.isConnected(context)) {
                     //TODO API Call
                     getMyRequestedOrders();
                 }
                 tvScreenTitle.setText("Request From Sender");
                 break;
             case "order_clicked_accept_reject_sender":  //this is for order list
-                if(Connectivity.isConnected(context)) {
+                if (Connectivity.isConnected(context)) {
                     //TODO API Call
                     getMyTravellerRequestList();
                 }
@@ -479,7 +479,7 @@ public class OrderListFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
 
-                        if(Connectivity.isConnected(context)) {
+                        if (Connectivity.isConnected(context)) {
                             //TODO API Call
                             sendDeliveryRequest();
                         }
@@ -563,10 +563,33 @@ public class OrderListFragment extends Fragment {
 
                     dialog.dismiss();
 
-                    Intent intent = new Intent(context, PaymentActivity.class);
-                    intent.putExtra("add_amt", etAddBal.getText().toString().trim());
-                    startActivity(intent);
+                    beforeGoToPaymentClassGetOrderIdFromServer(etAddBal.getText().toString().trim());
                 }
+            }
+        });
+    }
+
+    private void beforeGoToPaymentClassGetOrderIdFromServer(final String balAmt) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("amount", balAmt);
+
+        RetrofitInstance.getClient().getOrderIdBeforeAddBal(jsonObject).enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Intent intent = new Intent(context, PaymentActivity.class);
+                        intent.putExtra("add_amt", balAmt);
+                        intent.putExtra("order_id", response.body().getOrderId());
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
             }
         });
     }

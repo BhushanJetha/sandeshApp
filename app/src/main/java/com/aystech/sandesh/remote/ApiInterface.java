@@ -347,4 +347,7 @@ public interface ApiInterface {
 
     @POST("api/downloadRoyalityStatement")
     Call<CommonResponse> getDownloadRoyaltyStatement(@Body JsonObject jsonObject);
+
+    @POST("api/getOrderId")
+    Call<CommonResponse> getOrderIdBeforeAddBal(@Body JsonObject jsonObject);
 }

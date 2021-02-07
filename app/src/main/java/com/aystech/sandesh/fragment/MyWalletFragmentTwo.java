@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aystech.sandesh.R;
 import com.aystech.sandesh.activity.MainActivity;
@@ -27,6 +28,7 @@ import com.aystech.sandesh.remote.RetrofitInstance;
 import com.aystech.sandesh.utils.Connectivity;
 import com.aystech.sandesh.utils.UserSession;
 import com.aystech.sandesh.utils.ViewProgressDialog;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -123,7 +125,7 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
         super.onResume();
         ((MainActivity) context).setUpToolbar(true, false, "", false);
 
-        if(Connectivity.isConnected(context)) {
+        if (Connectivity.isConnected(context)) {
             //TODO Call API
             getWalletBalance();
         }
@@ -172,10 +174,33 @@ public class MyWalletFragmentTwo extends Fragment implements View.OnClickListene
 
                     dialog.dismiss();
 
-                    Intent intent = new Intent(context, PaymentActivity.class);
-                    intent.putExtra("add_amt", etAddBal.getText().toString().trim());
-                    startActivity(intent);
+                    beforeGoToPaymentClassGetOrderIdFromServer(etAddBal.getText().toString().trim());
                 }
+            }
+        });
+    }
+
+    private void beforeGoToPaymentClassGetOrderIdFromServer(final String balAmt) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("amount", balAmt);
+
+        RetrofitInstance.getClient().getOrderIdBeforeAddBal(jsonObject).enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getStatus()) {
+                        Intent intent = new Intent(context, PaymentActivity.class);
+                        intent.putExtra("add_amt", balAmt);
+                        intent.putExtra("order_id", response.body().getOrderId());
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
             }
         });
     }
